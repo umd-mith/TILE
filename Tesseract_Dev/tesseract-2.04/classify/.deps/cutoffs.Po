@@ -1,0 +1,150 @@
+cutoffs.o cutoffs.o: cutoffs.cpp cutoffs.h ../dict/matchdefs.h \
+  ../cutil/general.h ../ccutil/host.h ../ccutil/platform.h \
+  /usr/lib/gcc/i686-apple-darwin9/4.0.1/include/limits.h \
+  /usr/lib/gcc/i686-apple-darwin9/4.0.1/include/syslimits.h \
+  /usr/include/limits.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/limits.h /usr/include/i386/limits.h \
+  /usr/include/i386/_limits.h /usr/include/sys/syslimits.h \
+  /usr/include/stdio.h /usr/include/_types.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/i386/_types.h \
+  ../ccutil/unichar.h /usr/include/memory.h /usr/include/string.h \
+  ../cutil/efio.h ../ccutil/scanutils.h ../ccutil/serialis.h \
+  /usr/include/stdlib.h /usr/include/available.h /usr/include/sys/wait.h \
+  /usr/include/sys/signal.h /usr/include/sys/appleapiopts.h \
+  /usr/include/machine/signal.h /usr/include/i386/signal.h \
+  /usr/include/i386/_structs.h /usr/include/sys/_structs.h \
+  /usr/include/machine/_structs.h /usr/include/mach/i386/_structs.h \
+  /usr/include/sys/resource.h /usr/include/machine/endian.h \
+  /usr/include/i386/endian.h /usr/include/sys/_endian.h \
+  /usr/include/libkern/_OSByteOrder.h \
+  /usr/include/libkern/i386/_OSByteOrder.h /usr/include/alloca.h \
+  /usr/include/machine/types.h /usr/include/i386/types.h \
+  ../ccutil/memry.h \
+  /usr/lib/gcc/i686-apple-darwin9/4.0.1/include/stddef.h ../ccutil/host.h \
+  ../ccutil/errcode.h ../ccutil/host.h ../ccutil/fileerr.h \
+  ../ccutil/errcode.h ../cutil/globals.h ../ccutil/tessclas.h \
+  ../cutil/const.h ../ccutil/unicharset.h ../ccutil/strngs.h \
+  ../ccutil/memry.h ../ccutil/serialis.h ../ccutil/unichar.h \
+  ../ccutil/unicharmap.h ../ccutil/unichar.h
+
+cutoffs.h:
+
+../dict/matchdefs.h:
+
+../cutil/general.h:
+
+../ccutil/host.h:
+
+../ccutil/platform.h:
+
+/usr/lib/gcc/i686-apple-darwin9/4.0.1/include/limits.h:
+
+/usr/lib/gcc/i686-apple-darwin9/4.0.1/include/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/i386/limits.h:
+
+/usr/include/i386/_limits.h:
+
+/usr/include/sys/syslimits.h:
+
+/usr/include/stdio.h:
+
+/usr/include/_types.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/i386/_types.h:
+
+../ccutil/unichar.h:
+
+/usr/include/memory.h:
+
+/usr/include/string.h:
+
+../cutil/efio.h:
+
+../ccutil/scanutils.h:
+
+../ccutil/serialis.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/available.h:
+
+/usr/include/sys/wait.h:
+
+/usr/include/sys/signal.h:
+
+/usr/include/sys/appleapiopts.h:
+
+/usr/include/machine/signal.h:
+
+/usr/include/i386/signal.h:
+
+/usr/include/i386/_structs.h:
+
+/usr/include/sys/_structs.h:
+
+/usr/include/machine/_structs.h:
+
+/usr/include/mach/i386/_structs.h:
+
+/usr/include/sys/resource.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/i386/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/libkern/_OSByteOrder.h:
+
+/usr/include/libkern/i386/_OSByteOrder.h:
+
+/usr/include/alloca.h:
+
+/usr/include/machine/types.h:
+
+/usr/include/i386/types.h:
+
+../ccutil/memry.h:
+
+/usr/lib/gcc/i686-apple-darwin9/4.0.1/include/stddef.h:
+
+../ccutil/host.h:
+
+../ccutil/errcode.h:
+
+../ccutil/host.h:
+
+../ccutil/fileerr.h:
+
+../ccutil/errcode.h:
+
+../cutil/globals.h:
+
+../ccutil/tessclas.h:
+
+../cutil/const.h:
+
+../ccutil/unicharset.h:
+
+../ccutil/strngs.h:
+
+../ccutil/memry.h:
+
+../ccutil/serialis.h:
+
+../ccutil/unichar.h:
+
+../ccutil/unicharmap.h:
+
+../ccutil/unichar.h:

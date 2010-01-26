@@ -1,0 +1,351 @@
+djmenus.o djmenus.o: djmenus.cpp /usr/include/stdio.h \
+  /usr/include/_types.h /usr/include/sys/_types.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/_types.h \
+  /usr/include/i386/_types.h /usr/include/signal.h \
+  /usr/include/sys/signal.h /usr/include/sys/appleapiopts.h \
+  /usr/include/machine/signal.h /usr/include/i386/signal.h \
+  /usr/include/i386/_structs.h /usr/include/sys/_structs.h \
+  /usr/include/machine/_structs.h /usr/include/mach/i386/_structs.h \
+  djmenus.h ../classify/intmatcher.h ../cutil/debug.h \
+  ../cutil/variables.h ../cutil/cutil.h /usr/include/string.h \
+  /usr/include/stdlib.h /usr/include/available.h /usr/include/sys/wait.h \
+  /usr/include/sys/resource.h /usr/include/machine/endian.h \
+  /usr/include/i386/endian.h /usr/include/sys/_endian.h \
+  /usr/include/libkern/_OSByteOrder.h \
+  /usr/include/libkern/i386/_OSByteOrder.h /usr/include/alloca.h \
+  /usr/include/machine/types.h /usr/include/i386/types.h \
+  ../cutil/general.h ../ccutil/host.h ../ccutil/platform.h \
+  /usr/lib/gcc/i686-apple-darwin9/4.0.1/include/limits.h \
+  /usr/lib/gcc/i686-apple-darwin9/4.0.1/include/syslimits.h \
+  /usr/include/limits.h /usr/include/machine/limits.h \
+  /usr/include/i386/limits.h /usr/include/i386/_limits.h \
+  /usr/include/sys/syslimits.h ../ccutil/tprintf.h ../ccutil/varable.h \
+  ../ccutil/clst.h ../ccutil/host.h ../ccutil/serialis.h \
+  ../ccutil/memry.h \
+  /usr/lib/gcc/i686-apple-darwin9/4.0.1/include/stddef.h ../ccutil/host.h \
+  ../ccutil/errcode.h ../ccutil/host.h ../ccutil/fileerr.h \
+  ../ccutil/errcode.h ../ccutil/lsterr.h ../ccutil/errcode.h \
+  ../ccutil/strngs.h ../ccutil/memry.h ../ccutil/serialis.h \
+  ../cutil/oldlist.h ../cutil/cutil.h ../cutil/callcpp.h \
+  ../ccutil/unichar.h /usr/include/memory.h ../classify/intproto.h \
+  ../dict/matchdefs.h ../classify/protos.h ../cutil/bitvec.h \
+  ../ccutil/unicharset.h ../ccutil/strngs.h ../ccutil/unichar.h \
+  ../ccutil/unicharmap.h ../ccutil/unichar.h ../classify/cutoffs.h \
+  ../classify/adaptmatch.h ../ccutil/tessclas.h ../classify/fxdefs.h \
+  ../classify/adaptive.h ../classify/intproto.h ../classify/ocrfeatures.h \
+  ../cutil/funcdefs.h ../cutil/general.h ../classify/fxdefs.h \
+  ../ccstruct/ratngs.h ../ccstruct/werd.h ../ccutil/bits16.h \
+  ../ccutil/host.h ../ccstruct/blckerr.h ../ccstruct/stepblob.h \
+  ../ccstruct/coutln.h ../ccstruct/crakedge.h ../ccstruct/points.h \
+  /usr/include/math.h /usr/include/architecture/i386/math.h \
+  ../ccutil/elst.h ../ccutil/host.h ../ccutil/serialis.h \
+  ../ccutil/lsterr.h ../ccutil/errcode.h ../ccstruct/ipoints.h \
+  ../ccstruct/mod128.h ../ccstruct/points.h ../ccstruct/mod128.h \
+  ../ccstruct/rect.h ../ccstruct/points.h ../ccutil/ndminx.h \
+  ../viewer/scrollview.h ../ccstruct/blckerr.h ../ccstruct/rect.h \
+  ../ccstruct/polyblob.h ../ccstruct/poutline.h ../ccstruct/polyvert.h \
+  ../ccutil/elst2.h ../ccutil/host.h ../ccutil/serialis.h \
+  ../ccutil/lsterr.h ../ccutil/errcode.h ../ccstruct/rect.h \
+  ../ccstruct/rect.h ../ccstruct/blckerr.h ../ccstruct/rect.h \
+  ../ccstruct/normalis.h ../ccstruct/stepblob.h ../ccstruct/ocrrow.h \
+  ../ccstruct/quspline.h ../ccstruct/quadratc.h ../ccstruct/points.h \
+  ../ccstruct/rect.h ../ccstruct/werd.h ../ccutil/notdll.h badwords.h \
+  ../classify/sigmenu.h ../classify/mfoutline.h ../classify/fpoint.h \
+  ../classify/fxdefs.h ../classify/baseline.h ../classify/normmatch.h \
+  ../classify/ocrfeatures.h ../classify/speckle.h ../classify/baseline.h \
+  ../dict/choices.h ../dict/stopper.h ../dict/choicearr.h \
+  ../cutil/tessarray.h ../dict/choices.h ../dict/states.h
+
+/usr/include/stdio.h:
+
+/usr/include/_types.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/i386/_types.h:
+
+/usr/include/signal.h:
+
+/usr/include/sys/signal.h:
+
+/usr/include/sys/appleapiopts.h:
+
+/usr/include/machine/signal.h:
+
+/usr/include/i386/signal.h:
+
+/usr/include/i386/_structs.h:
+
+/usr/include/sys/_structs.h:
+
+/usr/include/machine/_structs.h:
+
+/usr/include/mach/i386/_structs.h:
+
+djmenus.h:
+
+../classify/intmatcher.h:
+
+../cutil/debug.h:
+
+../cutil/variables.h:
+
+../cutil/cutil.h:
+
+/usr/include/string.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/available.h:
+
+/usr/include/sys/wait.h:
+
+/usr/include/sys/resource.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/i386/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/libkern/_OSByteOrder.h:
+
+/usr/include/libkern/i386/_OSByteOrder.h:
+
+/usr/include/alloca.h:
+
+/usr/include/machine/types.h:
+
+/usr/include/i386/types.h:
+
+../cutil/general.h:
+
+../ccutil/host.h:
+
+../ccutil/platform.h:
+
+/usr/lib/gcc/i686-apple-darwin9/4.0.1/include/limits.h:
+
+/usr/lib/gcc/i686-apple-darwin9/4.0.1/include/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/i386/limits.h:
+
+/usr/include/i386/_limits.h:
+
+/usr/include/sys/syslimits.h:
+
+../ccutil/tprintf.h:
+
+../ccutil/varable.h:
+
+../ccutil/clst.h:
+
+../ccutil/host.h:
+
+../ccutil/serialis.h:
+
+../ccutil/memry.h:
+
+/usr/lib/gcc/i686-apple-darwin9/4.0.1/include/stddef.h:
+
+../ccutil/host.h:
+
+../ccutil/errcode.h:
+
+../ccutil/host.h:
+
+../ccutil/fileerr.h:
+
+../ccutil/errcode.h:
+
+../ccutil/lsterr.h:
+
+../ccutil/errcode.h:
+
+../ccutil/strngs.h:
+
+../ccutil/memry.h:
+
+../ccutil/serialis.h:
+
+../cutil/oldlist.h:
+
+../cutil/cutil.h:
+
+../cutil/callcpp.h:
+
+../ccutil/unichar.h:
+
+/usr/include/memory.h:
+
+../classify/intproto.h:
+
+../dict/matchdefs.h:
+
+../classify/protos.h:
+
+../cutil/bitvec.h:
+
+../ccutil/unicharset.h:
+
+../ccutil/strngs.h:
+
+../ccutil/unichar.h:
+
+../ccutil/unicharmap.h:
+
+../ccutil/unichar.h:
+
+../classify/cutoffs.h:
+
+../classify/adaptmatch.h:
+
+../ccutil/tessclas.h:
+
+../classify/fxdefs.h:
+
+../classify/adaptive.h:
+
+../classify/intproto.h:
+
+../classify/ocrfeatures.h:
+
+../cutil/funcdefs.h:
+
+../cutil/general.h:
+
+../classify/fxdefs.h:
+
+../ccstruct/ratngs.h:
+
+../ccstruct/werd.h:
+
+../ccutil/bits16.h:
+
+../ccutil/host.h:
+
+../ccstruct/blckerr.h:
+
+../ccstruct/stepblob.h:
+
+../ccstruct/coutln.h:
+
+../ccstruct/crakedge.h:
+
+../ccstruct/points.h:
+
+/usr/include/math.h:
+
+/usr/include/architecture/i386/math.h:
+
+../ccutil/elst.h:
+
+../ccutil/host.h:
+
+../ccutil/serialis.h:
+
+../ccutil/lsterr.h:
+
+../ccutil/errcode.h:
+
+../ccstruct/ipoints.h:
+
+../ccstruct/mod128.h:
+
+../ccstruct/points.h:
+
+../ccstruct/mod128.h:
+
+../ccstruct/rect.h:
+
+../ccstruct/points.h:
+
+../ccutil/ndminx.h:
+
+../viewer/scrollview.h:
+
+../ccstruct/blckerr.h:
+
+../ccstruct/rect.h:
+
+../ccstruct/polyblob.h:
+
+../ccstruct/poutline.h:
+
+../ccstruct/polyvert.h:
+
+../ccutil/elst2.h:
+
+../ccutil/host.h:
+
+../ccutil/serialis.h:
+
+../ccutil/lsterr.h:
+
+../ccutil/errcode.h:
+
+../ccstruct/rect.h:
+
+../ccstruct/rect.h:
+
+../ccstruct/blckerr.h:
+
+../ccstruct/rect.h:
+
+../ccstruct/normalis.h:
+
+../ccstruct/stepblob.h:
+
+../ccstruct/ocrrow.h:
+
+../ccstruct/quspline.h:
+
+../ccstruct/quadratc.h:
+
+../ccstruct/points.h:
+
+../ccstruct/rect.h:
+
+../ccstruct/werd.h:
+
+../ccutil/notdll.h:
+
+badwords.h:
+
+../classify/sigmenu.h:
+
+../classify/mfoutline.h:
+
+../classify/fpoint.h:
+
+../classify/fxdefs.h:
+
+../classify/baseline.h:
+
+../classify/normmatch.h:
+
+../classify/ocrfeatures.h:
+
+../classify/speckle.h:
+
+../classify/baseline.h:
+
+../dict/choices.h:
+
+../dict/stopper.h:
+
+../dict/choicearr.h:
+
+../cutil/tessarray.h:
+
+../dict/choices.h:
+
+../dict/states.h:

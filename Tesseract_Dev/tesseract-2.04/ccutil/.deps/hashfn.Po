@@ -1,0 +1,30 @@
+hashfn.o hashfn.o: hashfn.cpp mfcpch.h hashfn.h host.h platform.h \
+  /usr/lib/gcc/i686-apple-darwin9/4.0.1/include/limits.h \
+  /usr/lib/gcc/i686-apple-darwin9/4.0.1/include/syslimits.h \
+  /usr/include/limits.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/limits.h /usr/include/i386/limits.h \
+  /usr/include/i386/_limits.h /usr/include/sys/syslimits.h
+
+mfcpch.h:
+
+hashfn.h:
+
+host.h:
+
+platform.h:
+
+/usr/lib/gcc/i686-apple-darwin9/4.0.1/include/limits.h:
+
+/usr/lib/gcc/i686-apple-darwin9/4.0.1/include/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/i386/limits.h:
+
+/usr/include/i386/_limits.h:
+
+/usr/include/sys/syslimits.h:

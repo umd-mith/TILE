@@ -1,0 +1,29 @@
+efio.o efio.o: efio.cpp efio.h /usr/include/stdio.h /usr/include/_types.h \
+  /usr/include/sys/_types.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/_types.h /usr/include/i386/_types.h danerror.h \
+  /usr/include/setjmp.h /usr/include/machine/setjmp.h \
+  /usr/include/i386/setjmp.h /usr/include/string.h
+
+efio.h:
+
+/usr/include/stdio.h:
+
+/usr/include/_types.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/i386/_types.h:
+
+danerror.h:
+
+/usr/include/setjmp.h:
+
+/usr/include/machine/setjmp.h:
+
+/usr/include/i386/setjmp.h:
+
+/usr/include/string.h:
