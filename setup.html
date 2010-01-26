@@ -1,0 +1,536 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<title>:: Image Boxer ::</title>
+		<link type="text/css" href="files/js/css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="Stylesheet" />
+	<link type="text/css" href="lib/jquery/development-bundle/themes/base/ui.all.css" rel="stylesheet" />
+  
+	<script src="files/js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="files/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
+	
+	  <script type="text/javascript" src="lib/jquery/development-bundle/ui/ui.core.js"></script>
+  <script type="text/javascript" src="lib/jquery/development-bundle/ui/ui.slider.js"></script>
+
+	
+	<style type="text/css">
+		#pageImageBlock {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			height: 1000px;
+			width: 1000px;
+			overflow: auto;
+		}
+		#Controls{
+			position: absolute;
+			right: 0px;
+			top:0px;
+		}
+		.sliderBox{
+			padding-bottom: 1em;
+		}
+		#backgroundColorControl{
+			height: 800px;
+			width: 200px;
+			overflow: auto;
+		}
+	</style>
+		<script>
+			getBg = false;
+			carray = [];
+			myImg = null;
+			pageBlock = null;
+			function revertData(){
+				canvas = $("#canvas")[0];
+				context = document.getElementById('canvas').getContext('2d');
+				/*
+				var i = pageBlock.iData;
+				var l = pageBlock.left;
+				var t = pageBlock.top;
+				curIData = context.getImageData(l,t,i.width,i.height);
+				if (i.data==curIData.data){
+					alert("But they shouldn't be");
+				}
+			//	alert(i.data);
+			//	alert()
+				
+				
+				context.putImageData(i,l,t);*/
+				context.restore();
+				alert("Done? "+l+","+t);				
+			}
+			function setGet(mode){
+				getBg=mode;				
+			}
+	
+			function getColor(e){
+				/*if (getBg){
+					 $.ajax({
+  					 type: "POST",
+   					 url: "./PHP_OCR/testOCR.php",
+   					 data: "x="+x+"&y="+y,
+  					 success: function(msg){
+    				 alert( "Data Saved: " + msg );
+  					 }
+ 					 });
+
+				}*/
+				
+			
+				
+
+			}
+			function bwRegion(l,t,w,h,data){
+
+				         var selred=data[0];	  
+         var selgreen=data[1];
+         var selblue=data[2];	
+		
+     	 seldata = data;
+         var selAverage=(selred+selgreen+selblue)/3;
+		 imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+				    for (j=0; j<imageData.height; j++)
+    {
+      for (i=0; i<imageData.width; i++)
+      {
+         var index=(i*4)*imageData.width+(j*4);
+         var red=imageData.data[index];	  
+         var green=imageData.data[index+1];
+         var blue=imageData.data[index+2];	  
+         var alpha=imageData.data[index+3];	 
+         var average=(red+green+blue)/3;
+		 adiff = Math.abs(average-selAverage);
+		 
+		 if (average>selAverage){
+		  
+		 	  
+   	    imageData.data[index]=255;	  
+         imageData.data[index+1]=255;
+         imageData.data[index+2]=255;
+         imageData.data[index+3]=alpha;
+		 
+		 }	 
+	
+		 	  
+       }
+
+     }
+	 	
+	canvas.getContext('2d').putImageData(imageData,0,0);
+			}		
+			function unique(a)
+{
+   var r = new Array();
+   o:for(var i = 0, n = a.length; i < n; i++)
+   {
+      for(var x = 0, y = r.length; x < y; x++)
+      {
+         if(r[x]==a[i]) continue o;
+      }
+      r[r.length] = a[i];
+   }
+   return r;
+}		
+			boxObject={left:0,top:0,right:0,bottom:0};
+			function d2h(d) {return d.toString(16);}
+			function h2d(h) {return parseInt(h,16);} 
+			function setRegion(){
+				$('#canvas').unbind('click');
+
+				$("#canvas").click(function(e){
+					makeBox(true,e);
+					});
+			}
+			
+			function makeBox(isFirst,e){
+				if (isFirst) {
+					pib = $("#pageImageBlock");
+					tl = $("<div id='tlNode' class='tlNode'></div>");
+					
+					var x = e.pageX - pib[0].offsetLeft + pib[0].scrollLeft;
+					var y = e.pageY - pib[0].offsetTop + pib[0].scrollTop;
+					
+					tl.css({
+						"position": "absolute",
+						"top": y,
+						"left": x,
+						"height": "10px",
+						"width": "10px",
+						"background-color": "green"
+					});
+					//tl.offset({top: e.pageY, left: e.pageX});
+					tl.appendTo("#pageImageBlock");
+					$('#canvas').unbind('click');
+					
+					$("#canvas").click(function(e){
+						makeBox(false, e);
+					});
+					
+				}
+				else {
+					pib = $("#pageImageBlock");
+					/*tl = $("<div class='tlNode'></div>");
+					
+					var x = e.pageX - pib[0].offsetLeft + pib[0].scrollLeft;
+					var y = e.pageY - pib[0].offsetTop + pib[0].scrollTop;
+					
+					tl.css({
+						"position": "absolute",
+						"top": y,
+						"left": x,
+						"height": "10px",
+						"width": "10px",
+						"background-color": "red"
+					});
+					//tl.offset({top: e.pageY, left: e.pageX});
+					tl.appendTo("#pageImageBlock");*/
+					tl = $("#tlNode");
+					l = parseInt(tl.css("left"));
+					t = parseInt(tl.css("top"));
+					
+					var x = e.pageX - pib[0].offsetLeft + pib[0].scrollLeft;
+					var y = e.pageY - pib[0].offsetTop + pib[0].scrollTop;
+					var h = y-t;
+					var w = x-l;
+					//alert("origHeight "+h)
+					drawBox(l,t,w,h);
+				}
+				
+			}
+			function drawBox(l,t,w,h){
+				
+					
+	
+		box = $("<div id='boundaryBox'></div>").appendTo("#pageImageBlock");
+		
+		
+		box.css("position", "absolute");
+		box.css("left", l);
+		box.css("top", t);
+		box.css("width", w);
+		box.css("height", h);
+		box.css("z-index", "1001");
+		box.css("background-color", "red");
+		box.fadeTo("fast", 0.45);
+		box.bind("dblclick", {
+			box: box
+		}, function(e){
+		//	changeColor("rgb(88,88,88)");
+			
+			canvas = $("#canvas");
+			box = e.data.box;
+			bleft = box.offset().left;
+			btop =  box.offset().top;
+			ileft= canvas.offset().left;
+			itop= canvas.offset().top;
+			posx = bleft-ileft;
+			posy = btop-itop;
+			context = document.getElementById('canvas').getContext('2d');
+			imageData = context.getImageData(posx, posy,parseInt(box.width()), parseInt(box.height()));
+			colorSet = [];
+			    for (j = 0; j < imageData.height; j++) {
+					for (i = 0; i < imageData.width; i++) {
+						 var index=(i*4)*imageData.width+(j*4);
+       					  var red=d2h(parseInt(imageData.data[index]));	  
+         				var green=d2h(parseInt(imageData.data[index+1]));
+        				 var blue=d2h(parseInt(imageData.data[index+2]));
+						
+						
+						hex = red+green+blue;
+						
+					
+					colorSet.push(hex);
+					}
+				}
+			
+				colorSet = unique(colorSet);
+				
+				colorSet.sort();
+				alert("sorted");
+				for (var n=0;n<colorSet.length;n++){
+					color = colorSet[n];
+					block = $("<div></div>");
+					block.css({
+						"background-color": "#"+color,
+						"width" : "500px",
+						"height" : "20px" 
+					});	
+					block.dblclick(function(e){
+						bg = $(this).css("background-color");
+						alert(bg);
+						if (pageBlock) {
+							revertData();
+						}
+						else {
+							changeColor(bg);
+						}
+					});
+					block.appendTo($("#backgroundColorControl"));
+				}
+				
+			
+			
+			
+		});
+		
+		//Make the box draggable and resizable
+		box.draggable({
+			start: function(e){//turn off map dragging
+			},
+			drag: function(e){//turn off map dragging
+			},
+			stop: function(e, ui){//turn on map dragging
+			}
+		});
+		box.resizable({
+			ghost: true,
+			//set up the callbacks for resizing (changes proportions)
+			stop: function(e, ui){
+			//triggers bound event
+			
+			}
+			
+		});
+		box.hide();
+		
+		box.show("slow");
+			}
+			function loadImage(img){
+				
+				
+				var imgWidth=img.width;
+				  var imgHeight=img.height;
+				 canvas = document.getElementById("canvas");
+				 canvas.width= imgWidth;
+  				canvas.height=imgHeight;
+				
+				var context = document.getElementById('canvas').getContext('2d');
+				nh = (imgHeight*1000)/imgWidth;
+ 				context.drawImage(img, 0, 0,1000,nh);
+				context.save();
+				
+			
+//	});
+				$("#canvas").click(function(e){
+					makeBox(true,e);
+					});
+				  $("#canvas").mousemove(function(e){
+				  	x = e.pageX+$("#pageImageBlock").scrollLeft();
+				y = e.pageY+$("#pageImageBlock").scrollTop();
+				var context = document.getElementById('canvas').getContext('2d');
+				
+				data = context.getImageData(x, y, 1, 1).data;
+				
+				if (carray[data]==null){
+					carray[data]=true;
+					hex = "";
+					for (var n=0;n<3;n++){
+						
+						hex = hex+d2h(data[n]);
+					}
+					/*block = $("<div>"+data.toString()+"</div>");
+					block.css({
+						"background-color": "#"+hex,
+						"width" : "500px",
+						"height" : "20px" 
+					});
+					block.click(function(e){
+						//changeColor($(this).css("background-color"));
+							
+					});*/
+					//fc = $("#bgClrs").children();
+					$("#bgClrs").css({
+						"background-color": "#"+hex});
+					$("#bgClrs").html(hex);
+					//alert(fc.length);
+					//alert("Index: "+fc.index());
+					//block.insertBefore(fc[0]);
+					
+					
+				}
+      			
+   }); 
+		
+			}
+
+	
+	
+	
+	
+	
+	
+	
+		function ocr(imageData){
+			
+		}	
+		function grayscale(imageData, myCanvas, bPlaceImage)
+{
+
+ 
+  // This function cannot be called if the image is not rom the same domain.
+  // You'll get security error if you do.
+//	alert("start loop "+imageData.height+" "+imageData.width);
+  // This loop gets every pixels on the image and 
+    for (j=0; j<imageData.height; j++)
+    {
+      for (i=0; i<imageData.width; i++)
+      {
+         var index=(i*4)*imageData.width+(j*4);
+         var red=imageData.data[index];	  
+         var green=imageData.data[index+1];
+         var blue=imageData.data[index+2];	  
+         var alpha=imageData.data[index+3];	 
+  //       var average=(red+green+blue)/3; 	  
+   	     imageData.data[index]=average;	  
+         imageData.data[index+1]=average;
+         imageData.data[index+2]=average;
+         imageData.data[index+3]=alpha;	  	  
+       }
+
+     }
+	 	
+	myCanvas.getContext('2d').putImageData(imageData,0,0);
+  	
+	return myCanvas.toDataURL();
+
+  }
+  function colorWidget(){
+  	
+  }
+  function changeColor(seldata){
+
+			
+			
+			
+			canvas = $("#canvas")[0];
+			  	//x = e.pageX+$("#pageImageBlock").scrollLeft();
+				//y = e.pageY+$("#pageImageBlock").scrollTop();
+				var context = document.getElementById('canvas').getContext('2d');
+			//	alert("context height "+canvas.height);
+				//data = context.getImageData(x, y, 1, 1).data;
+				data = seldata.split(",");
+				data[0] = data[0].substring(data[0].indexOf("(")+1);
+				data[2] = data[2].substring(0,data[2].indexOf(")"));
+				         var selred=parseInt(data[0]);	  
+         var selgreen=parseInt(data[1]);
+         var selblue=parseInt(data[2]);	
+		
+     	// seldata = data;
+         var selAverage=(selred+selgreen+selblue)/3;
+		 
+		 bb = $("#boundaryBox");
+		 alert(bb.size());
+		 if (bb.size()>0) {
+		 	t = parseInt(bb.css("top"));
+		 	l = parseInt(bb.css("left"));
+		 	w = parseInt(bb.css("width"));
+		 	h = parseInt(bb.css("height"));
+		 	
+		 	bb.remove();
+			bb = null;
+		 	$("#tlNode").remove();
+			 imageData = context.getImageData(l, t, w, h);
+			 alert("Idata: "+imageData);
+			  pageBlock = {
+			  		iData: imageData,
+		 			imgDataArray: imageData.data,
+				 	left: l,
+		 			top: t
+				 };
+		 }
+		 else{
+		 
+		 	 /* imageData = pageBlock.iData;
+			  l = pageBlock.left;
+			  t = pageBlock.top;
+			  w = i.width;
+			  h = i.height;
+			  alert("** "+h);*/
+			  //revertData();
+		 }
+	
+		
+		// alert(h+"  "+canvas.height);
+		 total = 0;
+		// alert("width: "+imageData.width + " height: "+imageData.height);
+		 
+		 
+	for (var j=0; j<w; j++)
+    {
+		
+      for (var i=0; i<h; i++)
+      {
+        // var index=(i*4)*imageData.width+(j*4);
+         var index = (j +i*w)*4;
+		 var red=imageData.data[index];	  
+         var green=imageData.data[index+1];
+         var blue=imageData.data[index+2];	  
+         var alpha=imageData.data[index+3];	 
+         var average=(red+green+blue)/3;
+		 adiff = Math.abs(average-selAverage);
+		 
+		 if (average>selAverage){
+		  
+		 	  
+   	    imageData.data[index]=255;	  
+         imageData.data[index+1]=255;
+         imageData.data[index+2]=255;
+         imageData.data[index+3]=alpha;
+		 
+		 }	
+		 else{
+		 	    imageData.data[index]=0;	  
+         imageData.data[index+1]=0;
+         imageData.data[index+2]=0;
+         imageData.data[index+3]=alpha;
+		 } 
+	
+		 	  
+       }
+		total++;
+     }
+	 	//alert("total: "+total);
+	canvas.getContext('2d').putImageData(imageData,l,t);
+			  }
+	
+	  $(document).ready(function(){
+	
+   /* $("#redSlider").slider();
+	  $("#blueSlider").slider();
+	    $("#greenSlider").slider();
+		   $("#allSlider").slider();*/
+		   var img = new Image();
+				img.src = 'http://localhost:8888/TILE/Images/ham.jpg';
+				img.onload= function(){
+					myImg = this;
+					loadImage(this)};
+  });
+
+		</script>
+	
+</head>
+<body>
+	<div id="pageImageBlock">
+		<canvas id="canvas"></canvas>
+		</div>
+	<div id="Controls">
+		<div onclick="setRegion()">select page</div>
+		<div id="backgroundColorControl">
+			<span onclick="setGet(true)">Get Background colors</span>
+		<ul id="bgClrs">
+			<li id="george"></li>
+		</ul>
+		</div>	
+		
+			<div class='colorControls'>
+						<div class='sliderBox'><div id='redSlider'></div></div>
+						<div class='sliderBox'><div id='greenSlider'></div></div>
+						<div class='sliderBox'><div id='blueSlider'></div></div>
+						<div class='sliderBox'><div id='allSlider'></div></div>
+						
+						
+							
+			
+</body>
+</html>
