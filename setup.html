@@ -404,11 +404,9 @@
 			
 			
 			canvas = $("#canvas")[0];
-			  	//x = e.pageX+$("#pageImageBlock").scrollLeft();
-				//y = e.pageY+$("#pageImageBlock").scrollTop();
+		
 				var context = document.getElementById('canvas').getContext('2d');
-			//	alert("context height "+canvas.height);
-				//data = context.getImageData(x, y, 1, 1).data;
+		
 				data = seldata.split(",");
 				data[0] = data[0].substring(data[0].indexOf("(")+1);
 				data[2] = data[2].substring(0,data[2].indexOf(")"));
