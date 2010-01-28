@@ -1,6 +1,0 @@
-leptonica_pageseg.o leptonica_pageseg.o: leptonica_pageseg.cpp \
-  ../config_auto.h leptonica_pageseg.h
-
-../config_auto.h:
-
-leptonica_pageseg.h:

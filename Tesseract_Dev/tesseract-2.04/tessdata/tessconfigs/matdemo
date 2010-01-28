@@ -1,7 +1,0 @@
-#################################################
-# Adaptive Matcher Using PreAdapted Templates
-#################################################
-
-EnableAdaptiveDebugger   1
-MatchDebugFlags         6
-MatcherDebugLevel       1
