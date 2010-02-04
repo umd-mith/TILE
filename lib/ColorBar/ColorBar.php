@@ -14,4 +14,5 @@
 		<label class="colorbar_slider_label">Blue</label>
 		<div id="colorbar_slider_blue" class="colorbarslider"></div>
 	</div>
-	<span id="colorbar_OCR">OCR</span>
+	<span id="colorbar_OCR">OCR</span>|
+	<span id="colorbar_test_rects">LAYER RECTANGULARS</span>
