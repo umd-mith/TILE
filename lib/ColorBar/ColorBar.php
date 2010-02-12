@@ -15,4 +15,8 @@
 		<div id="colorbar_slider_blue" class="colorbarslider"></div>
 	</div>
 	<span id="colorbar_OCR">OCR</span>|
-	<span id="colorbar_test_rects">LAYER RECTANGULARS</span>
+	<span id="colorbar_test_rects">SHOW RECTANGLES</span>
+	<br/>
+	<span id="colorbar_ZOOMin">ZOOM IN</span>
+	<br/>
+	<span id="colorbar_ZOOMout">ZOOM OUT</span>
