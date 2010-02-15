@@ -1,0 +1,75 @@
+#srcImg{
+	display:none;
+}
+/**Image Container**/
+.ImageContainer{
+	overflow:scroll;
+	margin-left:10px;
+	width:50%;
+	float:right;
+}
+.ImageContainer canvas{
+	position:absolute;
+	overflow:scroll;
+	left:350px;
+	top:0px;
+	
+}
+/**Color Bar**/
+.ColorBar{
+	padding:1em;
+	border:solid 2px grey;
+	
+	
+	position:absolute;
+	top:0px;
+	left:0px;
+	
+}
+.ColorBarSliders{
+	padding:2em;
+}
+.colorbarslider{
+	margin-left:2px;
+	margin-top:14px;
+}
+.bkgBox{
+	width:200px;
+	height:48px;
+	padding:2px;
+	
+}
+/**PlainBox**/
+
+.boxer_plainbox{
+	position:absolute;
+	left:0px;
+	top:0px;
+	background-color:transparent;
+	border: 2px solid #ff510b;
+	width:100px;
+	height:100px;
+}
+.boxer_plainbox_close{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:16px;
+	height:16px;
+	cursor:pointer;
+}
+/**SelectorBox**/
+.boxer_select_ocr{
+	position:absolute;
+	left:75%;
+	cursor:pointer;
+}
+/**BlobBox**/
+.blobbox{
+	position:absolute;
+	
+	background-color:transparent;
+	border: 2px solid #ff510b;
+	width:100px;
+	height:100px;
+}
