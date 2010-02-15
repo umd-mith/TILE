@@ -44,7 +44,7 @@
 .boxer_plainbox{
 	position:absolute;
 	left:0px;
-	top:0px;
+	top:17px;
 	background-color:transparent;
 	border: 2px solid #ff510b;
 	width:100px;
@@ -58,10 +58,21 @@
 	height:16px;
 	cursor:pointer;
 }
+.boxer_plainbox_useroptions{
+	position:absolute;
+	left:0px;
+	top:-17px;
+	width:65px;
+	height:15px;
+	background-color:#DBB2BB;
+	border:solid 1px #D40633;
+	display:none;
+}
 /**SelectorBox**/
 .boxer_select_ocr{
 	position:absolute;
-	left:75%;
+	left:25%;
+	
 	cursor:pointer;
 }
 /**BlobBox**/
@@ -72,4 +83,7 @@
 	border: 2px solid #ff510b;
 	width:100px;
 	height:100px;
+}
+.boxer_blob_drag,.boxer_blob_resize{
+	margin-left:2px;
 }
