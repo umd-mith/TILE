@@ -4,23 +4,20 @@
 /**Image Container**/
 .ImageContainer{
 	overflow:scroll;
-	margin-left:10px;
+	
 	width:50%;
-	float:right;
+	
 }
 .ImageContainer canvas{
 	position:absolute;
 	overflow:scroll;
 	left:350px;
 	top:0px;
-	
 }
 /**Color Bar**/
 .ColorBar{
 	padding:1em;
 	border:solid 2px grey;
-	
-	
 	position:absolute;
 	top:0px;
 	left:0px;
@@ -37,7 +34,10 @@
 	width:200px;
 	height:48px;
 	padding:2px;
-	
+	color:#FFFFFF;
+}
+.eyedropper{
+	cursor:pointer;
 }
 /**PlainBox**/
 
