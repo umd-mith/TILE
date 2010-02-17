@@ -49,6 +49,8 @@
 	border: 2px solid #ff510b;
 	width:100px;
 	height:100px;
+	margin-right:5px;
+	padding-right:5px;
 }
 .boxer_plainbox_close{
 	position:absolute;
@@ -81,9 +83,14 @@
 	
 	background-color:transparent;
 	border: 2px solid #ff510b;
-	width:100px;
-	height:100px;
+	
+}
+.blobbox:hover{
+	border: 2px dotted yellow;
 }
 .boxer_blob_drag,.boxer_blob_resize{
 	margin-left:2px;
+}
+.ui-state-disabled{
+	opacity:1;
 }
