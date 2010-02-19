@@ -4,15 +4,16 @@
 /**Image Container**/
 .ImageContainer{
 	overflow:scroll;
-	
+	position:absolute;
+	top:0px;
+	left:0px;
 	width:50%;
 	
 }
 .ImageContainer canvas{
-	position:absolute;
+position:absolute;
 	overflow:scroll;
-	left:350px;
-	top:0px;
+	
 }
 /**Color Bar**/
 .ColorBar{
@@ -21,6 +22,7 @@
 	position:absolute;
 	top:0px;
 	left:0px;
+	z-index:9999;
 	
 }
 .ColorBarSliders{
@@ -92,4 +94,13 @@
 }
 .ui-state-disabled{
 	opacity:1;
+}
+/**Raphael Canvas**/
+svg{
+	position:absolute;
+	left:350px;
+	top:0px;
+}
+.testcontrol{
+	margin-top:2px;
 }
