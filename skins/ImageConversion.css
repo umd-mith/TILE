@@ -1,10 +1,14 @@
 /**main container**/
 .mainStage{
 	position:absolute;
-	margin:10px;
-	
-}
 
+}
+.mainStageRight{
+	/**Goes to the right**/
+	margin:10px;
+	top:0px;
+	left:300px;
+}
 #srcImg{
 	display:none;
 }
@@ -17,20 +21,37 @@
 	width:50%;
 	
 }
+
 .ImageContainer canvas{
 position:absolute;
 	overflow:scroll;
 	
 }
-/**Color Bar**/
-.ColorBar{
+/**Tool Bar**/
+.ToolBar{
 	padding:1em;
 	border:solid 2px grey;
+	
+	z-index:9999;
+	
+}
+.ToolBarTop{
 	position:absolute;
 	top:0px;
 	left:0px;
-	z-index:9999;
+	width:100%;
+	height:20%;
+}
+.ToolBarSide{
+	position:absolute;
+	top:0px;
+	left:0px;
 	
+}
+.SideToolBar{
+	position:absolute;
+	top:0px;
+	left:300px;
 }
 .ColorBarSliders{
 	padding:2em;
