@@ -1,6 +1,6 @@
 <?php
 /**
-TOPTOOLBAR HTML 
+*TOPTOOLBAR HTML 
 **/
 
 
@@ -8,9 +8,9 @@ TOPTOOLBAR HTML
 ?>
 
 <h3>ToolBar</h3>
-<span id="tab1">Do Some Image Stuffs</span>
+<span id="tab1" class="toolbar_mode">Do Some Image Stuffs</span>
 <br/>
-<span id="tab2">Do Some Text Stuffs</span>
+<span id="tab2" class="toolbar_mode">Do Some Text Stuffs</span>
 <div id="colorbar_instructions" class="colorbarInstructions">
 	<span id="colorbar_SETUPBOX">STEP 1: SET OCR REGION</span>
 	<div id="colorbar_sliders" class="ColorBarSliders">
@@ -37,7 +37,10 @@ TOPTOOLBAR HTML
 	<br/>
 	<span id="colorbar_test_rects">STEP 3: SHOW RECTANGLES</span>
 	<hr/>
-	<span id="colorbar_ZOOMin">ZOOM IN</span>
+	
+</div>
+<div class="zoomcontrols">
+	<span id="colorbar_ZOOMin" class="zoomcontrol">ZOOM IN</span>
 	<br/>
-	<span id="colorbar_ZOOMout">ZOOM OUT</span>
+	<span id="colorbar_ZOOMout" class="zoomcontrol">ZOOM OUT</span>
 </div>

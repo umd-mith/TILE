@@ -9,6 +9,12 @@
 	top:0px;
 	left:300px;
 }
+.mainStageBottom{
+	/**goes on the bottom**/
+	margin-top:20px;
+	top:25%;
+	left:0px;
+}
 #srcImg{
 	display:none;
 }
@@ -66,8 +72,19 @@ position:absolute;
 	padding:2px;
 	color:#FFFFFF;
 }
+.bkgBoxTop{
+	/**for top position**/
+	position:relative;
+	margin-left:5px;
+	padding-left:3px;
+}
 .eyedropper{
 	cursor:pointer;
+}
+.eyedropperTop{
+	/**For top position**/
+	padding-left:3px;
+	margin-left:5px;
 }
 /**PlainBox**/
 
@@ -136,4 +153,9 @@ svg{
 .shapeplaceholder{
 	z-index:9999;
 	display:none;
+}
+.shapeResize{
+	position:absolute;
+	color:#FFFFFF;
+	cursor:pointer;
 }
