@@ -126,7 +126,6 @@ position:absolute;
 /**BlobBox**/
 .blobbox{
 	position:absolute;
-	
 	background-color:transparent;
 	border: 2px solid #ff510b;
 	
@@ -158,4 +157,19 @@ svg{
 	position:absolute;
 	color:#FFFFFF;
 	cursor:pointer;
+}
+/**Options for Shapes**/
+.ellipseOptions,.polyOptions{
+	background-color:#DDD;
+	color:#000000;
+	position:absolute;
+	width:100px;
+	height:14px;
+	top:0px;
+	left:0px;
+	z-index:9999;
+}
+.ellipseOption{
+	padding:2px;
+	margin-right:3px;
 }
