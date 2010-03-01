@@ -10,19 +10,25 @@
 
 <div id="toolbar">
 	<ul>
-		<li><span class="button">Select:</span><span class="small"><a href="#">All</a><a href="#">None</a><a href="#">Current</a></span></li>
+		<li><span class="button">Select:</span>
+			<span class="small">
+				<a href="#">All</a>
+				<a href="#">None</a>
+				<a href="#">Current</a>
+			</span>
+		</li>
 		<li><span class="button">Define Area:</span> 
-			<a href="#" id="rect" class="btnIcon"><img src="skins/tileimage/images/iconRectangle.gif" alt="Define rectangle" /></a>
-			<a href="#" id="poly" class="btnIcon"><img src="skins/tileimage/images/iconPolygon.gif" alt="Define polygon" /></a>
-			<a href="#" id="elli" class="btnIcon"><img src="skins/tileimage/images/iconEllipse.gif" alt="Define ellipse" /></a>
+			<a href="#" id="rect" class="btnIcon"></a>
+			<a href="#" id="poly" class="btnIcon"></a>
+			<a href="#" id="elli" class="btnIcon"></a>
 		</li>
 		<li><span class="button">Zoom:</span> 
-			<a href="#" id="zoomIn" class="btnIcon"><img src="skins/tileimage/images/iconZoomIn.gif" alt="Zoom in" /></a>
-			<a href="#" id="zoomOut" class="btnIcon"><img src="skins/tileimage/images/iconZoomOut.gif" alt="Zoom out" /></a>
+			<a href="#" id="zoomIn" class="btnIcon"></a>
+			<a href="#" id="zoomOut" class="btnIcon"></a>
 		</li>
 		<li><span class="button">Page:</span> 
-			<a href="#" class="btnIcon"><img src="skins/tileimage/images/iconPrevious.gif" alt="Previous page" /></a>
-			<a href="#" class="btnIcon"><img src="skins/tileimage/images/iconNext.gif" alt="Next page" /></a>
+			<a href="#" id="pgPrev" class="btnIcon"></a>
+			<a href="#" id="pgNext" class="btnIcon"></a>
 		</li>
 	</ul>	
 </div>

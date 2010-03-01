@@ -9,10 +9,10 @@
 
 <div id="topToolbar">
 	<ul class="options">
-		<li><a href="#"><span id="newimage" class="button">New Image</span> <img src="skins/tileimage/images/iconZoomIn.gif" alt="New image" /></a></li>
-		<li><a href="#"><span id="import" class="button">Import</span> <img src="skins/tileimage/images/iconImport.gif" alt="Import" /></a></li>
-		<li><a href="#"><span id="save" class="button">Save</span> <img src="skins/tileimage/images/iconSave.gif" alt="Save" /></a></li>
-		<li><a href="#"><span id="help" class="button">Help</span> <img src="skins/tileimage/images/iconHelp.gif" alt="Help" /></a></li>
+		<li><a href="#"><span class="button">New Image</span> <span class="btnIcon newImg"></span></a></li>
+		<li><a href="#"><span class="button">Import</span> <span class="btnIcon import"></span></a></li>
+		<li><a href="#"><span class="button">Save</span> <span class="btnIcon save"></span></a></li>
+		<li><a href="#"><span class="button">Help</span> <span class="btnIcon help"></span></a></li>
 	</ul>
 </div>
 

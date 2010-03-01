@@ -76,10 +76,16 @@ h2 {
 }
 .button {
 	position:relative;
-	top:-4px;
 	margin-right:5px;
 	text-transform:uppercase;
 	font-size:.9em;
+	top:-4px;
+}
+.btnIcon {
+	width:21px;
+	height:21px;
+	display:inline-block;
+	border:1px solid #fff;
 }
 .clear {
     clear: both;
@@ -141,10 +147,34 @@ div#header {
 }
 #topToolbar ul li {
 	display:inline;
-	margin-left:15px;
+	margin-left:20px;
+}	
+#topToolbar li .btnIcon {
+	border:1px solid #f6ecd4;
 }
-#topToolbar li img {
-	height:1.3em;
+#topToolbar li .newImg{
+	background:url('../images/iconsSprite.gif') no-repeat -126px 0px;
+}
+#topToolbar li a:hover .newImg{
+	background:url('../images/iconsSprite.gif') no-repeat -126px -21px;
+}
+#topToolbar li .import{
+	background:url('../images/iconsSprite.gif') no-repeat 0px 0px;
+}
+#topToolbar li a:hover .import{
+	background:url('../images/iconsSprite.gif') no-repeat 0px -21px;
+}
+#topToolbar li .save{
+	background:url('../images/iconsSprite.gif') no-repeat -21px 0px;
+}
+#topToolbar li a:hover .save{
+	background:url('../images/iconsSprite.gif') no-repeat -21px -21px;
+}
+#topToolbar li .help{
+	background:url('../images/iconsSprite.gif') no-repeat -42px 0px;
+}
+#topToolbar li a:hover .help{
+	background:url('../images/iconsSprite.gif') no-repeat -42px -21px;
 }
 /* --- sidebar and tabs ------------------------------------------ */
 div#sidebar {
@@ -222,6 +252,7 @@ div#sidebar {
 }
 #toolbar ul {
 	padding-top:7px;
+	position:relative;
 }
 #toolbar .button {
 	font-size:.9em;
@@ -244,6 +275,48 @@ div#sidebar {
 	position:relative;
 	top:-4px;
 	margin-right:5px;
+}
+#toolbar li a#rect.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -63px 0px;
+}
+#toolbar li a:hover#rect.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -63px -21px;
+}
+#toolbar li a#poly.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -84px 0px;
+}
+#toolbar li a:hover#poly.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -84px -21px;
+}
+#toolbar li a#elli.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -105px 0px;
+}
+#toolbar li a:hover#elli.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -105px -21px;
+}
+#toolbar li a#zoomIn.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -126px 0px;
+}
+#toolbar li a:hover#zoomIn.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -126px -21px;
+}
+#toolbar li a#zoomOut.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -147px 0px;
+}
+#toolbar li a:hover#zoomOut.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -147px -21px;
+}
+#toolbar li a#pgPrev.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -168px 0px;
+}
+#toolbar li a:hover#pgPrev.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -168px -21px;
+}
+#toolbar li a#pgNext.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -189px 0px;
+}
+#toolbar li a:hover#pgNext.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -189px -21px;
 }
 
 /* images -------------------*/
@@ -302,20 +375,22 @@ div#scroller {
 .tag {
 	background:#f6ecd4;
 }
-.tag a.dropdown {
-	
+.tag a.tagtitle {
+	display:block;
+	height:20px;
+	border:1px solid #fff;
+	padding:10px 10px 10px 25px;
+}
+.tag a.tagtitle.open {
+	background:#dadb9d url('../images/dropdownOpen.gif') no-repeat 10px 50%;
+}
+.tag a.tagtitle.closed {
+	background:#dadb9d url('../images/dropdownClosed.gif') no-repeat 10px 50%;
 }
 .tagedit a {
 	float:right;
 	padding:10px;
 	text-decoration:underline;
-}
-a.tagtitle {
-	display:block;
-	height:20px;
-	background:#dadb9d;
-	border:1px solid #fff;
-	padding:10px;
 }	
 .tag .tagattrb{
 	padding:10px;

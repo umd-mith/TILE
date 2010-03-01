@@ -146,6 +146,10 @@ div#header {
 #topToolbar li img {
 	height:1.3em;
 }
+#topToolbar li a.newImg{
+	background:url('../images/iconZoomIn.gif') no-repeat 100% 50%;
+	padding-right:30px;
+}
 /* --- sidebar and tabs ------------------------------------------ */
 div#sidebar {
 	position:absolute;
@@ -297,20 +301,22 @@ div#scroller {
 .tag {
 	background:#f6ecd4;
 }
-.tag a.dropdown {
-	
+.tag a.tagtitle {
+	display:block;
+	height:20px;
+	border:1px solid #fff;
+	padding:10px 10px 10px 25px;
+}
+.tag a.tagtitle.open {
+	background:#dadb9d url('../images/dropdownOpen.gif') no-repeat 10px 50%;
+}
+.tag a.tagtitle.closed {
+	background:#dadb9d url('../images/dropdownClosed.gif') no-repeat 10px 50%;
 }
 .tagedit a {
 	float:right;
 	padding:10px;
 	text-decoration:underline;
-}
-a.tagtitle {
-	display:block;
-	height:20px;
-	background:#dadb9d;
-	border:1px solid #fff;
-	padding:10px;
 }	
 .tag .tagattrb{
 	padding:10px;
