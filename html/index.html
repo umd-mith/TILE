@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>TILE: Text-Image Linking Environment</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection" charset="utf-8">
+	<link type="text/css" href="jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+	<script type="text/javascript" src="jquery/js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="jquery/js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+
+			// Tabs
+			$('#tabs').tabs();
+			
+		});
+	</script>
+</head>
+
+<body>
+	<div id="header">
+		<div id="branding">
+		<h1><a href="index.html">TILE: Text-Image Linking Environment</a></h1>
+	</div>
+	
+		<div id="topToolbar">
+		<ul class="options">
+			<li><a href="#"><span class="button">New Image</span> <img src="images/iconZoomIn.gif" alt="New image" /></a></li>
+			<li><a href="#"><span class="button">Import</span> <img src="images/iconImport.gif" alt="Import" /></a></li>
+			<li><a href="#"><span class="button">Save</span> <img src="images/iconSave.gif" alt="Save" /></a></li>
+			<li><a href="#"><span class="button">Help</span> <img src="images/iconHelp.gif" alt="Help" /></a></li>
+		</ul>
+	</div>
+	</div>
+
+	<div id="sidebar">
+		<div id="tabs">
+			<ul>
+				<li><a href="#tabs-1">Object Tags</a></li>
+				<li><a href="#tabs-2">Transcripts</a></li>
+			</ul>
+
+			<div id="tabs-1">
+				<div class="tag">
+					<h2><a href="#" class="dropdown"><img src></a><a href="#" class="tagtitle">Flower ABC</a></h2>
+					<p class="tagedit"><a href="#">Edit</a></p>
+					<ul class="tagattrb">
+						<li class="tagtype">Object:</li>
+						<li class="tagvalue">Flower</li>
+						<li class="tagtype">Coordinates:</li>
+						<li class="tagvalue">ulx: 326, uly: 125, lrx: 10, lry: 10</li>
+					</ul>
+				</div>
+				
+			</div>
+
+
+			<div id="tabs-2">Tab 2 Content.</div>
+
+		</div>
+
+	</div>
+	<div id="content">
+		
+			<div id="toolbar">
+				<ul>
+					<li><span class="button">Select:</span><span class="small"><a href="#">All</a><a href="#">None</a><a href="#">Current</a></span></li>
+					<li><span class="button">Define Area:</span> 
+						<a href="#" class="btnIcon"><img src="images/iconRectangle.gif" alt="Define rectangle" /></a>
+						<a href="#" class="btnIcon"><img src="images/iconPolygon.gif" alt="Define polygon" /></a>
+						<a href="#" class="btnIcon"><img src="images/iconEllipse.gif" alt="Define ellipse" /></a>
+					</li>
+					<li><span class="button">Zoom:</span> 
+						<a href="#" class="btnIcon"><img src="images/iconZoomIn.gif" alt="Zoom in" /></a>
+						<a href="#" class="btnIcon"><img src="images/iconZoomOut.gif" alt="Zoom out" /></a>
+					</li>
+					<li><span class="button">Page:</span> 
+						<a href="#" class="btnIcon"><img src="images/iconPrevious.gif" alt="Previous page" /></a>
+						<a href="#" class="btnIcon"><img src="images/iconNext.gif" alt="Next page" /></a>
+					</li>
+				</ul>	
+
+			</div>
+			
+			<div id="images">
+				<img src="images/bookExample.jpg" alt="book example" />
+			</div>	
+		
+	
+	</div><!-- end content -->
+	
+	<div id="scroller">
+		<div class="handle"><a href="#"><span class="button">Images</span></a></div>
+		<div class="list"></div>
+	</div>
+
+
+</body>
+</html>
