@@ -1,0 +1,325 @@
+/* =====================
+TILE Project
+Copyright 2010 MITH
+
+Written by Elisabeth Kvernen
+Maryland Institute for Technology in the Humanities
+
+swatch colors
+------------------
+f6ecd4 - cream 1
+f2e4c2 - cream 2
+ccbb93 - tan 1
+564a25 - tan 2
+e6e7b8 - green 1
+dadb9d - green 2
+afbf37 - green 3
+14253d - dark blue
+======================== */
+
+/* Yahoo CSS Reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+	margin:0;
+	padding:0;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+fieldset,img { 
+	border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-style:normal;
+	font-weight:normal;
+}
+ol,ul {
+	list-style:none;
+}
+caption,th {
+	text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-size:100%;
+	font-weight:normal;
+}
+q:before,q:after {
+	content:'';
+}
+abbr,acronym { border:0;
+}
+
+/* General styles ------------------- */
+body {
+	font-family:Corbel;
+	font-size:90%;
+	line-height:1.5em;
+	color:#14253d;
+	height:100%;
+	padding:7em 0 120px 275px;
+	overflow:hidden;
+	position:relative;
+	width:100%;
+}
+a {
+	text-decoration:none;
+	color:#14253d;
+}
+a:hover {
+	color:#f6ecd4;
+}
+
+/* Headings and text styles--------- */
+h1 {}
+h2 {
+	text-transform:uppercase;
+}
+.button {
+	position:relative;
+	top:-4px;
+	margin-right:5px;
+	text-transform:uppercase;
+	font-size:.9em;
+}
+.clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0
+}
+.clearfix:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0
+} 
+* html .clearfix {
+    height: 1%
+}
+
+/* Sections ----------------------*/
+/* --- header bar (includes branding and top toolbar) ------------- */
+div#header {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:7em;
+	background:#8b3939;
+}
+/* --- branding bar ------------- */
+#branding {
+	height:4em;
+	background:#7b6e4a url('../images/bkgd_branding.jpg') repeat-x;
+}
+#branding h1 {
+	text-indent:-9999px;
+	height:60px;
+	width:375px;
+	background:url('../images/TILElogo.gif') no-repeat;
+}
+#branding h1 a {
+	display:block;
+	height:60px;
+	width:375px;
+}
+/* --- top Toolbar ------------- */
+#topToolbar {
+	height:3em;
+	background:#ccbb93;
+}
+#topToolbar ul  {
+	padding-top:12px;
+	float:right;
+	padding-right:10px;
+}
+#topToolbar ul li {
+	display:inline;
+	margin-left:15px;
+}
+#topToolbar li img {
+	height:1.3em;
+}
+/* --- sidebar and tabs ------------------------------------------ */
+div#sidebar {
+	position:absolute;
+	top:7em;
+	left:0;
+	width:274px;
+	height:100%;
+	background:#facaca;
+	padding:0;
+	background:#f2e4c2; /* url('../images/bkgd_content.jpg') repeat-y 0px 0px;*/
+	border-right:1px solid #ccbb93;
+	/*margin: -2.35em 0px 0 -275px;  top margin accounts for .2 em (#tabs), .2 em (.ui-tab-nav), .9em (text-size), and 1em (a#tabs .5em x2) */
+	/* height:80%; */
+	
+}
+/* Tabs -------------------*/
+
+#tabs {
+	color:#14253d;
+	font-family:Corbel;
+	font-size:.9em;
+	line-height:1.5em;
+	background:#f2e4c2;
+}
+#tabs.ui-tabs {
+	padding:.2em 0 .2em 0;
+	margin-top:1px;
+}
+#tabs a {color:#14253d;}
+#tabs.ui-widget-content {
+	background:none;
+	border:0px;
+	margin-top:-2.55em;
+}
+#tabs .ui-widget-header {
+	background:none;
+	border:none;
+}
+#tabs .ui-tabs-nav {
+	text-transform:uppercase;
+	font-size:.9em;
+}
+#tabs.ui-tabs .ui-tabs-panel {
+	padding:0;
+}
+/* back tab background */
+#tabs.ui-state-default, #tabs.ui-widget-content .ui-state-default {
+	background:#f2e4c2 url(../images/tabBack.jpg) repeat-x;
+	border:1px solid #f6ecd4;
+}
+/* tab hover */
+#tabs.ui-state-hover, #tabs.ui-widget-content .ui-state-hover {
+	background:#f7edd6 url(../images/tabHover.jpg) repeat-x;
+}
+/* front tab background */
+#tabs.ui-state-active, #tabs.ui-widget-content .ui-state-active { 
+	background:#c4c671 url(../images/tabFront.jpg) repeat-x;
+	border:1px solid #f6ecd4;
+}
+
+/* --- Content ------------- */
+#content {
+	height:100%; /* have Grant set the width and height of #content based on the detected browser window size */
+	width:100%;
+	overflow:hidden;
+}
+/* Content Toolbar -------------------*/
+#toolbar {
+	height:2.5em;
+	background:#f6ecd4;
+	border-top:1px solid #fff;
+	padding-left:10px;
+	border-bottom:1px solid #f2e4c2;
+}
+#toolbar ul {
+	padding-top:7px;
+}
+#toolbar .button {
+	font-size:.9em;
+}
+#toolbar .small {
+	font-size:.8em;
+}
+#toolbar .small a {
+	padding-left:7px;
+}
+#toolbar .small a:hover {
+	color:#14253d;
+	text-decoration:underline;
+}
+#toolbar ul li {
+	display:inline;
+	margin-right:20px;
+}
+#toolbar li .small {
+	position:relative;
+	top:-4px;
+	margin-right:5px;
+}
+
+/* images -------------------*/
+#images {
+	padding:10px;
+	overflow:auto;
+}
+/**by grantd :: used for invisible source image for Canvas elements **/
+#srcImageForCanvas{
+	display:none;
+}
+
+/* Image scrollbar -------------------*/
+div#scroller {
+	position:absolute;
+	bottom:0;
+	left:275px;
+	width:100%;
+	height:120px;
+	background:#fdfdec;
+	filter:alpha(opacity=90);
+	-moz-opacity:0.9;
+	-khtml-opacity: 0.9;
+	opacity: 0.9;
+}
+#scroller .handle {
+	height:1.5em;
+	background:#ccbb93;
+	padding-left:10px;
+}
+#scroller .handle a {
+	height:20px;
+	display:block;
+	cursor:n-resize;
+	background:url('../images/resize.jpg') no-repeat 40% 35%;
+	padding-top:2px;
+}
+#scroller .handle a:hover {
+	color:#14253d;
+}
+
+/* @media styles ----- */
+@media screen {
+	body>div#header {
+		position:fixed;
+	}
+	body>div#sidebar {
+		position:fixed;
+	}
+	body>div#scroller {
+		position:fixed;
+	}
+}
+
+/* Tag styles for sidebar */
+.tag {
+	background:#f6ecd4;
+}
+.tag a.dropdown {
+	
+}
+.tagedit a {
+	float:right;
+	padding:10px;
+	text-decoration:underline;
+}
+a.tagtitle {
+	display:block;
+	height:20px;
+	background:#dadb9d;
+	border:1px solid #fff;
+	padding:10px;
+}	
+.tag .tagattrb{
+	padding:10px;
+}
+.tagvalue {
+	text-indent:10px;
+}
