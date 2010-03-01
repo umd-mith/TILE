@@ -9,7 +9,7 @@
 	
 	<link type="text/css" href="lib/jquery/js/css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="Stylesheet" />
 	<link type="text/css" href="lib/jquery/development-bundle/themes/base/ui.all.css" rel="stylesheet" /> 
-	<link type="text/css" href="skins/ImageConversion.css" rel="stylesheet" />
+	<link type="text/css" href="skins/tile/css/style.css" rel="stylesheet" />
   
 	<script src="lib/jquery/js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="lib/jquery/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
@@ -35,14 +35,59 @@
 </head>
 
 <body>
-<div id="container">
+	<div id="header">
+		<div id="branding">
+			<h1><a href="index.html">TILE: Text-Image Linking Environment</a></h1>
+		</div>
+	
+
 	</div>
-	<img id="tehimahg" src="Images/ham.jpg" style="display:none"></img>
+
+	<div id="sidebar">
+		<div id="tabs">
+			<ul>
+				<li><a href="#tabs-1">Object Tags</a></li>
+				<li><a href="#tabs-2">Transcripts</a></li>
+			</ul>
+
+			<div id="tabs-1">
+				<div class="tag">
+					<h2><a href="#" class="dropdown"><img src></a><a href="#" class="tagtitle">Flower ABC</a></h2>
+					<p class="tagedit"><a href="#">Edit</a></p>
+					<ul class="tagattrb">
+						<li class="tagtype">Object:</li>
+						<li class="tagvalue">Flower</li>
+						<li class="tagtype">Coordinates:</li>
+						<li class="tagvalue">ulx: 326, uly: 125, lrx: 10, lry: 10</li>
+					</ul>
+				</div>
+				
+			</div>
+
+
+			<div id="tabs-2">Tab 2 Content.</div>
+
+		</div>
+
+	</div>
+	<div id="content">
+		
+			
+			
+			
+		
+	
+	</div><!-- end content -->
+	
+	<div id="scroller">
+		<div class="handle"><a href="#"><span class="button">Images</span></a></div>
+		<div class="list"></div>
+	</div>
 <script>
 	$(function(){
+		$("#tabs").tabs();
 		var littleenginethatcould=new EngineInit({
-			attach:$("#container"),
-			URL:"./Images/ham-1603-22275x-bli-c01-011.jpg"
+			attach:$("#content")
 		});
 	});
 </script>

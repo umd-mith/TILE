@@ -1,13 +1,22 @@
 <?php
 /**
 *TOPTOOLBAR HTML 
+*
+* HTML: Elisabeth Kvernen
 **/
-
-
 
 ?>
 
-<h3>ToolBar</h3>
+<div id="topToolbar">
+	<ul class="options">
+		<li><a href="#"><span id="newimage" class="button">New Image</span> <img src="skins/tile/images/iconZoomIn.gif" alt="New image" /></a></li>
+		<li><a href="#"><span id="import" class="button">Import</span> <img src="skins/tile/images/iconImport.gif" alt="Import" /></a></li>
+		<li><a href="#"><span id="save" class="button">Save</span> <img src="skins/tile/images/iconSave.gif" alt="Save" /></a></li>
+		<li><a href="#"><span id="help" class="button">Help</span> <img src="skins/tile/images/iconHelp.gif" alt="Help" /></a></li>
+	</ul>
+</div>
+
+<!--><h3>ToolBar</h3>
 <span id="tab1" class="toolbar_mode">Do Some Image Stuffs</span>
 <br/>
 <span id="tab2" class="toolbar_mode">Do Some Text Stuffs</span>
@@ -44,3 +53,9 @@
 	<br/>
 	<span id="colorbar_ZOOMout" class="zoomcontrol">ZOOM OUT</span>
 </div>
+<div class="shapes">
+	<button id="rect" class="testcontrol">Rectangle</button>
+	<button id="elli" class="testcontrol">Ellipse</button>
+	<button id="poly" class="testcontrol">Polygon</button>
+</div>
+<-->
