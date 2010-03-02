@@ -5,5 +5,5 @@
 **/
 ?>
 <div id="images">
-	<img id="srcImageForCanvas"></img>
+<img id="srcImageForCanvas"></img>
 </div>

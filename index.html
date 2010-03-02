@@ -31,7 +31,9 @@
 	<script type="text/javascript" src="lib/SelectorTools/Resize.js"></script>
 	<script type="text/javascript" src="lib/ToolBar/TopToolbar.js"></script>
 	<script type="text/javascript" src="lib/ToolBar/SideToolbar.js"></script>
-	
+	<script type="text/javascript" src="lib/ToolBar/TabBar.js"></script>
+	<script type="text/javascript" src="lib/Tag/Tag.js"></script>
+	<script type="text/javascript" src="lib/ScrollingImages/ScrollingImages.js"></script>
 </head>
 
 <body>
@@ -44,30 +46,7 @@
 	</div>
 
 	<div id="sidebar">
-		<div id="tabs">
-			<ul>
-				<li><a href="#tabs-1">Object Tags</a></li>
-				<li><a href="#tabs-2">Transcripts</a></li>
-			</ul>
-
-			<div id="tabs-1">
-				<div class="tag">
-					<h2><a href="#" class="tagtitle open">Flower ABC</a></h2>
-					<p class="tagedit"><a href="#">Edit</a></p>
-					<ul class="tagattrb">
-						<li class="tagtype">Object:</li>
-						<li class="tagvalue">Flower</li>
-						<li class="tagtype">Coordinates:</li>
-						<li class="tagvalue">ulx: 326, uly: 125, lrx: 10, lry: 10</li>
-					</ul>
-				</div>
-				
-			</div>
-
-
-			<div id="tabs-2">Tab 2 Content.</div>
-
-		</div>
+		
 
 	</div>
 	<div id="content">
@@ -79,10 +58,7 @@
 	
 	</div><!-- end content -->
 	
-	<div id="scroller">
-		<div class="handle"><a href="#"><span class="button">Images</span></a></div>
-		<div class="list"></div>
-	</div>
+	
 <script>
 	$(function(){
 		$("#tabs").tabs();
