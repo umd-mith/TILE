@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>TILE: Text-Image Linking Environment</title>
+	
+	<link type="text/css" href="lib/jquery/js/css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="Stylesheet" />
+	<link type="text/css" href="lib/jquery/development-bundle/themes/base/ui.all.css" rel="stylesheet" /> 
+	<link type="text/css" href="skins/tileimage/css/style.css" rel="stylesheet" />
+  
+	<script src="lib/jquery/js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/jquery/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/raphael.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script type="text/javascript" src="lib/jquery/development-bundle/ui/ui.core.js"></script>
+ 	<script type="text/javascript" src="lib/jquery/development-bundle/ui/ui.slider.js"></script>
+	
+	<script type="text/javascript" src="lib/Extensible/Monomyth.js"></script>
+	<script type="text/javascript" src="lib/Engine/EngineInit.js"></script>
+	<script type="text/javascript" src="lib/Image/Image.js"></script>
+	<script type="text/javascript" src="lib/AutoRecognizer/AutoRecognizer.js"></script>
+	<script type="text/javascript" src="lib/Box/Box.js"></script>
+	<script type="text/javascript" src="lib/SelectorTools/Rectangle.js"></script>
+	<script type="text/javascript" src="lib/SelectorTools/Ellipse.js"></script>
+	<script type="text/javascript" src="lib/SelectorTools/Polygon.js"></script>
+	<script type="text/javascript" src="lib/Shape/Shape.js"></script>
+	<script type="text/javascript" src="lib/SelectorTools/Drag.js"></script>
+	<script type="text/javascript" src="lib/SelectorTools/Resize.js"></script>
+	<script type="text/javascript" src="lib/ToolBar/TopToolbar.js"></script>
+	<script type="text/javascript" src="lib/ToolBar/SideToolbar.js"></script>
+	
+</head>
+
+<body>
+	<div id="header">
+		<div id="branding">
+			<h1><a href="index.html">TILE: Text-Image Linking Environment</a></h1>
+		</div>
+	
+
+	</div>
+
+	<div id="sidebar">
+		<div id="tabs">
+			<ul>
+				<li><a href="#tabs-1">Object Tags</a></li>
+				<li><a href="#tabs-2">Transcripts</a></li>
+			</ul>
+
+			<div id="tabs-1">
+				<div class="tag">
+					<h2><a href="#" class="tagtitle open">Flower ABC</a></h2>
+					<p class="tagedit"><a href="#">Edit</a></p>
+					<ul class="tagattrb">
+						<li class="tagtype">Object:</li>
+						<li class="tagvalue">Flower</li>
+						<li class="tagtype">Coordinates:</li>
+						<li class="tagvalue">ulx: 326, uly: 125, lrx: 10, lry: 10</li>
+					</ul>
+				</div>
+				
+			</div>
+
+
+			<div id="tabs-2">Tab 2 Content.</div>
+
+		</div>
+
+	</div>
+	<div id="content">
+		
+			
+			
+			
+		
+	
+	</div><!-- end content -->
+	
+	<div id="scroller">
+		<div class="handle"><a href="#"><span class="button">Images</span></a></div>
+		<div class="list"></div>
+	</div>
+<script>
+	$(function(){
+		$("#tabs").tabs();
+		var littleenginethatcould=new EngineInit({
+			attach:$("#content")
+		});
+	});
+</script>
+
+
+</body>
+</html>
