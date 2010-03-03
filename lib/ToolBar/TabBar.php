@@ -11,11 +11,14 @@
 	</ul>
 
 	<div id="tabs-1">
-		
+		<!-- temporary holder for the add tag button -->
+		<div id="addTag">Press to add a new tag</div>
 		
 	</div>
 
 
-	<div id="tabs-2">Tab 2 Content.</div>
+	<div id="tabs-2">
+		
+	</div>
 
 </div>

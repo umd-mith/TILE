@@ -2,13 +2,13 @@
 //For use with Tag.js
 //Supply id through GET request
 
-if($_GET['id']){
+if(isset($_GET['id'])){
 	$ID=preg_replace("/tag/","",$_GET['id']);
 	
 ?>
 
 <div id="tag_<?php echo $ID; ?>" class="tag">
-	<h2><a href="#" class="tagtitle open">Flower ABC</a></h2>
+	<h2><a id="tagtitle_<?php echo $ID; ?>" href="#" class="tagtitle open"></a></h2>
 	<p class="tagedit"><a id="tagedit_<?php echo $ID; ?>" href="#">Edit</a></p>
 	<ul class="tagattrb">
 		<li id="tagobjlabel_<?php echo $ID; ?>" class="tagtype">Object:</li>

@@ -6,9 +6,6 @@
 //  Used for TILE project for MITH.  
 //
 ?>
-
-
-<div id="toolbar">
 	<ul>
 		<li><span class="button">Select:</span>
 			<span class="small">
@@ -31,4 +28,4 @@
 			<a href="#" id="pgNext" class="btnIcon"></a>
 		</li>
 	</ul>	
-</div>
+

@@ -1,6 +1,6 @@
 <?php
 
-if($_GET['id']){
+if(isset($_GET['id'])){
 	$ID=preg_replace("/scroller/","",$_GET['id']);
 
 ?>
