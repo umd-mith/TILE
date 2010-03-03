@@ -12,7 +12,7 @@
 
 	<div id="tabs-1">
 		<!-- temporary holder for the add tag button -->
-		<div id="addTag">Press to add a new tag</div>
+		<a id="addTag"><span class="btnIcon newImg"></span> <span class="button">Add a new tag</span></a>
 		
 	</div>
 

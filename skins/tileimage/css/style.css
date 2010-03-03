@@ -56,7 +56,7 @@ body {
 	line-height:1.5em;
 	color:#14253d;
 	height:100%;
-	padding:7em 0 120px 275px;
+	padding:7em 0 0px 275px;
 	overflow:hidden;
 	position:relative;
 	width:100%;
@@ -221,6 +221,9 @@ div#sidebar {
 #tabs.ui-tabs .ui-tabs-panel {
 	padding:0;
 }
+#tabs .ui-tabs .ui-tabs-nav li {
+	margin-bottom:0;
+}
 /* back tab background */
 #tabs.ui-state-default, #tabs.ui-widget-content .ui-state-default {
 	background:#f2e4c2 url(../images/tabBack.jpg) repeat-x;
@@ -372,6 +375,27 @@ div#scroller {
 }
 
 /* Tag styles for sidebar */
+a#addTag {
+	display:block;
+	cursor:pointer;
+	padding:10px;
+	width:254px;
+	height:1.5em;
+	margin-top:1px;	
+}
+a:hover#addTag {
+	background:#F6ECD4;
+}
+a#addTag .button {
+	padding-left:5px;
+}	
+a#addTag .btnIcon {
+	background:url('../images/iconsSprite.gif') no-repeat -126px 0px;
+}
+a#addTag:hover .btnIcon {
+	background:url('../images/iconsSprite.gif') no-repeat -126px -21px;
+}
+
 .tag {
 	background:#f6ecd4;
 }
@@ -397,4 +421,56 @@ div#scroller {
 }
 .tagvalue {
 	text-indent:10px;
+}
+/* styles for dialog popup box */
+#dialog {
+	width:700px;
+	height:auto;
+	border:1px solid #afbf37;
+}
+#dialog .header {
+	background:#cec5b0 url('../skins/tileimage/images/bkgd_dialogHeader.jpg') repeat-x;
+	border-bottom:1px solid #afbf37;
+	padding:10px;
+}
+#dialog .body {
+	background:#fff;
+	height:100%;
+	padding:10px;
+}
+#dialog .header h2.title {
+	float:left;
+	display:block;
+}
+#dialog .header h2 a.button {
+	float:right;
+	display:block;
+	top:0;
+	padding:1px 7px;
+	background:#e7dab9 url('../images/skins/tileimage/');
+	border:1px solid #ccbb93;
+}
+#dialog .header h2 a.button:hover {
+	background:#ccbb93;
+}
+#dialog .body h3 {
+	font-weight:bold;
+	margin-bottom:10px;
+}
+#dialog .body .option {
+	float:left;
+	display:block;
+	margin:10px 30px 20px 0;
+}
+#dialog .body input.button {
+	padding:1px 7px;
+	background:#e7dab9;
+	border:1px solid #ccbb93;
+	margin-top:20px;
+	font-size:.8em;
+	float:right;
+}
+#dialog .body input.button:hover {
+	color:#f6ecd4;
+	background:#ccbb93;
 }
