@@ -411,6 +411,12 @@ a#addTag:hover .btnIcon {
 .tag a.tagtitle.closed {
 	background:#dadb9d url('../images/dropdownClosed.gif') no-repeat 10px 50%;
 }
+.tag a.tagcoords.closed {
+	display:none;
+}
+.tag a.tagcoords.open {
+	display:block;
+}
 .tagedit a {
 	float:right;
 	padding:10px;
