@@ -440,9 +440,14 @@ a#addTag:hover .btnIcon {
 	display:none;
 }
 #dialogNewImg.dialog {
+	position:absolute;
+	left:300px;
+	top:45px;
 	width:400px;
 	height:auto;
 	border:1px solid #afbf37;
+	/**initially invisible**/
+	display:none;
 }
 #dialogNewImg.dialog .option {
 	margin:0 auto;

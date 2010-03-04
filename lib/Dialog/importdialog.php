@@ -11,7 +11,7 @@ if(isset($_GET['id'])){
 
 ?>
 
-<div id="dialog" class="impD_<?php echo $ID; ?>">
+<div id="dialogImport" class='dialog'>
 	<div class="header">
 		<h2 class="title">Import</h2>
 		<h2><a href="#" id="impDClose_<?php echo $ID; ?>" class="button">Close</a></h2>
