@@ -11,30 +11,29 @@
 </head>
 
 <body>
-<div id="dialogImport" class="dialog">
+<div id="dialogNewImg" class="dialog">
 	<div class="header">
-		<h2 class="title">Import</h2>
+		<h2 class="title">New Image</h2>
 		<h2><a href="#" class="button">Close</a></h2>
 		<div class="clear"></div>
 	</div>
 	<div class="body">
 		<div class="option">
-			<h3>Tag Schema</h3>	
 			<form action="" method="post"
 			enctype="multipart/form-data">
-			<label for="file">Filename:</label>
-			<input type="file" name="file" id="file" />
-			<br />
-			<input type="submit" class="button" name="submit" value="Submit" />
-			</form>
-		</div>
-		<div class="option">
-			<h3>Image List from File</h3>
-			<form action="" method="post"
-			enctype="multipart/form-data">
-			<label for="file">Filename:</label>
-			<input type="file" name="file" id="file" />
-			<br />
+		
+			<span class="data"><label for="file">Name:</label>
+			<input type="text" class="textfield" name="name" /></span>
+
+			<span class="data"><label for="file">Title:</label>
+			<input type="text" class="textfield" name="title" /></span>
+			
+			<span class="data"><label for="file">URI:</label>
+			<input type="text" class="textfield" name="uri" /></span>
+			
+			<span class="data"><label for="file">Description:</label>
+			<input type="text" class="textfield" name="description" /></span>
+			
 			<input type="submit" class="button" name="submit" value="Submit" />
 			</form>		
 		</div>

@@ -429,7 +429,7 @@ a#addTag:hover .btnIcon {
 	text-indent:10px;
 }
 /* styles for dialog popup box */
-#dialog {
+#dialogImport.dialog {
 	position:absolute;
 	left:300px;
 	top:45px;
@@ -439,21 +439,30 @@ a#addTag:hover .btnIcon {
 	/**initially invisible**/
 	display:none;
 }
-#dialog .header {
-	background:#cec5b0 url('../skins/tileimage/images/bkgd_dialogHeader.jpg') repeat-x;
+#dialogNewImg.dialog {
+	width:400px;
+	height:auto;
+	border:1px solid #afbf37;
+}
+#dialogNewImg.dialog .option {
+	margin:0 auto;
+}
+.dialog .header {
+	background:#CCBB93;
 	border-bottom:1px solid #afbf37;
 	padding:10px;
 }
-#dialog .body {
+.dialog .body {
 	background:#fff;
 	height:100%;
 	padding:10px;
+	position:relative;
 }
-#dialog .header h2.title {
+.dialog .header h2.title {
 	float:left;
 	display:block;
 }
-#dialog .header h2 a.button {
+.dialog .header h2 a.button {
 	float:right;
 	display:block;
 	top:0;
@@ -461,27 +470,38 @@ a#addTag:hover .btnIcon {
 	background:#e7dab9 url('../images/skins/tileimage/');
 	border:1px solid #ccbb93;
 }
-#dialog .header h2 a.button:hover {
-	background:#ccbb93;
+.dialog .header h2 a.button:hover {
+	background:#F6ECD4;
+	border:1px solid #fff;
+	color:#14253d;
 }
-#dialog .body h3 {
+.dialog .body h3 {
 	font-weight:bold;
 	margin-bottom:10px;
 }
-#dialog .body .option {
+.dialog .body .option {
 	float:left;
 	display:block;
 	margin:10px 30px 20px 0;
 }
-#dialog .body input.button {
+.dialog .body input.button {
 	padding:1px 7px;
 	background:#e7dab9;
 	border:1px solid #ccbb93;
-	margin-top:20px;
+	margin:20px 0 0 0;
 	font-size:.8em;
 	float:right;
+	cursor:pointer;
 }
-#dialog .body input.button:hover {
-	color:#f6ecd4;
-	background:#ccbb93;
+.dialog .body input.button:hover {
+	color:#14253d;
+	background:#F6ECD4;
+}
+.dialog .body input.textfield {
+	margin-left:10px;
+	float:right;
+}
+.dialog .body .data {
+	display:block;
+	margin-bottom:20px;
 }
