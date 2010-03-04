@@ -430,9 +430,14 @@ a#addTag:hover .btnIcon {
 }
 /* styles for dialog popup box */
 #dialog {
+	position:absolute;
+	left:300px;
+	top:45px;
 	width:700px;
 	height:auto;
 	border:1px solid #afbf37;
+	/**initially invisible**/
+	display:none;
 }
 #dialog .header {
 	background:#cec5b0 url('../skins/tileimage/images/bkgd_dialogHeader.jpg') repeat-x;
