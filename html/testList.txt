@@ -1,1 +1,1 @@
-Images/ham.jpg	Images/ham-1603-22275x-bli-c01-011.jpg
+Hamlet 1611,Shakespeares Quartos,http://localhost:8888/TILE/Images/ham.jpg,Version One of the quartos	Hamlet 1603,Shakespeares Quartos,http://localhost:8888/TILE/Images/ham-1603-22275x-bli-c01-011.jpg, Version Two of the quartos
