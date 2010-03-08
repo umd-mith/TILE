@@ -395,7 +395,13 @@ a#addTag .btnIcon {
 a#addTag:hover .btnIcon {
 	background:url('../images/iconsSprite.gif') no-repeat -126px -21px;
 }
-
+a#tagChoice{
+	position:relative;
+	display:none;
+}
+.tagObjInput{
+	display:none;
+}
 .tag {
 	background:#f6ecd4;
 }
@@ -510,3 +516,32 @@ a#addTag:hover .btnIcon {
 	display:block;
 	margin-bottom:20px;
 }
+/**Boxes: developed by grantd **/
+/******************************/
+/**SelectorBox**/
+.boxer_select_ocr{
+	position:absolute;
+	left:25%;
+
+	cursor:pointer;
+}
+/**BlobBox**/
+.blobbox{
+	position:absolute;
+	background-color:transparent;
+	border: 2px solid #ff510b;
+
+}
+.blobbox:hover{
+	border: 2px dotted yellow;
+}
+.blobbox.edit{
+	border: 2px solid yellow;
+}
+.boxer_blob_drag,.boxer_blob_resize{
+	margin-left:2px;
+}
+.ui-state-disabled{
+	opacity:1;
+}
+
