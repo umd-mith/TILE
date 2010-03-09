@@ -285,17 +285,32 @@ div#sidebar {
 #toolbar li a:hover#rect.btnIcon{
 	background:url('../images/iconsSprite.gif') no-repeat -63px -21px;
 }
+#toolbar li a#rect.btnIcon.inactive, #toolbar li a:hover#rect.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -210px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
 #toolbar li a#poly.btnIcon{
 	background:url('../images/iconsSprite.gif') no-repeat -84px 0px;
 }
 #toolbar li a:hover#poly.btnIcon{
 	background:url('../images/iconsSprite.gif') no-repeat -84px -21px;
 }
+#toolbar li a#poly.btnIcon.inactive, #toolbar li a:hover#poly.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -231px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
 #toolbar li a#elli.btnIcon{
 	background:url('../images/iconsSprite.gif') no-repeat -105px 0px;
 }
 #toolbar li a:hover#elli.btnIcon{
 	background:url('../images/iconsSprite.gif') no-repeat -105px -21px;
+}
+#toolbar li a#elli.btnIcon.inactive, #toolbar li a:hover#elli.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -252px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
 }
 #toolbar li a#zoomIn.btnIcon{
 	background:url('../images/iconsSprite.gif') no-repeat -126px 0px;

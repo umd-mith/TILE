@@ -15,9 +15,9 @@
 			</span>
 		</li>
 		<li><span class="button">Define Area:</span> 
-			<a href="#" id="rect" class="btnIcon"></a>
-			<a href="#" id="poly" class="btnIcon"></a>
-			<a href="#" id="elli" class="btnIcon"></a>
+			<a href="#" id="rect" class="btnIcon inactive"></a>
+			<a href="#" id="poly" class="btnIcon inactive"></a>
+			<a href="#" id="elli" class="btnIcon inactive"></a>
 		</li>
 		<li><span class="button">Zoom:</span> 
 			<a href="#" id="zoomIn" class="btnIcon"></a>
