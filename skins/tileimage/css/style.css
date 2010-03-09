@@ -414,6 +414,15 @@ a#tagChoice{
 	position:relative;
 	display:none;
 }
+select#tagChoiceList {
+	margin:5px 10px;
+	font-size:.9em;
+	background:#DADB9D;
+	font-family:Corbel;
+	border:1px solid #ffffff;
+	text-transform:uppercase;
+	color:#14253d;
+}
 .tagObjInput{
 	display:none;
 }
