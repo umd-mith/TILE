@@ -452,6 +452,9 @@ select#tagChoiceList {
 	border:none;
 	background:url('../images/iconsSprite.gif') no-repeat -274px 0px;
 }
+.tag a.tagcoords {
+	text-decoration:underline;
+}
 .tag a.tagcoords.closed {
 	display:none;
 }
@@ -464,7 +467,11 @@ select#tagChoiceList {
 	text-decoration:underline;
 }
 .tag .tagattrb{
-	padding:10px;
+	padding:10px 50px 10px 10px;
+}
+.tag input.tagObjInput {
+	width:150px;
+	
 }
 .tagvalue {
 	text-indent:10px;
