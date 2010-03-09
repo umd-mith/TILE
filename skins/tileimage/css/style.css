@@ -420,17 +420,28 @@ a#tagChoice{
 .tag {
 	background:#f6ecd4;
 }
-.tag a.tagtitle {
-	display:block;
-	height:20px;
+.tag h2 {
+	height:auto;
 	border:1px solid #fff;
+	background:#dadb9d;
+}
+.tag a.tagtitle {
+	display:inline-block;
+	height:100%;
 	padding:10px 10px 10px 25px;
 }
 .tag a.tagtitle.open {
-	background:#dadb9d url('../images/dropdownOpen.gif') no-repeat 10px 50%;
+	background:url('../images/dropdownOpen.gif') no-repeat 10px 50%;
 }
 .tag a.tagtitle.closed {
-	background:#dadb9d url('../images/dropdownClosed.gif') no-repeat 10px 50%;
+	background:url('../images/dropdownClosed.gif') no-repeat 10px 50%;
+}
+.tag a.tagdel.btnIcon {
+	float:right;
+	margin:10px 10px 0 0;
+	display:inline-block;
+	border:none;
+	background:url('../images/iconsSprite.gif') no-repeat -274px 0px;
 }
 .tag a.tagcoords.closed {
 	display:none;
@@ -442,7 +453,7 @@ a#tagChoice{
 	float:right;
 	padding:10px;
 	text-decoration:underline;
-}	
+}
 .tag .tagattrb{
 	padding:10px;
 }
