@@ -363,17 +363,30 @@ div#scroller {
 #scroller .handle {
 	height:1.5em;
 	background:#ccbb93;
-	padding-left:10px;
+	padding:5px 0 0 10px;
 }
 #scroller .handle a {
-	height:20px;
 	display:block;
-	cursor:n-resize;
+	cursor:pointer;
 	background:url('../images/resize.jpg') no-repeat 40% 35%;
-	padding-top:2px;
+	outline:none;
+	background:transparent url(../images/dropdownOpenTan.gif) no-repeat scroll 0px 2px;
+}
+#scroller span.button {
+	padding-left:20px;
 }
 #scroller .handle a:hover {
 	color:#14253d;
+}
+#scroller ul {
+	margin-left:10px;
+}
+#scroller ul.list li {
+	display:inline;
+	margin-right:10px;
+}
+#scroller ul.list li img {
+	height:200px;
 }
 
 /* @media styles ----- */
