@@ -341,6 +341,7 @@ div#sidebar {
 #images {
 	overflow:auto;
 }
+
 /**by grantd :: used for invisible source image for Canvas elements **/
 #srcImageForCanvas{
 	display:none;
