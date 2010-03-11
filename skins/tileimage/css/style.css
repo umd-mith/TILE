@@ -387,6 +387,7 @@ div#scroller {
 }
 #scroller ul.list li img {
 	height:200px;
+	display:inline;
 }
 
 /* @media styles ----- */
