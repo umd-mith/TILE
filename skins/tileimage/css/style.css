@@ -339,7 +339,6 @@ div#sidebar {
 
 /* images -------------------*/
 #images {
-	padding:10px;
 	overflow:auto;
 }
 /**by grantd :: used for invisible source image for Canvas elements **/
@@ -370,7 +369,12 @@ div#scroller {
 	cursor:pointer;
 	background:url('../images/resize.jpg') no-repeat 40% 35%;
 	outline:none;
+}
+#scroller .handle a.open {
 	background:transparent url(../images/dropdownOpenTan.gif) no-repeat scroll 0px 2px;
+}
+#scroller .handle a.closed {
+	background:transparent url(../images/dropdownClosedTan.gif) no-repeat scroll 0px 1px;
 }
 #scroller span.button {
 	padding-left:20px;
@@ -378,17 +382,35 @@ div#scroller {
 #scroller .handle a:hover {
 	color:#14253d;
 }
-#scroller ul {
-	margin-left:10px;
+/*#scroller #scrollerContainer {
+	margin:5px 0 0 10px;
+	height:100px;
+	overflow:hidden;
 }
-#scroller ul.list li {
-	display:inline;
-	margin-right:10px;
+#scroller a#pgPrev.btnIcon {
+	background:transparent url(../images/iconsSprite.gif) -168px 0;
+}
+#scroller a#pgNext.btnIcon {
+	background:transparent url(../images/iconsSprite.gif) -189px 0;
+	float:right;
+}
+#scroller ul {
+	height:100px;
+}
+#scroller ul li {
+	float:left;
+	margin-right:20px;
+	font-size:.7em;
+	line-height:1em;
+}
+#scroller ul.list span {
+	display:block;
 }
 #scroller ul.list li img {
-	height:200px;
-	display:inline;
-}
+	height:50px;
+	width:auto;
+	display:block;
+}*/
 
 /* @media styles ----- */
 @media screen {

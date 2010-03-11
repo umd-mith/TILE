@@ -7,7 +7,7 @@
 
 	<title>TILE: Text-Image Linking Environment</title>
 	
-	<link type="text/css" href="lib/jquery/js/css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="Stylesheet" />
+	<!--><link type="text/css" href="lib/jquery/js/css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="Stylesheet" />-->
 	<link type="text/css" href="lib/jquery/development-bundle/themes/base/ui.all.css" rel="stylesheet" /> 
 	<link type="text/css" href="skins/tileimage/css/style.css" rel="stylesheet" />
   
@@ -17,7 +17,6 @@
 	
 	<script type="text/javascript" src="lib/jquery/development-bundle/ui/ui.core.js"></script>
  	<script type="text/javascript" src="lib/jquery/development-bundle/ui/ui.slider.js"></script>
-	
 	<script type="text/javascript" src="lib/Extensible/Monomyth.js"></script>
 	<script type="text/javascript" src="lib/Engine/EngineInit.js"></script>
 	<script type="text/javascript" src="lib/Image/Image.js"></script>
@@ -36,6 +35,20 @@
 	<script type="text/javascript" src="lib/Dialog/Dialog.js"></script>
 	<script type="text/javascript" src="lib/ScrollingImages/ScrollingImages.js"></script>
 	<script type="text/javascript" src="lib/ToolBar/AutoRecognizerTools.js"></script>
+	
+	<!-- jquery carousel -->
+	<script type="text/javascript" src="lib/jquery/jquery.jcarousel.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="lib/jquery/css/jquery.jcarousel.css" />
+	<link rel="stylesheet" type="text/css" href="lib/jquery/css/tango/skin.css" />
+	
+	<script type="text/javascript">
+	jQuery(document).ready(function() {
+	    jQuery('#scrollerlist').jcarousel({
+	        // Configuration goes here
+	    });
+	});
+	</script>
+	
 	
 	<style>
 		img{
@@ -136,7 +149,9 @@
 	</div>
 	<div id="content">
 		
+		
 	</div><!-- end content -->
+	
 	
 	
 <script>
