@@ -463,11 +463,13 @@ a#addTag:hover .btnIcon {
 }
 a.tagChoice{
 	position:relative;
-	display:inline;
+	display:inline-block;
+	height:100%;
+	padding:10px 10px 10px 0;
 }
 select.tagChoiceList {
-	margin:5px 10px;
-	font-size:.9em;
+	margin-left:-8px;
+	font-size:1em;
 	background:#DADB9D;
 	font-family:Corbel;
 	border:1px solid #ffffff;
@@ -489,9 +491,10 @@ select.tagChoiceList {
 	display:inline-block;
 	height:100%;
 	padding:10px 10px 10px 25px;
+	outline:none;
 }
 .tag a.tagtitle.open {
-	background:url('../images/dropdownOpen.gif') no-repeat 10px 50%;
+	background:url('../images/dropdownOpen.gif') no-repeat 10px 80%;
 }
 .tag a.tagtitle.closed {
 	background:url('../images/dropdownClosed.gif') no-repeat 10px 50%;
@@ -501,7 +504,7 @@ select.tagChoiceList {
 	margin:10px 10px 0 0;
 	display:inline-block;
 	border:none;
-	background:url('../images/iconsSprite.gif') no-repeat -274px 0px;
+	background:url('../images/iconsSprite.gif') no-repeat -273px 0px;
 }
 .tag a.tagcoords {
 	text-decoration:underline;
