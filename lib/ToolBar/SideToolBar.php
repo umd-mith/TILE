@@ -14,10 +14,11 @@
 				<a href="#">Current</a>
 			</span>
 		</li>
-		<li><span class="button">Define Area:</span> 
+		<li><span class="button inactive">Define Area:</span> 
 			<a href="#" id="rect" class="btnIcon inactive"></a>
 			<a href="#" id="poly" class="btnIcon inactive"></a>
 			<a href="#" id="elli" class="btnIcon inactive"></a>
+			<a href="#" id="areaDel" class="btnIcon inactive"></a>
 		</li>
 		<li><span class="button">Zoom:</span> 
 			<a href="#" id="zoomIn" class="btnIcon"></a>

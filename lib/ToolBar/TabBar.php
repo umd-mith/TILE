@@ -6,8 +6,8 @@
 
 <div id="tabs">
 	<ul>
-		<li><a href="#tabs-1">Object Tags</a></li>
-		<li><a href="#tabs-2">Transcripts</a></li>
+		<li><a href="#tabs-1">Tagging</a></li>
+		<li><a href="#tabs-2">Recognition</a></li>
 	</ul>
 
 	<div id="tabs-1">

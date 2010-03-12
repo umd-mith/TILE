@@ -81,6 +81,9 @@ h2 {
 	font-size:.9em;
 	top:-4px;
 }
+.button.inactive {
+	color:#d9cba8;
+}
 .btnIcon {
 	width:21px;
 	height:21px;
@@ -312,6 +315,17 @@ div#sidebar {
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
+#toolbar li a#areaDel.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -294px 0px;
+}
+#toolbar li a:hover#areaDel.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -294px -21px;
+}
+#toolbar li a#areaDel.btnIcon.inactive, #toolbar li a:hover#areaDel.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -210px -21px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
 #toolbar li a#zoomIn.btnIcon{
 	background:url('../images/iconsSprite.gif') no-repeat -126px 0px;
 }
@@ -447,11 +461,11 @@ a#addTag .btnIcon {
 a#addTag:hover .btnIcon {
 	background:url('../images/iconsSprite.gif') no-repeat -126px -21px;
 }
-a#tagChoice{
+a.tagChoice{
 	position:relative;
 	display:none;
 }
-select#tagChoiceList {
+select.tagChoiceList {
 	margin:5px 10px;
 	font-size:.9em;
 	background:#DADB9D;
@@ -538,7 +552,7 @@ select#tagChoiceList {
 	margin:0 auto;
 }
 .dialog .header {
-	background:#CCBB93;
+	background:#f1e2c4 url('../images/bkgd_dialogHeader.jpg');
 	border-bottom:1px solid #afbf37;
 	padding:10px;
 }
@@ -557,7 +571,7 @@ select#tagChoiceList {
 	display:block;
 	top:0;
 	padding:1px 7px;
-	background:#e7dab9 url('../images/skins/tileimage/');
+	background:#e7dab9;
 	border:1px solid #ccbb93;
 }
 .dialog .header h2 a.button:hover {
