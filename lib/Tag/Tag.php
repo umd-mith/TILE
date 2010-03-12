@@ -8,7 +8,13 @@ if(isset($_GET['id'])){
 ?>
 
 <div id="tag_<?php echo $ID; ?>" class="tag">
-	<h2><a id="tagtitle_<?php echo $ID; ?>" href="#" class="tagtitle open"><input id="tagtitleselect_<?php echo $ID; ?>" /></a><a id="tagdel_<?php echo $ID; ?>" class="tagdel btnIcon" href="#"></a></h2>
+	<h2><a id="tagtitle_<?php echo $ID; ?>" href="#" class="tagtitle open"></a><a id="tagChoice_<?php echo $ID; ?>" class="tagChoice"><select id="tagChoiceList_<?php echo $ID; ?>" class="tagChoiceList">
+		<option id="opt1_<?php echo $ID ?>">Cat</option>
+		<option id="op2_<?php echo $ID ?>">Dog</option>
+		<option id="op3_<?php echo $ID ?>">Cheetah</option>
+		<option id="op4_<?php echo $ID ?>">Lion</option>
+		<option id="op5_<?php echo $ID ?>">Bear</option>
+	</select></a><a id="tagdel_<?php echo $ID; ?>" class="tagdel btnIcon" href="#"></a></h2>
 	<p class="tagedit"><a id="tagedit_<?php echo $ID; ?>" href="#">Edit</a></p>
 	<ul id="tagAtr_<?php echo $ID; ?>" class="tagattrb">
 		<!-- ><li id="tagobjlabel_<?php echo $ID; ?>" class="tagtype">Object: <span id="tagobjInputLabel1_<?php echo $ID; ?>"></span><input id="tagObjInput_<?php echo $ID; ?>" class="tagObjInput" type="text"></input></li> <-->
