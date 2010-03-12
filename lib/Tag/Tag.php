@@ -8,7 +8,7 @@ if(isset($_GET['id'])){
 ?>
 
 <div id="tag_<?php echo $ID; ?>" class="tag">
-	<h2><a id="tagtitle_<?php echo $ID; ?>" href="#" class="tagtitle open"></a><a id="tagChoice_<?php echo $ID; ?>" class="tagChoice"><select id="tagChoiceList_<?php echo $ID; ?>" class="tagChoiceList">
+	<h2><a id="tagtitle_<?php echo $ID; ?>" href="#" class="tagtitle open"><span></span></a><a id="tagChoice_<?php echo $ID; ?>" class="tagChoice"><select id="tagChoiceList_<?php echo $ID; ?>" class="tagChoiceList">
 		<option id="opt1_<?php echo $ID ?>">Cat</option>
 		<option id="op2_<?php echo $ID ?>">Dog</option>
 		<option id="op3_<?php echo $ID ?>">Cheetah</option>

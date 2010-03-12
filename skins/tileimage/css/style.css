@@ -463,7 +463,7 @@ a#addTag:hover .btnIcon {
 }
 a.tagChoice{
 	position:relative;
-	display:none;
+	display:inline;
 }
 select.tagChoiceList {
 	margin:5px 10px;
