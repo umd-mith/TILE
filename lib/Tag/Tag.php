@@ -18,9 +18,9 @@ if(isset($_GET['id'])){
 	<p class="tagedit"><a id="tagedit_<?php echo $ID; ?>" href="#">Lock</a></p>
 	<ul id="tagAtr_<?php echo $ID; ?>" class="tagattrb">
 		<!-- ><li id="tagobjlabel_<?php echo $ID; ?>" class="tagtype">Object: <span id="tagobjInputLabel1_<?php echo $ID; ?>"></span><input id="tagObjInput_<?php echo $ID; ?>" class="tagObjInput" type="text"></input></li> <-->
-		<!-- ><li id="tagobjchoice_<?php echo $ID; ?>" class="tagvalue"><input id="tagObjInput_<?php echo $ID; ?>" class="tagObjInput" type="text"></input></li> -->
-		<li id="tagcoordslabel_<?php echo $ID; ?>" class="tagtype">Coordinates:</li>
-		<li id="tagcoordsvalue_<?php echo $ID; ?>" class="tagvalue"><span id="tagcoordstextoutput_<?php echo $ID; ?>"></span><!--><a href="#" id="tagCoords_<?php echo $ID; ?>" class="tagcoords closed">Set the object area</a><--></li>
+		<!-- ><li id="tagobjchoice_" class="tagvalue"><input id="tagObjInput_" class="tagObjInput" type="text"></input></li> 
+		<li id="tagcoordslabel_" class="tagtype">Coordinates:</li> 
+		<li id="tagcoordsvalue_" class="tagvalue"><span id="tagcoordstextoutput_">None</span><a href="#" id="tagCoords_" class="tagcoords closed">Set the object area</a><--></li>
 	</ul>
 </div>
 <?php } ?>
