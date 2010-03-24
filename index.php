@@ -11,8 +11,10 @@
 	<link type="text/css" href="lib/jquery/development-bundle/themes/base/ui.all.css" rel="stylesheet" /> 
 	<link type="text/css" href="skins/tileimage/css/style.css" rel="stylesheet" />
   
-	<script src="lib/jquery/js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="lib/jquery/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/jquery/js/jquery-1.3.2.min.js" type="text/javascript"></script>
+	<script src="lib/jquery/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+	<script src="lib/jquery/js/jquery.pngFix.pack.js" type="text/javascript"></script>
+	<script src="lib/jquery/js/mopslider/mopSlider-2.5.js" type="text/javascript"></script>
 	<script src="lib/raphael.js" type="text/javascript" charset="utf-8"></script>
 	
 	<script type="text/javascript" src="lib/jquery/development-bundle/ui/ui.core.js"></script>
@@ -38,6 +40,8 @@
 	<script type="text/javascript" src="lib/ScrollingImages/ScrollingImages.js"></script>
 	<script type="text/javascript" src="lib/ToolBar/AutoRecognizerTools.js"></script>
 	<script type="text/javascript" src="lib/SaveProgress/Save.js"></script>
+	
+	
 </head>
 
 <body>
@@ -45,13 +49,13 @@
 
 	// Receives POST data - if submitted
 
-	 // if($_POST['jsonData']&&(preg_match("/.exe|.php|.js/",$_POST['jsonData'])==0)){
-	 // 	 	$out=preg_replace("/{|}/","",$_POST['jsonData']);
-	 // 		$urls=preg_split("/,/",$out);
-	 // 		$url1=preg_split("/:/",$urls[0])[1];
-	 // 			echo "<div id=\"jsonData\">".$url1."</div>";
-	 // 		
-	 // 		}
+	 if($_POST['jsonData']&&(preg_match("/.exe|.php|.js/",$_POST['jsonData'])==0)){
+	 	$out=stripslashes($_POST['jsonData']);
+ 		
+ 		echo "<SCRIPT TYPE=\"text/javascript\">var _JSON=".$out.";</SCRIPT>";
+ 	} else {
+	echo "<SCRIPT TYPE=\"text/javascript\">var _JSON=null;</SCRIPT>";
+}
 	
 
 	?>
@@ -74,9 +78,19 @@
 	
 <script>
 	$(function(){
-		var littleenginethatcould=new EngineInit({
-			attach:$("#content")
-		});
+		if(_JSON){
+			
+			var littleenginethatcould=new EngineInit({
+				attach:$("#content"),
+				json:_JSON
+			});
+			//erase json data
+			_JSON=null;
+		} else {
+			var littleenginethatcould=new EngineInit({
+				attach:$("#content")
+			});
+		}
 	});
 </script>
 

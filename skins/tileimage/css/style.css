@@ -640,4 +640,11 @@ select.tagChoiceList {
 .ui-state-disabled{
 	opacity:1;
 }
+/**Save Progress**/
+.submitFormHidden{
+	display:none;
+}
+#jsonData{
+	display:none;
+}
 
