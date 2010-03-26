@@ -9,7 +9,7 @@
 	
 	<!--><link type="text/css" href="lib/jquery/js/css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="Stylesheet" />-->
 	<link type="text/css" href="lib/jquery/development-bundle/themes/base/ui.all.css" rel="stylesheet" /> 
-	<link type="text/css" href="skins/tileimage/css/style.css" rel="stylesheet" />
+	<link type="text/css" href="skins/tileimage/css/style.css" rel="stylesheet" />	
   
 	<script src="lib/jquery/js/jquery-1.3.2.min.js" type="text/javascript"></script>
 	<script src="lib/jquery/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
@@ -40,8 +40,7 @@
 	<script type="text/javascript" src="lib/ScrollingImages/ScrollingImages.js"></script>
 	<script type="text/javascript" src="lib/ToolBar/AutoRecognizerTools.js"></script>
 	<script type="text/javascript" src="lib/SaveProgress/Save.js"></script>
-	
-	
+ 
 </head>
 
 <body>
@@ -67,13 +66,11 @@
 
 	<div id="sidebar">
 		
-
 	</div>
+		
 	<div id="content">
 		
-		
 	</div><!-- end content -->
-	
 	
 	
 <script>

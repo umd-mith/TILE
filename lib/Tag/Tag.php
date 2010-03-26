@@ -15,7 +15,7 @@ if(isset($_GET['id'])){
 		<option id="op4_<?php echo $ID ?>">Lion</option>
 		<option id="op5_<?php echo $ID ?>">Bear</option>
 	</select></a><a id="tagdel_<?php echo $ID; ?>" class="tagdel btnIcon" href="#"></a></h2>
-	<p class="tagedit"><a id="tagedit_<?php echo $ID; ?>" href="#">Lock</a></p>
+	<a id="tagedit_<?php echo $ID; ?>" class="tagedit btnIcon unlock" href="#"></a>
 	<ul id="tagAtr_<?php echo $ID; ?>" class="tagattrb">
 		<!-- ><li id="tagobjlabel_<?php echo $ID; ?>" class="tagtype">Object: <span id="tagobjInputLabel1_<?php echo $ID; ?>"></span><input id="tagObjInput_<?php echo $ID; ?>" class="tagObjInput" type="text"></input></li> <-->
 		<!-- ><li id="tagobjchoice_" class="tagvalue"><input id="tagObjInput_" class="tagObjInput" type="text"></input></li> 

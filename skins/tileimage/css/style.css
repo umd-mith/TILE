@@ -315,6 +315,13 @@ div#sidebar {
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
+/*#toolbar li input.colorPicker {
+	display:inline-block;
+	position:relative;
+	height:18px;
+	width:50px;
+	top:-9px;
+} */
 #toolbar li a#areaDel.btnIcon{
 	background:url('../images/iconsSprite.gif') no-repeat -294px 0px;
 }
@@ -499,12 +506,20 @@ select.tagChoiceList {
 .tag a.tagtitle.closed {
 	background:url('../images/dropdownClosed.gif') no-repeat 10px 50%;
 }
-.tag a.tagdel.btnIcon {
+.tag a.tagdel.btnIcon, .tag a.tagedit.btnIcon {
 	float:right;
 	margin:10px 10px 0 0;
 	display:inline-block;
 	border:none;
+}
+.tag a.tagdel.btnIcon {
 	background:url('../images/iconsSprite.gif') no-repeat -273px 0px;
+}
+.tag a.tagedit.btnIcon.lock {
+	background:url('../images/iconsSprite.gif') no-repeat -315px 0px;
+}
+.tag a.tagedit.btnIcon.unlock {
+	background:url('../images/iconsSprite.gif') no-repeat -315px -21px;
 }
 .tag a.tagcoords {
 	text-decoration:underline;
@@ -515,13 +530,9 @@ select.tagChoiceList {
 .tag a.tagcoords.open {
 	display:block;
 }
-.tagedit a {
-	float:right;
-	padding:10px;
-	text-decoration:underline;
-}
 .tag .tagattrb{
 	padding:10px 50px 10px 10px;
+	min-height:20px;
 }
 .tag input.tagObjInput {
 	width:150px;
