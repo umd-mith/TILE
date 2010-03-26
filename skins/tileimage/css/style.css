@@ -223,6 +223,7 @@ div#sidebar {
 }
 #tabs.ui-tabs .ui-tabs-panel {
 	padding:0;
+	overflow-x:auto;
 }
 #tabs .ui-tabs .ui-tabs-nav li {
 	margin-bottom:0;
@@ -315,13 +316,6 @@ div#sidebar {
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
-/*#toolbar li input.colorPicker {
-	display:inline-block;
-	position:relative;
-	height:18px;
-	width:50px;
-	top:-9px;
-} */
 #toolbar li a#areaDel.btnIcon{
 	background:url('../images/iconsSprite.gif') no-repeat -294px 0px;
 }
@@ -486,6 +480,9 @@ select.tagChoiceList {
 .tagObjInput{
 	display:none;
 }
+.tagholder {
+	overflow-x:auto;
+}
 .tag {
 	background:#f6ecd4;
 }
@@ -535,11 +532,39 @@ select.tagChoiceList {
 	min-height:20px;
 }
 .tag input.tagObjInput {
-	width:150px;
-	
+	width:150px;	
 }
 .tagvalue {
 	text-indent:10px;
+}
+.tagsub1 {
+	margin-left:20px;
+	margin-top:-1px;
+}
+.tagsub2 {
+	margin-left:40px;
+	margin-top:-1px	;
+}
+#tabs.ui-tabs #tabs-2.ui-tabs-panel {
+	padding:10px 10px 10px 15px;
+}
+#tabs-2 #backgroundimage {
+	width:245px;
+	margin:10px 0;
+	color:#fff;
+	padding:0 0 0 4px;
+	border:1px solid #ffffff;
+}
+#tabs-2 #ARControls button {
+	padding:2px 7px;
+	background:#E7DAB9 url(../images/tabFront.jpg) repeat-x;
+	border:1px solid #ccbb93;
+	font-size:.8em;
+	margin-bottom:5px;
+}
+#tabs-2 #ARControls button:hover {
+	color:#14253d;
+	background:#ffffff;
 }
 /* styles for dialog popup box */
 #dialogImport.dialog {
