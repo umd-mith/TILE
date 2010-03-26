@@ -10,6 +10,7 @@
 	<!--><link type="text/css" href="lib/jquery/js/css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="Stylesheet" />-->
 	<link type="text/css" href="lib/jquery/development-bundle/themes/base/ui.all.css" rel="stylesheet" /> 
 	<link type="text/css" href="skins/tileimage/css/style.css" rel="stylesheet" />	
+	<link rel="stylesheet" type="text/css" href="lib/jquery/css/jquery.lightbox-0.5.css" media="screen" />
   
 	<script src="lib/jquery/js/jquery-1.3.2.min.js" type="text/javascript"></script>
 	<script src="lib/jquery/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
@@ -19,6 +20,7 @@
 	
 	<script type="text/javascript" src="lib/jquery/development-bundle/ui/ui.core.js"></script>
  	<script type="text/javascript" src="lib/jquery/development-bundle/ui/ui.slider.js"></script>
+	<script type="text/javascript" src="lib/jquery/js/jquery.lightbox-0.5.min.js"></script>
 	<script type="text/javascript" src="lib/Extensible/Monomyth.js"></script>
 	<script type="text/javascript" src="lib/Engine/EngineInit.js"></script>
 	<script type="text/javascript" src="lib/Image/Image.js"></script>
@@ -40,7 +42,7 @@
 	<script type="text/javascript" src="lib/ScrollingImages/ScrollingImages.js"></script>
 	<script type="text/javascript" src="lib/ToolBar/AutoRecognizerTools.js"></script>
 	<script type="text/javascript" src="lib/SaveProgress/Save.js"></script>
- 
+ 	
 </head>
 
 <body>
@@ -58,39 +60,54 @@
 	
 
 	?>
-	<div id="header">
-		<div id="branding">
-			<h1><a href="index.html">TILE: Text-Image Linking Environment</a></h1>
-		</div>
-	</div>
-
-	<div id="sidebar">
-		
-	</div>
-		
-	<div id="content">
-		
-	</div><!-- end content -->
+	<div class="lightbox"></div>
 	
-	
-<script>
-	$(function(){
-		if(_JSON){
-			
-			var littleenginethatcould=new EngineInit({
-				attach:$("#content"),
-				json:_JSON
-			});
-			//erase json data
-			_JSON=null;
-		} else {
-			var littleenginethatcould=new EngineInit({
-				attach:$("#content")
-			});
-		}
+	<script type="text/javascript">
+	$(function() {
+		// Use this example, or...
+		$('a[@rel*=lightbox]').lightBox(); // Select all links that contains lightbox in the attribute rel
+		// This, or...
+		$('#gallery a').lightBox(); // Select all links in object with gallery ID
+		// This, or...
+		$('a.lightbox').lightBox(); // Select all links with lightbox class
+		// This, or...
+		$('a').lightBox(); // Select all links in the page
+		// ... The possibility are many. Use your creative or choose one in the examples above
 	});
-</script>
+	</script>
+	
+			<div id="header">
+				<div id="branding">
+					<h1><a href="index.html">TILE: Text-Image Linking Environment</a></h1>
+				</div>
+			</div>
 
+			<div id="sidebar">
+		
+			</div>
+		
+			<div id="content">
+		
+			</div><!-- end content -->
+			
+	
+		<script>
+			$(function(){
+				if(_JSON){
+			
+					var littleenginethatcould=new EngineInit({
+						attach:$("#content"),
+						json:_JSON
+					});
+					//erase json data
+					_JSON=null;
+				} else {
+					var littleenginethatcould=new EngineInit({
+						attach:$("#content")
+					});
+				}
+			});
+		</script>
 
 </body>
 </html>

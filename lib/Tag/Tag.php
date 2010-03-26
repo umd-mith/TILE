@@ -6,7 +6,6 @@ if(isset($_GET['id'])){
 	$ID=preg_replace("/tag/","",$_GET['id']);
 	
 ?>
-
 <div id="tag_<?php echo $ID; ?>" class="tag">
 	<h2><a id="tagtitle_<?php echo $ID; ?>" href="#" class="tagtitle open"><span></span></a><a id="tagChoice_<?php echo $ID; ?>" class="tagChoice"><select id="tagChoiceList_<?php echo $ID; ?>" class="tagChoiceList">
 		<option id="opt1_<?php echo $ID ?>">Cat</option>
