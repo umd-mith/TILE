@@ -40,6 +40,13 @@
 	<script type="text/javascript" src="lib/ScrollingImages/ScrollingImages.js"></script>
 	<script type="text/javascript" src="lib/ToolBar/AutoRecognizerTools.js"></script>
 	<script type="text/javascript" src="lib/SaveProgress/Save.js"></script>
+	
+	<link rel="stylesheet" href="lib/jquery/colorpicker/css/colorpicker.css" type="text/css" />
+    <link rel="stylesheet" media="screen" type="text/css" href="lib/jquery/colorpicker/css/layout.css" />
+	<script type="text/javascript" src="lib/jquery/colorpicker/js/colorpicker.js"></script>
+    <script type="text/javascript" src="lib/jquery/colorpicker/js/eye.js"></script>
+    <script type="text/javascript" src="lib/jquery/colorpicker/js/utils.js"></script>
+    <script type="text/javascript" src="lib/jquery/colorpicker/js/layout.js"></script>
 </head>
 
 <body>
@@ -69,7 +76,7 @@
 			<div id="content">
 		
 			</div><!-- end content -->
-			
+				
 			<!-- lightbox overlay (REMOVE AND PUT IN A SEPARATE FILE)-->
 			<p>This lightbox trigger should be changed from a <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">click here</a> to "on load", via Javascript</p>
 			

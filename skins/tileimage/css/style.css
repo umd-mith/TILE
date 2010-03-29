@@ -76,7 +76,6 @@ h2 {
 }
 .button {
 	position:relative;
-	margin-right:5px;
 	text-transform:uppercase;
 	font-size:.9em;
 	top:-4px;
@@ -179,6 +178,22 @@ div#header {
 #topToolbar li a:hover .help{
 	background:url('../images/iconsSprite.gif') no-repeat -42px -21px;
 }
+#topToolbar li#help {
+	position:relative;
+}
+#topToolbar form.moreOptions {
+	display:inline;
+	position:relative;
+	top:-5px;
+	margin-left:3px;
+}
+#topToolbar form.moreOptions select option {
+	background:#F6ECD4;
+	color:#14253d;
+}
+#topToolbar .btnIcon {
+	margin-right:5px;
+}
 /* --- sidebar and tabs ------------------------------------------ */
 div#sidebar {
 	position:absolute;
@@ -277,6 +292,9 @@ div#sidebar {
 #toolbar ul li {
 	display:inline;
 	margin-right:20px;
+}
+#toolbar ul li.area {
+	margin-right:0;
 }
 #toolbar li .small {
 	position:relative;
@@ -587,9 +605,6 @@ select.tagChoiceList {
 	/**initially invisible**/
 	display:none;
 }
-#dialogNewImg.dialog .option {
-	margin:0 auto;
-}
 .dialog .header {
 	background:#f1e2c4 url('../images/bkgd_dialogHeader.jpg');
 	border-bottom:1px solid #afbf37;
@@ -598,7 +613,7 @@ select.tagChoiceList {
 .dialog .body {
 	background:#fff;
 	height:100%;
-	padding:10px;
+	width:100%;
 	position:relative;
 }
 .dialog .header h2.title {
@@ -625,7 +640,7 @@ select.tagChoiceList {
 .dialog .body .option {
 	float:left;
 	display:block;
-	margin:10px 30px 20px 0;
+	margin:10px;
 }
 .dialog .body input.button {
 	padding:1px 7px;
@@ -642,13 +657,8 @@ select.tagChoiceList {
 }
 .dialog .body input.textfield {
 	margin-left:10px;
-	float:right;
+	width:80%;
 }
-.dialog .body .data {
-	display:block;
-	margin-bottom:20px;
-}
-
 .black_overlay{
 	display: none;
 	position: absolute;
