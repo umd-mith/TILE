@@ -77,13 +77,7 @@
 		
 			</div><!-- end content -->
 				
-			<!-- lightbox overlay (REMOVE AND PUT IN A SEPARATE FILE)-->
-			<p>This lightbox trigger should be changed from a <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">click here</a> to "on load", via Javascript</p>
 			
-			<div id="light" class="white_content">This is the lightbox content; it should be replaced with the import dialog box <a id="import" href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a></div>
-			
-			<div id="fade" class="black_overlay"></div>
-			<!-- end lightbox overlay -->
 	
 		<script>
 			$(function(){

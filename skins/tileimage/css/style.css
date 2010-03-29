@@ -594,6 +594,7 @@ select.tagChoiceList {
 	border:1px solid #afbf37;
 	/**initially invisible**/
 	display:none;
+	z-index:1005;
 }
 #dialogNewImg.dialog {
 	position:absolute;
@@ -674,7 +675,6 @@ select.tagChoiceList {
 }
 .white_content {
 	display: none;
-	position: absolute;
 	top: 150px;
 	left: 300px;
 	background-color: white;
@@ -717,4 +717,6 @@ select.tagChoiceList {
 #jsonData{
 	display:none;
 }
-
+iframe{
+	display:none;
+}
