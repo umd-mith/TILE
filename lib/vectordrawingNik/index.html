@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>SVG Drawing</title>
+  </head>
+  <body>
+    <div id="mode-toggles">
+      <label><input name="mode" value="s" type="radio" checked="checked" />select</label>
+      <label><input name="mode" value="e" type="radio" />ellipse</label>
+      <label><input name="mode" value="r" type="radio" />rectangle</label>
+      <label><input name="mode" value="p" type="radio" />polygon</label>
+      <label>scale: <input type="text" id="scale" /></label>
+    </div>
+    <img id="overMe" src="logo.gif" />
+    
+    <script src="jquery.js"></script>
+    <script src="raphael.js"></script>
+    <script src="underscore.js"></script>
+    <script src="VectorDrawer.js"></script>
+    <script src="drawing.js"></script>
+  </body>
+</html>

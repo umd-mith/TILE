@@ -40,6 +40,7 @@
 	<script type="text/javascript" src="lib/ScrollingImages/ScrollingImages.js"></script>
 	<script type="text/javascript" src="lib/ToolBar/AutoRecognizerTools.js"></script>
 	<script type="text/javascript" src="lib/SaveProgress/Save.js"></script>
+	<script type="text/javascript" src="lib/SelectorTools/Drawer.js"></script>
 	
 	<link rel="stylesheet" href="lib/jquery/colorpicker/css/colorpicker.css" type="text/css" />
     <link rel="stylesheet" media="screen" type="text/css" href="lib/jquery/colorpicker/css/layout.css" />
@@ -47,6 +48,10 @@
     <script type="text/javascript" src="lib/jquery/colorpicker/js/eye.js"></script>
     <script type="text/javascript" src="lib/jquery/colorpicker/js/utils.js"></script>
    <!-- <script type="text/javascript" src="lib/jquery/colorpicker/js/layout.js"></script> -->
+
+	<script type="text/javascript" src="lib/vectordrawingNik/underscore.js"></script>
+    <script type="text/javascript" src="lib/vectordrawingNik/VectorDrawer.js"></script>
+    
 </head>
 
 <body>
