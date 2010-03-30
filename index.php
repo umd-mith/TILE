@@ -46,7 +46,7 @@
 	<script type="text/javascript" src="lib/jquery/colorpicker/js/colorpicker.js"></script>
     <script type="text/javascript" src="lib/jquery/colorpicker/js/eye.js"></script>
     <script type="text/javascript" src="lib/jquery/colorpicker/js/utils.js"></script>
-    <script type="text/javascript" src="lib/jquery/colorpicker/js/layout.js"></script>
+   <!-- <script type="text/javascript" src="lib/jquery/colorpicker/js/layout.js"></script> -->
 </head>
 
 <body>

@@ -370,6 +370,9 @@ div#sidebar {
 	background:url('../images/iconsSprite.gif') no-repeat -189px -21px;
 }
 
+.sidebar_nooverflow{
+	overflow:none;
+}
 /* images -------------------*/
 #images {
 	overflow:auto;
