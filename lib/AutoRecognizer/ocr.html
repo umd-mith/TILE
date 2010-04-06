@@ -21,7 +21,7 @@
 	<script type="text/javascript" src="../Image/Image.js"></script>
 	<script type="text/javascript" src="../ToolBar/AutoRecognizerTools.js"></script>
 	<script type="text/javascript" src="../Shape/Shape.js"></script>
-	<script type="text/javascript" src="./AutoRecognizer.js"></script>
+	<script type="text/javascript" src="./ocr.js"></script>
 	
 	<style>
 		img{
@@ -121,41 +121,18 @@
 			});
 			
 			//set up the control box
-			CONTROLBOX=new TestAutoRecognizerTools({loc:container});
+			//CONTROLBOX=new TestAutoRecognizerTools({loc:container});
 			
 		};
-		my_window= window.open ("","mywindow1","scrollbars=yes,status=1,width=350,height=150");
-		my_window.document.write("<HTML><body><div>Begin</div></body></HTML>");
-		function debug(txt){
-			var dbugLine = document.createElement("div");
-			dbugLine.appendChild(document.createTextNode(txt));
-			my_window.document.getElementsByTagName("body")[0].appendChild(dbugLine);
+		
+		function go(){
+			CANVAS.recognize.toBlackWhite(CANVAS.imageEl);
 		}
-		debug("starting");
 	</script>
 </head>
 
 <body>
-	<div id="ARControls">
-		<span class="color">
-			<label>Red:</label>
-			<div id="red"></div>
-			<label>Green:</label>
-			<div id="green"></div>
-			<label>Blue:</label>
-			<div id="blue"></div>
-		</span>
-		<div id="backgroundimage">0,0,0</div>
-		<span id="buttons">
-			<button id="setRegion">Show Me the Box</button>
-			<br/>
-			<button id="convertBW">Convert Area to B/W</button>
-			<br/>
-			<button id="autoRecognize">Auto Recognize</button>
-			<br/>
-			<button id="showLines">Show Line Boxes</button>
-		</span>
-	</div>
+<button onclick="go()">Go</button>
 <div id="container">
 	<img id="srcImageForCanvas" src=""/>
 	<script>
