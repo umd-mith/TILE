@@ -1,0 +1,22 @@
+/* js-disabled class - set image sizes so they all fit in the viewer */
+.js-disabled img { width:100px; height:100px; display:block; float:left; margin:30px 0 0; }
+
+#tileScroll_outer { height:102px; margin:auto; position:relative; }
+#tileScroll_imagescroller {height:102px; position:relative; background:#000000 url(images/imageScrollerBG.png) no-repeat; }
+#tileScroll_viewer {height:102px; overflow:hidden; margin:auto; position:relative; top:10px; }
+#tileScroll_imagescroller a:active, #imageScroller a:visited { color:#000000; }
+#tileScroll_imagescroller a img { border:0; }
+#tileScroll_controls { width:534px; height:47px; background:url(images/controlsBG.png) no-repeat; position:absolute; top:25px; left:4px; z-index:9999;	}
+#tileScroll_controls a { width:37px; height:35px; position:absolute; top:3px; }
+#tileScroll_controls a:active, #tileScroll_controls a:visited { color:#0d0d0d; }
+#tileScroll_container {position:absolute;height:170px;}
+#tileScroll_title { color:#ffffff; font-family:arial; font-size:100%; font-weight:bold; width:100%; text-align:center; margin-top:10px; }
+#rtl { background:url(images/rtl.png) no-repeat; left:100px; color:#FFF;}
+#rtl:hover { background:url(images/rtl_over.png) no-repeat; left:99px; }
+#ltr { background:url(images/ltr.png) no-repeat; right:100px; color:#FFF;}
+#ltr:hover { background:url(images/ltr_over.png) no-repeat; }
+.tileScroll_item{
+	display:inline;
+	margin:2px 10px 0px 10px;
+	cursor:pointer;
+}
