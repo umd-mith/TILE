@@ -3,20 +3,44 @@
 
 #tileScroll_outer { height:102px; margin:auto; position:relative; }
 #tileScroll_imagescroller {height:102px; position:relative; background:#000000 url(images/imageScrollerBG.png) no-repeat; }
-#tileScroll_viewer {height:102px; overflow:hidden; margin:auto; position:relative; top:10px; }
+#tileScroll_viewer {width:70px; height:102px; overflow:hidden; margin:auto; position:relative; left:60px; top:10px; }
 #tileScroll_imagescroller a:active, #imageScroller a:visited { color:#000000; }
 #tileScroll_imagescroller a img { border:0; }
-#tileScroll_controls { width:534px; height:47px; background:url(images/controlsBG.png) no-repeat; position:absolute; top:25px; left:4px; z-index:9999;	}
-#tileScroll_controls a { width:37px; height:35px; position:absolute; top:3px; }
-#tileScroll_controls a:active, #tileScroll_controls a:visited { color:#0d0d0d; }
+.tileScroll_controls1 { 
+	width:54px; height:47px; background:url(images/controlsBG.png) no-repeat; position:absolute; top:25px; left:4px; z-index:9999; margin-right:10px;
+	}
+.tileScroll_controls2 {
+	width:54px; height:47px; background:url(images/controlsBG.png) no-repeat; position:absolute; right:0px;; top:25px; z-index:9999; margin-left:10px;
+	}
+.tileScroll_controls1,.tileScroll_controls2 a { width:37px; height:35px; position:absolute; top:3px; color:#FFF;}
+.tileScroll_controls1,.tileScroll_controls2 a:active, .tileScroll_controls1,.tileScroll_controls2 a:visited { color:#FFF; }
 #tileScroll_container {position:absolute;height:170px;}
 #tileScroll_title { color:#ffffff; font-family:arial; font-size:100%; font-weight:bold; width:100%; text-align:center; margin-top:10px; }
-#rtl { background:url(images/rtl.png) no-repeat; left:100px; color:#FFF;}
-#rtl:hover { background:url(images/rtl_over.png) no-repeat; left:99px; }
-#ltr { background:url(images/ltr.png) no-repeat; right:100px; color:#FFF;}
-#ltr:hover { background:url(images/ltr_over.png) no-repeat; }
+#rtl { background:url(images/rtl.png) no-repeat; left:100px; color:#000;}
+#rtl:hover { background:url(images/rtl_over.png) no-repeat; left:99px; color:#000;}
+#ltr { background:url(images/ltr.png) no-repeat; right:100px; color:#000;}
+#ltr:hover { background:url(images/ltr_over.png) no-repeat; color:#000;}
 .tileScroll_item{
 	display:inline;
 	margin:2px 10px 0px 10px;
 	cursor:pointer;
+}
+
+.tileControls{
+	width:800px;
+	height:16px;
+	position:absolute;
+	top:30px;
+	left:100px;
+}
+#TS_controlsleft,#TS_controlsright{
+	width:25px;
+	height:100%;
+	background:#F0C0C0;
+}
+#TS_controlsleft{
+	left:10px;
+}
+#TS_controlsright{
+	left:130px;
 }
