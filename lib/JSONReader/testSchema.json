@@ -1,0 +1,27 @@
+{
+	"topLevelTags":["TAG1A","TAG2A","TAG3A"],
+	"tags":[{
+		"uid":"TAG1A",
+		"name":"FROG",
+		"valueType":0,
+		"optional":"true",
+		"Region":"null",
+		"timeStamp":Date,
+		"hasRegion":true
+	},{
+	"uid":"TAG2A",
+	"name":"DUCK",
+	"valueType":0,
+	"optional":"true",
+	"Region":"null",
+	"hasRegion":"true"
+	},{
+	"uid":"TAG3A",
+	"name":"MONGOOSE",
+	"valueType":0,
+	"optional":"true",
+	"Region":"null",
+	"hasRegion":"true"
+	}],
+	"enums":[]
+}
