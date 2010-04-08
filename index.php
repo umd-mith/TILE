@@ -41,6 +41,7 @@
 	<script type="text/javascript" src="lib/ToolBar/AutoRecognizerTools.js"></script>
 	<script type="text/javascript" src="lib/SaveProgress/Save.js"></script>
 	<script type="text/javascript" src="lib/SelectorTools/Drawer.js"></script>
+	<script type="text/javascript" src="lib/JSONReader/jsonReader.js"></script>
 	
 	<link rel="stylesheet" href="lib/jquery/colorpicker/css/colorpicker.css" type="text/css" />
     <link rel="stylesheet" media="screen" type="text/css" href="lib/jquery/colorpicker/css/layout.css" />
@@ -64,7 +65,7 @@
 	 if($_POST['jsonData']&&(preg_match("/.exe|.php|.js/",$_POST['jsonData'])==0)){
 	 	$out=stripslashes($_POST['jsonData']);
  		
- 		echo "<SCRIPT TYPE=\"text/javascript\">var _JSON=".$out.";</SCRIPT>";
+ 		echo "<SCRIPT TYPE=\"text/javascript\">var _JSON=".json_encode($_POST['jsonData']).";</SCRIPT>";
  	} else {
 	echo "<SCRIPT TYPE=\"text/javascript\">var _JSON=null;</SCRIPT>";
 }	
