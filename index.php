@@ -61,11 +61,10 @@
 	<?php
 
 	// Receives POST data - if submitted
-
-	 if($_POST['jsonData']&&(preg_match("/.exe|.php|.js/",$_POST['jsonData'])==0)){
+	 if($_POST['jsonData']&&(preg_match("/.exe|.php/",$_POST['jsonData'])==0)){
 	 	$out=stripslashes($_POST['jsonData']);
  		
- 		echo "<SCRIPT TYPE=\"text/javascript\">var _JSON=".json_encode($_POST['jsonData']).";</SCRIPT>";
+ 		echo "<SCRIPT TYPE=\"text/javascript\">var _JSON=".$out.";</SCRIPT>";
  	} else {
 	echo "<SCRIPT TYPE=\"text/javascript\">var _JSON=null;</SCRIPT>";
 }	
@@ -89,6 +88,12 @@
 	
 		<script>
 			$(function(){
+				//NEW: TO BE TAKEN OUT - setting the _JSON variable to allow for auto-loading
+				//of schema and images (for testing only)
+				_JSON={
+					schema:"http://localhost:8888/TILE/lib/JSONReader/testSchema.json",
+					Images:"http://localhost:8888/TILE/html/testList.txt"
+				}
 				if(_JSON){
 			
 					var littleenginethatcould=new EngineInit({
