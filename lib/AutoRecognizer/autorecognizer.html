@@ -132,11 +132,26 @@
 			my_window.document.getElementsByTagName("body")[0].appendChild(dbugLine);
 		}
 		debug("starting");
+		function loadImages(iput){
+			fn = $("#"+iput)[0].value;
+			init();
+			CANVAS.setRecognizer({dotMin:15});
+			CANVAS.setUpCanvas(fn);
+			//CANVAS.setUpCanvas("http://localhost:8888/TILE/Images/ham.jpg");
+			
+		}
 	</script>
 </head>
 
 <body>
 	<div id="ARControls">
+		<div id="loadImageControl">
+			<label for="#loadImgTxt">
+				Image location: 
+			</label>
+			<input nmae="loadImgTxt" id="loadImgTxt" type="text" width="20"/>
+			<span onClick="loadImages('loadImgTxt')">Load</span>
+		</div>
 		<span class="color">
 			<label>Red:</label>
 			<div id="red"></div>
@@ -158,21 +173,14 @@
 	</div>
 <div id="container">
 	<img id="srcImageForCanvas" src=""/>
-	<script>
+	<!-- <script>
 		$(function(e){
 			init();
 			CANVAS.setRecognizer({dotMin:15});
 			CANVAS.setUpCanvas("http://localhost:8888/TILE/Images/ham.jpg");
 		});
-		// $(function(e){
-		// 		/**Starts the set up process for all other objects**/
-		// 			var engine=new EngineInit({
-		// 				autoRecognize:true,
-		// 				URL: "Images/ham.jpg",
-		// 				attach:$("#container")
-		// 			});
-		// 		});
-	</script>
+		
+	</script> -->
 </div>
 <div id="testnotes"></div>
 </body>
