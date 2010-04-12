@@ -301,6 +301,12 @@ div#sidebar {
 	top:-4px;
 	margin-right:5px;
 }
+#toolbar li .small a.active {
+	text-decoration:underline;
+}
+#toolbar li .small a.inactive {
+	color:#D9CBA8;
+}
 #toolbar li a#rect.btnIcon{
 	background:url('../images/iconsSprite.gif') no-repeat -63px 0px;
 }
@@ -309,6 +315,11 @@ div#sidebar {
 }
 #toolbar li a#rect.btnIcon.inactive, #toolbar li a:hover#rect.btnIcon.inactive {
 	background:url('../images/iconsSprite.gif') no-repeat -210px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+#toolbar li a#rect.btnIcon.active, #toolbar li a:hover#rect.btnIcon.active {
+	background:url('../images/iconsSprite.gif') no-repeat -336px 0px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
@@ -323,6 +334,11 @@ div#sidebar {
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
+#toolbar li a#poly.btnIcon.active, #toolbar li a:hover#poly.btnIcon.active {
+	background:url('../images/iconsSprite.gif') no-repeat -357px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
 #toolbar li a#elli.btnIcon{
 	background:url('../images/iconsSprite.gif') no-repeat -105px 0px;
 }
@@ -331,6 +347,11 @@ div#sidebar {
 }
 #toolbar li a#elli.btnIcon.inactive, #toolbar li a:hover#elli.btnIcon.inactive {
 	background:url('../images/iconsSprite.gif') no-repeat -252px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+#toolbar li a#elli.btnIcon.active, #toolbar li a:hover#elli.btnIcon.active {
+	background:url('../images/iconsSprite.gif') no-repeat -378px 0px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
