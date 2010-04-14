@@ -10,6 +10,7 @@ if($_POST['uploadData']){
 	$path=preg_replace('/lib\/SaveProgress/',"",$path);
 	$cwd = "http://".$domain.$path."index.php";
 	$JSON=stripslashes($_POST['uploadData']);
+	$JSON=preg_replace("/\"/","'",$JSON);
 	$doc="<HTML><HEAD><SCRIPT language=\"JavaScript\">function send(){document.aData.submit();}</SCRIPT></HEAD><BODY onload=\"send()\">
 	<form name=\"aData\" method=\"POST\" action=\"".$cwd."\">
 	<input type=\"hidden\" name=\"jsonData\" value=\"".$JSON."\"/></form></BODY></HTML>";
