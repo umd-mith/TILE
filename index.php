@@ -34,7 +34,7 @@
 	<script type="text/javascript" src="lib/ToolBar/SideToolbar.js"></script>
 	<script type="text/javascript" src="lib/ToolBar/TabBar.js"></script>
 	<script type="text/javascript" src="lib/Tag/Tag.js"></script>
-	<script type="text/javascript" src="lib/Tag/Attribute.js"></script>
+	<script type="text/javascript" src="lib/Tag/NameValue.js"></script>
 	<script type="text/javascript" src="lib/Tag/Region.js"></script>
 	<script type="text/javascript" src="lib/Dialog/Dialog.js"></script>
 	<script type="text/javascript" src="lib/ScrollingImages/ScrollingImages.js"></script>

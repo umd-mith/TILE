@@ -1,27 +1,45 @@
 {
-	"topLevelTags":["TAG1A","TAG2A","TAG3A"],
+	"topLevelTags":["TAG1A","TAG2A"],
 	"tags":[{
 		"uid":"TAG1A",
-		"name":"FROG",
+		"name":"PAGE",
+		"childNodes":["TAG5A"],
 		"valueType":0,
 		"optional":"true",
 		"Region":"null",
-		"timeStamp":Date,
-		"hasRegion":true
+		"timeStamp":"Date",
+		"hasRegion":"true"
 	},{
 	"uid":"TAG2A",
-	"name":"DUCK",
+	"name":"FACE",
+	"childNodes":["TAG3A","TAG4A"],
 	"valueType":0,
 	"optional":"true",
 	"Region":"null",
 	"hasRegion":"true"
 	},{
 	"uid":"TAG3A",
-	"name":"MONGOOSE",
+	"name":"HAIR",
+	"valueType":0,
+	"optional":"true",
+	"Region":"null",
+	"hasRegion":"true"
+	},
+	{
+	"uid":"TAG4A",
+	"name":"EYES",
+	"valueType":0,
+	"optional":"true",
+	"Region":"null",
+	"hasRegion":"true"
+	},
+	{
+	"uid":"TAG5A",
+	"name":"LINE",
 	"valueType":0,
 	"optional":"true",
 	"Region":"null",
 	"hasRegion":"true"
 	}],
-	"enums":[]
+	"enums":[{"uid":2,"type":"String"}]
 }

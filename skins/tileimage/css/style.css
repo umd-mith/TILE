@@ -545,6 +545,14 @@ select.tagChoiceList {
 .tag a.tagtitle.closed {
 	background:url('../images/dropdownClosed.gif') no-repeat 10px 50%;
 }
+.tag .tagTitleInput.edit {
+	display:block;
+}
+
+.tag .tagTitleInput.locked {
+	display:none;
+}
+
 .tag a.tagdel.btnIcon, .tag a.tagedit.btnIcon {
 	float:right;
 	margin:10px 10px 0 0;
