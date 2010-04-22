@@ -4,7 +4,7 @@
 		"uid":"TAG1A",
 		"name":"PAGE",
 		"childNodes":["TAG5A"],
-		"valueType":0,
+		"valueType":1,
 		"optional":"true",
 		"Region":"null",
 		"timeStamp":"Date",
@@ -13,14 +13,14 @@
 	"uid":"TAG2A",
 	"name":"FACE",
 	"childNodes":["TAG3A","TAG4A"],
-	"valueType":0,
+	"valueType":1,
 	"optional":"true",
 	"Region":"null",
 	"hasRegion":"true"
 	},{
 	"uid":"TAG3A",
 	"name":"HAIR",
-	"valueType":0,
+	"valueType":1,
 	"optional":"true",
 	"Region":"null",
 	"hasRegion":"true"
@@ -28,7 +28,7 @@
 	{
 	"uid":"TAG4A",
 	"name":"EYES",
-	"valueType":0,
+	"valueType":1,
 	"optional":"true",
 	"Region":"null",
 	"hasRegion":"true"
@@ -36,10 +36,10 @@
 	{
 	"uid":"TAG5A",
 	"name":"LINE",
-	"valueType":0,
+	"valueType":1,
 	"optional":"true",
 	"Region":"null",
 	"hasRegion":"true"
 	}],
-	"enums":[{"uid":2,"type":"String"}]
+	"enums":[{"uid":3,"values":["Green","Blue","Hazel"]}]
 }
