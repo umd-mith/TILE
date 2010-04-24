@@ -142,9 +142,7 @@
 	//  Region 
 	var regionList = [];
 	
-	var regionList = [{ move: "stay", top: "50%", left: "30%", width: "10%", height: "5%"},
-	                  { move: "next", top: "50%", left: "30%", width: "10%", height: "5%"}];
-
+	
 	                   
 						
 						
@@ -179,11 +177,27 @@ pageStates = [
 			  $('#nextButton').bind("click",function(){	
 				  
 				  storeRegion();
-				 // changeState(2);
-			});}
+				  changeState(1);
+			});}},
+			{
+"sidebar":  "<div class='sbMessage'>Adjust the color settings so that only the text is visible</div>"+
+	     			colorPanel+
+	     			 "<div class='nextButton'>Next</div>",
+"callback": function(){
+			  cf = new TileColorFilter({DOM:"colorPanel",red:"red",green:"green",blue:"blue",colorBox:"backgroundimage"});
+
+			  $('#nextButton').bind("click",function(){	
+				  
+				  
+				 changeState(3);
+			});}}			
 		 
 
-}];
+];
+function setUpColorFilter(){
+ cf = new TileColorFilter({DOM:"colorPanel",red:"red",green:"green",blue:"blue",colorBox:"backgroundimage"});
+			 
+}
 	
 /* 1:  Setting default color threshold of box
 {
@@ -228,6 +242,9 @@ sidebarHTML:  "<div></div>"
 	function showBoundingBox(){
 		$("#regionBox").css("display","block");
 	}
+	var regionList = [{ move: "stay", top: "50%", left: "30%", width: "10%", height: "5%"},
+	                  { move: "next", top: "50%", left: "30%", width: "10%", height: "5%"}];
+	var curMove = "stay";
 	function storeRegion(){
 		var pos = $("#regionBox").draggable().position();
 		//var size = $("#regionBox").resizable("option","size");
@@ -237,7 +254,8 @@ sidebarHTML:  "<div></div>"
 		var top = pos.top/totHeight;
 		var width = $("#regionBox").width()/totWidth;
 		var height = $("#regionBox").height()/totHeight;
-		alert(left+","+top+","+width+","+height);
+		regionList.push({move: curMove, left: left, top: top, width: width, height: height, red: "ff", green : "ff", blue: "ff" });
+		changeState(1);
 		}
 	
 	function loadImages(path){
@@ -277,6 +295,8 @@ sidebarHTML:  "<div></div>"
 									$("#boxSize").trigger("boxMoved",[ui.position]);
 		}*/
 			 });
+		
+		
 		changeState(0);
 		//colorPicker = new TileColorFilter({DOM: "colorPanel",red: "red",green: "green",blue: "blue",rgbDiv: "backgroundimage"});
 
