@@ -1,0 +1,101 @@
+#header{
+			background-color: black;
+		}
+		
+		img{
+			display:none;
+		}
+		#sidebar{
+		position: absolute;
+			top: 50px;
+	
+		width: 295px;
+	
+		}
+		
+		#workspace{
+			position:absolute;
+				top: 50px;
+			left:305px;
+			width: 500px;
+			height: 500px;
+			
+			
+		}
+		#ARControls{
+			position:absolute;
+			border:solid 1px black;
+			width:295px;
+			padding:0;
+			margin:0;
+		}
+		#backgroundimage{
+			width:100px;
+			height:100px;
+			background-color:rgb(0,0,0);
+			color:white;
+		}
+		.color div{
+			margin:13px 0 10px 0px;
+		}
+		/**PlainBox**/
+		#regionBox{
+		display: none;
+		}
+		
+		.boxer_plainbox{
+			position:absolute;
+			left:0px;
+			top:17px;
+			background-color:transparent;
+			border: 2px solid #ff510b;
+			width:200px;
+			height:300px;
+			margin-right:5px;
+			padding-right:5px;
+		}
+		.boxer_plainbox_close{
+			position:absolute;
+			left:0px;
+			top:0px;
+			width:16px;
+			height:16px;
+			cursor:pointer;
+		}
+		.boxer_plainbox_useroptions{
+			position:absolute;
+			left:-65px;
+			top:0px;
+			width:65px;
+			height:15px;
+			background-color:#DBB2BB;
+			border:solid 1px #D40633;
+		}
+		/**SelectorBox**/
+		.boxer_select_ocr{
+			position:absolute;
+			left:25%;
+
+			cursor:pointer;
+		}
+		/**BlobBox**/
+		.blobbox{
+			position:absolute;
+			background-color:transparent;
+			border: 1px solid #ff510b;
+
+		}
+		.blobbox:hover{
+			border: 2px dotted yellow;
+		}
+		.boxer_blob_drag,.boxer_blob_resize{
+			margin-left:2px;
+		}
+		.ui-state-disabled{
+			opacity:1;
+		}
+		#testnotes{
+			position:absolute;
+			left:0px;
+			top:500px;
+		}
