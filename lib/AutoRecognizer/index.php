@@ -31,6 +31,17 @@
 			<div id="boxSize"></div>
 			<div id="boxPos"></div>
 		</div>
+		<div id="colorSection">
+		<span id='colorPanel' class='color'>
+<label>Red:</label>
+<div id='red'></div>
+<label>Green:</label>
+<div id='green'></div>
+<label>Blue:</label>
+<div id='blue'></div>
+</span>
+<div id='backgroundimage'>0,0,0</div>
+</div>
 		<div id="sidebarContent">
 		</div>
 	</div>
