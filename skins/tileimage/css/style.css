@@ -638,6 +638,17 @@ select.tagChoiceList {
 	/**initially invisible**/
 	display:none;
 }
+#loadTagsDialog.dialog {
+	position:absolute;
+	left:300px;
+	top:45px;
+	width:400px;
+	height:auto;
+	z-index:1003	;
+	border:1px solid #afbf37;
+	/**initially invisible**/
+	display:none;
+}
 .dialog .header {
 	background:#f1e2c4 url('../images/bkgd_dialogHeader.jpg');
 	border-bottom:1px solid #afbf37;
