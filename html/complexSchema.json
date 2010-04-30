@@ -12,14 +12,7 @@
 	},{
 	"uid":"TAG2A",
 	"name":"LINE",
-	"childNodes":["TAG3A","TAG4A"],
-	"valueType":1,
-	"optional":"true",
-	"Region":"null",
-	"hasRegion":"true"
-	},{
-	"uid":"TAG3A",
-	"name":"HAIR",
+	"childNodes":["TAGCLA"],
 	"valueType":1,
 	"optional":"true",
 	"Region":"null",
