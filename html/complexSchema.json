@@ -1,0 +1,57 @@
+{
+	'topLevelTags':["TAG1A","TAG2A","TAG5A"],
+	"tags":[{
+		"uid":"TAG1A",
+		"name":"PAGE",
+		"childNodes":["TAG4A"],
+		"valueType":1,
+		"optional":"true",
+		"Region":"null",
+		"timeStamp":"Date",
+		"hasRegion":"true"
+	},{
+	"uid":"TAG2A",
+	"name":"LINE",
+	"childNodes":["TAG3A","TAG4A"],
+	"valueType":1,
+	"optional":"true",
+	"Region":"null",
+	"hasRegion":"true"
+	},{
+	"uid":"TAG3A",
+	"name":"HAIR",
+	"valueType":1,
+	"optional":"true",
+	"Region":"null",
+	"hasRegion":"true"
+	},{
+	"uid":"TAG4A",
+	"name":"Page Number",
+	"valueType":1,
+	"optional":"true",
+	"Region":"null",
+	"hasRegion":"true"
+	},{
+	"uid":"TAGCLA",
+	"name":"Page Color",
+	"valueType":4,
+	"optional":"true",
+	"Region":"null",
+	"hasRegion":"true"
+	},{
+	"uid":"TAG5A",
+	"name":"WORD",
+	"valueType":1,
+	"optional":"true",
+	"Region":"null",
+	"hasRegion":"true"
+	},{
+	"uid":"TAGORA",
+	"name":"Origin",
+	"valueType":5,
+	"optional":"true",
+	"Region":"null",
+	"hasRegion":"true"	
+	}],
+	"enums":[{"uid":3,"values":["Green","Blue","Hazel"]},{"uid":4,"values":["Dark","Faded","Light"]},{"uid":5,"values":["Eng","Ger","Lat","Fre"]}]
+}
