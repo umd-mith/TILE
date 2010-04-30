@@ -102,3 +102,10 @@
 		#colorSection{
 			display: none;
 		}
+		#transcript{
+			z-index: 20;
+			display: none;
+			height: 20ex;
+			overflow: auto;
+			border: thin solid red;
+		}

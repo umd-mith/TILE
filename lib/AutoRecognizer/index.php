@@ -27,7 +27,7 @@
 	<div id="sidebar">
 		<div id="sidebarHead">
 			<label for="imageManifest">Images uri:</label>
-			<input type="text" size=10 onblur="loadImages(this.value)"></input>
+			<input type="text" size=10></input>
 			<div id="boxSize"></div>
 			<div id="boxPos"></div>
 		</div>
@@ -44,6 +44,9 @@
 </div>
 		<div id="sidebarContent">
 		</div>
+	<div id="transcript">
+	
+	</div>	
 	</div>
 	<div id="workspace">
 		<img id="srcImageForCanvas" src=""/>
