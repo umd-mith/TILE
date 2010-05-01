@@ -10,6 +10,9 @@
 			top: 50px;
 	
 		width: 295px;
+		overflow: auto;
+		background-color:white;
+		
 	
 		}
 		
@@ -19,6 +22,7 @@
 			left:305px;
 			width: 500px;
 			height: 500px;
+			z-index: 1;
 			
 			
 		}
@@ -108,4 +112,15 @@
 			height: 20ex;
 			overflow: auto;
 			border: thin solid red;
+			background-color: white;
+		}
+		#canvasHTML{
+			z-index:1;
+		}
+		#canvas{
+			z-index:2;
+		}
+		
+		.selLine{
+			background-color: #aaddaa;
 		}
