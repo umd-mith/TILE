@@ -86,7 +86,9 @@
 		.blobbox{
 			position:absolute;
 			background-color:transparent;
-			border: 1px solid #ff510b;
+			
+			//border-bottom 1px solid #ff510b;
+			border: 1px solid green;
 
 		}
 		.blobbox:hover{
@@ -123,4 +125,7 @@
 		
 		.selLine{
 			background-color: #aaddaa;
+		}
+		.recLine{
+			background-color: #ddaaaa;
 		}

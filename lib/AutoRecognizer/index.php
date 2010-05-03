@@ -10,6 +10,7 @@
 <script src="../jquery/js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="../jquery/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="../jquery/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../jquery/js/underscore-min.js" type="text/javascript" charset="utf-8"></script>
 
 <!-- Project Scripts -->
 <script type="text/javascript" src="../Extensible/Monomyth.js"></script>
