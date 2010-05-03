@@ -547,6 +547,7 @@ select.tagChoiceList {
 }
 .tag .tagTitleInput.edit {
 	display:block;
+	margin:5px 5px 5px 10px;
 }
 
 .tag .tagTitleInput.locked {
@@ -723,6 +724,9 @@ select.tagChoiceList {
 	background-color: white;
 	z-index:1002;
 	overflow: auto;
+}
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+	font-size:.9em;
 }
 
 /**Boxes: developed by grantd **/
