@@ -61,15 +61,32 @@
 
 <body>
 	<?php
-
+	//include list of CONSTANT values - see TILECONSTANTS.php script for info
+	include_once('TILECONSTANTS.php');
+	
 	// Receives POST data - if submitted
 	 if($_POST['jsonData']&&(preg_match("/.exe|.php/",$_POST['jsonData'])==0)){
 	 	$out=stripslashes($_POST['jsonData']);
- 		
- 		echo "<SCRIPT TYPE=\"text/javascript\">var _JSON=\"".$out."\";</SCRIPT>";
+ 		$defStr="<SCRIPT TYPE=\"text/javascript\">var _JSON=\"".$out."\";";
+		//include the base url path
+		if(BASE_URL){
+			$defStr.="var _BASE_URL=\"".BASE_URL."\";</SCRIPT>";
+		}else{
+			$defStr.="</SCRIPT>";
+		}
+ 		echo $defStr;
+		
  	} else {
-	echo "<SCRIPT TYPE=\"text/javascript\">var _JSON=null;</SCRIPT>";
-}	
+		//echo "<SCRIPT TYPE=\"text/javascript\">var _JSON=null;";
+		$defStr="<SCRIPT TYPE=\"text/javascript\">var _JSON=null;";
+		//include the base url path
+		if(BASE_URL){
+			$defStr.="var _BASE_URL=\"".BASE_URL."\";</SCRIPT>";
+		}else{
+			$defStr.="</SCRIPT>";
+		}
+ 		echo $defStr;
+	}	
 	?>
 	
 			<div id="header">
@@ -96,18 +113,22 @@
 				// 					schema:"http://localhost:8888/TILE/lib/JSONReader/testSchema.json",
 				// 					Images:"http://localhost:8888/TILE/html/testList.txt"
 				// 				}
-				if(_JSON){
+				if(_JSON&&_BASE_URL){
 			
 					var littleenginethatcould=new EngineInit({
 						attach:$("#content"),
-						json:_JSON
+						json:_JSON,
+						baseurl:_BASE_URL
 					});
 					//erase json data
 					_JSON=null;
-				} else {
+				} else if(_BASE_URL){
 					var littleenginethatcould=new EngineInit({
-						attach:$("#content")
+						attach:$("#content"),
+						baseurl:_BASE_URL
 					});
+				} else {
+					$("<p>Error: could not load page due to undefined _BASE_URL variable. Go to TILECONSTANTS.php to fix this problem.</p>").appendTo($("#content"));
 				}
 			});
 		</script>
