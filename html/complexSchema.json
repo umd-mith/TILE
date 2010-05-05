@@ -34,17 +34,27 @@
 	},{
 	"uid":"TAG5A",
 	"name":"WORD",
+	"childNodes":["TAGORA","TAGSYL"],
 	"valueType":1,
-	"optional":"true",
+	"optional":"false",
 	"Region":"null",
 	"hasRegion":"true"
 	},{
 	"uid":"TAGORA",
 	"name":"Origin",
 	"valueType":5,
-	"optional":"true",
+	"optional":"false",
 	"Region":"null",
 	"hasRegion":"true"	
+	},
+	{
+	"uid":"TAGSYL",
+	"name":"Syllables",
+	"valueType":6,
+	"optional":"false",
+	"Region":"null",
+	"hasRegion":"true"
+	
 	}],
-	"enums":[{"uid":3,"values":["Green","Blue","Hazel"]},{"uid":4,"values":["Dark","Faded","Light"]},{"uid":5,"values":["Eng","Ger","Lat","Fre"]}]
+	"enums":[{"uid":3,"values":["Green","Blue","Hazel"]},{"uid":4,"values":["Dark","Faded","Light"]},{"uid":5,"values":["Eng","Ger","Lat","Fre"]},{"uid":6,"values":["Monosyllable","Multisyllable"]}]
 }

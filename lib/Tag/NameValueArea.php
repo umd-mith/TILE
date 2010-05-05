@@ -12,7 +12,7 @@
 ?>
 
 <div id="<?php echo $ID."_nameValue";?>" class="nameValue">
-	<span id="<?php echo $ID."_nvInputArea"; ?>" class="nameValue_Input"></span>
+	<span id="<?php echo $ID."_nvInputArea"; ?>" class="nameValue_Input"><p></p></span>
 	<hr style="width:25%;align:center;" />
 	<span id="<?php echo $ID."_required";?>" class="nameValue_RequiredArea"><p>Required:</p></span>
 	<span id="<?php echo $ID."_optional";?>" class="nameValue_OptionalArea"><p>Optional:</p><select id="<?php echo $ID."_optSelect";?>" class="nameValue_optional_select"></span>

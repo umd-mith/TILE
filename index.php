@@ -55,6 +55,12 @@
 	<script type="text/javascript" src="lib/vectordrawingNik/underscore.js"></script>
     <script type="text/javascript" src="lib/vectordrawingNik/VectorDrawer.js"></script>
     
+	<style>
+		.nameValue{
+			border:2px dotted;
+		}
+	</style>
+
 <link rel="SHORTCUT ICON" href="favicon.ico">
 	
 </head>
