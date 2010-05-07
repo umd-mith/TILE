@@ -21,6 +21,8 @@
 <script type="text/javascript" src="../ColorFilter/ColorFilter.js"></script>
 <script type="text/javascript" src="../RegionRule/RegionRule.js"></script>
 <script type="text/javascript" src="./AutoRecInterface.js"></script>
+<script type="text/javascript" src="./pageStates.js"></script>
+<script type="text/javascript" src="./lineBox.js"></script>
 </HEAD>
 <BODY>
 <div id="header">

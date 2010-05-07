@@ -83,7 +83,7 @@
 			cursor:pointer;
 		}
 		/**BlobBox**/
-		.blobbox{
+		.lineBox{
 			position:absolute;
 			background-color:transparent;
 			
@@ -91,7 +91,7 @@
 			border: 1px solid green;
 
 		}
-		.blobbox:hover{
+		.lineBoxSelect{
 			border: 2px dotted yellow;
 		}
 		.boxer_blob_drag,.boxer_blob_resize{
