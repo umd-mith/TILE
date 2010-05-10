@@ -7,8 +7,8 @@
 			<span class="button">More: </span></a>
 			<form class="moreOptions" action="">
 				<select id="moreselect" name="more">
-					<option value="clearSession">Clear session tags</option>
-					<option value="clearPage">Clear page tags</option>
+					<option value="clearSession">Clear All Tags</option>
+					<option value="clearPage">Clear Tags on this Image</option>
 					<option value="restart">Start over (new project)</option>
 					<option value="help">Help (return to main website)</option>
 				</select>
