@@ -50,7 +50,7 @@
     <script type="text/javascript" src="lib/jquery/colorpicker/js/utils.js"></script>
    <!-- <script type="text/javascript" src="lib/jquery/colorpicker/js/layout.js"></script> -->
 
-	<link rel="stylesheet" media="screen" type="text/css" href="skins/test/animatedscrolltest.css" />
+<!--	<link rel="stylesheet" media="screen" type="text/css" href="skins/test/animatedscrolltest.css" />-->
 	<script type="text/javascript" src="lib/ScrollingImages/AnimatedScroller.js"></script>
 	<script type="text/javascript" src="lib/vectordrawingNik/underscore.js"></script>
     <script type="text/javascript" src="lib/vectordrawingNik/VectorDrawer.js"></script>
