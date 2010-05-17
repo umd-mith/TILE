@@ -797,7 +797,7 @@ iframe{
 .tileScroll_controls1,.tileScroll_controls2 a { width:37px; height:35px; position:absolute; top:3px; color:#FFF;}
 .tileScroll_controls1,.tileScroll_controls2 a:active, .tileScroll_controls1,.tileScroll_controls2 a:visited { color:#FFF; }*/
 
-#tileScroll_container {position:absolute;height:100px;cursor:move;padding-left:50%;} 
+#tileScroll_container {position:absolute;height:100px;cursor:move;padding-left:20%;} 
 #tileScroll_title { color:#14253D; font-family:arial; font-size:100%; font-weight:bold; width:100%; text-align:center; margin-top:10px; }
 
 /*#rtl { background:url(images/rtl.png) no-repeat; left:100px; color:#000;}
