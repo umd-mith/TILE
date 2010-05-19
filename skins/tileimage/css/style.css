@@ -404,6 +404,11 @@ div#sidebar {
 	display:none;
 }
 
+/**by grantd :: used to make canvas area scrollable **/
+#raphael{
+	overflow:auto;
+}
+
 /* Image scrollbar -------------------*/
 div#scroller {
 	position:absolute;

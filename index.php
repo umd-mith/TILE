@@ -16,7 +16,7 @@
 	<script src="lib/jquery/js/jquery.pngFix.pack.js" type="text/javascript"></script>
 	<script src="lib/jquery/js/mopslider/mopSlider-2.5.js" type="text/javascript"></script>
 	<script src="lib/raphael.js" type="text/javascript" charset="utf-8"></script>
-	
+	<script type="text/javascript" src="nospacebar.js"></script>
 	<script type="text/javascript" src="lib/jquery/development-bundle/ui/ui.core.js"></script>
  	<script type="text/javascript" src="lib/jquery/development-bundle/ui/ui.slider.js"></script>
 	<script type="text/javascript" src="lib/Extensible/Monomyth.js"></script>
@@ -48,13 +48,10 @@
 	<script type="text/javascript" src="lib/jquery/colorpicker/js/colorpicker.js"></script>
     <script type="text/javascript" src="lib/jquery/colorpicker/js/eye.js"></script>
     <script type="text/javascript" src="lib/jquery/colorpicker/js/utils.js"></script>
-   <!-- <script type="text/javascript" src="lib/jquery/colorpicker/js/layout.js"></script> -->
-
-<!--	<link rel="stylesheet" media="screen" type="text/css" href="skins/test/animatedscrolltest.css" />-->
 	<script type="text/javascript" src="lib/ScrollingImages/AnimatedScroller.js"></script>
 	<script type="text/javascript" src="lib/vectordrawingNik/underscore.js"></script>
-    <script type="text/javascript" src="lib/vectordrawingNik/VectorDrawer.js"></script>
-    
+    <script type="text/javascript" src="lib/vectordrawingNik/NeoVectorDrawer.js"></script>
+
 	<style>
 		.nameValue{
 			border:2px dotted;
