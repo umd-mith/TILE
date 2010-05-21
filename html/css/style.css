@@ -1,0 +1,107 @@
+body {
+	bottom:0;
+	left:0;
+	margin:0;
+	overflow:hidden;
+	position:absolute;
+	right:0;
+	top:0;
+	font-family:Arial, sans-serif;
+}
+.az {
+	bottom:0;
+	left:0;
+	overflow:visible;
+	position:absolute;
+	right:0;
+	top:0;
+}
+.header {
+	bottom:auto;
+	opacity:1;
+	z-index:2;
+	height:40px;
+}
+.main {
+	top:40px;
+	height:auto;
+	opacity:1;
+	z-index:1;
+
+}
+.log {
+	right:auto;
+	opacity:1;
+	z-index:3;
+	background:#ededed;
+}
+.tool {
+	right:auto;
+	opacity:1;
+	z-index:2;
+	background:#dbd8d8;
+}
+.content {
+	right:0;
+	opacity:1;
+	z-index:1;
+	background:#ededed;
+}
+.contentclone {
+	right:0;
+	opacity:1;
+	z-index:1;
+	background:#dbd8d8;
+}
+
+/* 2 columns */
+.twocol .log {
+	left:0;
+	width:40%;
+}
+.twocol .tool {
+	display:none;
+}
+.twocol .content {
+	left:40%;
+	width:60%;
+}
+.twocol .contentclone {
+	display:none;
+}
+
+/* 3 columns */
+.threecol .log {
+	left:0;
+	width:40%;
+}
+.threecol .tool {
+	left:40%;
+	width:15%;
+}
+.threecol .content {
+	left:55%;
+	width:45%;
+}
+.threecol .contentclone {
+	display:none;
+}
+
+/* 4 columns */
+.fourcol .log {
+	left:0;
+	width:25%;
+}
+.fourcol .tool {
+	left:25%;
+	width:15%;
+}
+.fourcol .content {
+	right:auto;
+	left:40%;
+	width:30%;
+}
+.fourcol .contentclone {
+	left:70%;
+	width:30%;
+}
