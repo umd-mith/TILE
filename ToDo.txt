@@ -1,0 +1,30 @@
+Fix image vector drawing/scaling
+
+Import Tag rules--
+	Design schema for tag rules. ?--should transcript be a required top level tag?
+	
+Import TEI--
+	Specify tags for which the text should be
+	an object in the transcript pane, able to 
+	be associated with image regions
+
+?--how to handle auto tagging, esp with preset values?  Maybe a template object
+	with t,l,w,h,rgb that gets applied to any image as a region
+
+The DataPane--
+	The data pane should be a transcript of all user actions.
+	It consists of media fragments, tags (which include transcriptLines), 
+	and groupings.  Groupings associate any # of the others and may have 
+	a relationship (ORE?).  Grouping may be created after their children exist,
+	but upon creating a new group the interface assumes that the user
+	wants to add new elements to the group until specified otherwise.
+
+	
+
+	
+	
+
+
+
+	
+

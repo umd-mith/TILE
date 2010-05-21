@@ -1,0 +1,166 @@
+<!DOCTYPE rdf:RDF [
+    <!ENTITY tile "http://mith.umd.edu/20100308-tile.owl" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+ ]>
+
+<rdf:RDF 
+    xmlns     ="&tile;" 
+    xmlns:owl ="&owl;"
+    xmlns:rdf ="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:xsd ="&xsd;">
+
+    <!-- information about this ontology -->
+    <owl:Ontology rdf:about="">
+      <rdfs:comment>Ontology for the Text Image Linking Environment</rdfs:comment>
+      <owl:priorVersion rdf:resource="http://mith.umd.edu/20100219-tile.owl"/>
+      <rdfs:label>Text Image Linking Environment Ontology</rdfs:label>
+    </owl:Ontology>
+
+    <!-- a class, implicitly a subclass of owl:Thing -->
+    <owl:Class rdf:ID="Image">
+        <rdfs:subClassOf>
+        <owl:Restriction> <!--Can have 0 or more Tags -->
+          <owl:onProperty rdf:resource="#hasTag"/>
+          <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+        </owl:Restriction>
+		</rdfs:subClassOf>
+	</owl:Class>
+	  <owl:Class rdf:ID="Attribute">
+	  	<rdfs:subClassOf>
+        <owl:Restriction> <!--Can have 0 or more Tags -->
+          <owl:onProperty rdf:resource="#hasName"/>
+          <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+        </owl:Restriction>
+		</rdfs:subClassOf>
+		 	<rdfs:subClassOf>
+        <owl:Restriction> <!--Can have 0 or more Tags -->
+          <owl:onProperty rdf:resource="#hasValue"/>
+          <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+        </owl:Restriction>
+		</rdfs:subClassOf>
+	  </owl:Class>
+	  <owl:Class rdf:ID="AttValue">
+	  </owl:Class>
+ 	<owl:Class rdf:ID="Tag">
+ 		 <rdfs:subClassOf>
+        <owl:Restriction> <!-- Can have 1 and only 1 Region -->
+          <owl:onProperty rdf:resource="#hasRegion"/>
+          <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+        </owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+        <owl:Restriction> <!-- Can have 0 or more attributes -->
+          <owl:onProperty rdf:resource="#hasAttribute"/>
+          <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+        </owl:Restriction>
+		</rdfs:subClassOf>
+ 	</owl:Class>
+		
+    <owl:Class rdf:ID="Region"/>
+    <!-- a subclass of region -->
+	<owl:Class rdf:ID="PolygonalRegion">
+	<rdfs:subClassOf rdf:resource="#Region" /> 
+	 <rdfs:subClassOf>
+        <owl:Restriction> <!-- must have exactly one upper left corner -->
+          <owl:onProperty rdf:resource="#hasPoint"/>
+          <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">3</owl:minCardinality>
+        </owl:Restriction>
+      </rdfs:subClassOf>
+	</owl:Class>	
+    <owl:Class rdf:ID="RectangularRegion">
+      <rdfs:subClassOf rdf:resource="#Region" /> 
+      <rdfs:subClassOf>
+        <owl:Restriction> <!-- must have exactly one upper left corner -->
+          <owl:onProperty rdf:resource="#hasUpperLeft"/>
+          <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+        </owl:Restriction>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf>
+		   <owl:Restriction> <!-- must have exactly one height -->
+          <owl:onProperty rdf:resource="#hasHeight"/>
+          <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+        </owl:Restriction>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf>
+        <owl:Restriction> <!-- must have exactly one width -->
+          <owl:onProperty rdf:resource="#hasWidth"/>
+          <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+        </owl:Restriction>
+     
+      </rdfs:subClassOf>
+    </owl:Class>
+
+    <!-- a subclass of region -->
+    <owl:Class rdf:ID="Point2D">
+      <rdfs:subClassOf rdf:resource="#Region" />
+      <rdfs:subClassOf>
+        <owl:Restriction> <!-- must have exactly one center -->
+          <owl:onProperty rdf:resource="#hasX"/>
+          <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+        </owl:Restriction>
+		      </rdfs:subClassOf>
+			   <rdfs:subClassOf>
+        <owl:Restriction> <!-- must have exactly one width -->
+          <owl:onProperty rdf:resource="#hasY"/>
+          <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+        </owl:Restriction>
+      </rdfs:subClassOf>
+    </owl:Class>
+
+    <!-- images can have regions associated with them... -->
+    <owl:ObjectProperty rdf:ID="hasRegion">
+      <rdfs:domain rdf:resource="#Image"/>
+      <rdfs:range rdf:resource="#Region"/> 
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="hasRegion">
+      <rdfs:domain rdf:resource="#Tag"/>
+      <rdfs:range rdf:resource="#Region"/> 
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="hasX">
+      <rdfs:domain rdf:resource="#Point2D"/>
+      <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/> 
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:ID="hasY">
+      <rdfs:domain rdf:resource="#Point2D"/>
+      <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/> 
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:ID="hasUpperLeft">
+      <rdfs:domain rdf:resource="#RectangularRegion"/>
+      <rdfs:range rdf:resource="#Point2D"/> 
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="hasHeight">
+      <rdfs:domain rdf:resource="#RectangularRegion"/>
+      <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/> 
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:ID="hasWidth">
+      <rdfs:domain rdf:resource="#RectangularRegion"/>
+      <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/> 
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="hasTag">
+      <rdfs:domain rdf:resource="#Image"/>
+      <rdfs:range rdf:resource="#Tag"/> 
+    </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:ID="hasAttribute">
+      <rdfs:domain rdf:resource="#Tag"/>
+      <rdfs:range rdf:resource="#Attribute"/> 
+    </owl:ObjectProperty>
+	 <owl:ObjectProperty rdf:ID="hasName">
+      <rdfs:domain rdf:resource="#Attribute"/>
+      <rdfs:range rdf:resource="&xsd;string"/> 
+    </owl:ObjectProperty>
+	 <owl:ObjectProperty rdf:ID="hasValue">
+      <rdfs:domain rdf:resource="#Attribute"/>
+      <rdfs:range rdf:resource="#AttValue"/> 
+    </owl:ObjectProperty>
+	 <owl:ObjectProperty rdf:ID="hasPoint">
+      <rdfs:domain rdf:resource="#PolygonalRegion"/>
+      <rdfs:range rdf:resource="#Point2D"/> 
+    </owl:ObjectProperty>
+</rdf:RDF>

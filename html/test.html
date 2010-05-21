@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>TILE: Text-Image Linking Environment</title>
+	<link type="text/css" href="jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+	<script type="text/javascript" src="jquery/js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="jquery/js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+
+			// Tabs
+			$('#tabs').tabs();
+			
+		});
+	</script>
+	
+	<style type="text/css">
+
+	body {
+		margin:0;
+		height:100%;
+		padding:7em 0 120px 275px;
+		overflow:hidden;
+		position:relative;
+		width:100%;
+	}
+	p { 
+		margin:0; 
+		padding:0;
+	}
+	div#header {
+		position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:7em;
+		background:#8b3939;
+	}
+	div#sidebar {
+		position:absolute;
+		top:7em;
+		left:0;
+		width:275px;
+		height:100%;
+		background:#facaca;
+	}
+	div#scroller {
+		position:absolute;
+		bottom:0;
+		left:275px;
+		width:100%;
+		height:120px;
+		background:#927878;
+	}
+	@media screen {
+		body>div#header {
+			position:fixed;
+		}
+		body>div#sidebar {
+			position:fixed;
+		}
+		body>div#scroller {
+			position:fixed;
+		}
+	}
+	#content {
+		height:auto; /* have Grant set the width and height of #content based on the detected browser window size */
+		width:auto;
+		overflow:auto;
+	}
+	#toolbar {
+		height:30px;
+		background:#fff;
+	}
+	#images {
+		padding:10px;
+	}
+	
+</style>
+	
+	
+</head>
+
+<body>
+	<div id="header"> header </div>
+	
+	<div id="sidebar">sidebar </div>
+	
+	<div id="content">
+
+		<div id="toolbar">
+		</div>
+		
+		<div id="images">
+			<img src="images/bookExample.jpg" alt="book example" />
+		</div>
+		
+	
+	</div> 
+	
+	<div id="scroller">scroller</div>
+	
+</body>
+</html>
