@@ -1,3 +1,56 @@
+/* =====================
+TILE Project
+Copyright 2010 MITH
+
+Written by Elisabeth Kvernen
+Maryland Institute for Technology in the Humanities
+
+swatch colors
+------------------
+f6ecd4 - cream 1
+f2e4c2 - cream 2
+ccbb93 - tan 1
+564a25 - tan 2
+e6e7b8 - green 1
+dadb9d - green 2
+afbf37 - green 3
+14253d - dark blue
+41475b - almost dark blue
+======================== */
+
+/* Yahoo CSS Reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+	margin:0;
+	padding:0;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+fieldset,img { 
+	border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-style:normal;
+	font-weight:normal;
+}
+ol,ul {
+	list-style:none;
+}
+caption,th {
+	text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-size:100%;
+	font-weight:normal;
+}
+q:before,q:after {
+	content:'';
+}
+abbr,acronym { border:0;
+}
+
+/* General styles ------------------- */
 body {
 	bottom:0;
 	left:0;
@@ -6,7 +59,10 @@ body {
 	position:absolute;
 	right:0;
 	top:0;
-	font-family:Arial, sans-serif;
+	color:#41475b;
+	font-family:Helvetica, Arial, "Lucida Sans", sans-serif;
+	font-size:90%;
+	background:#fffaef url('../images/bkgd.gif');
 }
 .az {
 	bottom:0;
@@ -16,44 +72,255 @@ body {
 	right:0;
 	top:0;
 }
+h1 {
+	font-size:2em;
+}
+h2 {
+	font-size:1.5em;
+}
+h3 {
+	font-size:1.25em;
+}
+h4 {
+	font-size:1em;
+}
+p {
+	font-size:1em;
+}
+a {
+	color:#41475b;
+	text-decoration:none;
+}
+a:hover {
+	color:#afbf37;
+	text-decoration:underline;
+}
+/* Header styles ------------------- */
 .header {
 	bottom:auto;
 	opacity:1;
 	z-index:2;
-	height:40px;
+	height:75px;
 }
+.header .logo {
+	padding:10px;
+	left:0;
+	width:280px;
+}
+.header .globalmenu {
+	padding:45px 10px 10px 10px;
+	right:0;
+	left:auto;
+	text-align:right;
+	width:300px;
+}
+/* Main area styles ------------------- */
 .main {
-	top:40px;
+	top:75px;
 	height:auto;
 	opacity:1;
 	z-index:1;
-
 }
 .log {
 	right:auto;
 	opacity:1;
 	z-index:3;
-	background:#ededed;
 }
 .tool {
 	right:auto;
 	opacity:1;
 	z-index:2;
-	background:#dbd8d8;
 }
 .content {
 	right:0;
 	opacity:1;
 	z-index:1;
-	background:#ededed;
 }
 .contentclone {
 	right:0;
 	opacity:1;
 	z-index:1;
-	background:#dbd8d8;
+}
+.inner {
+	margin:3px 3px 5px 3px;
+	border:1px solid #d5db97;
+	height:auto;
+	background:#fff;
+	shadow:
+}
+.btnIcon {
+	width:15px;
+	height:15px;
+	display:inline-block;
+	border:1px solid #fff;
+}
+/* Toolbar styles --------------- */
+.toolbar {
+	height:1em;
+	background:#f8ecce;
+	border:1px solid #fff;
+	padding:10px;
+}
+.toolbar ul, .toolbar ul li{
+	display:inline;
+}
+.toolbar ul.menuitem {
+	margin-right:10px;
+}
+.toolbar li.small {
+	font-size:.8em;
+	padding:2px;
+	/* border:1px solid #fff;
+	line-height:15px;*/
+}
+.toolbar li a#pointer.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -285px 0px;
+}
+.toolbar li a:hover#pointer.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -285px -15px;
+}
+.toolbar li a#pointer.btnIcon.inactive, .toolbar li a:hover#pointer.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -300px -15px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#pointer.btnIcon.active, .toolbar li a:hover#pointer.btnIcon.active {
+	background:url('../images/iconsSprite.gif') no-repeat -300px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#rect.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -45px 0px;
+}
+.toolbar li a:hover#rect.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -45px -15px;
+}
+.toolbar li a#rect.btnIcon.inactive, .toolbar li a:hover#rect.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -150px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#rect.btnIcon.active, .toolbar li a:hover#rect.btnIcon.active {
+	background:url('../images/iconsSprite.gif') no-repeat -240px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#poly.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -60px 0px;
+}
+.toolbar li a:hover#poly.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -60px -15px;
+}
+.toolbar li a#poly.btnIcon.inactive, .toolbar li a:hover#poly.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -165px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#poly.btnIcon.active, .toolbar li a:hover#poly.btnIcon.active {
+	background:url('../images/iconsSprite.gif') no-repeat -255px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#elli.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -75px 0px;
+}
+.toolbar li a:hover#elli.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -75px -15px;
+}
+.toolbar li a#elli.btnIcon.inactive, .toolbar li a:hover#elli.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -180px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#elli.btnIcon.active, .toolbar li a:hover#elli.btnIcon.active {
+	background:url('../images/iconsSprite.gif') no-repeat -270px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#areaDel.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -210px 0px;
+}
+.toolbar li a:hover#areaDel.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -210px -15px;
+}
+.toolbar li a#areaDel.btnIcon.inactive, .toolbar li a:hover#areaDel.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -150px -15px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#zoomIn.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -90px 0px;
+}
+.toolbar li a:hover#zoomIn.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -90px -15px;
+}
+.toolbar li a#zoomOut.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -105px 0px;
+}
+.toolbar li a:hover#zoomOut.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -105px -15px;
+}
+.toolbar li a#pgPrev.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -120px 0px;
+}
+.toolbar li a:hover#pgPrev.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -120px -15px;
+}
+.toolbar li a#pgNext.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -135px 0px;
+}
+.toolbar li a:hover#pgNext.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -135px -15px;
+}
+/* Image scrollbar -------------------*/
+#scroller {
+	bottom:0;
+	top:auto;
+	width:100%;
+	height:120px;
+	background:#fdfdec;
+	/* filter:alpha(opacity=90);
+	-moz-opacity:0.9;
+	-khtml-opacity: 0.9;
+	opacity: 0.9; */
+}
+#scroller .toolbar {
+	padding:5px;
+}
+#scroller .handle a {
+	display:block;
+	cursor:pointer;
+	background:url('../images/resize.jpg') no-repeat 40% 35%;
+	outline:none;
+}
+#scroller .toolbar a.open {
+	background:transparent url(../images/dropdownOpen.gif) no-repeat scroll 0px 2px;
+}
+#scroller .toolbar a.closed {
+	background:transparent url(../images/dropdownClosed.gif) no-repeat scroll 0px 1px;
+}
+#scroller span.button {
+	padding-left:20px;
+}
+#scroller .toolbar a:hover {
+	color:#14253d;
+	text-decoration:none;
 }
 
+/* Log styles ------------------- */
+.log .inner {
+
+}
+/* Tool styles ------------------- */
+.tool .inner {
+
+}
+/* Content and Content clone styles ------------------- */
+.content .inner, .contentclone .inner {
+
+}
+
+/* Positioning (2, 3, 4 columns) ------------------- */
 /* 2 columns */
 .twocol .log {
 	left:0;
