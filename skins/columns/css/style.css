@@ -154,6 +154,11 @@ a:hover {
 	display:inline-block;
 	border:1px solid #fff;
 }
+/**canvas srcImage fix - grantd **/
+#srcImageForCanvas{
+	display:none;
+}
+
 /* Toolbar styles --------------- */
 .toolbar {
 	height:1em;
