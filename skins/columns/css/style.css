@@ -154,6 +154,10 @@ a:hover {
 	display:inline-block;
 	border:1px solid #fff;
 }
+/**correction for SVG canvas **/
+.workspace{
+	position:relative;
+}
 /**canvas srcImage fix - grantd **/
 #srcImageForCanvas{
 	display:none;
