@@ -357,6 +357,9 @@ h2 {
 	-khtml-opacity: 0.9;
 	opacity: 0.9; */
 }
+#scroller #tileScroll_imagescroller {
+	position:relative;
+}
 #scroller .toolbar {
 	padding:5px;
 }
@@ -378,6 +381,22 @@ h2 {
 #scroller .toolbar a:hover {
 	color:#14253d;
 	text-decoration:none;
+}
+#scroller .tileScroll_controls {
+	width:40px;
+	height:50px;
+}
+#scroller .tileScroll_controls a {
+	display:block;
+	height:100%;
+	padding:10px;
+}
+#scroller .tileScroll_controls.left {
+	left:0;
+}
+#scroller .tileScroll_controls.right {
+	right:0;
+	left:auto;
 }
 
 /* Log styles ------------------- */
@@ -422,13 +441,13 @@ h2 {
 	background: url("../images/iconsSprite.gif") no-repeat scroll -62px 0;
 }
 .inner .tag .btnIconLarge.poly {
-	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -84px 0;
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -85px 0;
 }
 .inner .tag .btnIconLarge.elli {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -104px 0;
 }
 .inner .tag .btnIconLarge.text {
-	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll 0 0;
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -1px 0;
 }
 .inner .tag .btnIconLarge.hand {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -275px -21px;
