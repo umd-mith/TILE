@@ -6,6 +6,29 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>TILE: Text-Image Linking Environment</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen, projection" charset="utf-8">
+	<script type="text/javascript" src="scripts/jquery-1.3.2.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var startingHeight = 21; // Specifies the height of your navigation when collapsed
+			var speed = 300; // Specifies the speed of the animation
+			var heights = new Array();
+			var i = 1;
+			while ($("#ddown"+i).length) {
+				heights.push($("#ddown"+i).height() + 8);
+				$("#ddown"+i).height(startingHeight);
+				$("#ddown"+i).mouseover(function () {
+					$(this).stop().animate({height:heights[this.id.substr(5)-1]},{queue:false, duration:speed});
+				});
+				$("#ddown"+i).mouseout(function () {
+					$(this).stop().animate({height:startingHeight+'px'}, {queue:false, duration:speed});
+				});
+				i++;
+			}
+			$("#ddown ul").css("visibility", "visible");
+		}); 
+  </script>
+
 </head>
 
 <body>
@@ -13,7 +36,6 @@
 		<div class="az logo"><img src="images/tile.gif" alt="TILE: Text-Image Linking Environment" /></div>
 		<div class="az globalmenu">
 			<p>
-				<a href="">Save</a> | 
 				<a href="">Restart</a> | 
 				<a href="">Help</a>
 			</p>
@@ -23,113 +45,142 @@
 	<div class="az main twocol">
 		<div class="az log"><div class="az inner">
 			<div class="toolbar">
-				<p>
-					<a href="">Load</a>  |  
-					<a href="">Save</a>  | 
-					<select>
-					  <option value="">New</option>
-					  <option value="">Tag</option>
-					  <option value="">Group</option>
-					</select>
-					
-					<select>
-					  <option value="">Tools</option>
-					  <option value="">Tool-1</option>
-					  <option value="">Tool-2</option>
-					  <option value="">Tool-3</option>
-					</select>
-				</p>
-			</div>
-			<div class="tags">
-				<div class="tag shape">
-					<form>
-						<span class="menu">
-							<select>
-								<option>Edit</option>
-								<option>Move</option>
-								<option>Delete</option>
-								<option>Add to group</option>
-							</select>
-						</span>
-					</form>
-					<span class="btnIcon poly"></span>
-						<input type="text" />
-						<p class="shapename">This is a test shape tag</p>
 				
+				<div class="menuitem">
 					<ul>
-						<li><span class="attrbname">Attribute 1:</span> <span class="attrb">attribute</span></li>
-						<li><span class="attrbname">Attribute 2:</span> <span class="attrb">attribute</span></li>
-						<li><span class="attrbname">Attribute 3:</span> <span class="attrb">attribute</span></li>
-						<li><span class="attrbname">Attribute 4:</span> <span class="attrb">attribute</span></li>
-						<li><span class="attrbname">Attribute 5:</span> <span class="attrb">attribute</span></li>
+						<li><a href="">Load</a></li> &nbsp; |  
 					</ul>
 				</div>
+				<div class="menuitem">
+					<ul>
+						<li><a href="">Save</a></li> &nbsp; | 					
+					</ul>
+				</div>
+				<div id="ddown">
+					<div class="menuitem">
+						<ul id="ddown1" class="menu_body">
+							<li class="menu_head"><a href="#">Tools</a></li>
+							<li><a href="#">Tool-1</a></li>
+						 	<li><a href="#">Tool-2</a></li>
+					  	</ul>
+					</div>	
+					<div class="menuitem">
+						<ul id="ddown2" class="menu_body">
+							<li class="menu_head"><a href="#">New</a></li>
+							<li><a href="#">Tag</a></li>
+						 	<li><a href="#">Group</a></li>
+					  	</ul>
+					</div>
+				
+				</div>
+
+			</div>
+			<div class="tags">
+				<!-- shape tag ------------- -->
+				
+				<div class="tag shape">
+					<div class="tagname">	
+						<input type="text" />
+						<p class="shapename">This is a test shape tag</p>
+					</div>
+					
+					<div class="tagmenu">
+						<div class="menuitem"><span class="btnIconLarge poly"></span></div>
+						
+						<div class="menuitem"><span class="btnIconLarge hand"></span></div>
+						
+						<div id="ddown">
+							<div class="menuitem">
+								<ul id="ddown3" class="menu_body">
+									<li class="menu_head"><a href="#">Options</a></li>
+									<li><a href="#">Edit</a></li>
+								 	<li><a href="#">Delete</a></li>
+									<li><a href="#">Add to group</a></li>
+							  	</ul>
+							</div>
+						</div>
+						
+					</div>
+					<div class="tagcontent">			
+						<ul>
+							<li><span class="attrbname">Attribute 1:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 2:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 3:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 4:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 5:</span> <span class="attrb">attribute</span></li>
+						</ul>
+					</div>
+				</div>
+				<!-- transcript tag ------------- -->
+				
 				<div class="tag transcript">
-					<form>
-						<span class="menu">
-							<select>
-								<option>Edit</option>
-								<option>Move</option>
-								<option>Delete</option>
-								<option>Add to group</option>
-							</select>
-						</span>
-					</form>
-					<span class="btnIcon text"></span>
-					<p class="transname">This is a test transcript tag</p>
-					<p class="transcript">This is a test transcript that goes on for a while about nothing. This is a test transcript that goes on for a while about nothing. This is a test transcript that goes on for a while about nothing.</p>
-					<form>
-						<textarea>This is what an input area would look like.</textarea><span class="menu"></span>
-						<br />
-						<input type="submit" value="Delete" class="submit" /><input type="submit" value="Done" class="submit" />
-					</form>
+					<div class="tagname">	
+						<input type="text" />
+						<p class="transname">This is a test transcript tag</p>
+					</div>
+					
+					<div class="tagmenu">
+						<div class="menuitem"><span class="btnIconLarge text"></span></div>
+						
+						<div class="menuitem"><span class="btnIconLarge hand"></span></div>
+						
+						<div id="ddown">
+							<div class="menuitem">
+								<ul id="ddown4" class="menu_body">
+									<li class="menu_head"><a href="#">Options</a></li>
+									<li><a href="#">Edit</a></li>
+								 	<li><a href="#">Delete</a></li>
+									<li><a href="#">Add to group</a></li>
+							  	</ul>
+							</div>
+						</div>
+						
+					</div>
+					<div class="tagcontent">			
+						<p class="transcript">This is a test transcript that goes on for a while about nothing. This is a test transcript that goes on for a while about nothing. This is a test transcript that goes on for a while about nothing.</p>
+						<form>
+							<textarea>This is what an input area would look like.</textarea><span class="menu"></span>
+							<br />
+							<input type="submit" value="Delete" class="submit" /><input type="submit" value="Done" class="submit" />
+						</form>
+					</div>
 				</div>
 			
 				<div class="group">
 					<div class="groupname"><a class="open" href="#"><span class="button">Group name</span></a></div>
 				<!-- group insides -->
 				<div class="tag shape">
-					<form>
-						<span class="menu">
-							<select>
-								<option>Edit</option>
-								<option>Move</option>
-								<option>Delete</option>
-								<option>Add to group</option>
-							</select>
-						</span>
-					</form>
-					<span class="btnIcon poly"></span>
+					<div class="tagname">	
 						<input type="text" />
 						<p class="shapename">This is a test shape tag</p>
-				
-					<ul>
-						<li><span class="attrbname">Attribute 1:</span> <span class="attrb">attribute</span></li>
-						<li><span class="attrbname">Attribute 2:</span> <span class="attrb">attribute</span></li>
-						<li><span class="attrbname">Attribute 3:</span> <span class="attrb">attribute</span></li>
-						<li><span class="attrbname">Attribute 4:</span> <span class="attrb">attribute</span></li>
-						<li><span class="attrbname">Attribute 5:</span> <span class="attrb">attribute</span></li>
-					</ul>
-				</div>
-				<div class="tag transcript">
-					<form>
-						<span class="menu">
-							<select>
-								<option>Edit</option>
-								<option>Move</option>
-								<option>Delete</option>
-								<option>Add to group</option>
-							</select>
-						</span>
-					</form>
-					<span class="btnIcon text"></span>
-					<p class="transname">This is a test transcript tag</p>
-					<p class="transcript">This is a test transcript that goes on for a while about nothing. This is a test transcript that goes on for a while about nothing. This is a test transcript that goes on for a while about nothing.</p>
-					<form>
-						<textarea>This is what an input area would look like.</textarea><span class="menu"></span>
-						<br />
-						<input type="submit" value="Delete" /><input type="submit" value="Done" />
-					</form>
+					</div>
+					
+					<div class="tagmenu">
+						<div class="menuitem"><span class="btnIconLarge poly"></span></div>
+						
+						<div class="menuitem"><span class="btnIconLarge hand"></span></div>
+						
+						<div id="ddown">
+							<div class="menuitem">
+								<ul id="ddown5" class="menu_body">
+									<li class="menu_head"><a href="#">Options</a></li>
+									<li><a href="#">Edit</a></li>
+								 	<li><a href="#">Delete</a></li>
+									<li><a href="#">Add to group</a></li>
+							  	</ul>
+							</div>
+						</div>
+						
+					</div>
+					<div class="tagcontent">			
+						<ul>
+							<li><span class="attrbname">Attribute 1:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 2:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 3:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 4:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 5:</span> <span class="attrb">attribute</span></li>
+						</ul>
+					</div>
 				</div>
 			
 				<!-- end group insides ---------------- -->

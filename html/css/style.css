@@ -180,18 +180,65 @@ h2 {
 	display:inline-block;
 	border:1px solid #fff;
 }
+/* Dropdown and menu styles --------------- */
+.menuitem {
+	margin-right:5px;
+	display:inline;
+	float:left;
+}
+#ddown {
+	float: right;
+	display: inline;
+	height:21px;
+}
+#ddown ul {
+	float: left;
+	width: 98px;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	visibility:hidden;
+	border-right:1px solid #afbf37;
+	border-bottom:1px solid #afbf37;
+	border-left:1px solid #afbf37;
+}
+#ddown li {
+	float: left;
+}
+#ddown a {
+	float: left;
+ 	width: 94px;
+	height:21px;
+	display: block;
+ 	margin: 0;
+	padding:3px;
+	background:#fff; 
+	color:#41475b; 
+	border-bottom:1px solid #fff;
+}
+#ddown ul a:hover {
+	color:#061224;
+	border-bottom:1px dashed #14253d;
+}
+#ddown li.menu_head a {
+	border-top:1px solid #afbf37;
+	width:94px; 
+	padding:1px 3px;
+	cursor:pointer;
+	background:#fff url(../images/dropdownOpen.gif) no-repeat scroll 90% 50%;
+}
+#ddown li.menu_head a:hover {
+	border-bottom:1px solid #fff;
+}
 /* Toolbar styles --------------- */
 .toolbar {
-	height:1em;
+	height:1.5em;
 	background:#f8ecce;
 	border:1px solid #fff;
 	padding:10px;
 }
-.toolbar ul, .toolbar ul li{
+.toolbar ul, .toolbar ul li, .toolbar p {
 	display:inline;
-}
-.toolbar ul.menuitem {
-	margin-right:10px;
 }
 .toolbar li.small {
 	font-size:.8em;
@@ -345,40 +392,57 @@ h2 {
 	font-size:.9em;
 	position:relative;
 }
-.inner .tag .btnIcon {
+.inner .tag .tagname {
+	width:70%;
+	color:#14253d;
+	font-family:Helvetica, Arial, Verdana, sans-serif;
+	font-size:1em;
+	line-height:1.5em;
+	float:left;
+}
+.inner .tag .tagmenu {
+	width:30%;
+	float:left;
+	height:21px;
+}
+.inner .tag .menuitem {
+	float:right;
+}
+.inner .tag .tagcontent {
+	width:100%;
+	clear:both;
+}
+.inner .tag .btnIconLarge {
+	width:19px;
+	height:19px;
+	display:inline-block;
 	border:1px solid #afbf37;
-	position:absolute;
-	right:5px;
-	top:5px;
 }
-.inner .tag .btnIcon.rect {
-	background: url("../images/iconsSprite.gif") no-repeat scroll -45px 0;
+.inner .tag .btnIconLarge.rect {
+	background: url("../images/iconsSprite.gif") no-repeat scroll -62px 0;
 }
-.inner .tag .btnIcon.poly {
-	background: url("../images/iconsSprite.gif") no-repeat scroll -60px 0;
+.inner .tag .btnIconLarge.poly {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -84px 0;
 }
-.inner .tag .btnIcon.elli {
-	background: url("../images/iconsSprite.gif") no-repeat scroll -75px 0;
+.inner .tag .btnIconLarge.elli {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -104px 0;
 }
-.inner .tag .btnIcon.text {
-	background: url("../images/iconsSprite.gif") no-repeat scroll -75px 0;
+.inner .tag .btnIconLarge.text {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll 0 0;
 }
-.inner .tag .menu {
-	position:absolute;
-	right:35px;
-	top:5px;
-	width:21px;
+.inner .tag .btnIconLarge.hand {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -275px -21px;
+}
+.inner .tag .btnIconLarge.hand:hover {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -275px 0px;
+	cursor:move;
 }
 .inner .tag .shapename, .inner .tag .transname {
 	font-weight:bold;
 	margin-bottom:5px;
 }
-.inner .tag textarea, .inner .tag input {
-	width:80%;
-	color:#14253d;
-	font-family:Helvetica, Arial, Verdana, sans-serif;
-	font-size:1em;
-	line-height:1.5em;
+.inner .tag .tagname input {
+	width:auto;
 }
 .inner .tag input.submit {
 	width:auto;
