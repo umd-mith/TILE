@@ -96,7 +96,8 @@ a:hover {
 	color:#061224;
 	border-bottom:1px dashed #14253d;
 }
-#srcImageForCanvas{
+/* ------ MISC --------- */
+#srcImageForCanvas {
 	display:none;
 }
 
@@ -191,12 +192,14 @@ h2 {
 	float:left;
 }
 #ddown {
-	float: right;
+	/* float: right; */
 	display: inline;
 	height:21px;
+	position:absolute;
+	right:10px;
 }
 #ddown ul {
-	float: left;
+	float: left; 
 	width: 98px;
 	margin: 0;
 	padding: 0;
@@ -234,12 +237,16 @@ h2 {
 #ddown li.menu_head a:hover {
 	border-bottom:1px solid #fff;
 }
+.tag #ddown {
+	right:58px;
+}
 /* Toolbar styles --------------- */
 .toolbar {
 	height:1.5em;
 	background:#f8ecce;
 	border:1px solid #fff;
 	padding:10px;
+	position:relative;
 }
 .toolbar ul, .toolbar ul li, .toolbar p {
 	display:inline;
@@ -361,11 +368,9 @@ h2 {
 	-khtml-opacity: 0.9;
 	opacity: 0.9; */
 }
-#scroller #tileScroll_imagescroller {
-	position:relative;
-}
 #scroller .toolbar {
 	padding:5px;
+	margin-bottom:5px;
 }
 #scroller .handle a {
 	display:block;
@@ -395,12 +400,28 @@ h2 {
 	height:100%;
 	padding:10px;
 }
+#scroller tileScroll_imagescroller {
+	position:relative;
+}
 #scroller .tileScroll_controls.left {
-	left:0;
+	float:left;
+	width:10%;
+}
+#scroller #tileScroll_viewer {
+	float:left;
+	width:80%;
+	height:75px;
 }
 #scroller .tileScroll_controls.right {
-	right:0;
-	left:auto;
+	float:right;
+	width:10%;
+}
+#scroller #tileScroll_container {
+	width:80%;
+	overflow:auto;
+}
+#scroller .tileScroll_item {
+	display:inline;
 }
 
 /* Log styles ------------------- */
@@ -465,10 +486,16 @@ h2 {
 	margin-bottom:5px;
 }
 .inner .tag .tagname input {
-	width:auto;
+	width:100%;
+}
+.inner .group .tag .tagname input {
+	width:98%;
 }
 .inner .tag input.submit {
 	width:auto;
+}
+.inner .tag .tagcontent textarea {
+	width:100%;
 }
 .inner .group {
 	background:#fef5df;
@@ -488,8 +515,13 @@ h2 {
 .inner .group a.closed {
 	background:transparent url(../images/dropdownClosedBlue.gif) no-repeat scroll 0px 1px;
 }
-.inner .group .groupname span.button {
-	padding-left:20px;
+.inner .group .groupname .btnIcon {
+	border:none;
+	height:12px;
+	width:12px;
+}
+.inner .group .groupname span {
+	padding-left:5px;
 }
 /* Tool styles ------------------- */
 .tool .inner {
