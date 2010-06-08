@@ -584,3 +584,21 @@ h2 {
 	left:70%;
 	width:30%;
 }
+
+/** AXE Node Styles **/
+.axe_start_node{
+	width:7px;
+	height:7px;
+	background:url('skins/columns/images/axe_blue_small.png') no-repeat;
+}
+.axe_node{
+	width:7px;
+	height:7px;
+	background:url('skins/columns/images/axe_red_small.png') no-repeat;
+}
+/** SELECTION BOUNDING BOX STYLE **/
+/**selBB**/
+/TODO: make into a CSS style rather than JQUERY style
+#selBB{
+	border: 3px black solid,
+}
