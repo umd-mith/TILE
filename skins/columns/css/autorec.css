@@ -1,0 +1,32 @@
+#regionBox{
+display: none;
+}
+
+.boxer_plainbox{
+	position:absolute;
+	left:0px;
+	top:17px;
+	background-color:transparent;
+	border: 2px solid #ff510b;
+	width:200px;
+	height:300px;
+	margin-right:5px;
+	padding-right:5px;
+}
+.boxer_plainbox_close{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:16px;
+	height:16px;
+	cursor:pointer;
+}
+.boxer_plainbox_useroptions{
+	position:absolute;
+	left:-65px;
+	top:0px;
+	width:65px;
+	height:15px;
+	background-color:#DBB2BB;
+	border:solid 1px #D40633;
+}
