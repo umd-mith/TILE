@@ -30,3 +30,20 @@ display: none;
 	background-color:#DBB2BB;
 	border:solid 1px #D40633;
 }
+
+/**BlobBox**/
+.lineBox{
+	position:absolute;
+	background-color:transparent;
+	border: 1px solid green;
+
+}
+.lineBoxSelect{
+	border: 2px dotted yellow;
+}
+.boxer_blob_drag,.boxer_blob_resize{
+	margin-left:2px;
+}
+.ui-state-disabled{
+	opacity:1;
+}
