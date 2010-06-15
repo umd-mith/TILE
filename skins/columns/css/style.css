@@ -194,7 +194,7 @@ a.btnIconLarge:hover {
 	padding:2px 7px;
 	background:#e7dab9 url('../images/bkgd_btn.jpg') repeat-x;
 	border:1px solid #ccbb93;
-	margin:20px 0 0 0;
+	margin:0;
 	cursor:pointer;	
 	width:auto;
 }
@@ -211,6 +211,9 @@ a.button:hover {
 	display:inline;
 	float:left;
 	position:relative;
+}
+.menuitem li, .menuitem p {
+	padding-right:5px;
 }
 .ddown {
 	display: inline;
@@ -251,7 +254,7 @@ a.button:hover {
 	/* border:1px solid #fff;
 	line-height:15px;*/
 }
-.toolbar .btnIconLarge, .toolbar .button {
+.toolbar .btnIconLarge, .content .toolbar .button {
 	position:relative;
 	top:3px;
 }
@@ -386,7 +389,7 @@ a.button:hover {
 #scroller .toolbar a.closed {
 	background:transparent url(../images/dropdownClosed.gif) no-repeat scroll 0px 1px;
 }
-#scroller span.button {
+#scroller span.buttonddown {
 	padding-left:20px;
 }
 #scroller .toolbar a:hover {
