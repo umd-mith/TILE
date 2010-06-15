@@ -518,6 +518,9 @@ h2 {
 .inner .group .groupname span {
 	padding-left:5px;
 }
+.inner .group .groupname span.btnIconLarge {
+	padding-left:0;
+}
 /* Tool styles ------------------- */
 .tool .inner {
 

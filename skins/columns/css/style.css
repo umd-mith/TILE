@@ -180,61 +180,60 @@ a:hover {
 	display:inline-block;
 	border:1px solid #fff;
 }
+.btnIconLarge {
+	width:19px;
+	height:19px;
+	display:inline-block;
+	border:1px solid #fff;
+}
+a.btnIconLarge:hover {
+	border-bottom:1px solid transparent;
+}
 /* Dropdown and menu styles --------------- */
+.button {
+	padding:2px 7px;
+	background:#e7dab9 url('../images/bkgd_btn.jpg') repeat-x;
+	border:1px solid #ccbb93;
+	margin:20px 0 0 0;
+	cursor:pointer;	
+	width:auto;
+}
+a.button:hover {
+	background:#FDFDEC url('../images/bkgd_btn-hover.jpg') repeat-x;
+	border-bottom:1px solid #ccbb93;
+}
+.button.active {
+	background:#FDFDEC url('../images/bkgd_btn-active.jpg') repeat-x;
+	border-bottom:1px solid #ccbb93;
+}
 .menuitem {
-	margin-right:5px;
+	margin-right:10px;
 	display:inline;
 	float:left;
+	position:relative;
 }
-#ddown {
-	/* float: right; */
+.ddown {
 	display: inline;
-	height:21px;
-	position:absolute;
-	right:10px;
+	height:19px;
+	position:relative;
 }
-#ddown ul {
-	float: left; 
-	width: 98px;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	visibility:hidden;
-	border-right:1px solid #afbf37;
-	border-bottom:1px solid #afbf37;
-	border-left:1px solid #afbf37;
+.ddown select {
+	background:#fff;
+	background-image:none;
+	border:1px solid #AFBF37;
+	font-size:90%;
+	color:#41475B;
+	width:auto;
 }
-#ddown li {
-	float: left;
+.ddown select option {
+	border:none;
+	margin:1px;
+	padding:1px;
 }
-#ddown a {
-	float: left;
- 	width: 94px;
-	height:21px;
-	display: block;
- 	margin: 0;
-	padding:3px;
-	background:#fff; 
-	color:#41475b; 
-	border-bottom:1px solid #fff;
+.ddown select option:hover {
+	background-color:#FDFDEC;
 }
-#ddown ul a:hover {
-	color:#061224;
-	border-bottom:1px dashed #14253d;
-}
-#ddown li.menu_head a {
-	border-top:1px solid #afbf37;
-	width:94px; 
-	padding:1px 3px;
-	cursor:pointer;
-	background:#fff url(../images/dropdownOpen.gif) no-repeat scroll 90% 50%;
-}
-#ddown li.menu_head a:hover {
-	border-bottom:1px solid #fff;
-}
-.tag #ddown {
-	right:58px;
-}
+
 /* Toolbar styles --------------- */
 .toolbar {
 	height:1.5em;
@@ -252,105 +251,113 @@ a:hover {
 	/* border:1px solid #fff;
 	line-height:15px;*/
 }
-.toolbar li a#pointer.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -285px 0px;
+.toolbar .btnIconLarge, .toolbar .button {
+	position:relative;
+	top:3px;
 }
-.toolbar li a:hover#pointer.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -285px -15px;
+.toolbar li a#pointer.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -21px;
 }
-.toolbar li a#pointer.btnIcon.inactive, .toolbar li a:hover#pointer.btnIcon.inactive {
-	background:url('../images/iconsSprite.gif') no-repeat -300px -15px;
+.toolbar li a:hover#pointer.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -0px;
+}
+.toolbar li a#pointer.btnIconLarge.inactive, .toolbar li a:hover#pointer.btnIconLarge.inactive {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -65px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
-.toolbar li a#pointer.btnIcon.active, .toolbar li a:hover#pointer.btnIcon.active {
-	background:url('../images/iconsSprite.gif') no-repeat -300px 0px;
+.toolbar li a#pointer.btnIconLarge.active, .toolbar li a:hover#pointer.btnIconLarge.active {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -42px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
-.toolbar li a#rect.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -45px 0px;
+.toolbar li a#rect.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -64px -21px;
 }
-.toolbar li a:hover#rect.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -45px -15px;
+.toolbar li a:hover#rect.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -64px 0px;
 }
-.toolbar li a#rect.btnIcon.inactive, .toolbar li a:hover#rect.btnIcon.inactive {
-	background:url('../images/iconsSprite.gif') no-repeat -150px 0px;
+.toolbar li a#rect.btnIconLarge.inactive, .toolbar li a:hover#rect.btnIconLarge.inactive {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -64px -65px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
-.toolbar li a#rect.btnIcon.active, .toolbar li a:hover#rect.btnIcon.active {
-	background:url('../images/iconsSprite.gif') no-repeat -240px 0px;
+.toolbar li a#rect.btnIconLarge.active, .toolbar li a:hover#rect.btnIconLarge.active {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -64px -43px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
-.toolbar li a#poly.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -60px 0px;
+.toolbar li a#poly.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -85px -21px;
 }
-.toolbar li a:hover#poly.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -60px -15px;
+.toolbar li a:hover#poly.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -85px 0px;
 }
-.toolbar li a#poly.btnIcon.inactive, .toolbar li a:hover#poly.btnIcon.inactive {
-	background:url('../images/iconsSprite.gif') no-repeat -165px 0px;
+.toolbar li a#poly.btnIconLarge.inactive, .toolbar li a:hover#poly.btnIconLarge.inactive {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -85px -65px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
-.toolbar li a#poly.btnIcon.active, .toolbar li a:hover#poly.btnIcon.active {
-	background:url('../images/iconsSprite.gif') no-repeat -255px 0px;
+.toolbar li a#poly.btnIconLarge.active, .toolbar li a:hover#poly.btnIconLarge.active {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -85px -44px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
-.toolbar li a#elli.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -75px 0px;
+.toolbar li a#elli.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -106px -21px;
 }
-.toolbar li a:hover#elli.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -75px -15px;
+.toolbar li a:hover#elli.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -106px 0px;
 }
-.toolbar li a#elli.btnIcon.inactive, .toolbar li a:hover#elli.btnIcon.inactive {
-	background:url('../images/iconsSprite.gif') no-repeat -180px 0px;
+.toolbar li a#elli.btnIconLarge.inactive, .toolbar li a:hover#elli.btnIconLarge.inactive {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -106px -65px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
-.toolbar li a#elli.btnIcon.active, .toolbar li a:hover#elli.btnIcon.active {
-	background:url('../images/iconsSprite.gif') no-repeat -270px 0px;
+.toolbar li a#elli.btnIconLarge.active, .toolbar li a:hover#elli.btnIconLarge.active {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -106px -44px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
-.toolbar li a#areaDel.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -210px 0px;
+.toolbar li a#areaDel.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -211px -21px;
 }
-.toolbar li a:hover#areaDel.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -210px -15px;
+.toolbar li a:hover#areaDel.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -211px 0px;
 }
-.toolbar li a#areaDel.btnIcon.inactive, .toolbar li a:hover#areaDel.btnIcon.inactive {
-	background:url('../images/iconsSprite.gif') no-repeat -150px -15px;
+.toolbar li a#areaDel.btnIconLarge.inactive, .toolbar li a:hover#areaDel.btnIconLarge.inactive {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -211px -65px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
-.toolbar li a#zoomIn.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -90px 0px;
+.toolbar li a#zoomIn.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -127px -21px;
 }
-.toolbar li a:hover#zoomIn.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -90px -15px;
+.toolbar li a:hover#zoomIn.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -127px 0px;
 }
-.toolbar li a#zoomOut.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -105px 0px;
+.toolbar li a#zoomOut.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -148px -21px;
 }
-.toolbar li a:hover#zoomOut.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -105px -15px;
+.toolbar li a:hover#zoomOut.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -148px 0px;
 }
-.toolbar li a#pgPrev.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -120px 0px;
+.toolbar li span.listView {
+	padding-left:20px;
+	background:url('../images/listView.gif') no-repeat 0 50%;
 }
-.toolbar li a:hover#pgPrev.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -120px -15px;
+/*.toolbar li a#pgPrev.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -120px 0px;
 }
-.toolbar li a#pgNext.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -135px 0px;
+.toolbar li a:hover#pgPrev.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -120px -21px;
 }
-.toolbar li a:hover#pgNext.btnIcon{
-	background:url('../images/iconsSprite.gif') no-repeat -135px -15px;
+.toolbar li a#pgNext.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -135px 0px;
 }
+.toolbar li a:hover#pgNext.btnIconLarge{
+	background:url('../images/iconsSprite.gif') no-repeat -135px -21px;
+}*/
 /* Image scrollbar -------------------*/
 #scroller {
 	bottom:0;
@@ -441,40 +448,72 @@ a:hover {
 }
 .inner .tag .tagmenu {
 	width:30%;
-	float:left;
-	height:21px;
+	float:right;
+}
+.inner .tag .tagmenu select {
+	position:relative;
+	width:21px;
+	height:19px;
+}
+.inner .tag .menuitem, .inner .group .menuitem {
+	float:right;
 }
 .inner .tag .menuitem {
-	float:right;
+	margin-right:5px;
 }
 .inner .tag .tagcontent {
 	width:100%;
 	clear:both;
 }
-.inner .tag .btnIconLarge {
-	width:19px;
-	height:19px;
-	display:inline-block;
+.inner .tag .btnIconLarge, .groupname .btnIconLarge {
 	border:1px solid #afbf37;
 }
+.inner .tag .menuitem.ddown .btnIconLarge.ddown {
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:200;
+}
 .inner .tag .btnIconLarge.rect {
-	background: url("../images/iconsSprite.gif") no-repeat scroll -62px 0;
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -64px -21px;
 }
 .inner .tag .btnIconLarge.poly {
-	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -85px 0;
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -85px -21px;
 }
 .inner .tag .btnIconLarge.elli {
-	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -104px 0;
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -106px -21px;
 }
 .inner .tag .btnIconLarge.text {
-	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -1px 0;
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -1px -22px;
 }
-.inner .tag .btnIconLarge.hand {
-	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -275px -21px;
+.inner .tag .btnIconLarge.hand, .groupname .btnIconLarge.hand {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -231px -21px;
 }
-.inner .tag .btnIconLarge.hand:hover {
-	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -275px 0px;
+.inner .tag .btnIconLarge.hand:hover, .groupname .btnIconLarge.hand:hover {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -231px 0px;
 	cursor:move;
+}
+.inner .tag .btnIconLarge.hand.active, .inner .tag .btnIconLarge.hand.active:hover {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -231px -42px;
+}
+.inner .tag .btnIconLarge.hand.inactive, .inner .tag .btnIconLarge.hand.inactive:hover {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -231px -65px;
+	border:1px solid #eadec2;
+	cursor:default;	
+}
+.inner .tag .btnIconLarge.ddown {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -274px -21px;
+}
+.inner .tag .btnIconLarge.ddown:hover {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -274px 0px;
+}
+.inner .tag .btnIconLarge.ddown.active, .inner .tag .btnIconLarge.ddown.active:hover {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -274px -42px;
+}
+.inner .tag .btnIconLarge.ddown.inactive, .inner .tag .btnIconLarge.ddown.inactive:hover {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -274px -65px;
+	border:1px solid #eadec2;
+	cursor:default;	
 }
 .inner .tag .shapename, .inner .tag .transname {
 	font-weight:bold;
@@ -514,9 +553,13 @@ a:hover {
 	border:none;
 	height:12px;
 	width:12px;
+	padding-right:5px;
 }
 .inner .group .groupname span {
 	padding-left:5px;
+}
+.inner .group .groupname span.btnIconLarge {
+	padding-left:0;
 }
 .inner .group .grouplist {
 	overflow:auto;
