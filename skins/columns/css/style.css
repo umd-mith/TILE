@@ -77,7 +77,7 @@ h1 {
 	font-size:2em;
 }
 h2 {
-	font-size:1.5em;
+	font-size:1.4em;
 }
 h3 {
 	font-size:1.25em;
@@ -101,11 +101,7 @@ a:hover {
 	display:none;
 }
 
-/* Headings and text styles--------- */
-h1 {}
-h2 {
-	text-transform:uppercase;
-}
+/* Clearfix styles--------- */
 .clear {
     clear: both;
     display: block;
@@ -132,7 +128,6 @@ h2 {
 	bottom:auto;
 	opacity:1;
 	z-index:2;
-	height:75px;
 }
 .header .logo {
 	padding:10px;
