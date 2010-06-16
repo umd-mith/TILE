@@ -433,15 +433,24 @@ a.button:hover {
 .log .inner .tags {
 	overflow:auto;
 }
-.inner .tag {
+.log .tag {
 	border:1px solid #afbf37;
 	background:#fff;
-	padding:5px;
+	padding:6px;
 	margin:5px;
 	font-size:.9em;
 	/*position:relative;*/
 }
-.inner .tag .tagname {
+.log .tag.selected, .log .tag.selected:hover {
+	border:3px dashed #afbf37;
+	padding:4px;
+	background:#eaedc6;
+}
+.log .tag:hover {
+	border:3px solid #afbf37;
+	padding:4px;
+}
+.log .tag .tagname {
 	width:70%;
 	color:#14253d;
 	font-family:Helvetica, Arial, Verdana, sans-serif;
@@ -449,125 +458,125 @@ a.button:hover {
 	line-height:1.5em;
 	float:left;
 }
-.inner .tag .tagmenu {
+.log .tag .tagmenu {
 	width:30%;
 	float:right;
 }
-.inner .tag .tagmenu select {
+.log .tag .tagmenu select {
 	position:relative;
 	width:21px;
 	height:19px;
 }
-.inner .tag .menuitem, .inner .group .menuitem {
+.log .tag .menuitem, .inner .group .menuitem {
 	float:right;	
 }
-.inner .tag .menuitem {
+.log .tag .menuitem {
 	margin-right:5px;
 }
 .log .toolbar .menuitem li {
 	padding-right:0;
 }
-.inner .tag .tagcontent {
+.log .tag .tagcontent {
 	width:100%;
 	clear:both;
 }
-.inner .tag .btnIconLarge, .groupname .btnIconLarge {
+.log .tag .btnIconLarge, .groupname .btnIconLarge {
 	border:1px solid #afbf37;
 }
-.inner .tag .menuitem.ddown .btnIconLarge.ddown {
+.log .tag .menuitem.ddown .btnIconLarge.ddown {
 	position:absolute;
 	top:0;
 	left:0;
 	z-index:200;
 }
-.inner .tag .btnIconLarge.rect {
+.log .tag .btnIconLarge.rect {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -64px -21px;
 }
-.inner .tag .btnIconLarge.poly {
+.log .tag .btnIconLarge.poly {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -85px -21px;
 }
-.inner .tag .btnIconLarge.elli {
+.log .tag .btnIconLarge.elli {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -106px -21px;
 }
-.inner .tag .btnIconLarge.text {
+.log .tag .btnIconLarge.text {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -1px -22px;
 }
-.inner .tag .btnIconLarge.hand, .groupname .btnIconLarge.hand {
+.log .tag .btnIconLarge.hand, .groupname .btnIconLarge.hand {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -231px -21px;
 }
-.inner .tag .btnIconLarge.hand:hover, .groupname .btnIconLarge.hand:hover {
+.log .tag .btnIconLarge.hand:hover, .groupname .btnIconLarge.hand:hover {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -231px 0px;
 	cursor:move;
 }
-.inner .tag .btnIconLarge.hand.active, .inner .tag .btnIconLarge.hand.active:hover {
+.log .tag .btnIconLarge.hand.active, .log .tag .btnIconLarge.hand.active:hover {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -231px -42px;
 }
-.inner .tag .btnIconLarge.hand.inactive, .inner .tag .btnIconLarge.hand.inactive:hover {
+.log .tag .btnIconLarge.hand.inactive, .log .tag .btnIconLarge.hand.inactive:hover {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -231px -65px;
 	border:1px solid #eadec2;
 	cursor:default;	
 }
-.inner .tag .btnIconLarge.ddown {
+.log .tag .btnIconLarge.ddown {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -274px -21px;
 }
-.inner .tag .btnIconLarge.ddown:hover {
+.log .tag .btnIconLarge.ddown:hover {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -274px 0px;
 }
-.inner .tag .btnIconLarge.ddown.active, .inner .tag .btnIconLarge.ddown.active:hover {
+.log .tag .btnIconLarge.ddown.active, .log .tag .btnIconLarge.ddown.active:hover {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -274px -42px;
 }
-.inner .tag .btnIconLarge.ddown.inactive, .inner .tag .btnIconLarge.ddown.inactive:hover {
+.log .tag .btnIconLarge.ddown.inactive, .log .tag .btnIconLarge.ddown.inactive:hover {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -274px -65px;
 	border:1px solid #eadec2;
 	cursor:default;	
 }
-.inner .tag .shapename, .inner .tag .transname {
+.log .tag .shapename, .log .tag .transname {
 	font-weight:bold;
 	margin-bottom:5px;
 }
-.inner .tag .tagname input {
+.log .tag .tagname input {
 	width:100%;
 }
-.inner .group .tag .tagname input {
+.log .group .tag .tagname input {
 	width:98%;
 }
-.inner .tag input.submit {
+.log .tag input.submit {
 	width:auto;
 }
-.inner .tag .tagcontent textarea {
+.log .tag .tagcontent textarea {
 	width:100%;
 }
-.inner .group {
+.log .group {
 	background:#fef5df;
 	margin:5px;
 	padding:3px;
 }
-.inner .group .groupname {
+.log .group .groupname {
 	background:#d5db97;
 	font-weight:bold;
 	margin:-3px;
 	padding:5px;
 	margin-bottom:3px;
 }
-.inner .group a.open {
+.log .group a.open {
 	background:transparent url(../images/dropdownOpenBlue.gif) no-repeat scroll 0px 2px;
 }
-.inner .group a.closed {
+.log .group a.closed {
 	background:transparent url(../images/dropdownClosedBlue.gif) no-repeat scroll 0px 1px;
 }
-.inner .group .groupname .btnIcon {
+.log .group .groupname .btnIcon {
 	border:none;
 	height:12px;
 	width:12px;
 	padding-right:5px;
 }
-.inner .group .groupname span {
+.log .group .groupname span {
 	padding-left:5px;
 }
-.inner .group .groupname span.btnIconLarge {
+.log .group .groupname span.btnIconLarge {
 	padding-left:0;
 }
-.inner .group .grouplist {
+.log .group .grouplist {
 	overflow:auto;
 }
 /* Tool styles ------------------- */
