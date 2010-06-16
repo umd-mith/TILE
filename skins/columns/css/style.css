@@ -459,10 +459,13 @@ a.button:hover {
 	height:19px;
 }
 .inner .tag .menuitem, .inner .group .menuitem {
-	float:right;
+	float:right;	
 }
 .inner .tag .menuitem {
 	margin-right:5px;
+}
+.log .toolbar .menuitem li {
+	padding-right:0;
 }
 .inner .tag .tagcontent {
 	width:100%;
