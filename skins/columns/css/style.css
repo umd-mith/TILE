@@ -198,7 +198,7 @@ a.btnIconLarge:hover {
 	cursor:pointer;	
 	width:auto;
 }
-a.button:hover {
+.button:hover {
 	background:#FDFDEC url('../images/bkgd_btn-hover.jpg') repeat-x;
 	border-bottom:1px solid #ccbb93;
 }
@@ -253,10 +253,6 @@ a.button:hover {
 	padding:2px;
 	/* border:1px solid #fff;
 	line-height:15px;*/
-}
-.toolbar .btnIconLarge, .content .toolbar .button {
-	position:relative;
-	top:3px;
 }
 .toolbar li a#pointer.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -21px;
@@ -348,6 +344,12 @@ a.button:hover {
 .toolbar li span.listView {
 	padding-left:20px;
 	background:url('../images/listView.gif') no-repeat 0 50%;
+}
+.toolbar .btnIconLarge.close {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -211px -21px;
+}
+.toolbar .btnIconLarge.close:hover {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -211px 0px;
 }
 /*.toolbar li a#pgPrev.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -120px 0px;
@@ -586,24 +588,76 @@ a.button:hover {
 	overflow:auto;
 }
 .log .tag .tagcontent .nameValue {
-	background-color:#FDFDEC !important;
+	background-color:#FDFDEC;
 	padding:3px;
 }
 .log .tag .tagcontent .nameValue hr {
-	width:100% !important;
+	width:100%;
 	border-color: #afbf37;
   	border-style: dashed;
   	border-width: 1px 0 0;
   	height: 0;
  
 }
-/* Tool styles ------------------- */
-.tool .inner {
-
+.log .tag .tagcontent input {
+	margin-left:5px;
 }
+.log .tag .tagcontent select {
+	background:#fff;
+	background-image:none;
+	border:1px solid #AFBF37;
+	font-size:90%;
+	color:#41475B;
+	width:auto;
+	margin-left:5px;
+}
+.log .tag .tagcontent select option {
+	border:none;
+	margin:1px;
+	padding:1px;
+}
+.log .tag .tagcontent select.name_value_Option {
+	margin-top:5px;
+	margin-left:0;
+}
+/* Tool styles ------------------- */
+.tool .inner #content {
+	padding:10px;
+}
+.tool .toolbar .menuitem {
+	float:right;
+	margin-right:0;
+}
+/* auto recognizer styles */
+.tool .autorec_toolbar {
+	
+}
+.tool .autorec_toolbar #colorSection #backgroundimage {
+	margin:10px 0;
+	color:#fff;
+	padding:3px;
+}
+.tool .autorec_toolbar div.buttons div {
+	margin:5px 0;
+}
+.tool .autorec_toolbar .ui-slider-handle {
+	background:#D5DB97;
+	border:1px solid #CCBB93;
+}
+.tool .autorec_toolbar .ui-slider-handle.ui-state-active, .tool .autorec_toolbar .ui-slider-handle.ui-state-hover {
+	border:1px solid #a99565;
+}
+.tool .autorec_toolbar .ui-slider {
+	border:1px solid #CCBB93;
+}
+
 /* Content and Content clone styles ------------------- */
 .content .inner, .contentclone .inner {
 
+}
+.content .toolbar .button, .content .toolbar .btnIconLarge {
+	position:relative;
+	top:3px;
 }
 
 /* Positioning (2, 3, 4 columns) ------------------- */
