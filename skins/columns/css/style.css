@@ -488,6 +488,7 @@ a.button:hover {
 	top:0;
 	left:0;
 	z-index:200;
+	display:none; /* take out this style - just for testing */
 }
 .log .tag .btnIconLarge.rect {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -64px -21px;
@@ -545,6 +546,7 @@ a.button:hover {
 }
 .log .tag .tagcontent textarea {
 	width:100%;
+	overflow:auto;
 }
 .log .group {
 	background:#fef5df;
