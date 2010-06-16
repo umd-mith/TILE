@@ -535,9 +535,6 @@ a.button:hover {
 	font-weight:bold;
 	margin-bottom:5px;
 }
-.log .tag .tagname input {
-
-}
 .log .group .tag .tagname input {
 	width:98%;
 }
@@ -552,6 +549,10 @@ a.button:hover {
 	background:#fef5df;
 	margin:5px;
 	padding:3px;
+	border:1px solid #ffffff;
+}
+.log .group:hover {
+	border:1px solid #afbf37;
 }
 .log .group .groupname {
 	background:#d5db97;
@@ -559,6 +560,9 @@ a.button:hover {
 	margin:-3px;
 	padding:5px;
 	margin-bottom:3px;
+}
+.log .group .groupname .menuitem {
+	margin-right:0;
 }
 .log .groupname a.open, .log .tagname a.open {
 	background:transparent url(../images/dropdownOpenBlue.gif) no-repeat scroll 0px 2px;
@@ -580,6 +584,18 @@ a.button:hover {
 }
 .log .group .grouplist {
 	overflow:auto;
+}
+.log .tag .tagcontent .nameValue {
+	background-color:#FDFDEC !important;
+	padding:3px;
+}
+.log .tag .tagcontent .nameValue hr {
+	width:100% !important;
+	border-color: #afbf37;
+  	border-style: dashed;
+  	border-width: 1px 0 0;
+  	height: 0;
+ 
 }
 /* Tool styles ------------------- */
 .tool .inner {
