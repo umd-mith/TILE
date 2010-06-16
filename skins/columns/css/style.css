@@ -535,7 +535,7 @@ a.button:hover {
 	margin-bottom:5px;
 }
 .log .tag .tagname input {
-	width:100%;
+
 }
 .log .group .tag .tagname input {
 	width:98%;
@@ -558,19 +558,19 @@ a.button:hover {
 	padding:5px;
 	margin-bottom:3px;
 }
-.log .group a.open {
+.log .groupname a.open, .log .tagname a.open {
 	background:transparent url(../images/dropdownOpenBlue.gif) no-repeat scroll 0px 2px;
 }
-.log .group a.closed {
+.log .groupname a.closed, .log .tagname a.closed {
 	background:transparent url(../images/dropdownClosedBlue.gif) no-repeat scroll 0px 1px;
 }
-.log .group .groupname .btnIcon {
+.log .group .groupname .btnIcon, .log .tag .tagname .btnIcon {
 	border:none;
-	height:12px;
+	height:13px;
 	width:12px;
 	padding-right:5px;
 }
-.log .group .groupname span {
+.log .group .groupname span, .log .tag .tagname span {
 	padding-left:5px;
 }
 .log .group .groupname span.btnIconLarge {
