@@ -1,1 +1,1 @@
-Images/mss.jpg,Images/iub.jpg,Images/hamTitle.jpg
+[{title: "MSS", uri: "Images/mss.jpg"},{title: "iub",uri: "Images/iub.jpg"},{title: "Hamlet", uri:"Images/hamTitle.jpg"}]
