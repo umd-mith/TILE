@@ -152,16 +152,19 @@ a:hover {
 	right:auto;
 	opacity:1;
 	z-index:3;
+	min-width:230px;
 }
 .tool {
 	right:auto;
 	opacity:1;
 	z-index:2;
+	min-width:140px;
 }
 .content {
 	right:0;
 	opacity:1;
 	z-index:1;
+	min-width:630px;
 }
 .contentclone {
 	right:0;
@@ -207,13 +210,16 @@ a.btnIconLarge:hover {
 	border-bottom:1px solid #ccbb93;
 }
 .menuitem {
-	margin-right:10px;
+	margin-right:3px;
 	display:inline;
 	float:left;
 	position:relative;
 }
 .menuitem li, .menuitem p {
 	padding-right:5px;
+}
+.menuitem p {
+	margin-left:5px;
 }
 .ddown {
 	display: inline;
@@ -343,6 +349,7 @@ a.btnIconLarge:hover {
 }
 .toolbar li span.listView {
 	padding-left:20px;
+	min-width:55px;
 	background:url('../images/listView.gif') no-repeat 0 50%;
 }
 .toolbar .btnIconLarge.close {
@@ -432,6 +439,9 @@ a.btnIconLarge:hover {
 }
 
 /* Log styles ------------------- */
+.log {
+	min-width:450px;
+}
 .log .inner .tags {
 	overflow:auto;
 }
