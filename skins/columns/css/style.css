@@ -630,15 +630,14 @@ a.btnIconLarge:hover {
 }
 /* auto recognizer styles */
 .tool .autorec_toolbar {
-	
 }
 .tool .autorec_toolbar #colorSection #backgroundimage {
 	margin:10px 0;
 	color:#fff;
 	padding:3px;
 }
-.tool .autorec_toolbar div.buttons div {
-	margin:5px 0;
+.tool .autorec_toolbar .buttondiv {
+	margin:10px 0;
 }
 .tool .autorec_toolbar .ui-slider-handle {
 	background:#D5DB97;
@@ -649,6 +648,21 @@ a.btnIconLarge:hover {
 }
 .tool .autorec_toolbar .ui-slider {
 	border:1px solid #CCBB93;
+}
+.tool .autorec_toolbar #content .step {
+	margin-bottom:20px;
+}
+.tool .autorec_toolbar #content .instructions {
+	line-height:1.2em;
+	font-size:90%;
+	margin-bottom:5px;
+	padding:5px;
+	background:#EAEDC6;
+}
+
+.tool .autorec_toolbar #content .instructions .stepnum {
+	font-style:italic;
+	font-weight:bold;
 }
 
 /* Content and Content clone styles ------------------- */
