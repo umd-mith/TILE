@@ -453,23 +453,26 @@ a.btnIconLarge:hover {
 	padding:4px;
 }
 .log .tag .tagname {
-	width:70%;
+	/* width:70%; 
+	float:left; */
 	color:#14253d;
 	font-family:Helvetica, Arial, Verdana, sans-serif;
 	font-size:1em;
 	line-height:1.5em;
-	float:left;
+	min-height:21px;
 }
 .log .tag .tagmenu {
 	width:30%;
-	float:right;
+	float:right; 
+	display:inline;
+	position:relative;
 }
 .log .tag .tagmenu select {
 	position:relative;
 	width:21px;
 	height:19px;
 }
-.log .tag .menuitem, .inner .group .menuitem {
+.log .tag .menuitem, .log .inner .group .menuitem {
 	float:right;	
 }
 .log .tag .menuitem {
@@ -490,7 +493,6 @@ a.btnIconLarge:hover {
 	top:0;
 	left:0;
 	z-index:200;
-	display:none; /* take out this style - just for testing */
 }
 .log .tag .btnIconLarge.rect {
 	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -64px -21px;
@@ -581,7 +583,7 @@ a.btnIconLarge:hover {
 .log .group .groupname span, .log .tag .tagname span {
 	padding-left:5px;
 }
-.log .group .groupname span.btnIconLarge {
+.log .group .groupname span.btnIconLarge, .log .tag .tagname span.btnIconLarge {
 	padding-left:0;
 }
 .log .group .grouplist {
