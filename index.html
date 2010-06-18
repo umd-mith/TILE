@@ -24,11 +24,26 @@
 	<script type="text/javascript" src="lib/_Interface/image_tagger.js"></script> 
 	<script type="text/javascript" src="lib/_Interface/savingProgress_1.0.js"></script>
 	<link rel="stylesheet" href="lib/jquery/colorpicker/css/colorpicker.css" type="text/css" />
-    <link rel="stylesheet" media="screen" type="text/css" href="lib/jquery/colorpicker/css/layout.css" />
+	<link rel="stylesheet" href="lib/jquery/colorpicker/css/layout.css" type="text/css" />
 	<script type="text/javascript" src="lib/jquery/colorpicker/js/colorpicker.js"></script>
     <script type="text/javascript" src="lib/jquery/colorpicker/js/eye.js"></script>
     <script type="text/javascript" src="lib/jquery/colorpicker/js/utils.js"></script>
 	<script type="text/javascript" src="lib/jquery/js/underscore.js"></script> 
+	<script type="text/javascript">
+		$('#customWidget').ColorPicker({
+			onSubmit: function(hsb, hex, rgb, el) {
+				$(el).val(hex);
+				$(el).ColorPickerHide();
+			},
+			onBeforeShow: function () {
+				$(this).ColorPickerSetColor(this.value);
+			}
+		})
+		.bind('keyup', function(){
+			$(this).ColorPickerSetColor(this.value);
+		});
+		
+	</script>
 	<!-- underscore.js is required for VectorDrawer -->
     <script type="text/javascript" src="lib/VectorDrawer_1.0/VectorDrawer.js"></script>
 	<!-- Auto Recognizer -->

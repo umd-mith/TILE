@@ -7,7 +7,27 @@
 	<title>TILE: Text-Image Linking Environment</title>
 	<link rel="stylesheet" href="../skins/columns/css/style.css" type="text/css" media="screen, projection" charset="utf-8">
 	<script type="text/javascript" src="scripts/jquery-1.3.2.min.js"></script>
-
+	<link rel="stylesheet" href="../lib/jquery/colorpicker/css/colorpicker.css" type="text/css" />
+	<link rel="stylesheet" href="../lib/jquery/colorpicker/css/layout.css" type="text/css" />
+	<script type="text/javascript" src="../lib/jquery/colorpicker/js/colorpicker.js"></script>
+    <script type="text/javascript" src="../lib/jquery/colorpicker/js/eye.js"></script>
+    <script type="text/javascript" src="../lib/jquery/colorpicker/js/utils.js"></script>
+	<script type="text/javascript" src="../lib/jquery/js/underscore.js"></script> 
+	<script type="text/javascript">
+		$('#customWidget').ColorPicker({
+			onSubmit: function(hsb, hex, rgb, el) {
+				$(el).val(hex);
+				$(el).ColorPickerHide();
+			},
+			onBeforeShow: function () {
+				$(this).ColorPickerSetColor(this.value);
+			}
+		})
+		.bind('keyup', function(){
+			$(this).ColorPickerSetColor(this.value);
+		});
+		
+	</script>
 	<!-- <script type="text/javascript">
 		$(document).ready(function () {
 			var startingHeight = 21; // Specifies the height of your navigation when collapsed
@@ -89,6 +109,10 @@
 				
 				</div>-->
 
+			</div>
+			
+			<div class="editor">
+				
 			</div>
 			<div class="tags">
 				<!-- shape tag ------------- -->
@@ -223,7 +247,12 @@
 					<li><a href="#" id="rect" class="btnIconLarge inactive"></a></li>
 					<li><a href="#" id="poly" class="btnIconLarge inactive"></a></li>
 					<li><a href="#" id="elli" class="btnIconLarge inactive"></a></li>
-					<li><a href="#" id="sel" class="btnIconLarge inactive"></a></li>
+					<li id="customWidget">
+						<div id="colorSelector2" class="btnIconLarge inactive">
+							<div id="colorSelectorBkgd" style="background-color: #ff0000"></div>
+						</div>
+		            	<div id="colorpickerHolder2"></div>
+					</li>
 					<li><a href="#" id="areaDel" class="btnIconLarge inactive"></a></li>
 				</ul>	
 				<ul class="menuitem">

@@ -521,6 +521,11 @@ h2 {
 .inner .group .groupname span.btnIconLarge {
 	padding-left:0;
 }
+.toolbar .menuitem li#customWidget {
+	height:19px;
+	position:relative;
+	display:inline-block;
+}
 /* Tool styles ------------------- */
 .tool .inner {
 
