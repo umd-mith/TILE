@@ -563,7 +563,7 @@ a.btnIconLarge:hover {
 	border:1px solid #eadec2;
 	cursor:default;	
 }
-.log .tag .shapename, .log .tag .transname {
+.log .tag .shapename, .log .tag .transname, .log .tag .tagnamep {
 	font-weight:bold;
 	margin-bottom:5px;
 	display:inline;
