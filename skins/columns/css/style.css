@@ -456,9 +456,12 @@ a.btnIconLarge:hover {
 	border:none;
 	margin:0;
 	padding:11px;
+	border-bottom:1px dashed #afbf37;
+	height:125px;
+	overflow:auto;
 }
 .log #logbar_activearea .tag:hover {
-	border:none;
+	border-bottom:1px dashed #afbf37;
 }
 .log .inner .tags {
 	overflow:auto;
@@ -490,15 +493,13 @@ a.btnIconLarge:hover {
 	min-height:21px;
 }
 .log .tag .tagmenu {
-	width:30%;
+	width:50%;
 	float:right; 
 	display:inline;
 	position:relative;
 }
 .log .tag .tagmenu select {
-	position:relative;
-	width:21px;
-	height:19px;
+	height:21px;
 }
 .log .tag .menuitem, .log .inner .group .menuitem {
 	float:right;	
@@ -508,6 +509,9 @@ a.btnIconLarge:hover {
 }
 .log .toolbar .menuitem li {
 	padding-right:0;
+}
+.log .tag .tagmenu .menuitem p {
+	display:inline;
 }
 .log .tag .tagcontent {
 	width:100%;
@@ -630,8 +634,8 @@ a.btnIconLarge:hover {
   	height: 0;
  
 }
-.log .tag .tagcontent input {
-	margin-left:5px;
+.log .tag .tagcontent input.done {
+	float:right;
 }
 .log .tag .tagcontent select {
 	background:#fff;
