@@ -447,8 +447,19 @@ a.btnIconLarge:hover {
 }
 
 /* Log styles ------------------- */
-.log .editor {
+.log #logbar_activearea {
 	
+	border-left:1px solid #fff;
+	border-right:1px solid #fff;
+}
+.log #logbar_activearea .tag {
+	background:#EAEDC6;
+	border:none;
+	margin:0;
+	padding:11px;
+}
+.log #logbar_activearea .tag:hover {
+	border:none;
 }
 .log .inner .tags {
 	overflow:auto;
@@ -462,9 +473,9 @@ a.btnIconLarge:hover {
 	/*position:relative;*/
 }
 .log .tag.selected, .log .tag.selected:hover {
-	border:3px dashed #afbf37;
+	/* border:3px dashed #afbf37;
 	padding:4px;
-	background:#eaedc6;
+	background:#eaedc6; */
 }
 .log .tag:hover {
 	border:3px solid #afbf37;
