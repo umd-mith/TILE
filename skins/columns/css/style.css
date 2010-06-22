@@ -158,7 +158,7 @@ a:hover {
 	right:auto;
 	opacity:1;
 	z-index:2;
-	min-width:140px;
+	min-width:430px;
 }
 .content {
 	right:0;
@@ -354,6 +354,11 @@ a.btnIconLarge:hover {
 	padding-left:20px;
 	min-width:55px;
 	background:url('../images/listView.gif') no-repeat 0 50%;
+}
+.toolbar li span.imgView {
+	padding-left:20px;
+	min-width:55px;
+	background:url('../images/imgView.gif') no-repeat 0 50%;
 }
 .toolbar .btnIconLarge.close {
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -211px -21px;
@@ -632,7 +637,6 @@ a.btnIconLarge:hover {
   	border-style: dashed;
   	border-width: 1px 0 0;
   	height: 0;
- 
 }
 .log .tag .tagcontent input.done {
 	float:right;
@@ -687,6 +691,15 @@ a.btnIconLarge:hover {
 .tool .autorec_toolbar #content .step {
 	margin-bottom:20px;
 }
+.tool .autorec_toolbar #content .step #sidebarContent #cl-1 {
+	border:1px solid #CCBB93;
+	padding:5px;
+}
+.tool .autorec_toolbar #content .step #sidebarContent #cl-1 .deleteLine {
+	display:inline; 
+	height:20px; 
+	float:right;
+}
 .tool .autorec_toolbar #content .instructions {
 	line-height:1.2em;
 	font-size:90%;
@@ -694,7 +707,6 @@ a.btnIconLarge:hover {
 	padding:5px;
 	background:#EAEDC6;
 }
-
 .tool .autorec_toolbar #content .instructions .stepnum {
 	font-style:italic;
 	font-weight:bold;
@@ -702,21 +714,34 @@ a.btnIconLarge:hover {
 
 /* Content and Content clone styles ------------------- */
 .content .inner, .contentclone .inner {
-
 }
 .content .toolbar .button, .content .toolbar .btnIconLarge {
 	position:relative;
 	top:3px;
 }
+.content .textImageList {
+}
+.content .textImageList .list {
+	float:left;
+	width:30%;
+	background:#f6ecd4;
+	height:100%;
+	padding:10px 0;
+}
+.content .textImageList .list ul {
+	list-style-type: disc;
+	margin-left:20px;
+}
+.content .textImageList .image {
+	padding:10px;
+	margin-left:30%;
+}
 
 /* Positioning (2, 3, 4 columns) ------------------- */
 /* 2 columns */
-.twocol .log {
+.twocol .log, .twocol .tool {
 	left:0;
 	width:40%;
-}
-.twocol .tool {
-	display:none;
 }
 .twocol .content {
 	left:40%;
