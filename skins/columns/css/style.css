@@ -791,14 +791,28 @@ a.btnIconLarge:hover {
 
 /** AXE Node Styles **/
 .axe_start_node{
+	position: relative;
 	width:7px;
 	height:7px;
-	background:url('skins/columns/images/axe_blue_small.png') no-repeat;
+	background:url('../images/axe_blue_small.png') no-repeat;
 }
 .axe_node{
+	position: relative;
 	width:7px;
 	height:7px;
-	background:url('skins/columns/images/axe_red_small.png') no-repeat;
+	background:url('../images/axe_red_small.png') no-repeat;
+}
+.axe_start_node_selected{
+	position: relative;
+	width:10px;
+	height:10px;
+	background:url('../images/axe_blue_large.png') no-repeat;
+}
+.axe_node_selected{
+	position: relative;
+	width:10px;
+	height:10px;
+	background:url('../images/axe_red_large.png') no-repeat;
 }
 /** SELECTION BOUNDING BOX STYLE **/
 /**selBB**/
