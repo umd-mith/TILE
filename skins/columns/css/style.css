@@ -670,6 +670,19 @@ a.btnIconLarge:hover {
 	margin-top:5px;
 	margin-left:0;
 }
+.log #logNav {
+	height:2.5em;
+	background:#f8ecce;
+	position:absolute;
+	bottom:0;
+	left:0;
+	width:100%;
+}
+.log #logNav .button  {
+	display:inline;
+	float:right;
+	margin:5px;
+}
 /* Tool styles ------------------- */
 .tool .inner #content {
 	padding:10px;
