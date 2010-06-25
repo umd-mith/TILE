@@ -1,6 +1,31 @@
 {
-	'topLevelTags':["TAG1A","TAG2A","TAG5A"],
-	"tags":[{
+	'topLevelTags':["TRANSCRIPT","GROUP","SHAPE","TAG1A","TAG2A","TAG5A"],
+	"tags":[
+	{
+		"uid":"TRANSCRIPT",
+		"name":"Transcript",
+		"valueType":0,
+		"optional":"false",
+		"Region":"null",
+		"timeStamp":"Date"
+	},
+	{
+		"uid":"GROUP",
+		"name":"Group",
+		"valueType":0,
+		"optional":"false",
+		"Region":"null",
+		"timeStamp":"Date"
+	},
+	{
+		"uid":"SHAPE",
+		"name":"Shape",
+		"valueType":0,
+		"optional":"false",
+		"Region":"null",
+		"timeStamp":"Date"
+	},
+	{
 		"uid":"TAG1A",
 		"name":"PAGE",
 		"childNodes":["TAG4A","TAGCLA"],

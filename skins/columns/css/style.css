@@ -702,11 +702,25 @@ a.btnIconLarge:hover {
 .tool .autorec_toolbar #content .step {
 	margin-bottom:20px;
 }
-.tool .autorec_toolbar #content .step #sidebarContent #cl-1 {
+/**
+.tool .autorec_toolbar #content .step #sidebarContent .clline {
 	border:1px solid #CCBB93;
 	padding:5px;
 }
-.tool .autorec_toolbar #content .step #sidebarContent #cl-1 .deleteLine {
+.tool .autorec_toolbar #content .step #sidebarContent .clline.selected {
+	border:5px solid #CCBB93;
+	padding:5px;
+}
+**/
+.clline {
+	border:1px solid #CCBB93;
+	padding:5px;
+}
+.clline.selected {
+	border:5px solid #CCBB93;
+	padding:5px;
+}
+.tool .autorec_toolbar #content .step #sidebarContent .clline .deleteLine {
 	display:inline; 
 	height:20px; 
 	float:right;
