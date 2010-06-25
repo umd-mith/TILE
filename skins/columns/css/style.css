@@ -455,18 +455,29 @@ a.btnIconLarge:hover {
 .log #logbar_activearea {
 	border-left:1px solid #fff;
 	border-right:1px solid #fff;
-}
-.log #logbar_activearea .tag {
 	background:#EAEDC6;
-	border:none;
-	margin:0;
-	padding:11px;
+	padding:10px;
 	border-bottom:1px dashed #afbf37;
+}
+.log #logbar_activearea .ddown p {
+	display:inline;
+	padding-right:5px;
+}
+.log #logbar_activearea .activearea_head {
+	margin-bottom:10px;
+}
+.log #logbar_activearea .activearea_head .button {
+	display:inline;
+	float:right;
+	margin-left:5px;
+} 
+.log #logbar_activearea .tag {
+	background:#f0f2d2;
+	border:1px solid #ffffff;
+	margin:0;
 	height:125px;
 	overflow:auto;
-}
-.log #logbar_activearea .tag:hover {
-	border-bottom:1px dashed #afbf37;
+	clear:both;
 }
 .log .inner .tags {
 	overflow:auto;
@@ -484,7 +495,7 @@ a.btnIconLarge:hover {
 	padding:4px;
 	background:#eaedc6; */
 }
-.log .tag:hover {
+.log #logbar_list .tag:hover {
 	border:3px solid #afbf37;
 	padding:4px;
 }
@@ -722,7 +733,7 @@ a.btnIconLarge:hover {
 .content .textImageList {
 }
 .content .textImageList .list {
-	float:left;
+	float:left; 
 	width:30%;
 	background:#FDFDEC;
 	border-right:1px dashed #AFBF37;
