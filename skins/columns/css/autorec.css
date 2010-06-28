@@ -47,3 +47,20 @@ display: none;
 .ui-state-disabled{
 	opacity:1;
 }
+#content #transcript{
+	overflow:auto;
+	border:#CCBB93 2px solid;
+	height:80px;
+	width:90%;
+}
+#content #transcript div {
+	height:2em;
+	padding:.5em;
+}
+#content #transcript div:hover {
+	border:#000000 1px dotted;
+}
+#content #transcript .trLine.recLine.selected{
+	background:purple;
+	color:yellow;
+}
