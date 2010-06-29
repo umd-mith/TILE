@@ -5,13 +5,13 @@
 // Commits JSON data to a file to be stored on client's HDD
 
 
-if($_POST['data']){
+if(isset($_POST['uploadData'])){
 	$domain=$_SERVER['HTTP_HOST'];
 	$path=$_SERVER['PHP_SELF'];
 	$path = substr($path,0,strrpos($path,"/"));
 	$path=preg_replace('/lib\/SaveProgress/',"",$path);
-	$cwd = "http://".$domain.$path."index.php";
-	$JSON=stripslashes($_POST['data']);
+	$cwd = "http://".$domain.$path."/loadJSON.php"; //path for loading this data back into TILE
+	$JSON=stripslashes($_POST['uploadData']);
 	$JSON=preg_replace("/\"/","'",$JSON);
 	$doc="<HTML><HEAD><SCRIPT language=\"JavaScript\">function send(){document.aData.submit();}</SCRIPT></HEAD><BODY onload=\"send()\">
 	<form name=\"aData\" method=\"POST\" action=\"".$cwd."\">
