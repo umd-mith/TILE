@@ -31,6 +31,10 @@
 		}
 	</style>
 	<script type="text/javascript">
+		function drawShapes(){
+			str = $("textarea:first")[0].value;
+			vd.importShapes(str);
+		}
 		$(document).ready(function(){
 			vd = new VectorDrawer({"overElm":$("#testBox"),"initScale":1});
 			vd._drawMode='e';
@@ -48,7 +52,7 @@
 				}
 				else if (e.keyCode=="67"){
 				
-					vd.exportShapes();
+					$("textarea:first")[0].value=JSON.stringify(vd.exportShapes());
 				}
 				else if (e.keyCode=="69"){
 					vd._drawMode="e";
@@ -71,7 +75,7 @@
 	</style>
 	</HEAD>
 	<BODY>
-		<div id="debug"></div>
+		<div id="debug"><textarea cols=50 rows=4></textarea><input type="button" value="go" onclick="drawShapes()"></input></div>
 		<div id="wrapper">
 		<div id="testBox">
 			
