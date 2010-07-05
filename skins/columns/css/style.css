@@ -193,6 +193,7 @@ a.btnIconLarge:hover {
 	border-bottom:1px solid transparent;
 }
 .workspace{
+	position:absolute;
 	overflow:auto;
 }
 /* Dropdown and menu styles --------------- */
