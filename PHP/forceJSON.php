@@ -20,7 +20,7 @@ if(isset($_POST['uploadData'])){
 	<input type=\"hidden\" name=\"jsonData\" value=\"".$JSON."\"/></form></BODY></HTML>";
 	//force-download the doc-string to the user to save
 	header('Content-Type: text/plain');
-	header('Content-Disposition: attachment; filename=$filename');
+	header('Content-Disposition: attachment; filename='.$filename);
 	header('Content-Transfer-Encoding: binary');
 	echo $doc;
 }
