@@ -60,11 +60,11 @@
 <body>
 	<script>
 		//adding AR from autorecognizer_plugin.js
-		(function($,ar){
+		(function($,ar,it){
 			$(function(){
-				var engine=new TILE_ENGINE({toolSet:[ar]});
+				var engine=new TILE_ENGINE({toolSet:[it,ar]});
 			});
-		})(jQuery,AR);
+		})(jQuery,AR,IT);
 	</script>
 	
 </body>
