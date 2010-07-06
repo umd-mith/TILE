@@ -98,7 +98,7 @@ a:hover {
 }
 /* ------ MISC --------- */
 #srcImageForCanvas {
-	display:none;
+	display:block;
 }
 
 /* Clearfix styles--------- */
