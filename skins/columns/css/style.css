@@ -500,6 +500,10 @@ a.btnIconLarge:hover {
 	border:3px solid #afbf37;
 	padding:4px;
 }
+.log #logbar_list .tag.selected{
+	border:3px dotted #afbf37;
+	padding:4px;
+}
 .log .tag .tagname {
 	/* width:70%; 
 	float:left; */
