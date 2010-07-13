@@ -26,15 +26,16 @@
 		<script type="text/javascript" src="../lib/VectorDrawer_1.0/DrawableCanvas.js"></script>
 		<script>	
 			function beammeup(){
+				
 				//making a json wrapper to load into the IT start function
 				var URL_LIST=[{"title":"MSS","uri":"../Images/mss.jpg"}];
-				IT.start(null,"http://localhost:8888/TILE/trunk/",{"images":URL_LIST});
+				IT.start('enterprise',"http://localhost:8888/TILE/trunk/",{"images":URL_LIST});
 				
 			}
 		</script>
 	</head>
 	<body onload="beammeup()">
-		<div id="azcontentarea">
+		<div id="enterprise">
 			
 			
 				
