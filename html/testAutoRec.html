@@ -22,19 +22,13 @@
 	 	<script type="text/javascript" src="../lib/jquery/development-bundle/ui/ui.slider.js"></script>
 		<script type="text/javascript" src="../lib/Extensible/Monomyth.js"></script>
 		<script type="text/javascript" src="../lib/_Interface/base.js"></script>
-		<script type="text/javascript" src="../lib/_Interface/image_tagger.js"></script>
-		<script type="text/javascript" src="../lib/VectorDrawer_1.0/DrawableCanvas.js"></script>
+		<script type="text/javascript" src="../lib/_Interface/autorecognizer_plugin.js"></script>
 		<script>	
 			function beammeup(){
-				
+				var trans=[{'cur':null,'o':null,'name':'The T...','uid':'t12789607641780','type':'transcript','html':null,'etc':{'text':'The Tragedie of'},'n':0},{'cur':null,'o':null,'name':'HAMLE...','uid':'t12789607641781','type':'transcript','html':null,'etc':{'text':'HAMLET'},'n':1},{'cur':null,'o':null,'name':'Princ...','uid':'t12789607641782','type':'transcript','html':null,'etc':{'text':'Prince of Denmarke.'},'n':2},{'cur':null,'o':null,'name':'Enter...','uid':'t12789607641783','type':'transcript','html':null,'etc':{'text':'Enter Barnardo, and Francisco, Centinels.'},'n':3},{'cur':null,'o':null,'name':'Bar. ...','uid':'t12789607641784','type':'transcript','html':null,'etc':{'text':'Bar. VVHose there?'},'n':4},{'cur':null,'o':null,'name':'Fran....','uid':'t12789607641785','type':'transcript','html':null,'etc':{'text':'Fran. Nay answere me. Stand and vnfolde your selfe.'},'n':5},{'cur':null,'o':null,'name':'Bar. ...','uid':'t12789607641786','type':'transcript','html':null,'etc':{'text':'Bar. Long liue the King,'},'n':6}];
 				//making a json wrapper to load into the IT start function
 				var URL_LIST=[{"title":"MSS","uri":"../Images/mss.jpg"}];
-				IT.start('enterprise',"http://localhost:8888/TILE/trunk/",{"images":URL_LIST});
-				$("#done").click(function(e){
-					e.preventDefault();
-					IT.close();
-				});
-				
+				AR.start('enterprise',"http://localhost:8888/TILE/trunk/",{"images":URL_LIST});
 				
 			}
 		</script>
@@ -46,7 +40,7 @@
 				
 		
 		</div>
-		<div id="datadisplay"><a id="done">DISPLAY DATA -- CLICK HERE</a></div>
+	
 	
 	</body>
 </html>

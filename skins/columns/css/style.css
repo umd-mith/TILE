@@ -73,6 +73,18 @@ body {
 	right:0;
 	top:0;
 }
+/**
+Adding CSS style for new layout design for
+ActiveBox - Grant Dickie 7/14/2010
+**/
+.az .activeBox{
+	width:40%;
+	height:55%;
+	left:0;
+	margin-top:10px;
+	top:40%;
+}
+
 h1 {
 	font-size:2em;
 }
@@ -153,6 +165,7 @@ a:hover {
 	opacity:1;
 	z-index:3;
 	min-width:430px;
+	height:40%;
 }
 .tool {
 	right:auto;
@@ -783,6 +796,8 @@ a.btnIconLarge:hover {
 
 /* Positioning (2, 3, 4 columns) ------------------- */
 /* 2 columns */
+
+
 .twocol .log, .twocol .tool {
 	left:0;
 	width:40%;

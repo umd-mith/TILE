@@ -58,13 +58,23 @@
 </head>
 
 <body>
+	<div class="az header"><div class="az logo"><img src="skins/columns/images/tile.gif" alt="TILE: Text-Image Linking Environment" /></div>
+	<div id="azglobalmenu" class="az globalmenu"><p><a id="restartall" href="">Restart</a> | <a id="tilehelp" href="">Help</a></p></div>
+	</div>
+	<div class="az main twocol">
+		<div id="az_log" class="az log"><div class="az inner"><div class="toolbar"><div class="menuitem"><ul><li><a id="load_tags" href="" class="button">Load</a></li></ul></div><div class="menuitem"><ul><li><a id="save_tags" href="" class="button">Save</a></li></ul></div><div id="ddown"><div class="menuitem ddown"><p>Tools:</p><select class="menu_body"></select></div><div class="menuitem ddown"><p>New:</p><select class="menu_body">  </select></div></div></div></div>
+		
+		
+		</div>
+		<div id="az_activeBox" class="az activeBox"></div>
+		<div id="azcontentarea" class="az content"></div>
 	<script>
 		//adding AR from autorecognizer_plugin.js
-		(function($,ar,it){
-			$(function(){
-				var engine=new TILE_ENGINE({toolSet:[it,ar]});
-			});
-		})(jQuery,AR,IT);
+		// (function($,ar,it){
+		// 			$(function(){
+		// 				var engine=new TILE_ENGINE({toolSet:[it,ar]});
+		// 			});
+		// 		})(jQuery,AR,IT);
 	</script>
 	
 </body>
