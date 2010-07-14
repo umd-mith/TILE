@@ -17,6 +17,8 @@
 
 	<script type="text/javascript" src="lib/jquery/js/underscore.js"></script> 
 	<script type="text/javascript" src="lib/VectorDrawer_1.0/DrawableCanvas.js"></script> 
+	<script type="text/javascript" src="transcript.js"></script> 
+
 	<style type="text/css">
 		#testBox{
 		
@@ -26,9 +28,34 @@
 			border: thin red solid;
 		}
 		#wrapper{
-			left: 100px;
+			top:0px;
+			left: 300px;
 			position: absolute;
 		}
+		#leftBox{
+			left:0px;
+			width: 300px;
+		}
+		#transcriptBox{
+			border: thin solid black;
+			width: 300px;
+			height: 300px;
+		}
+		#infoBox{
+			border: thin solid black;
+			width: 300px;
+			height: 300px;
+		}
+		.line{
+			background-color: white;
+		}
+		.line_selected{
+			background-color: #666;
+		}
+		.trans_line_hover{
+			background-color: red;
+		}
+		
 	</style>
 	<script type="text/javascript">
 		function drawShapes(){
@@ -52,7 +79,7 @@
 				}
 				else if (e.keyCode=="67"){
 				
-					$("textarea:first")[0].value=JSON.stringify(vd.exportShapes());
+					alert(JSON.stringify(vd.exportShapes()));
 				}
 				else if (e.keyCode=="69"){
 					vd._drawMode="e";
@@ -64,7 +91,8 @@
 					vd._drawMode="r";
 				}
 			});
-			
+			txt = [{"text":"Happy Birthday to You"},{"text":"Happy Birthday to You"},{"text":"Happy Birthday dear Sam"},{"text":"Happy Birthday to You"}];
+			trans = new Transcript({"loc": "transcriptBox", "infoBox": "infoBox","text": txt});
 		})
 	</script>
 	<style type="text/css">
@@ -75,7 +103,13 @@
 	</style>
 	</HEAD>
 	<BODY>
-		<div id="debug"><textarea cols=50 rows=4></textarea><input type="button" value="go" onclick="drawShapes()"></input></div>
+		<div id="leftBar">
+		<div id="transcriptBox">
+		</div>
+		<div id="infoBox">
+			
+		</div>	
+		</div>
 		<div id="wrapper">
 		<div id="testBox">
 			

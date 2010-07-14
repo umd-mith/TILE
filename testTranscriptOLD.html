@@ -1,0 +1,89 @@
+<HTML>
+	<head>
+		<script language="JavaScript" type="text/javascript" src="./lib/jquery/jquery-1.3.2.min.js"></script>
+		<script language="JavaScript" type="text/javascript" src="../jquery.designmode.js"></script>
+		<script language="JavaScript" type="text/javascript" src="./lib/_Interface/textRangeSelect.js"></script>
+		<style type="text/css">
+			#textEditor{
+				width: 500;
+				height: 300;
+				border: thin solid black;
+			}
+		</style>
+		<script language="JavaScript" type="text/javascript">
+			$(document).ready(function(){
+				
+			$("#textEditor").designMode("on");
+			$("#textEditor").load(function(){
+			g=$("#textEditor").contentDocument();
+					
+			//alert(g.getElementsByTagName("body")[0].innerHTML);
+			b = $(g).select("body:first");
+			$(b).mouseup(function(e){
+				alert(e.target.parentNode.innerHTML);
+				alert("hi"+$(this).html());
+			});
+			/*$(b).mousedown(function(e){
+				sel = new Selection()
+			});*/
+			/*$(b).mouseup(function(e){
+				
+				cw = $("#textEditor")[0].contentWindow;
+				sel = new Selection(cw);
+			
+				sel.init();
+				rv = sel.getRangeValue();
+				if (rv.text.length == 0) {
+					var newTextNode = cw.document.getElementById("newText");
+					if (newTextNode) {
+						var len = $(newTextNode).text().length;
+						
+						
+						alert("len " + len);
+						if ((len) > 0) {
+							alert("bang");
+							$(newTextNode).attr({
+								"id": "",
+								"class": "insertedText"
+							});
+							
+						}
+					}
+					oldTxt = rv.startNode.nodeValue;
+					alert(rv.startValue);
+					st = oldTxt.substring(0, rv.startValue);
+					ed = oldTxt.substring(rv.startValue);
+					newTxt = st + "<span id='newText'></span>" + ed;
+					$(rv.startNode).replaceWith(newTxt);
+					sel.SelectText("newText")
+				}
+				else{
+					
+				}
+			});*/
+			/*$(b).mouseup(function(e){
+				cw = $("#textEditor")[0].contentWindow;
+				sel = new Selection(cw);
+				sel.init();
+				
+				alert(sel.userRange);
+			});*/
+			/*$(b).keypress(function(e){
+				if (e.keyCode == 13) {
+					$("#textEditor").execCommand("formatBlock","p")
+				}
+			});*/
+			})
+			});
+			function format(){
+				
+			}
+			
+
+		</script>
+	</head>
+	<body>
+		<iframe id="textEditor" src="./transcript.html"></iframe>
+		<div onclick="format()">click</div>
+	</body>
+</HTML>
