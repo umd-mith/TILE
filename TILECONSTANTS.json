@@ -1,3 +1,4 @@
 {
-'base':'http://localhost:8888/TILE/trunk/'
+'base':'http://localhost:8888/TILE/postJuly/html/testList.txt',
+'importDefault':'http://localhost:8888/TILE/postJuly/html/testList.txt'
 }
