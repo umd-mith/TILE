@@ -508,6 +508,14 @@ a.btnIconLarge:hover {
 	padding:4px;
 	background:#eaedc6; */
 }
+.log #logbar_list {
+	overflow:scroll;
+	height:75%;
+}
+.az .inner #activeBox {
+	overflow:auto;
+}
+
 .log #logbar_list .tag:hover {
 	border:3px solid #afbf37;
 	padding:4px;
