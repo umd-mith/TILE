@@ -508,6 +508,7 @@ a.btnIconLarge:hover {
 	padding:4px;
 	background:#eaedc6; */
 }
+/**added by Grant Dickie **/
 .log #logbar_list {
 	overflow:scroll;
 	height:75%;
@@ -515,7 +516,7 @@ a.btnIconLarge:hover {
 .az .inner #activeBox {
 	overflow:auto;
 }
-
+/**added by Grant Dickie **/
 .log #logbar_list .tag:hover {
 	border:3px solid #afbf37;
 	padding:4px;
@@ -800,6 +801,19 @@ a.btnIconLarge:hover {
 .content .textImageList .image {
 	padding:10px;
 	margin-left:30%;
+}
+
+/**added by Grant Dickie**/
+.az .activeBox .infoItem {
+	padding:1em;
+	/**TODO: put in cream color - ask Elisabeth **/
+	margin-top:12px;
+	
+	overflow:auto;
+}
+.az .activeBox .infoItem .infoDisplay {
+	padding:.5em;
+	margin-left:5px;
 }
 
 /* Positioning (2, 3, 4 columns) ------------------- */
