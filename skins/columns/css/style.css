@@ -899,3 +899,15 @@ a.btnIconLarge:hover {
 #selBB{
 	border: 3px black solid,
 }
+
+.trans_line_hover{
+	background-color: #d5db97;
+}
+.line_selected{
+	background-color: #afbf37;
+}
+#addInfoArea{
+	height: 290px;
+	overflow:auto;
+	
+}
