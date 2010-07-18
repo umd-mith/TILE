@@ -120,11 +120,7 @@ $len = $off-$lbs[$last-2][0];
 $linetxt = substr($ptxt,$lbs[$last-2][0],$len);
 $JSON.='{text:"'.addslashes($linetxt).'",info: '.$endCon.'}'.']}]}';
 echo $JSON;
-function getMilestones($txt,$pb){
-	 $preg = "/\<".$pb."\/\>/";
-	 $pages = preg_split($preg,$txt);
-	 return $pages;
-}
+
 
 
 ?>
