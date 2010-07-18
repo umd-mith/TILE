@@ -5,11 +5,11 @@
  $lb = $_GET["lb"];
 
 class txtNode {
-	public function __construct($txt,$context){
+	public function __construct($txt,$context,$offset){
 	
 		$this->txt = $txt;
 		$this->context = $context;
-			
+		$this->offset = $offset;	
 	}
 }
 $xmlDoc = new DOMDocument();
@@ -18,29 +18,46 @@ $root = $xmlDoc->documentElement;
 $offsets = array();
 $milestones = array();
 $txtStr = "";
+function findTxtNode4Offset($offset,$txtArray,$totalOffset){
+	$totes = count($txtArray);
+	$i = intval(($offset/$totalOffset)*$totes);
+	
+	while (!(($txtArray[$i]->offset<=$offset)&&($txtArray[($i+1)]->offset>$offset))){
+			if (($txtArray[$i]->offset)>$offset){
+				$i--;
+			}
+		    else if ($txtarray[$i+1]->offset<$offset){
+		    	$i++;
+		    }
+		
+	}
+	
+	return $i;
+	
+}
 function getTxts4Node($node,$off,$txtStr,$offsets,$context,$milestones){
 	if ($node->childNodes->length>0){
-		foreach ($node->childNodes as $item){
-	
+		foreach ($node->childNodes as $index=>$item){
+	$oldcontext = $context;
+		$context .= ">".$item->nodeName."[".$index."]";
 		//echo $item->nodeName." ".$off."<br/>";
 	if ($item->nodeName=="#text"){
 		//echo $item->nodeValue." ".strlen($item->nodeValue)."<br/>";
-		$offsets[$off] = new txtNode($item->nodeValue,$context);
+		$offsets[] = new txtNode($item->nodeValue,$context,$off);
 		$off = $off + strlen($item->nodeValue);
 		$txtStr .= $item->nodeValue;
 	}
 	else{
-		$oldcontext = $context;
-		$context .= ">".$item->nodeName;
+		
 		
 		$back = getTxts4Node($item,$off,$txtStr,$offsets,$context,$milestones);
-		$context = $oldcontext;
+		//$context = $oldcontext;
 		$off = $back[0];
 		$offsets = $back[1];
 		$milestones = $back[2];
 		$txtStr = $back[3];
 	}
-	
+	$context=$oldcontext;
 	}
 	}
 
@@ -48,16 +65,19 @@ function getTxts4Node($node,$off,$txtStr,$offsets,$context,$milestones){
 	 	if ($milestones[$node->nodeName]==null){
 	 		$milestones[$node->nodeName]=array();	
 	 	}
-	 	$milestones[$node->nodeName][]=$off;
+	 	$milestones[$node->nodeName][]=array($off,$context);
 	}
 	
 	return array($off,$offsets,$milestones,$txtStr);
 }
-/*$filestr = file_get_contents($uri);
-$filestr = html_entity_decode($filestr);
-$ptxt = preg_replace("/\<[^\>]*\>/","",$filestr);
-$ptxt = preg_replace("/[ ]+/"," ",$ptxt);*/
+
+
+
 $data = getTxts4Node($root,0,"",$offsets,$root->nodeName,$milestones);
+//print_r($data);
+//Export JSON
+
+//print_r($data[1][$xyz]);
 $ptxt = $data[3];
 
 $lbs = $data[2]["lb"];
@@ -66,76 +86,45 @@ $pbs = $data[2]["pb"];
 $lastlb =0;
 $JSON = "{pages: [{lines: [";
 for ($i=0;$i<count($lbs)-1;$i++){
-	
-	$len = $lbs[$i]-$lastlb;
+		$startCon = $lbs[$i][1];
+	if ($i>0){
+
+	$endCon = $lbs[$i-1][1];
+	while ($startCon != $endCon){
+		$startCon = substr($startCon,0,strrpos($startCon,">"));
+		$endCon = substr($endCon,0,strrpos($endCon,">"));
+	}
+	}	
+	$len = $lbs[$i][0]-$lastlb;
 	$linetxt = substr($ptxt,$lastlb,$len);
 	
-	$JSON.='{text:"'.addslashes($linetxt).'"}';
+	$JSON.='{text:"'.addslashes($linetxt).'",info: '.$startCon.'}';
 	$next = intval($i)+1;
-	if ($lbs[$next]>$pbs[$cpb]){
+	
+	
+	if ($lbs[$next][0]>$pbs[$cpb][0]){
 	 $JSON .="]},{lines: [";
 	 $cpb=$cpb+1;
 	}
 	else{
 		$JSON .=",";
 	}
-	$lastlb = $lbs[$i];
+	$lastlb = $lbs[$i][0];
+	
 	
 }
 $last = count($lbs);
-$off = $lbs[$last-1];
+$off = $lbs[$last-1][0];
 
-$len = $off-$lbs[$last-2];
-$linetxt = substr($ptxt,$lbs[$last-2],$len);
-$JSON.='{text:"'.addslashes($linetxt).'"}'.']}]}';
+$len = $off-$lbs[$last-2][0];
+$linetxt = substr($ptxt,$lbs[$last-2][0],$len);
+$JSON.='{text:"'.addslashes($linetxt).'",info: '.$endCon.'}'.']}]}';
 echo $JSON;
 function getMilestones($txt,$pb){
 	 $preg = "/\<".$pb."\/\>/";
 	 $pages = preg_split($preg,$txt);
 	 return $pages;
 }
-/* $filestr = file_get_contents($uri);
-$pages=getMilestones($filestr,"pb");
-$return = array();
-echo "{pages:[";
-for ($i=0;$i<count($pages);$i++){
-	$lines = getMilestones($pages[$i],"lb");
-	$return[$i]=array();
-	echo"[";
-	for ($j=0;$j<count($lines);$j++){
-		$ltxt = preg_replace("/\<[^\>]*\>/","",$lines[$j]);
-		echo "[".$ltxt."]<br/>";
-		//$return[$i][$j]=$ltxt;
-			if ($j<count($lines)){
-		echo ",";
-	}	
-	}
-	echo "]";
-	if ($i<count($pages)){
-		echo ",";
-	}	
-}
-*/
-//$data = getTxts4Node($root,0,$offsets,$root->nodeName);
-//print_r($return);  
-/*
- $filestr = file_get_contents($uri);
- 
 
- $preg = "/\<".$pb."\/\>|\<\/".$pb."\>/";
-
- $pages = preg_split($preg,$filestr);
-//echo count($pages);
-//print_r($pages[0]);
-
-for ($i=0;$i<count($pages);$i++){
-	
-	echo $pages[$i];
-	if (preg_match("/\<".$pb."[ |\>]/",$pages[$i],$match,PREG_OFFSET_CAPTURE)){
-		echo $match[0][1];
-		
-	}
-}
-*/
 
 ?>
