@@ -207,6 +207,7 @@ a.btnIconLarge:hover {
 }
 .workspace{
 	position:absolute;
+	overflow:scroll;
 }
 /* Dropdown and menu styles --------------- */
 .button {
