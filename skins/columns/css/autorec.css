@@ -60,7 +60,7 @@ display: none;
 #content #transcript div:hover {
 	border:#000000 1px dotted;
 }
-#content #transcript .trLine.recLine.selected{
+#content #transcript .selected{
 	background:purple;
 	color:yellow;
 }
