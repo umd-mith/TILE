@@ -1,9 +1,8 @@
 <?php 
 
  $uri = $_GET["uri"]; // uri of document
- $rname = $_GET["rname"]; // root nodeName 
- $rnum = $_GET["rnum"]; // index of root Node in document e.g. 0 = first TEXT node
- $imgPath = $_GET["ipath"]; // server path for images
+ $pb = $_GET["pb"]; 
+ $lb = $_GET["lb"];
 
 class txtNode {
 	public function __construct($txt,$context,$offset){
@@ -17,8 +16,7 @@ $xmlDoc = new DOMDocument;
 $xmlDoc->validateOnParse = true;
 $xmlDoc->load($uri);
 //$root = $xmlDoc->documentElement;
-
-$root = $xmlDoc->getElementsByTagName($rname)->item($rnum);
+$root = $xmlDoc->getElementsByTagName("text")->item(0);
 $offsets = array();
 $milestones = array();
 $txtStr = "";
@@ -102,23 +100,21 @@ $lastlb =0;
 $curLb =0;
 $lastP = 0;
 $JSON = "{pages: [";
-for ($i=0;$i<(count($pbs));$i++){
+for ($i=0;$i<(count($pbs)-1);$i++){
 	/*$len = $lbs[$i][0]-$lastP;
 	$oops = substr($ptxt,$lastP,$len);
 	echo $oops."<hr/>";
 	$lastP = $lbs[$i][0];
 	*/
 	$facID = substr($pbs[$i][2]->getNamedItem("facs")->value,1);
-
-	$fac = $imgPath.$xmlDoc->getElementById($facID)->getElementsByTagName("graphic")->item(0)->getAttribute("url");
-	$pageInfo = "xpath: '".$pbs[$i][1]."', facs: '".$facID."'"; 
-	$JSON .= "{url: '".$fac."', info: {".$pageInfo."}, lines: [";
+	$fac = $xmlDoc->getElementById($facID)->getElementsByTagName("graphic")->item(0)->getAttribute("url");
+	$JSON .= "{url: '".$fac."', lines: [";
 	$lastlb = $lastP;
 	//echo $i." ".$curLb."<br/>";
 	while (($curLb<count($lbs))&&($lbs[$curLb][0]<$pbs[$i][0])){
 	  	
 		$startCon = $lbs[$curLb][1];
-		/*if ($curLb>0){
+		if ($curLb>0){
 			
 			$endCon = $lbs[$curLb-1][1];
 		while ((strpos($endCon,$startCon)===false) && strlen($startCon)>1){
@@ -126,7 +122,7 @@ for ($i=0;$i<(count($pbs));$i++){
 				
 				
 			}
-		}*/	
+		}	
 	$len = $lbs[$curLb][0]-$lastlb;
 	$linetxt = substr($ptxt,$lastlb,$len);
 	
@@ -158,7 +154,45 @@ for ($i=0;$i<(count($pbs));$i++){
 	$JSON .="]},";
 	
 }
+/*-----
+$JSON = "{pages: [{img: '".$fac."', lines: [";
+for ($i=0;$i<count($lbs)-1;$i++){
+		$startCon = $lbs[$i][1];
+	if ($i>0){
 
+	$endCon = $lbs[$i-1][1];
+	while ($startCon != $endCon){
+		$startCon = substr($startCon,0,strrpos($startCon,">"));
+		$endCon = substr($endCon,0,strrpos($endCon,">"));
+	}
+	}	
+	$len = $lbs[$i][0]-$lastlb;
+	$linetxt = substr($ptxt,$lastlb,$len);
+	
+	$JSON.='{text:"'.addslashes($linetxt).'",info: "'.$startCon.'"}';
+	$next = intval($i)+1;
+	
+	$facID = substr($pbs[0][2]->getNamedItem("facs")->value,1);
+	$fac = $xmlDoc->getElementById($facID)->getElementsByTagName("graphic")->item(0)->getAttribute("url");
+	
+	if ($lbs[$next][0]>$pbs[$cpb][0]){
+	 $JSON .="]},{img: '".$fac."', lines: [";
+	 $cpb=$cpb+1;
+	}
+	else{
+		$JSON .=",";
+	}
+	$lastlb = $lbs[$i][0];
+	
+	
+}
+$last = count($lbs);
+$off = $lbs[$last-1][0];
+
+$len = $off-$lbs[$last-2][0];
+$linetxt = substr($ptxt,$lbs[$last-2][0],$len);
+$JSON.='{text:"'.addslashes($linetxt).'",info: "'.$endCon.'"}'.']}]}';
+*/
 echo $JSON;
 
 
