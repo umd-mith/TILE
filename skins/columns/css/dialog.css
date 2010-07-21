@@ -10,6 +10,17 @@
 	display:none;
 	z-index:1005;
 }
+#exportDialog.dialog {
+	position:absolute;
+	left:300px;
+	top:45px;
+	width:700px;
+	height:auto;
+	border:1px solid #D5DB97;
+	/**initially invisible**/
+	display:none;
+	z-index:1005;
+}
 #dialogNewImg.dialog {
 	position:absolute;
 	left:300px;

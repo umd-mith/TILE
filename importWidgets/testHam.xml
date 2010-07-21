@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="..//tei_all.rng" type="xml"?>
+<?xml-stylesheet type="text/css" href="tei-11-08-08.css"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader></teiHeader>
+	<facsimile>
+        <surface xml:id="ham-1603-22275x-bli-c01-image001"><desc>Image 001</desc><graphic url="ham-1603-22275x-bli-c01-001.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image002"><desc>Image 002</desc><graphic url="ham-1603-22275x-bli-c01-002.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image003"><desc>Image 003</desc><graphic url="ham-1603-22275x-bli-c01-003.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image004"><desc>Image 004</desc><graphic url="ham-1603-22275x-bli-c01-004.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image005"><desc>Image 005</desc><graphic url="ham-1603-22275x-bli-c01-005.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image006"><desc>Image 006</desc><graphic url="ham-1603-22275x-bli-c01-006.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image007"><desc>Image 007</desc><graphic url="ham-1603-22275x-bli-c01-007.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image008"><desc>Image 008</desc><graphic url="ham-1603-22275x-bli-c01-008.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image009"><desc>Image 009</desc><graphic url="ham-1603-22275x-bli-c01-009.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image010"><desc>Image 010</desc><graphic url="ham-1603-22275x-bli-c01-010.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image011"><desc>Image 011</desc><graphic url="ham-1603-22275x-bli-c01-011.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image012"><desc>Image 012</desc><graphic url="ham-1603-22275x-bli-c01-012.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image013"><desc>Image 013</desc><graphic url="ham-1603-22275x-bli-c01-013.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image014"><desc>Image 014</desc><graphic url="ham-1603-22275x-bli-c01-014.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image015"><desc>Image 015</desc><graphic url="ham-1603-22275x-bli-c01-015.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image016"><desc>Image 016</desc><graphic url="ham-1603-22275x-bli-c01-016.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image017"><desc>Image 017</desc><graphic url="ham-1603-22275x-bli-c01-017.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image018"><desc>Image 018</desc><graphic url="ham-1603-22275x-bli-c01-018.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image019"><desc>Image 019</desc><graphic url="ham-1603-22275x-bli-c01-019.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image020"><desc>Image 020</desc><graphic url="ham-1603-22275x-bli-c01-020.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image021"><desc>Image 021</desc><graphic url="ham-1603-22275x-bli-c01-021.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image022"><desc>Image 022</desc><graphic url="ham-1603-22275x-bli-c01-022.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image023"><desc>Image 023</desc><graphic url="ham-1603-22275x-bli-c01-023.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image024"><desc>Image 024</desc><graphic url="ham-1603-22275x-bli-c01-024.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image025"><desc>Image 025</desc><graphic url="ham-1603-22275x-bli-c01-025.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image026"><desc>Image 026</desc><graphic url="ham-1603-22275x-bli-c01-026.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image027"><desc>Image 027</desc><graphic url="ham-1603-22275x-bli-c01-027.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image028"><desc>Image 028</desc><graphic url="ham-1603-22275x-bli-c01-028.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image029"><desc>Image 029</desc><graphic url="ham-1603-22275x-bli-c01-029.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image030"><desc>Image 030</desc><graphic url="ham-1603-22275x-bli-c01-030.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image031"><desc>Image 031</desc><graphic url="ham-1603-22275x-bli-c01-031.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image032"><desc>Image 032</desc><graphic url="ham-1603-22275x-bli-c01-032.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image033"><desc>Image 033</desc><graphic url="ham-1603-22275x-bli-c01-033.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image034"><desc>Image 034</desc><graphic url="ham-1603-22275x-bli-c01-034.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image035"><desc>Image 035</desc><graphic url="ham-1603-22275x-bli-c01-035.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image036"><desc>Image 036</desc><graphic url="ham-1603-22275x-bli-c01-036.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image037"><desc>Image 037</desc><graphic url="ham-1603-22275x-bli-c01-037.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image038"><desc>Image 038</desc><graphic url="ham-1603-22275x-bli-c01-038.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image039"><desc>Image 039</desc><graphic url="ham-1603-22275x-bli-c01-039.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image040"><desc>Image 040</desc><graphic url="ham-1603-22275x-bli-c01-040.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image041"><desc>Image 041</desc><graphic url="ham-1603-22275x-bli-c01-041.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image042"><desc>Image 042</desc><graphic url="ham-1603-22275x-bli-c01-042.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image043"><desc>Image 043</desc><graphic url="ham-1603-22275x-bli-c01-043.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image044"><desc>Image 044</desc><graphic url="ham-1603-22275x-bli-c01-044.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image045"><desc>Image 045</desc><graphic url="ham-1603-22275x-bli-c01-045.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image046"><desc>Image 046</desc><graphic url="ham-1603-22275x-bli-c01-046.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image047"><desc>Image 047</desc><graphic url="ham-1603-22275x-bli-c01-047.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image048"><desc>Image 048</desc><graphic url="ham-1603-22275x-bli-c01-048.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image049"><desc>Image 049</desc><graphic url="ham-1603-22275x-bli-c01-049.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image050"><desc>Image 050</desc><graphic url="ham-1603-22275x-bli-c01-050.jpg"/></surface>
+    </facsimile>
+	<text>
+	<front>
+	    <div1 type="addition">
+	         <pb facs="#ham-1603-22275x-bli-c01-image001" xml:id="ham-1603-22275x-bli-c01-001"/>
+	 <pb facs="#ham-1603-22275x-bli-c01-image002" xml:id="ham-1603-22275x-bli-c01-002a"/>
+	         <pb facs="#ham-1603-22275x-bli-c01-image002" xml:id="ham-1603-22275x-bli-c01-002b"/>
+	<p><add place="textblock" type="bibliographic" hand="#aa" resp="#bli">C.34. k. 1.</add></p>
+	 <pb facs="#ham-1603-22275x-bli-c01-image003" xml:id="ham-1603-22275x-bli-c01-003a"/>
+	     <pb facs="#ham-1603-22275x-bli-c01-image003" xml:id="ham-1603-22275x-bli-c01-003b"/>
+	 <pb facs="#ham-1603-22275x-bli-c01-image004" xml:id="ham-1603-22275x-bli-c01-004a"/>
+	     <pb facs="#ham-1603-22275x-bli-c01-image004" xml:id="ham-1603-22275x-bli-c01-004b"/>
+	 <pb facs="#ham-1603-22275x-bli-c01-image005" xml:id="ham-1603-22275x-bli-c01-005a"/>
+	     <pb facs="#ham-1603-22275x-bli-c01-image005" xml:id="ham-1603-22275x-bli-c01-005b"/>
+	     <pb facs="#ham-1603-22275x-bli-c01-image006" xml:id="ham-1603-22275x-bli-c01-006a"/>
+	     <pb facs="#ham-1603-22275x-bli-c01-image006" xml:id="ham-1603-22275x-bli-c01-006b"/>
+	     <pb facs="#ham-1603-22275x-bli-c01-image007" xml:id="ham-1603-22275x-bli-c01-007a"/>
+	     <pb facs="#ham-1603-22275x-bli-c01-image007" xml:id="ham-1603-22275x-bli-c01-007b"/>
+	 <pb facs="#ham-1603-22275x-bli-c01-image008" xml:id="ham-1603-22275x-bli-c01-008a"/>
+	 <pb facs="#ham-1603-22275x-bli-c01-image008" xml:id="ham-1603-22275x-bli-c01-008b"/>
+	<p><add place="textblock" type="bibliographic" hand="#aa" resp="#bli">C.34. k. 1.</add></p>
+	    </div1>
+	</front>
+	<body>
+	    <div1 type="act" n="1">
+	        <div2 type="scene" n="1">
+	 <pb facs="#ham-1603-22275x-bli-c01-image009" xml:id="ham-1603-22275x-bli-c01-009a"/>
+	 <pb facs="#ham-1603-22275x-bli-c01-image009" xml:id="ham-1603-22275x-bli-c01-009b"/>
+	            <milestone unit="unspecified" rend="decorativeBorder"/>
+	            <head>The Tragicall Historie of
+	<lb/><name type="character" ref="#ham">HAMLET</name>
+	<lb/>Prince of Denmarke.</head>
+	<stage rend="italic, centred" type="entrance">Enter two Centinels.<add place="margin-right" type="note" hand="#ab" resp="#bli"><figure><figDesc>Brace.</figDesc></figure>now call&#x0027;d <name type="character" ref="#bar">Bernardo</name> <lb/>&#x0026; <name type="character" ref="#fra">Francisco</name> &#x2014;</add></stage>
+	<sp who="#sen"><speaker>1.</speaker> <l><c rend="droppedCapital">S</c>Tand: who is that?</l></sp>
+	<sp who="#bar"><speaker>2.</speaker> <l>Tis I.</l></sp>
+	<sp who="#sen"><speaker>1.</speaker> <l>O you come most carefully vpon your watch,</l></sp>
+	<sp who="#bar"><speaker>2.</speaker> <l>And if you meete <name type="character" ref="#mar" rend="italic">Marcellus</name> and <name type="character" ref="#hor" rend="italic">Horatio</name>,</l>
+	<l>The partners of my watch, bid them make haste.</l></sp>
+	<sp who="#sen"><speaker>1.</speaker> <l>I will: See who goes there.</l></sp>
+	<stage rend="italic, centred" type="entrance">Enter <name type="character" ref="#hor">Horatio</name> and <name type="character" ref="#mar">Marcellus</name>.</stage>
+	<sp who="#hor"><speaker rend="italic">Hor.</speaker> <l>Friends to this ground.</l></sp>
+	<sp who="#mar"><speaker rend="italic">Mar.</speaker> <l>And leegemen to the Dane,</l>
+	<l>O farewell honest souldier, who hath releeued you?</l></sp>
+	<sp who="#sen"><speaker>1.</speaker> <l><name type="character" ref="#bar" rend="italic">Barnardo</name> hath my place, giue you good night.</l></sp>
+	<sp who="#mar"><speaker rend="italic">Mar.</speaker> <l>Holla, <name type="character" ref="#bar" rend="italic">Barnardo</name>.</l></sp>
+	<sp who="#bar"><speaker>2.</speaker> <l>Say, is <name type="character" ref="#hor" rend="italic">Horatio</name> there?</l></sp>
+	<sp who="#hor"><speaker rend="italic">Hor.</speaker> <l>A peece of him.</l></sp>
+	    <sp who="#bar"><speaker>2.</speaker> <l>Welcome <name type="character" ref="#hor" rend="italic">Horatio</name>, welcome good <name type="character" ref="#mar" rend="italic">Marcellus</name>.</l></sp>
+	<sp who="#mar"><speaker rend="italic">Mar.</speaker> <l>What hath this thing appear&#x0027;d againe to night.</l></sp>
+	    <sp who="#bar"><speaker>2.</speaker> <l>I haue seene nothing.<add place="margin-right" hand="#ai" type="bibliographic" resp="#odl"><stamp type="bli">BRITISH MUSEUM</stamp></add></l></sp>
+	<sp who="#mar"><speaker rend="italic">Mar.</speaker> <l><name type="character" ref="#hor" rend="italic">Horatio</name> sayes tis but our fantasie,</l>
+	<l>And wil not let beliefe take hold of him,</l>
+	<l>Touching this dreaded sight twice seene by vs,</l>
+	<fw type="signature" place="foot-centre">B</fw><fw type="catchword" place="foot-right">There&#x00AD;</fw>
+	 <pb facs="#ham-1603-22275x-bli-c01-image010" xml:id="ham-1603-22275x-bli-c01-010a"/>
+	<fw type="runningHeader" place="top-centre" rend="italic">The Tragedie of Hamlet</fw>
+	<l>Therefore I haue intreated him along with vs</l>
+	<l>To watch the minutes of this night,</l>
+	<l>That if againe this apparition come,</l>
+	<l>He may approoue our eyes, and speake to it.</l></sp>
+	<sp who="#hor"><speaker rend="italic">Hor.</speaker> <l>Tut, t&#x0027;will not appeare.</l></sp>
+	    <sp who="#bar"><speaker>2.</speaker> <l>Sit downe I pray, and let vs once againe</l>
+	<l>Assaile your eares that are so fortified,</l>
+	<l>What we haue two nights seene.</l></sp>
+	<sp who="#hor"><speaker rend="italic">Hor.</speaker> <l>Wel, sit we downe, and let vs heare <name type="character" ref="#bar" rend="italic">Bernardo</name> speake
+	<lb/>of this.</l></sp>
+	    <sp who="#bar"><speaker>2.</speaker> <l>Last night of al, when yonder starre that&#x0027;s west&#x00AD;
+	<lb/>ward from the pole, had made his course to</l>
+	<l>Illumine that part of heauen. Where now it burnes,</l>
+	<l>The bell then towling one.</l></sp>
+	<stage rend="italic, centred" type="entrance">Enter Ghost.</stage>
+	<sp who="#mar"><speaker rend="italic">Mar.</speaker> <l>Breake off your talke, see where it comes againe.</l></sp>
+	    <sp who="#bar"><speaker>2.</speaker> <l>In the same figure like the King that&#x0027;s dead,</l></sp>
+	<sp who="#mar"><speaker rend="italic">Mar.</speaker> <l>Thou art a scholler, speake to it <name type="character" ref="#hor" rend="italic">Horatio</name>.</l></sp>
+	    <sp who="#bar"><speaker>2.</speaker> <l>Lookes it not like the king?</l></sp>
+	<sp who="#hor"><speaker rend="italic">Hor.</speaker> <l>Most like, it <addSpan hand="#ab" type="underlining" spanTo="#ham-1603-22275x-bli-c01-addSpan001"/>horrors m<anchor xml:id="ham-1603-22275x-bli-c01-addSpan001"/>ee with feare and wonder.</l></sp>
+	    <sp who="#bar"><speaker>2.</speaker> <l>It would be spoke to.</l></sp>
+	<sp who="#mar"><speaker rend="italic">Mar.</speaker> <l>Question it <name type="character" ref="#hor" rend="italic">Horatio</name>.</l></sp>
+	<sp who="#hor"><speaker rend="italic">Hor.</speaker> <l>What art thou that thus vsurps the state, in</l>
+	<l>Which the Maiestie of buried <hi rend="italic">Denmarke</hi> did sometimes</l>
+	<l>Walke? By heauen I charge thee speake.</l></sp>
+	<sp who="#mar"><speaker rend="italic">Mar.</speaker> <l>It is offended.<stage rend="italic, inline" type="exit">exit Ghost.</stage></l></sp>
+	    <sp who="#bar"><speaker>2.</speaker> <l>See, it stalkes away.</l></sp>
+	<sp who="#hor"><speaker rend="italic">Hor.</speaker> <l>Stay, speake, speake, by heauen I charge thee
+	<lb/>speake.</l></sp>
+	<sp who="#mar"><speaker rend="italic">Mar.</speaker> <l>Tis gone and makes no answer.</l></sp>
+	    <sp who="#bar"><speaker>2.</speaker> <l>How now <name type="character" ref="#hor" rend="italic">Horatio</name>, you tremble and looke pale,</l>
+	<l>Is not this something more than fantasie?</l>
+	<l>What thinke you on&#x0027;t?</l></sp>
+	<sp who="#hor"><speaker rend="italic">Hor.</speaker> <l>Afore my God, I might not this beleeue, without
+	<lb/>the sensible and true auouch of my owne eyes.</l></sp>
+	<fw type="catchword" place="foot-right" rend="italic"><add hand="#ac" type="figure" place="margin-bot" resp="#odl"><figure><figDesc>Dash.</figDesc></figure></add>Mar.</fw>
+	 <pb facs="#ham-1603-22275x-bli-c01-image010" xml:id="ham-1603-22275x-bli-c01-010b"/>
+	</div2></div1></body></text>
+</TEI>

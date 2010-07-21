@@ -16,7 +16,6 @@ class txtNode {
 $xmlDoc = new DOMDocument;
 $xmlDoc->validateOnParse = true;
 $xmlDoc->load($uri);
-//$root = $xmlDoc->documentElement;
 
 $root = $xmlDoc->getElementsByTagName($rname)->item($rnum);
 $offsets = array();
@@ -158,8 +157,9 @@ for ($i=0;$i<(count($pbs));$i++){
 	$JSON .="]},";
 	
 }
-
-echo $JSON;
+//get rid of excessive spaces and last comma
+$jlength=(strlen($JSON)-1);
+echo preg_replace("/\n/","",substr($JSON,0,$jlength)."]}");
 
 
 
