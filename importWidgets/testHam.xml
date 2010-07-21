@@ -4,16 +4,16 @@
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
     <teiHeader></teiHeader>
 	<facsimile>
-        <surface xml:id="ham-1603-22275x-bli-c01-image001"><desc>Image 001</desc><graphic url="ham-1603-22275x-bli-c01-001.jpg"/></surface>
-        <surface xml:id="ham-1603-22275x-bli-c01-image002"><desc>Image 002</desc><graphic url="ham-1603-22275x-bli-c01-002.jpg"/></surface>
-        <surface xml:id="ham-1603-22275x-bli-c01-image003"><desc>Image 003</desc><graphic url="ham-1603-22275x-bli-c01-003.jpg"/></surface>
-        <surface xml:id="ham-1603-22275x-bli-c01-image004"><desc>Image 004</desc><graphic url="ham-1603-22275x-bli-c01-004.jpg"/></surface>
-        <surface xml:id="ham-1603-22275x-bli-c01-image005"><desc>Image 005</desc><graphic url="ham-1603-22275x-bli-c01-005.jpg"/></surface>
-        <surface xml:id="ham-1603-22275x-bli-c01-image006"><desc>Image 006</desc><graphic url="ham-1603-22275x-bli-c01-006.jpg"/></surface>
-        <surface xml:id="ham-1603-22275x-bli-c01-image007"><desc>Image 007</desc><graphic url="ham-1603-22275x-bli-c01-007.jpg"/></surface>
-        <surface xml:id="ham-1603-22275x-bli-c01-image008"><desc>Image 008</desc><graphic url="ham-1603-22275x-bli-c01-008.jpg"/></surface>
-        <surface xml:id="ham-1603-22275x-bli-c01-image009"><desc>Image 009</desc><graphic url="ham-1603-22275x-bli-c01-009.jpg"/></surface>
-        <surface xml:id="ham-1603-22275x-bli-c01-image010"><desc>Image 010</desc><graphic url="ham-1603-22275x-bli-c01-010.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image001"><desc>Image 001</desc><graphic url="ham.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image002"><desc>Image 002</desc><graphic url="ham.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image003"><desc>Image 003</desc><graphic url="ham.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image004"><desc>Image 004</desc><graphic url="ham.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image005"><desc>Image 005</desc><graphic url="ham.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image006"><desc>Image 006</desc><graphic url="ham.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image007"><desc>Image 007</desc><graphic url="ham.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image008"><desc>Image 008</desc><graphic url="ham.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image009"><desc>Image 009</desc><graphic url="ham.jpg"/></surface>
+        <surface xml:id="ham-1603-22275x-bli-c01-image010"><desc>Image 010</desc><graphic url="ham.jpg"/></surface>
         <surface xml:id="ham-1603-22275x-bli-c01-image011"><desc>Image 011</desc><graphic url="ham-1603-22275x-bli-c01-011.jpg"/></surface>
         <surface xml:id="ham-1603-22275x-bli-c01-image012"><desc>Image 012</desc><graphic url="ham-1603-22275x-bli-c01-012.jpg"/></surface>
         <surface xml:id="ham-1603-22275x-bli-c01-image013"><desc>Image 013</desc><graphic url="ham-1603-22275x-bli-c01-013.jpg"/></surface>
@@ -57,31 +57,12 @@
     </facsimile>
 	<text>
 	<front>
-	    <div1 type="addition">
-	         <pb facs="#ham-1603-22275x-bli-c01-image001" xml:id="ham-1603-22275x-bli-c01-001"/>
-	 <pb facs="#ham-1603-22275x-bli-c01-image002" xml:id="ham-1603-22275x-bli-c01-002a"/>
-	         <pb facs="#ham-1603-22275x-bli-c01-image002" xml:id="ham-1603-22275x-bli-c01-002b"/>
-	<p><add place="textblock" type="bibliographic" hand="#aa" resp="#bli">C.34. k. 1.</add></p>
-	 <pb facs="#ham-1603-22275x-bli-c01-image003" xml:id="ham-1603-22275x-bli-c01-003a"/>
-	     <pb facs="#ham-1603-22275x-bli-c01-image003" xml:id="ham-1603-22275x-bli-c01-003b"/>
-	 <pb facs="#ham-1603-22275x-bli-c01-image004" xml:id="ham-1603-22275x-bli-c01-004a"/>
-	     <pb facs="#ham-1603-22275x-bli-c01-image004" xml:id="ham-1603-22275x-bli-c01-004b"/>
-	 <pb facs="#ham-1603-22275x-bli-c01-image005" xml:id="ham-1603-22275x-bli-c01-005a"/>
-	     <pb facs="#ham-1603-22275x-bli-c01-image005" xml:id="ham-1603-22275x-bli-c01-005b"/>
-	     <pb facs="#ham-1603-22275x-bli-c01-image006" xml:id="ham-1603-22275x-bli-c01-006a"/>
-	     <pb facs="#ham-1603-22275x-bli-c01-image006" xml:id="ham-1603-22275x-bli-c01-006b"/>
-	     <pb facs="#ham-1603-22275x-bli-c01-image007" xml:id="ham-1603-22275x-bli-c01-007a"/>
-	     <pb facs="#ham-1603-22275x-bli-c01-image007" xml:id="ham-1603-22275x-bli-c01-007b"/>
-	 <pb facs="#ham-1603-22275x-bli-c01-image008" xml:id="ham-1603-22275x-bli-c01-008a"/>
-	 <pb facs="#ham-1603-22275x-bli-c01-image008" xml:id="ham-1603-22275x-bli-c01-008b"/>
-	<p><add place="textblock" type="bibliographic" hand="#aa" resp="#bli">C.34. k. 1.</add></p>
-	    </div1>
+	    
 	</front>
 	<body>
 	    <div1 type="act" n="1">
 	        <div2 type="scene" n="1">
-	 <pb facs="#ham-1603-22275x-bli-c01-image009" xml:id="ham-1603-22275x-bli-c01-009a"/>
-	 <pb facs="#ham-1603-22275x-bli-c01-image009" xml:id="ham-1603-22275x-bli-c01-009b"/>
+	 <pb facs="#ham-1603-22275x-bli-c01-image001" xml:id="test"/>
 	            <milestone unit="unspecified" rend="decorativeBorder"/>
 	            <head>The Tragicall Historie of
 	<lb/><name type="character" ref="#ham">HAMLET</name>

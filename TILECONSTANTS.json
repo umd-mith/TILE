@@ -1,4 +1,5 @@
 {
 'base':'http://localhost:8888/TILE/postJuly/html/testList.txt',
-'importDefault':'http://localhost:8888/TILE/postJuly/importWidgets/importXML.php?uri=http://localhost:8888/TILE/postJuly/importWidgets/testHam.xml&rname=text&rnum=0&ipath=http://www.quartos.org/quarto_images/ham-1603-22275x-bli-c01/'
+'phpLoad':'http://localhost:8888/TILE/postJuly/importWidgets/importXML.php?uri=http://localhost:8888/TILE/postJuly/importWidgets/testHam.xml&rname=text&rnum=0&ipath=http://localhost:8888/TILE/postJuly/Images/',
+'importDefault':'http://localhost:8888/TILE/postJuly/html/testList.txt'
 }
