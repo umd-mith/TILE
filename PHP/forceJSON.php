@@ -13,7 +13,7 @@ if(isset($_POST['uploadData'])){
 	$cwd = "http://".$domain.$path."/loadJSON.php"; //path for loading this data back into TILE
 	$JSON=stripslashes($_POST['uploadData']);
 	$JSON=preg_replace("/\"/","'",$JSON);
-	$JSON=preg_replace("/\”/","",$JSON);
+	
 	$d=date("j\_n\_Y");
 	$filename="tile_".$d.".html";
 	$doc="<HTML><HEAD><SCRIPT language=\"JavaScript\">function send(){document.aData.submit();}</SCRIPT></HEAD><BODY onload=\"send()\">
