@@ -100,8 +100,9 @@ $lastlb =0;
 //-----
 $curLb =0;
 $lastP = 0;
+$pbs[]=array(strlen($ptxt),"",null);
 $JSON = "{pages: [";
-for ($i=0;$i<(count($pbs));$i++){
+for ($i=0;$i<(count($pbs)-1);$i++){
 	/*$len = $lbs[$i][0]-$lastP;
 	$oops = substr($ptxt,$lastP,$len);
 	echo $oops."<hr/>";
@@ -112,20 +113,12 @@ for ($i=0;$i<(count($pbs));$i++){
 	$fac = $imgPath.$xmlDoc->getElementById($facID)->getElementsByTagName("graphic")->item(0)->getAttribute("url");
 	$pageInfo = "xpath: '".$pbs[$i][1]."', facs: '".$facID."'"; 
 	$JSON .= "{url: '".$fac."', info: {".$pageInfo."}, lines: [";
-	$lastlb = $lastP;
+	$lastlb = $pbs[$i][0];
 	//echo $i." ".$curLb."<br/>";
-	while (($curLb<count($lbs))&&($lbs[$curLb][0]<$pbs[$i][0])){
+	while (($curLb<count($lbs))&&($lbs[$curLb][0]<$pbs[$i+1][0])){
 	  	
 		$startCon = $lbs[$curLb][1];
-		/*if ($curLb>0){
-			
-			$endCon = $lbs[$curLb-1][1];
-		while ((strpos($endCon,$startCon)===false) && strlen($startCon)>1){
-				$startCon = substr($startCon,0,strrpos($startCon,">"));
-				
-				
-			}
-		}*/	
+	
 	$len = $lbs[$curLb][0]-$lastlb;
 	$linetxt = substr($ptxt,$lastlb,$len);
 	
