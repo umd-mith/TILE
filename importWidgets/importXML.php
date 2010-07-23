@@ -5,6 +5,9 @@
  $rnum = $_GET["rnum"]; // index of root Node in document e.g. 0 = first TEXT node
  $imgPath = $_GET["ipath"]; // server path for images
 
+
+
+
 class txtNode {
 	public function __construct($txt,$context,$offset){
 	
@@ -101,7 +104,7 @@ $lastlb =0;
 $curLb =0;
 $lastP = 0;
 $pbs[]=array(strlen($ptxt),"",null);
-$JSON = "{pages: [";
+$JSON = "{\"pages\": [";
 for ($i=0;$i<(count($pbs)-1);$i++){
 	/*$len = $lbs[$i][0]-$lastP;
 	$oops = substr($ptxt,$lastP,$len);
@@ -111,8 +114,8 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	$facID = substr($pbs[$i][2]->getNamedItem("facs")->value,1);
 
 	$fac = $imgPath.$xmlDoc->getElementById($facID)->getElementsByTagName("graphic")->item(0)->getAttribute("url");
-	$pageInfo = "xpath: '".$pbs[$i][1]."', facs: '".$facID."'"; 
-	$JSON .= "{url: '".$fac."', info: {".$pageInfo."}, lines: [";
+	$pageInfo = "\"xpath\": \"".$pbs[$i][1]."\", \"facs\": \"".$facID."\""; 
+	$JSON .= "{\"url\": \"".$fac."\", \"info\": {".$pageInfo."}, \"lines\": [";
 	$lastlb = $pbs[$i][0];
 	//echo $i." ".$curLb."<br/>";
 	while (($curLb<count($lbs))&&($lbs[$curLb][0]<$pbs[$i+1][0])){
@@ -122,10 +125,15 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	$len = $lbs[$curLb][0]-$lastlb;
 	$linetxt = substr($ptxt,$lastlb,$len);
 	
-	$JSON.='{text:"'.addslashes($linetxt).'",info: "'.$startCon.'"},';
+	
+	$JSON.='{"text":"'.addslashes($linetxt).'","info": "'.$startCon.'"}';
 	$lastlb = $lbs[$curLb][0];	
 	$curLb=$curLb+1;	
-		
+	if (($curLb<count($lbs))&&($lbs[$curLb][0]<$pbs[$i+1][0])){
+		$JSON.=",";
+	
+	
+	}
 	
 	}
 	
@@ -142,9 +150,11 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 		
 		}	
 	$len = $pbs[$i][0]-$lastlb;
-	$linetxt = substr($ptxt,$lastlb,$len);
+
+	$linetxt = str_replace($replace,$find,$linetxt);
+	
 	if ($len>0){
-	$JSON.='{text:"'.addslashes($linetxt).'",info: "'.$startCon.'"}';
+	$JSON.='{"text":"'.addslashes($linetxt).'","info": "'.$startCon.'"}';
 	}
 	$lastP = $pbs[$i][0];
 	$JSON .="]},";

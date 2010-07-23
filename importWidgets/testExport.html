@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>Untitled Document</title>
+		<script language="JavaScript" type="text/javascript">
+			function sayHi(){
+				scrp=document.createElement("script");
+				scrp.setAttribute("src","mine.js");
+				
+				document.getElementsByTagName("head")[0].appendChild(scrp);
+				goodbye();
+			}
+		</script>
+	</head>
+	<body>
+		<form action="exportXML.php" method="POST">
+			<textarea name='JSON' cols=160 rows=40>
+				
+			</textarea>
+			<input type="submit" value="go"/>
+		</form>
+		<div onclick="sayHi()">hi</div>
+	</body>
+</html>
