@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-W3CDTD XHTML 1.0 StrictEN"
+	"http:www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http:www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Text and Image Linking Environment Docs</title>
+</head>
+
+
+<body>
+<h3>Documentation for TILE Interface</h3>	
+
+<h4>ActiveBox</h4>
+	
+	
+	
+<h4>TILE_ENGINE</h4>
+
+<p>Constructor: TILE_ENGINE({attach:(optional){String},toolSet:{Array}})</p>
+<p>Arguments: <br/>
+	<strong>attach</strong> - {String} what to attach the interface to (defaults to "body")<br/>
+	<strong>toolSet</strong> - {Array} Array of plugin objects that are fed into the TILE_ENGINE to be used as plugins<br/>
+				These are displayed in the "Tools" drop-down
+</p><p>
+loads in html layout from columns.json, parses JSON and sends to all <br/>
+ other objects <br/>
+ <br/>
+ <strong>Functions</strong><br/>
+ 	getBase - checks TILECONSTANTS.json for base http data<br/>
+ 	setUp - makes Transcript, ActiveBox, sets global binds<br/>
+ 	addNewTool - sets a new tool - users must define tool in .js code and proper JSON format<br/>
+ 	saveSettings - starts prompt to save the current manifest of data as a JSON object<br/>
+ 	clear_Image_Tags - clears the log bar of all tags for a particular image<br/>
+ 	clear_All_Tags - clears the LogBar completely<br/>
+	</p>			
+
+<h4>TileToolBar</h4>
+<p>Constructor: TileToolBar({loc:{String}})</p>
+
+				
+<h4>Transcript</h4>
+Constructor: Transcript({loc:{String}})
+Arguments:
+	loc: {String} what to attach this Object's DOM to (Includes ul list of transcript lines and buttons)
+
+
+
+</body>
+</html>
