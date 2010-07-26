@@ -9,12 +9,23 @@
 
 
 <body>
-<h3>Documentation for TILE Interface</h3>	
-
+<h1>Documentation for TILE Interface</h1>	
+<h1>lib/</h1>
+<h2>ActiveBox.js</h2>
 <h4>ActiveBox</h4>
-	
-	
-	
+<p>Constructor: ActiveBox({loc: {String}, html: {String}})</p>
+<p>Arguments:<br/>
+	<pre>
+		<strong>loc</strong> - String representing ID of parent DOM<br/>
+		<strong>html</strong> - String representing HTML that's taken from JSON in TILE ENGINE
+	</pre>
+	</p>
+<p><pre>
+	_addItem(data {Object}) - Loads a JSON object (data) into the ActiveBox - can be any JSON object.<br/>
+	getObjData(obj {Object}) - Recursively goes through a sub-JSON object. Used in _addItem<br/>
+</pre></p>
+
+<h2>tile1.0.js</h2>	
 <h4>TILE_ENGINE</h4>
 
 <p>Constructor: TILE_ENGINE({attach:(optional){String},toolSet:{Array}})</p>
@@ -22,17 +33,31 @@
 	<strong>attach</strong> - {String} what to attach the interface to (defaults to "body")<br/>
 	<strong>toolSet</strong> - {Array} Array of plugin objects that are fed into the TILE_ENGINE to be used as plugins<br/>
 				These are displayed in the "Tools" drop-down
-</p><p>
-loads in html layout from columns.json, parses JSON and sends to all <br/>
- other objects <br/>
+</p>
+<p><pre>
+Loads in HTML layout from columns.json, parses JSON and sends to all <br/>
+ other objects.<br/>
  <br/>
  <strong>Functions</strong><br/>
- 	getBase - checks TILECONSTANTS.json for base http data<br/>
- 	setUp - makes Transcript, ActiveBox, sets global binds<br/>
- 	addNewTool - sets a new tool - users must define tool in .js code and proper JSON format<br/>
- 	saveSettings - starts prompt to save the current manifest of data as a JSON object<br/>
- 	clear_Image_Tags - clears the log bar of all tags for a particular image<br/>
- 	clear_All_Tags - clears the LogBar completely<br/>
+ 	getBase - Calls TILECONSTANTS.json file and gets base, possible json data<br/>
+	checkJSON - Called to see if there is a JSON object stored in the PHP session() <br/>
+ 	setUp({Object} html) - Called after getBase(). Creates main TILE interface objects and<br/>
+			setting up the HTML<br/>
+ 	getSchema({Event} e, {String} file) - Called from Custom Event "schemaFileImport". Passed a string 'file', which <br/>
+				is then used in an AJAX call to retrieve the JSON data. JSON data should follow TILE specifications and include<br/>
+				all relevant page data, lines, and optionally stored shapes<br/>
+	addDialogBoxes - called during setUp(). Takes dialogs.json data and loads this into the interface. Sets up New Image Dialog,<br/>
+					 Export Dialog, Load Dialog, Save Dialog<br/>
+	_newPageHandle({Event} e, {String} url) -  Called by Custom Event "newPageLoaded".<br/>
+	_toolDoneHandle({Event} e) - Called by a tool's 'done' Event. Triggers the interface to load the default plugin tool.<br/>
+	_toolOutputHandle({Event} e, {Object} data) - Called by a tool's 'output' event. Passes JSON object @data to the Transcript object<br/>
+	_transcriptSelectHandle({Event} e, {Object} data) - called by "TranscriptLineSelected" Event. Passes the @data parameter as JSON data to the<br/>
+														ActiveBox object.
+	setUpTool({String} toolname) - sets a new tool - users must define tool in .js code and proper JSON format<br/>
+ 	saveSettingsHandle({Event} e) - Called by "SaveAllSettings" Event. Starts prompt to save the current manifest of data as a JSON object<br/>
+ 	
+
+</pre>
 	</p>			
 
 <h4>TileToolBar</h4>
@@ -40,9 +65,26 @@ loads in html layout from columns.json, parses JSON and sends to all <br/>
 
 				
 <h4>Transcript</h4>
-Constructor: Transcript({loc:{String}})
-Arguments:
+Constructor: Transcript({loc:{String}})<br/>
+Arguments:<br/>
 	loc: {String} what to attach this Object's DOM to (Includes ul list of transcript lines and buttons)
+<p><pre>
+	 _drawText : displays the text that is contained in the lineArray variable<br/>
+	 _addLines(data,{optional} url) : takes a JSON-based array (data) and optional parameter url (if this data belongs<br/>
+	 	to a new image) and changes the text display<br/>
+	 _shapeDrawnHandle : handler for the VectorDrawer shapeDrawn event. adds the drawn shape to the currently selected line<br/>
+	 _deleteItemHandle : handler for the deleteItem event from ActiveBox<br/>
+	 _updateItemHandle : handler for the shapeChanged event from VectorDrawer<br/>
+	 _lineSelected(index) : takes the argument index and sets the current line to the lineArray index matching index<br/>
+	 _lineDeSelected(index) : the opposite of _lineSelected<br/>
+	 exportLines : returns the lineArray<br/>
+	 bundleData(manifest) : takes argument manifest, which is the manifest for TILE_ENGINE, modifies/updates the TILE_ENGINE<br/>
+	 							manifest data, then sends modified manifest back.
+</pre></p>
+
+<h3>Image Tagger</h3>
+
+<h3>Auto Recognizer</h3>
 
 
 
