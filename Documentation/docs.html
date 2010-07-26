@@ -22,10 +22,86 @@
 	</p>
 <p><pre>
 	_addItem(data {Object}) - Loads a JSON object (data) into the ActiveBox - can be any JSON object.<br/>
-	getObjData(obj {Object}) - Recursively goes through a sub-JSON object. Used in _addItem<br/>
+	getObjData(obj {Object}) - Recursively goes through a sub-JSON object. Used in _addItem
 </pre></p>
 
 <h2>tile1.0.js</h2>	
+
+<h3>TILE Interface</h3>
+<p>Base objects for plugins, sets up the HTML layout for the page. Creates Transcript and ActiveBox objects and handles<br/>
+	any tool plugins fed from the toolSets parameter.
+	</p>
+
+<h4>Image</h4>
+<p>Constructor: Image({url: {String}})</p>
+<p><pre>
+	getZoomLevel - Returns a copy of the current zoom level {Integer}<br/>
+	activate - Shows the container DOM <br/>
+	deactivate - Hide the container DOM<br/>
+</pre></p>
+
+<h4>SideToolBar</h4>
+<p>Constructor: SideToolBar({loc: {String}})</p>
+<p><pre>
+	activate - Shows the container DOM<br/>
+	deactivate - Hides the container DOM
+</pre></p>
+
+<h4>Dialog</h4>
+<p>Constructor: Dialog({loc: {String}, html: {String}})</p>
+<p>**These arguments are used for all Dialog Objects <br/><pre>
+	loc - {String} representing ID of parent DOM - defaults to 'body'<br/>
+	html - {String} HTML in string format for this Dialog box
+</pre><p>
+
+<h4>Import Dialog</h4>
+<p>Constructor: ImportDialog({loc: {String}, html: {String}, auto: {String}})</p>
+<p>**Arguments same as Dialog except: <br/><pre>
+	auto - {String} What to put as default in the "File input" area
+	</pre></p>
+	<p><pre>
+	display({e: {Event}) - Displays the container DOM<br/>
+	close({e: {Event}}) - Hides the container DOM<br/>
+	handleMultiForm(e: {Event}) - finds the transcript/image file that the user <br/>
+	 					has input and sends it off in a CustomEvent trigger<br/>
+						schemaFileImported<br/>
+	
+</pre></p>
+
+<h4>LoadTags</h4>
+<p>Constructor: LoadTags({loc: {String}, html: {String}})</p>
+<p>**Arguments same as Dialog<pre>
+	
+	</pre></p>
+	<p><pre>
+	display({e: {Event}) - Displays the container DOM<br/>
+	close({e: {Event}}) - Hides the container DOM<br/>	
+</pre></p>
+
+<h4>ExportDialog</h4>
+<p>Constructor: LoadTags({loc: {String}, html: {String}})</p>
+<p>**Arguments same as Dialog<pre>
+	
+	</pre></p>
+	<p><pre>
+	display({e: {Event}) - Displays the container DOM<br/>
+	close({e: {Event}}) - Hides the container DOM<br/>
+	_submitHandle(e: {Event}) - Takes the user-defined filepath in ExportDialog and <br/>
+								uses it to output current JSON session as XML
+</pre></p>
+<h4>NewImageDialog</h4>
+<p>Constructor: LoadTags({loc: {String}, html: {String}})</p>
+<p>**Arguments same as Dialog<pre>
+	
+	</pre></p>
+	<p><pre>
+	display({e: {Event}) - Displays the container DOM<br/>
+	close({e: {Event}}) - Hides the container DOM<br/>
+	handleImageForm(e: {Event}) - Takes file input path and sends it out using trigger<br/>
+								"newImageAdded"
+	
+</pre></p>
+
 <h4>TILE_ENGINE</h4>
 
 <p>Constructor: TILE_ENGINE({attach:(optional){String},toolSet:{Array}})</p>
@@ -57,13 +133,24 @@ Loads in HTML layout from columns.json, parses JSON and sends to all <br/>
  	saveSettingsHandle({Event} e) - Called by "SaveAllSettings" Event. Starts prompt to save the current manifest of data as a JSON object<br/>
  	
 
-</pre>
-	</p>			
+</pre></p>			
 
 <h4>TileToolBar</h4>
 <p>Constructor: TileToolBar({loc:{String}})</p>
+<p><pre>Arguments:<br/>
+	loc {String} - Represents ID of parent DOM
+	
+	</pre></p>
+<p><pre>
+	setChoices(data: {Object}) - Populates the Tools select menu. Takes JSON object data and sets each <br/>
+								option tag to the name of the particular tool.
+	setChoice(name: {String}) - When a user selects a tool, jQuery doesn't change the .selected property on <br/>
+								that option tag. So this does this manually. Sets option with 'name' as the <br/>
+								selected option tag.
+</pre></p>
 
-				
+
+<h2>Transcript.js</h2>				
 <h4>Transcript</h4>
 Constructor: Transcript({loc:{String}})<br/>
 Arguments:<br/>
@@ -81,9 +168,12 @@ Arguments:<br/>
 	 bundleData(manifest) : takes argument manifest, which is the manifest for TILE_ENGINE, modifies/updates the TILE_ENGINE<br/>
 	 							manifest data, then sends modified manifest back.
 </pre></p>
-
+<h2>image_tagger.js</h2>
 <h3>Image Tagger</h3>
 
+
+
+<h2>autorecognizer_plugin.js</h2>
 <h3>Auto Recognizer</h3>
 
 
