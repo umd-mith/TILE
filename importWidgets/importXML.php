@@ -126,7 +126,7 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	$linetxt = substr($ptxt,$lastlb,$len);
 	
 	
-	$JSON.='{"text":"'.addslashes($linetxt).'","info": "'.$startCon.'"}';
+	$JSON.='{"text":"'.addslashes($linetxt).'","info": "lb['.$curLb.']>'.$startCon.'"}';
 	$lastlb = $lbs[$curLb][0];	
 	$curLb=$curLb+1;	
 	if (($curLb<count($lbs))&&($lbs[$curLb][0]<$pbs[$i+1][0])){
@@ -154,7 +154,7 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	$linetxt = str_replace($replace,$find,$linetxt);
 	
 	if ($len>0){
-	$JSON.='{"text":"'.addslashes($linetxt).'","info": "'.$startCon.'"}';
+	$JSON.='{"text":"'.addslashes($linetxt).'","info": "lb['.$curLb.']>'.$startCon.'"}';
 	}
 	$lastP = $pbs[$i][0];
 	$JSON .="]},";
