@@ -209,30 +209,96 @@ Arguments:<br/>
 
 <h2>autorecognizer_plugin.js</h2>
 <h3>Auto Recognizer</h3>
-<h4></h4>
+<h4>TileOCR</h4>
+<p>Usage:<br/>
+	var v = new TileOCR({loc:{String}})<br/>
+	
+	
+	args.loc {String} - id for where toolbar is located<br/>
+	args.transcript {Object} - JSON object containing lines for this url
+	</p>
+<p><pre>
+	_setUp(e {Event},jsonhtml {Object}) -	Setting up the HTML for AutoRecognizer<br/>
+	 		Called by 'autoRecJSONReady' trigger<br/>
+	 		Replaces both the Transcript and ActiveBox areas to the left and <br/>
+	 		replaces canvas area<br/>
+	 		
+	 			jsonhtml : {Object} JSON object containing strings for <br/>
+					autorecognizer HTML elements <br/>
+	swapCanvas - Sets up HTML for the Canvas area
+	_restart(transcript {Object}) - Restarts the TILEOCR object - fed transcript JSON
+				object for transcript lines
+	_loadTranscript - takes the transcript object loaded at construction, then places lines
+				into the transcript area.
+	ColorChangeHandle(e {Event},thresh {Integer}) - Called by drag and resize event triggers. Calls
+					the CanvasAutoRecognizer functions for converting threshold
+	_capture - Stores a region that the regionBox is overlapping, then proceeds to recognize lines
+				in that area
+	_recognize - Finds lines in the area capture by _capture(), then proceeds to send the final, JSON parsed
+				data to outputData
+	outputData - Parses the JSON data from _recognize() further and sends it out using outputAutoRecData trigger
+	
+	</pre></p>
+
+<h4>CanvasImage</h4>
+<p><pre>Usage: <br/>
+	Usage:
+		new CanvasImage({loc:{jQuery Object}})
+	
+	</pre></p>
+<p><pre>
+	zoomHandle(e {Event}, v {Integer}) - Called by 'zoom' event. Adjust scale by v.<br/>
+	setUpCanvas(url {String}) - sets the HTML5 Canvas to the given url.<br/>
+	_closeOut - hides the container DOM<br/>
+	_restart - shows the container DOM and calls setUpCanvas for current url<br/>
+	_resetCanvasImage - re-draws the HTML5 Canvas<br/>
+	_getPerc - outputs percentage offsets of Canvas image area. Returns {Object} {l (left),t (top),w (width),h (height)} <br/>
+	
+	</pre></p>
+
+<h4>RegionBox</h4>
+<p><pre>Usage: <br/>
+	new RegionBox({loc:{Object}})
+	loc: DOM Object to attach RegionBox to 
+	
+	</pre></p>
+<p><pre>
+	
+	
+	
+</pre></p>
+
+<h4>Shape</h4>
 <p><pre></pre></p>
 <p><pre></pre></p>
 
-<h4></h4>
+<h4>ColorFilter</h4>
 <p><pre></pre></p>
 <p><pre></pre></p>
 
-<h4></h4>
+<h4>TileColorFilter</h4>
 <p><pre></pre></p>
 <p><pre></pre></p>
 
-<h4></h4>
+<h4>RegionRule</h4>
 <p><pre></pre></p>
 <p><pre></pre></p>
 
-<h4></h4>
+<h4>lineBox</h4>
 <p><pre></pre></p>
 <p><pre></pre></p>
 
-<h4></h4>
+<h4>AutoRecognizer</h4>
+<p>**Parent Class for CanvasAutoRecognizer<pre></pre></p>
+<p><pre></pre></p>
+
+<h4>CanvasAutoRecognizer</h4>
 <p><pre></pre></p>
 <p><pre></pre></p>
 
+<h4>AR</h4>
+<p><pre></pre></p>
+<p><pre></pre></p>
 
 </body>
 </html>
