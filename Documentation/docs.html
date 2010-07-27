@@ -176,9 +176,19 @@ Arguments:<br/>
 	Tutorial.</p>
 
 <h4>_Itag</h4>
-<p>Constructor: _Itag({})</p>
-<p><pre></pre></p>
-<p><pre></pre></p>
+<p></p>
+<p><pre>Usage:
+	new _Itag({loc: {String}, base: {String}, json: {Object}})
+	
+	loc {String} - represents ID of parent DOM
+	base {String} - represents path to images
+	json {Object} - JSON object of all image data (pages, lines, shapes)
+	</pre></p>
+<p><pre>
+	ingestImages(e: {Event},manifest: {Object}) - 
+	
+	
+</pre></p>
 
 <h4>ImageList</h4>
 <p>Constructor: ImageList({})</p>
@@ -263,42 +273,125 @@ Arguments:<br/>
 	
 	</pre></p>
 <p><pre>
-	
-	
+	_flash - Flashes the DOM container on and off<br/>
+	_zoomHandle(e {Event}, v {Integer}) - Called by 'zoom' event. Scales Canvas image<br/>
+							to 'v'
+	_onoff(e {Event})
+	_getDims - Returns Bounding Box Object ("left","top","width","height") for regionBox
+	_adjustSize(scale {Integer}) - adjusts the Bounding Box to the integer @scale 
+	_closeOut(e {Event}) - Hides the container DOM. Called by closeOutAutoRec trigger.
 	
 </pre></p>
 
 <h4>Shape</h4>
-<p><pre></pre></p>
-<p><pre></pre></p>
+<p>Houses a collection of dot coordinates taken from CanvasAutoRecognizer<br/>
+<pre>Usage: <br/>
+	new Shape({index: {Integer},initialTop: {Integer}, initialLeft: {Integer}, foundOnRow: {Integer}});
+	
+	index {Integer}: Index for this Shape <br/>
+	initialTop {Integer} : The top coordinate value from the image<br/>
+	initialLeft {Integer} : The left coordinate value from the image<br/>
+	foundOnRow {Integer} : Index for the row found within the image (Relative to CanvasAutoRecognizer's array)
+	</pre>
+</p>	
+	
+	<p><pre>
+		add(xy {Object}) - Add an xy value to the object's coords array. xy is an array such as : (x {Integer}, y {Integer}) 
+		compare(shape {Object}, criteria {Object}) - Returns true or false, depending on whether the passed @shape Object<br/>
+						has a similar [@criteria] parameter as the shape invoking the function.
+	</pre></p>
 
 <h4>ColorFilter</h4>
-<p><pre></pre></p>
-<p><pre></pre></p>
+<p>Empty parent class for TileColorFilter</p>
 
 <h4>TileColorFilter</h4>
-<p><pre></pre></p>
-<p><pre></pre></p>
+<p><pre>Usage: <br/>
+	new TileColorFilter({DOM: {String},red: {String}, green: {String}, blue: {String}, colorBox: {String}});
+		DOM {String} : DOM id of container
+		red {String} : DOM id of div for red slider
+		green {String} : DOM id of div for greeen slider
+		blue {String} :  DOM id of div for blue slider
+		colorBox {String} : DOM id of div showing color
+	
+	</pre></p>
+<p><pre>
+	_restart - Resets the sliders back to default values and resets bound events to DOM objects<br/>
+	setValue(rgb {String}) - Takes a string RGB value (Format: (r,g,b)) then sets sliders and rgbDiv to this value<br/>
+	changeColorFromSlider(e {Event}, color {String}, val {Integer}) - Set a specific color to a certain value. Triggered<br/>
+				by slideChange<br/>
+	_RGB - Returns a {String} representing current (r,g,b) value
+	
+</pre></p>
 
 <h4>RegionRule</h4>
-<p><pre></pre></p>
-<p><pre></pre></p>
+<p>Object representing an array of values 
+	related to a region of an image to recognize<pre></pre></p>
+<p><pre>
+  args:
+ move: Enum type [stay|next|prev] which directs whether to change the page
+ top: % from top of image
+ left: % from left of image
+ height: % from height of image
+ width: % from width of image
+ </pre></p>
 
 <h4>lineBox</h4>
-<p><pre></pre></p>
-<p><pre></pre></p>
+<p>DOM container box that represents a recognized line within an image.
+	<pre>
+		Usage: <br/>
+		new lineBox({width:{Integer},height:{Integer},left:{Integer},top:{Integer}});
+	</pre></p>
+<p><pre>
+	select(id {String}) - Selects this linebox - or whichever is matched by ID. Box <br/>
+			then becomes draggable and resizeable.
+	zoomHandle(e {Event}, v {Integer}) - Handles 'zoom' event. Scales the box to the passed<br/>
+		'v' value.
+	
+</pre></p>
 
 <h4>AutoRecognizer</h4>
 <p>**Parent Class for CanvasAutoRecognizer<pre></pre></p>
-<p><pre></pre></p>
+<p><pre>Properties: <br/>
+	data {Array}
+	shapes {Array}
+	</pre></p>
 
 <h4>CanvasAutoRecognizer</h4>
-<p><pre></pre></p>
-<p><pre></pre></p>
+<p><pre>Usage: 
+new CanvasAutoRecognizer({regionID:{String},dotMin:{Integer},dotMax:{Integer}});</pre></p>
+<p><pre>
+	thresholdConversion(threshold {Integer}) - Starts converting the image into black and white. Creates<br/>
+			dotMatrix object. 
+	medianThreshold - Takes the dotMatrix object and sorts the dots into black or white
+	filterDots - Filters the dots further into black or white dots
+	paintFromDotMatrix(matrix {Object}) - takes array of dots (matrix) and uses this as a guide to <br/>
+							change each pixel in an image to either black or white
+	convertShapesToLines
+	cleanLineBreaks
+	colorLineBreaks
+	
+	
+</pre></p>
 
 <h4>AR</h4>
-<p><pre></pre></p>
-<p><pre></pre></p>
+<p>Object that is fed into the TILE_ENGINE as a plugin.<pre>
+	**This object does not have a constructor, it is pre-defined.
+	
+	Properties:
+	constructed: {Boolean} - whether or not start() has already been called; if true, use restart() instead of start()
+	name: {String} - name to be used as key in the toolSet array in TILE_ENGINE
+	done: {String} - name representing the Event which will trigger TILE_ENGINE to close this object down
+	outputData: {String} - name representing the Event which TILE_ENGINE will use to receive output data
+</pre></p>
+<p><pre>
+	Functions: 
+	start(id:{String},data:{Object}) - Calls the TileOCR constructor. Uses id as string of the unique id of the parent DOM, and takes
+	 								JSON data object for loading transcript lines.
+	restart(json {Object}) - Called once tool has already been constructed. Calls TileOCR _restart function and feeds it transcript lines, 
+	 					located in passed 'json' object
+	close - Called by TILE_ENGINE to close down this tool - to reactivate, the restart() function is called
+	bundleData(j {Object}) - TILE_ENGINE passes object 'j' to be added onto. TileOCR adds on relevant data to this object. 
+</pre></p>
 
 </body>
 </html>
