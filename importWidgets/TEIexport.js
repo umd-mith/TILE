@@ -11,16 +11,14 @@ function exportToTEI(JSON_str){
 	str="george";
 	src = JSONobj["sourceFile"];
 	if (src==null) {
-		alert("nulkl");
-		
-	}
-	else{
+		return;
+	} else {
 		if ((JSONobj["pages"]!=null)&&(JSONobj["pages"].length>0)){
 		
-			alert(src);
-		$.ajax({url: src, success: function(xml){
-			//JSONobj["pages"].length
-			alert("wooo");
+		
+		$.ajax({url: src, 
+			success: function(xml){
+		
 			var f = $(xml).find("facsimile").eq(0);
 		
 			for (var i=0;i<JSONobj["pages"].length;i++){
@@ -35,7 +33,6 @@ function exportToTEI(JSON_str){
 			 	var ln = page["lines"][j];
 				shapes = ln["shapes"];
 				if (shapes != null) {
-					alert(shapes.length);
 					for (var k = 0; k < shapes.length; k++) {
 						// replave with bounding box soon
 						if (shapes[k]["type"] == "rect") {
@@ -45,21 +42,21 @@ function exportToTEI(JSON_str){
 							
 							$(surface).eq(0)[0].appendChild($(zone)[0]);
 							var path = ln["info"];
-							alert("da first: "+path);
 							offset = path.indexOf("[")+1;
 						
 							len = path.indexOf("]");
 						
 					
 							num = parseInt(path.substring(offset,len));
-							alert("bang");
-							alert("This num "+num);
+							
 							lb = $(xml).find("lb").eq(num);
 							lb.attr("facs",id);
 							
 							str = (new XMLSerializer()).serializeToString($(xml).find("lb").eq(0)[0]);
- 							
+ 							//export out through a jQuery trigger
+							
 						}
+						
 					}
 				}
 			 }
@@ -71,18 +68,16 @@ function exportToTEI(JSON_str){
 			// alert(surface.parent().html());
 			// var lines = page["lines"]
 			}
-			
+			$("body:first").trigger("exportStrDone",[str]);
 			//alert(num);
 		}
-	
+		
 	});
 
-
+	
+	}
 }
-}
-alert("very end");
-alert(str);
-dude=str;
-return str;
+	
+	//return str;
 }
 
