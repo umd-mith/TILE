@@ -209,6 +209,9 @@ a.btnIconLarge:hover {
 	position:absolute;
 	overflow:auto;
 }
+.vd-container{
+	z-index:1032;
+}
 /**specific to the content area**/
 
 

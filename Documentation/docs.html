@@ -23,6 +23,7 @@
 <p><pre>
 	_addItem(data {Object}) - Loads a JSON object (data) into the ActiveBox - can be any JSON object.<br/>
 	getObjData(obj {Object}) - Recursively goes through a sub-JSON object. Used in _addItem
+	clearArea - Clears the active Box area from previous HTML content
 </pre></p>
 
 <h2>tile1.0.js</h2>	
@@ -124,7 +125,8 @@ Loads in HTML layout from columns.json, parses JSON and sends to all <br/>
 				all relevant page data, lines, and optionally stored shapes<br/>
 	addDialogBoxes - called during setUp(). Takes dialogs.json data and loads this into the interface. Sets up New Image Dialog,<br/>
 					 Export Dialog, Load Dialog, Save Dialog<br/>
-	_newPageHandle({Event} e, {String} url) -  Called by Custom Event "newPageLoaded".<br/>
+	_newPageHandle({Event} e, {String} url) -  Called by Custom Event "newPageLoaded". If a url is passed, it will set a new 
+						manifest record for that url and change the transcript lines in the transcript line area. 
 	_toolDoneHandle({Event} e) - Called by a tool's 'done' Event. Triggers the interface to load the default plugin tool.<br/>
 	_toolOutputHandle({Event} e, {Object} data) - Called by a tool's 'output' event. Passes JSON object @data to the Transcript object<br/>
 	_transcriptSelectHandle({Event} e, {Object} data) - called by "TranscriptLineSelected" Event. Passes the @data parameter as JSON data to the<br/>
