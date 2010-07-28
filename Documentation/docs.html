@@ -185,36 +185,110 @@ Arguments:<br/>
 	json {Object} - JSON object of all image data (pages, lines, shapes)
 	</pre></p>
 <p><pre>
-	ingestImages(e: {Event},manifest: {Object}) - 
-	
+	ingestImages(e: {Event},manifest: {Object}) - receives a JSON string that will be used 
+				as a map of images and other data
+	setHTML(html : {Object}) - Sets up the HTML for this object. Creates RaphaelImage
+	createShapeToolBar(e : {Event}) - Called by VDCanvasDONE event. Creates the shape tool bar, after the
+					VectorDrawer has completed construction and calls VDCanvasDONE.
+	addNewImage(e : {Event}, path : {String}) - Called by newImageAdded event. Passed 'path', which is a string<br/>
+						to a new image to be added to the internal manifest, and later to the output.
+	switchHandler(e : {Event}, url : {String}) - Called by switchImage event. Passed a string 'url', which represents
+						a url in the manifest.
+	showImageList(e : {Event}) - called by showImageList event. Calls ImageList display() method.
+	_restart - Function that restarts the _Itag element after it has been constructed. Used by the IT object when TILE_ENGINE
+					calls the tool to appear after it's construction.
+	_closeDown - Function called by IT object to hide the tool.
+	bundleData - Function called by IT object to output data.
 	
 </pre></p>
 
 <h4>ImageList</h4>
 <p>Constructor: ImageList({})</p>
-<p><pre></pre></p>
-<p><pre></pre></p>
+<p><pre>
+	Usage:
+		new ImageList({loc: {String}, html : {String}}) 
+		
+		loc {String} - ID of the parent DOM
+		html {String} - HTML in string format for ImageList (found in imagetagger.json)
+	
+</pre></p>
+<p><pre>
+	show(data : {Object}) - takes JSON Object 'data' and populates the ImageList area with 
+				image urls taken from data. Once called, sets click event for ImgList button
+				to make ImageList hide from DOM.
+</pre></p>
 
 <h4>TILEShapeToolBar</h4>
 <p>Constructor: TILEShapeToolBar({})</p>
 <p><pre>
+	Usage : 
+	new TILEShapeToolBar({loc:{String}})
 	
+	loc: {String} - ID of parent DOM
 </pre></p>
-<p><pre></pre></p>
+<p><pre>
+	setUpColorPicker - Sets up and attaches necessary DOM elements for the jQuery ColorPicker
+					plugin - used to select colors for shapes.
+	customWidgetClick(e : {Event}) - Used for opening and closing ColorPicker. 
+	closeWidgetClick(e : {Event}) - 
+	onCPSubmit(hsb : {String},hex: {Integer},rgb : {String}) - After user selects a color in ColorPicker,
+				this triggers the event NEWSHAPECOLOR and sends the hexidecimal value out.
+	activateShapeBar(e : {Event}) - called either remotely ("ActivateShapeBar" event) or locally
+				 sets all shape choices to inactive, then checks what the current shape
+				 type is and activates that shape choice changes DOM styles
+	deactivateShapeBar(e : {Event}) - called either remotely ("DeActivateShapeBar" event) or locally
+				 sets all shape choices to inactive
+	turnOffShapeBar(e : {Event}) - Sets all of the classes for tools and buttons in toolbar to 'inactive'. 
+			Called by 'turnOffShapeBar' event.
+</pre></p>
 
 <h4>RaphaelImage</h4>
-<p>Constructor: RaphaelImage({})</p>
-<p><pre></pre></p>
-<p><pre></pre></p>
+<p><pre>Usage:
+	new RaphaelImage({loc: {String}, canvasAreaId: {String}});
+	
+	loc: {String} - Id for the parent DOM
+	canvasAreaId: {String} - Id for the div that will contain the canvas
+	</pre></p>
+<p><pre>
+	setNewManifest(manifest : {Object}) - takes JSON object manifest and sets this as the new 
+						manifest for RaphaelImage. Manifests must have urls as keys to the array, 
+						with each record in the array being a JSON object with 
+						{info:{Object},lines:[{Object}...]}
+	addUrl(url : {String}) - adds a url to the manifest file. Can be a single url or an array of Urls.
+	closeDownCanvas - Called once the image tagger tool is being hidden. Flashes the canvas, then hides it.
+	setUpCanvas(url: {String}) - Takes a string 'url' and sets the Raphael Canvas to this. Creates the VectorDrawer
+			tool if not already constructed.
+	setUpDrawTool - called only if VectorDrawer is not active. Sets up VectorDrawer and its event handlers
+	_newColorHandle(e : {Event}, cp : {Integer}) - Called by NEWSHAPECOLOR event. Passed the integer cp, which represents
+				the new hexidecimal color value, which is set in VectorDrawer
+	closeSVGHandle(e : {Event}, s : {Boolean}) - When something is opened above the SVG canvas, the user can trigger the 
+				'closeDownVD' and pass 'true' to 'turn off' the canvas. Pass 'false' to turn it back on.
+				
+	_loadShapesHandle(e : {Event}, json : {Object}) - Called by loadShapes event. Takes the JSON object json and loads the shapes
+	 					inside it into the VectorDrawer.
+	zoomHandle(e : {Event}, n : {Integer}) - Called by the 'zoom' event. Takes integer 'n' and scales the VectorDrawer and the canvas
+				area accordingly.
+	_restart - Called after the tool has been constructed, hidden, then called again. All hidden DOM elements are re-attached and 
+			events re-bound
+	showImg(e : {Event}, val : {Integer}) - Handles the turnPage event. Val is either 1 or -1. If 1, turns one page forward (if available), if -1,
+				turns one page back (if available).
+	goToPage(url : {String}) - Passed a url string that it finds in the 
+					manifest and goes to that page.
+	showCurrentImage(e : {Event}) - Called by the 'imageAdded' event. Takes whatever the current url in manifest is and displays
+					this url.
+	changeShapeType(e : {Event}, type : {String}) - Called by 'changeShapeType' event. Passed a 'type' (r,e,p,s) string which it feeds
+					into the VectorDrawer
+	bundleData - Returns the RaphaelImage manifest object
+	
+</pre></p>
 
 <h4>IT</h4>
 <p>No Constructor: This is a pre-defined object that is fed into <br/>
 	the TILE interface to be used as a plugin.</p>
-<p><pre>Properties:</pre></p>
+<p><pre>Properties:
+	
+	</pre></p>
 <p><pre>Functions:</pre></p>
-
-
-
 
 
 <h2>autorecognizer_plugin.js</h2>
