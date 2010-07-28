@@ -67,11 +67,11 @@
 	    </front>
 	    <body xml:id="ham-1611-22277x-bod-c01.xml-262">
 	      <pb facs="#ham-1611-22277x-bod-c01-image008" xml:id="ham-1611-22277x-bod-c01-008a"/>
-	      <pb facs="#ham-1611-22277x-bod-c01-image008" xml:id="ham-1611-22277x-bod-c01-008b"/>
+	      <pb facs="#ham-1611-22277x-bod-c01-image008" xml:id="ham-1611-22277x-bod-c01-008b"/><lb/>
 	      <div1 type="act" n="1" xml:id="ham-1611-22277x-bod-c01.xml-263">
 	        <div2 type="scene" n="1" xml:id="ham-1611-22277x-bod-c01.xml-264">
 	          <head xml:id="ham-1611-22277x-bod-c01.xml-265"><milestone unit="unspecified" rend="decorativeBorder" xml:id="ham-1611-22277x-bod-c01.xml-266"/>The Tragedie of  <lb xml:id="ham-1611-22277x-bod-c01.xml-267"/><name type="character" ref="#ham" xml:id="ham-1611-22277x-bod-c01.xml-268">HAMLET</name><lb xml:id="ham-1611-22277x-bod-c01.xml-269"/><hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-270">Prince of Denmarke.</hi></head>
-	          <stage rend="italic, centred" type="entrance" xml:id="ham-1611-22277x-bod-c01.xml-271">Enter <name type="character" ref="#bar" xml:id="ham-1611-22277x-bod-c01.xml-272">Bernardo</name>, and <name type="character" ref="#fra" xml:id="ham-1611-22277x-bod-c01.xml-273">Fran<gap reason="illegible" agent="unclear" extent="1" resp="#fol" unit="chars" xml:id="ham-1611-22277x-bod-c01.xml-274"/>isco</name>, two Centinels.</stage>
+	          <lb/><stage rend="italic, centred" type="entrance" xml:id="ham-1611-22277x-bod-c01.xml-271">Enter <name type="character" ref="#bar" xml:id="ham-1611-22277x-bod-c01.xml-272">Bernardo</name>, and <name type="character" ref="#fra" xml:id="ham-1611-22277x-bod-c01.xml-273">Fran<gap reason="illegible" agent="unclear" extent="1" resp="#fol" unit="chars" xml:id="ham-1611-22277x-bod-c01.xml-274"/>isco</name>, two Centinels.</stage>
 	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-275">
 	            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-276">Bar.</speaker>
 	            <l xml:id="ham-1611-22277x-bod-c01.xml-277"><c rend="droppedCapital" xml:id="ham-1611-22277x-bod-c01.xml-278">VV</c>Hose there?</l>

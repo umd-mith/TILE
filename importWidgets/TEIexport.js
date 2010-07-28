@@ -52,7 +52,7 @@ function exportToTEI(JSON_str){
 							lb = $(xml).find("lb").eq(num);
 							lb.attr("facs",id);
 							
-							str = (new XMLSerializer()).serializeToString($(xml).find("lb").eq(0)[0]);
+							str = (new XMLSerializer()).serializeToString($(xml)[0]);
  							//export out through a jQuery trigger
 							
 						}

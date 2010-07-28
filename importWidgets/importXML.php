@@ -104,26 +104,32 @@ $lastlb =0;
 $curLb =0;
 $lastP = 0;
 $pbs[]=array(strlen($ptxt),"",null);
-$JSON = "{\"pages\": [";
+$JSON = "{\"sourceFile\": \"$uri\", \"pages\": [";
 for ($i=0;$i<(count($pbs)-1);$i++){
-	/*$len = $lbs[$i][0]-$lastP;
-	$oops = substr($ptxt,$lastP,$len);
-	echo $oops."<hr/>";
-	$lastP = $lbs[$i][0];
-	*/
 	$facID = substr($pbs[$i][2]->getNamedItem("facs")->value,1);
 
 	$fac = $imgPath.$xmlDoc->getElementById($facID)->getElementsByTagName("graphic")->item(0)->getAttribute("url");
 	$pageInfo = "\"xpath\": \"".$pbs[$i][1]."\", \"facs\": \"".$facID."\""; 
 	$JSON .= "{\"url\": \"".$fac."\", \"info\": {".$pageInfo."}, \"lines\": [";
-	$lastlb = $pbs[$i][0];
+	
 	//echo $i." ".$curLb."<br/>";
+	
 	while (($curLb<count($lbs))&&($lbs[$curLb][0]<$pbs[$i+1][0])){
 	  	
-		$startCon = $lbs[$curLb][1];
+	$startCon = $lbs[$curLb][1];
+	if (($curLb+1)>count($lbs)){
+		$linetxt = substr($ptxt,$lbs[$curLb][0]);
+	}
+	else if ($lbs[$curLb+1][0]>$pbs[$i+1][0]) {
+		$len = $pbs[$i+1][0]-$lbs[$curLb][0];
+		$linetxt = substr($ptxt,$lbs[$curLb][0],$len);
+	}
+	else {
+		$len = $lbs[$curLb+1][0]-$lbs[$curLb][0];
+		$linetxt = substr($ptxt,$lbs[$curLb][0],$len);
+	}
 	
-	$len = $lbs[$curLb][0]-$lastlb;
-	$linetxt = substr($ptxt,$lastlb,$len);
+	//$linetxt = substr($ptxt,$lastlb,$len);
 	
 	
 	$JSON.='{"text":"'.addslashes($linetxt).'","info": "lb['.$curLb.']>'.$startCon.'"}';
@@ -137,25 +143,6 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	
 	}
 	
-	$startCon = $lbs[$curLb-1][1];
-		if (($curLb-1)>0){
-			
-			$endCon = $pbs[$i][1];
-			
-			while ((strpos($endCon,$startCon)===false) && strlen($startCon)>1){
-				$startCon = substr($startCon,0,strrpos($startCon,">"));
-				//$endCon = substr($endCon,0,strrpos($endCon,">"));
-				
-			}
-		
-		}	
-	$len = $pbs[$i][0]-$lastlb;
-
-	$linetxt = str_replace($replace,$find,$linetxt);
-	
-	if ($len>0){
-	$JSON.='{"text":"'.addslashes($linetxt).'","info": "lb['.$curLb.']>'.$startCon.'"}';
-	}
 	$lastP = $pbs[$i][0];
 	$JSON .="]},";
 	

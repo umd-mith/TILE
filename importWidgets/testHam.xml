@@ -92,7 +92,7 @@
 	      <titlePage xml:id="ham-1611-22277x-bod-c01.xml-238">
 	        <pb facs="#ham-1611-22277x-bod-c01-image007" xml:id="ham-1611-22277x-bod-c01-007b"/>
 	        <docTitle xml:id="ham-1611-22277x-bod-c01.xml-239">
-	          <titlePart type="main" xml:id="ham-1611-22277x-bod-c01.xml-240"><add hand="#ae" place="inline" type="unclear" resp="#fol" xml:id="ham-1611-22277x-bod-c01.xml-241">5470</add>THE  <lb xml:id="ham-1611-22277x-bod-c01.xml-242"/>TRAGEDY  <lb xml:id="ham-1611-22277x-bod-c01.xml-243"/>OF      <lb xml:id="ham-1611-22277x-bod-c01.xml-244"/><name type="character" ref="#ham" xml:id="ham-1611-22277x-bod-c01.xml-245">HAMLET</name><lb xml:id="ham-1611-22277x-bod-c01.xml-246"/>Prince of Denmarke.</titlePart>
+	          <titlePart type="main" xml:id="ham-1611-22277x-bod-c01.xml-240"><add hand="#ae" place="inline" type="unclear" resp="#fol" xml:id="ham-1611-22277x-bod-c01.xml-241">5470</add><lb/>THE  <lb xml:id="ham-1611-22277x-bod-c01.xml-242"/>TRAGEDY  <lb xml:id="ham-1611-22277x-bod-c01.xml-243"/>OF      <lb xml:id="ham-1611-22277x-bod-c01.xml-244"/><name type="character" ref="#ham" xml:id="ham-1611-22277x-bod-c01.xml-245">HAMLET</name><lb xml:id="ham-1611-22277x-bod-c01.xml-246"/>Prince of Denmarke.</titlePart>
 	        </docTitle>
 	        <byline xml:id="ham-1611-22277x-bod-c01.xml-247">BY  <lb xml:id="ham-1611-22277x-bod-c01.xml-248"/><docAuthor xml:id="ham-1611-22277x-bod-c01.xml-249">WILLIAM SHAKESPEARE</docAuthor>.</byline>
 	        <docEdition xml:id="ham-1611-22277x-bod-c01.xml-250">Newly imprinted and enlarged to almost as much  <lb xml:id="ham-1611-22277x-bod-c01.xml-251"/>againe as it was, according to the true  <lb xml:id="ham-1611-22277x-bod-c01.xml-252"/>and perfect Coppy.</docEdition>
@@ -107,7 +107,7 @@
 	      <pb facs="#ham-1611-22277x-bod-c01-image008" xml:id="ham-1611-22277x-bod-c01-008b"/>
 	      <div1 type="act" n="1" xml:id="ham-1611-22277x-bod-c01.xml-263">
 	        <div2 type="scene" n="1" xml:id="ham-1611-22277x-bod-c01.xml-264">
-	          <head xml:id="ham-1611-22277x-bod-c01.xml-265"><milestone unit="unspecified" rend="decorativeBorder" xml:id="ham-1611-22277x-bod-c01.xml-266"/>The Tragedie of  <lb xml:id="ham-1611-22277x-bod-c01.xml-267"/><name type="character" ref="#ham" xml:id="ham-1611-22277x-bod-c01.xml-268">HAMLET</name><lb xml:id="ham-1611-22277x-bod-c01.xml-269"/><hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-270">Prince of Denmarke.</hi></head>
+	          <head xml:id="ham-1611-22277x-bod-c01.xml-265"><milestone unit="unspecified" rend="decorativeBorder" xml:id="ham-1611-22277x-bod-c01.xml-266"/><lb/>The Tragedie of  <lb xml:id="ham-1611-22277x-bod-c01.xml-267"/><name type="character" ref="#ham" xml:id="ham-1611-22277x-bod-c01.xml-268">HAMLET</name><lb xml:id="ham-1611-22277x-bod-c01.xml-269"/><hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-270">Prince of Denmarke.</hi></head>
 	          <stage rend="italic, centred" type="entrance" xml:id="ham-1611-22277x-bod-c01.xml-271">Enter <name type="character" ref="#bar" xml:id="ham-1611-22277x-bod-c01.xml-272">Bernardo</name>, and <name type="character" ref="#fra" xml:id="ham-1611-22277x-bod-c01.xml-273">Fran<gap reason="illegible" agent="unclear" extent="1" resp="#fol" unit="chars" xml:id="ham-1611-22277x-bod-c01.xml-274"/>isco</name>, two Centinels.</stage>
 	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-275">
 	            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-276">Bar.</speaker>
