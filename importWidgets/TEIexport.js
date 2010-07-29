@@ -6,7 +6,7 @@ function goodbye(){
 }
 
 function exportToTEI(JSON_str){
-
+	
 	var JSONobj = JSON.parse(JSON_str);
 	str="george";
 	src = JSONobj["sourceFile"];
@@ -26,8 +26,16 @@ function exportToTEI(JSON_str){
 			 var page = JSONobj["pages"][i];
 			 var fac = page["info"]["facs"];
 			 
-	
-			 var surface = f.find("surface[xml|id='"+fac+"']");
+			
+			 //var surface = f.find("surface[id=\""+fac+"\"]");
+			var surface=null; 
+			f.find("surface").each(function(i,o){
+				if(o.attr("xml:id")==facs){
+					surface=o;
+					
+				}
+			});
+			
 			
 			 for (var j=0;j<page["lines"].length;j++){
 			 	var ln = page["lines"][j];
@@ -47,7 +55,7 @@ function exportToTEI(JSON_str){
 							len = path.indexOf("]");
 						
 					
-							num = parseInt(path.substring(offset,len));
+							num = parseInt(path.substring(offset,len),10);
 							
 							lb = $(xml).find("lb").eq(num);
 							lb.attr("facs",id);
