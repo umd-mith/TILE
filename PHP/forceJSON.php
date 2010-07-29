@@ -11,17 +11,11 @@ if(isset($_POST['uploadData'])){
 	$path = substr($path,0,strrpos($path,"/"));
 	$path=preg_replace('/lib\/SaveProgress/',"",$path);
 	$cwd = "http://".$domain.$path."/loadJSON.php"; //path for loading this data back into TILE
-	$JSON=stripslashes($_POST['uploadData']);
-	$JSON=preg_replace("/\"/","'",$JSON);
+	
+	$JSON=htmlspecialchars($_POST['uploadData']);
+	//$JSON=addslashes($JSON);
 	//format the JSON text elements
 	//$dJSON=json_decode($JSON); //decode string
-	foreach($JSON->{'pages'} as $page => $item){
-		
-		foreach($item->{'lines'} as $url => $line){
-			$line=preg_replace("/[\t\r\n]+/","",$line);
-		}
-	}
-	
 	
 	$d=date("j\_n\_Y");
 	$filename="tile_".$d.".html";

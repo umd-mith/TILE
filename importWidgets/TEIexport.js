@@ -68,6 +68,7 @@ function exportToTEI(JSON_str){
 			// alert(surface.parent().html());
 			// var lines = page["lines"]
 			}
+			// Once the string is complete, send it off in an event call 
 			$("body:first").trigger("exportStrDone",[str]);
 			//alert(num);
 		}
