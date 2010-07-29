@@ -27,14 +27,8 @@ function exportToTEI(JSON_str){
 			 var fac = page["info"]["facs"];
 			 
 			
-			 //var surface = f.find("surface[id=\""+fac+"\"]");
-			var surface=null; 
-			f.find("surface").each(function(i,o){
-				if(o.attr("xml:id")==facs){
-					surface=o;
-					
-				}
-			});
+			 var surface = f.find("surface[xml|id='"+fac+"']");
+			
 			
 			
 			 for (var j=0;j<page["lines"].length;j++){
