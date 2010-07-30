@@ -1,4 +1,8 @@
 <?php 
+// Receives a POST form data "JSON", that is a string 
+// of JSON data to be saved as XML
+
+if(isset($_POST["JSON"])){
 	$mine = $_POST["JSON"];
 	$mine = stripslashes($mine);
 	    $find[] = "“";  // right side double smart quote
@@ -18,16 +22,17 @@
             $replace[] = "&#39;";
     
     $mine = str_replace($find,$replace,$mine);
-    echo $mine;            
+               
 	$data = json_decode($mine);
-	var_dump($data);
+	
 	// output to the user in a force download
 	// Set headers
 	header("Cache-Control: public");
     header("Content-Description: File Transfer");
     header("Content-Disposition: attachment; filename=testSave.xml");
-    header("Content-Type: application/zip");
-    header("Content-Transfer-Encoding: binary");
+    
+	echo $mine;
+}
 
 	
 ?>
