@@ -182,7 +182,7 @@
 	            <l xml:id="ham-1611-22277x-bod-c01.xml-337"><name type="character" ref="#bar" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-338">Bernardo</name> hath my place; giue you good night.<stage rend="italic, inline" type="exit" xml:id="ham-1611-22277x-bod-c01.xml-339">Exit <name type="character" ref="#fra" xml:id="ham-1611-22277x-bod-c01.xml-340">Fran</name>.</stage></l>
 	          </sp>
 	         <lb/> <fw type="signature" place="foot-centre" xml:id="ham-1611-22277x-bod-c01.xml-341">B</fw>
-	         <lb/> <fw type="catchword" place="foot-right" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-342">Mar.</fw>
+	        <fw type="catchword" place="foot-right" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-342">Mar.</fw>
 	          <pb facs="#ham-1611-22277x-bod-c01-image009" xml:id="ham-1611-22277x-bod-c01-009a"/>
 	          <lb/><fw type="runningHeader" place="top-centre" xml:id="ham-1611-22277x-bod-c01.xml-343"><hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-344">The Tragedy of</hi> Hamlet</fw>
 	          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-345">
