@@ -3,7 +3,7 @@
 	position:absolute;
 	left:300px;
 	top:45px;
-	width:700px;
+	width:500px;
 	height:auto;
 	border:1px solid #D5DB97;
 	/**initially invisible**/
@@ -14,7 +14,7 @@
 	position:absolute;
 	left:300px;
 	top:45px;
-	width:700px;
+	width:500px;
 	height:auto;
 	border:1px solid #D5DB97;
 	/**initially invisible**/
@@ -25,7 +25,7 @@
 	position:absolute;
 	left:300px;
 	top:45px;
-	width:400px;
+	width:500px;
 	height:auto;
 	border:1px solid #D5DB97;
 	/**initially invisible**/
@@ -35,7 +35,7 @@
 	position:absolute;
 	left:300px;
 	top:45px;
-	width:400px;
+	width:500px;
 	height:auto;
 	z-index:1003	;
 	border:1px solid #D5DB97;
@@ -84,14 +84,14 @@
 .dialog .body .option {
 	float:left;
 	display:block;
-	width:300px;
+	width:480px;
 	padding:10px;
 }
 .dialog .body .option label {
 	padding-right:10px;
 }
 .dialog .body input {
-	width:220px;
+	width:350px;
 }
 .dialog .body input.button {
 	padding:1px 7px;
@@ -127,7 +127,7 @@
 .white_content {
 	display: none;
 	top: 150px;
-	left: 300px;
+	left: 480px;
 	background-color: white;
 	z-index:1002;
 	overflow: auto;

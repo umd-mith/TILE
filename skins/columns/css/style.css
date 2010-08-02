@@ -73,18 +73,6 @@ body {
 	right:0;
 	top:0;
 }
-/**
-Adding CSS style for new layout design for
-ActiveBox - Grant Dickie 7/14/2010
-**/
-.az .activeBox{
-	width:40%;
-	height:55%;
-	left:0;
-	margin-top:10px;
-	top:40%;
-}
-
 h1 {
 	font-size:2em;
 }
@@ -164,8 +152,17 @@ a:hover {
 	right:auto;
 	opacity:1;
 	z-index:3;
-	min-width:430px;
-	height:40%;
+	min-width:445px;
+	height:50%;
+}
+.activeBox{
+	width:40%;
+	top:50%;
+	min-width:445px;
+	right:auto;
+	opacity:1;
+	z-index:3;
+	min-width:445px;
 }
 .tool {
 	right:auto;
@@ -233,7 +230,7 @@ a.btnIconLarge:hover {
 	border-bottom:1px solid #ccbb93;
 }
 .menuitem {
-	margin-right:3px;
+	margin-right:10px;
 	display:inline;
 	float:left;
 	position:relative;
@@ -268,7 +265,7 @@ a.btnIconLarge:hover {
 
 /* Toolbar styles --------------- */
 .toolbar {
-	height:1.5em;
+	height:25px;
 	background:#f8ecce;
 	border:1px solid #fff;
 	padding:10px;
@@ -515,14 +512,20 @@ a.btnIconLarge:hover {
 	padding:4px;
 	background:#eaedc6; */
 }
-/**added by Grant Dickie **/
 .log #logbar_list {
-	overflow:scroll;
-	height:75%;
+	overflow-y:auto;
+	margin-top:47px;
 }
-.az .inner #activeBox {
-	overflow:auto;
+.log #logbar_list div {
+	padding:1px 10px;
 }
+.log #logbar_list .trans_line_hover{
+	background-color: #d5db97;
+}
+.log #logbar_list .line_selected{
+	background-color: #baca42;
+}
+
 /**added by Grant Dickie **/
 .log #logbar_list .tag:hover {
 	border:3px solid #afbf37;
@@ -532,6 +535,24 @@ a.btnIconLarge:hover {
 	border:3px dotted #afbf37;
 	padding:4px;
 }
+/* activeBox styles ------------------- */
+.activeBox .infoItem {
+	overflow-y:auto;
+	height:100%
+}
+.activeBox .infoItem li {
+	padding:2px 10px 2px 10px;
+}
+.activeBox .infoItem li:first-child {
+	padding-top:10px;
+}
+.activeBox .infoItem .infoItem {
+	padding:5px;
+	margin:10px;
+	border:1px solid #afbf37;
+	background:#f0f2d2;
+}
+/* tag styles ------------------- */
 .log .tag .tagname {
 	/* width:70%; 
 	float:left; */
@@ -719,14 +740,14 @@ a.btnIconLarge:hover {
 /* Tool styles ------------------- */
 .tool .inner #content {
 	padding:10px;
+	overflow:auto;
+	margin-top:47px;
 }
 .tool .toolbar .menuitem {
 	float:right;
 	margin-right:0;
 }
-/* auto recognizer styles */
-.tool .autorec_toolbar {
-}
+/* auto recognizer styles ----- */
 .tool .autorec_toolbar #colorSection #backgroundimage {
 	margin:10px 0;
 	color:#fff;
@@ -782,6 +803,11 @@ a.btnIconLarge:hover {
 	font-style:italic;
 	font-weight:bold;
 }
+.tool .autorec_toolbar #content .textlink {
+	margin-right:5px;
+	margin-left:5px;
+	cursor:pointer;
+}
 
 /* Content and Content clone styles ------------------- */
 .content .inner, .contentclone .inner {
@@ -810,23 +836,8 @@ a.btnIconLarge:hover {
 	margin-left:30%;
 }
 
-/**added by Grant Dickie**/
-.az .activeBox .infoItem {
-	padding:1em;
-	/**TODO: put in cream color - ask Elisabeth **/
-	margin-top:12px;
-	
-	overflow:auto;
-}
-.az .activeBox .infoItem .infoDisplay {
-	padding:.5em;
-	margin-left:5px;
-}
-
 /* Positioning (2, 3, 4 columns) ------------------- */
 /* 2 columns */
-
-
 .twocol .log, .twocol .tool {
 	left:0;
 	width:40%;
@@ -907,14 +918,4 @@ a.btnIconLarge:hover {
 	border: 3px black solid,
 }
 
-.trans_line_hover{
-	background-color: #d5db97;
-}
-.line_selected{
-	background-color: #afbf37;
-}
-#addInfoArea{
-	height: 290px;
-	overflow:auto;
-	
-}
+

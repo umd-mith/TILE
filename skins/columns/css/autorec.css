@@ -50,7 +50,7 @@ display: none;
 #content #transcript{
 	overflow:auto;
 	border:#CCBB93 2px solid;
-	height:80px;
+	height:200px;
 	width:90%;
 }
 #content #transcript div {
@@ -58,9 +58,9 @@ display: none;
 	padding:.5em;
 }
 #content #transcript div:hover {
-	border:#000000 1px dotted;
+	border:#afbf37 1px dotted;
 }
 #content #transcript .selected{
-	background:purple;
-	color:yellow;
+	background:#f6ecd4;
+	color:#14253d;
 }
