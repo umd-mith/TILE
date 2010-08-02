@@ -27,9 +27,10 @@ if(isset($_POST["JSON"])){
 	
 	// output to the user in a force download
 	// Set headers
-	header("Cache-Control: public");
-    header("Content-Description: File Transfer");
-    header("Content-Disposition: attachment; filename=testSave.xml");
+	header("Content-Disposition: attachment; filename=testSave.xml");
+	header('Content-Type: text/plain');
+	header('Content-Transfer-Encoding: binary');
+    
     
 	echo $mine;
 }
