@@ -30,8 +30,6 @@ if(isset($_POST["JSON"])){
 	header("Content-Disposition: attachment; filename=testSave.xml");
 	header('Content-Type: text/plain');
 	header('Content-Transfer-Encoding: binary');
-    
-    
 	echo $mine;
 }
 
