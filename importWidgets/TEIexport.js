@@ -1,3 +1,7 @@
+// exportToTEI
+// Takes a JSON string and outputs a marked-up version of the original included sourceFile
+// as an xml serialized string. Outputs using Custom Event exportStrDone
+
 /**
  * @author dreside
  */
@@ -56,17 +60,11 @@ function exportToTEI(JSON_str){
 					}
 				 }
 			  
-			
-				 //alert(surface.find("surface").eq(0).attr("xml:id"));
-				// .find("surface[xml\\:id="+fac+"]:first");
-			 
-				// alert(surface.parent().html());
-				// var lines = page["lines"]
-			
 			}
 			if(str.length==0){
 				str = (new XMLSerializer()).serializeToString($(xml)[0]);	
 			} 
+			// Export out the finished string through a trigger
 			$("body:first").trigger("exportStrDone",[str]);
 		}
 	});	

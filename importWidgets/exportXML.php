@@ -4,7 +4,11 @@
 
 if(isset($_POST["JSON"])){
 	$mine = $_POST["JSON"];
+	
 	$mine = stripslashes($mine);
+	$d=preg_split("/\//",$_POST["srcFile"]);
+	
+	$filename=$d[count($d)-1]."_MarkedUp_".date('j_m_y').".xml";
 	    $find[] = "“";  // right side double smart quote
   $find[] = "”";  // left side double smart quote
     $find[] = '‘';  // left side single smart quote
@@ -27,7 +31,7 @@ if(isset($_POST["JSON"])){
 	
 	// output to the user in a force download
 	// Set headers
-	header("Content-Disposition: attachment; filename=testSave.xml");
+	header("Content-Disposition: attachment; filename=".$filename);
 	header('Content-Type: text/plain');
 	header('Content-Transfer-Encoding: binary');
 	echo $mine;
