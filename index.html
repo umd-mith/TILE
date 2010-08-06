@@ -49,6 +49,8 @@
 	<script>
 		//adding AR from autorecognizer_plugin.js
 		(function($,ar,it){
+			// set verbose mode either true (on) or false (off)
+			__v=false;
 			$(function(){
 				var engine=new TILE_ENGINE({toolSet:[it,ar]});
 			});

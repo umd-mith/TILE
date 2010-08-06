@@ -38,9 +38,9 @@ function exportToTEI(JSON_str){
 								var pos = shapes[k]["posInfo"];
 								var id = shapes[k]["id"];
 								var zone = "<zone xml:id=\"" + id + "\" ulx=\"" + pos["x"] + "\" uly=\"" + pos["y"] + "\" lrx=\"" + parseFloat(pos["x"]) + parseFloat(pos["width"]) + "\" lry=\"" + parseFloat(pos["y"]) + parseFloat(pos["height"]) + "\"/>";
-								if(console) console.log(zone);
+								
 								$(surface).eq(0)[0].appendChild($(zone)[0]);
-								if(console) console.log($(surface));
+							
 								var path = ln["info"];
 								offset = path.indexOf("[")+1;
 						
