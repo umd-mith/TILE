@@ -11,7 +11,7 @@ function exportToTEI(JSON_str){
 	var JSONobj = JSON.parse(JSON_str);
 	var str="";
 	src = JSONobj["sourceFile"];
-	// console.log("exportToTEI src: "+src);
+	// if(console) console.log("exportToTEI src: "+src);
 	if (src==null) {
 		return;
 	} else if ((JSONobj["pages"]!=null)&&(JSONobj["pages"].length>0)){
@@ -19,7 +19,7 @@ function exportToTEI(JSON_str){
 		
 		$.ajax({url: src, 
 			success: function(xml){
-			// console.log('inside the success');
+			// if(console) console.log('inside the success');
 			var f = $(xml).find("facsimile").eq(0);
 			
 			for (var i=0;i<JSONobj["pages"].length;i++){
@@ -27,7 +27,7 @@ function exportToTEI(JSON_str){
 			 	var page = JSONobj["pages"][i];
 				 var fac = page["info"]["facs"];
 				 var surface = f.find("surface[xml|id='"+fac+"']");
-				// console.log("page: "+page+ " Lines: "+page["lines"].length);
+				// if(console) console.log("page: "+page+ " Lines: "+page["lines"].length);
 				 for (var j=0;j<page["lines"].length;j++){
 				 	var ln = page["lines"][j];
 					shapes = ln["shapes"];
@@ -38,8 +38,9 @@ function exportToTEI(JSON_str){
 								var pos = shapes[k]["posInfo"];
 								var id = shapes[k]["id"];
 								var zone = "<zone xml:id=\"" + id + "\" ulx=\"" + pos["x"] + "\" uly=\"" + pos["y"] + "\" lrx=\"" + parseFloat(pos["x"]) + parseFloat(pos["width"]) + "\" lry=\"" + parseFloat(pos["y"]) + parseFloat(pos["height"]) + "\"/>";
-							
+								if(console) console.log(zone);
 								$(surface).eq(0)[0].appendChild($(zone)[0]);
+								if(console) console.log($(surface));
 								var path = ln["info"];
 								offset = path.indexOf("[")+1;
 						
@@ -53,7 +54,7 @@ function exportToTEI(JSON_str){
 							
 								str = (new XMLSerializer()).serializeToString($(xml)[0]);
 	 							//export out through a jQuery trigger
-								// console.log("str is: "+str);
+								// if(console) console.log("str is: "+str);
 							}
 						
 						}
