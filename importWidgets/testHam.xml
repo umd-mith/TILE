@@ -405,5 +405,72 @@
 	            <stage rend="italic, centred" type="entrance" xml:id="ham-1611-22277x-bod-c01.xml-560">Enter Ghost.</stage>
 	            <fw type="catchword" place="foot-right" xml:id="ham-1611-22277x-bod-c01.xml-561">But</fw>
 	            <pb facs="#ham-1611-22277x-bod-c01-image010" xml:id="ham-1611-22277x-bod-c01-010b"/>
+				
+				<fw type="runningHeader" place="top-centre" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-562">Prince of Denmarke.</fw>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-563">But soft, behold, lo where it comes againe</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-564">Ile crosse it though it blast mee: stay illusion,<stage rend="italic, inline" type="business" xml:id="ham-1611-22277x-bod-c01.xml-565">It spreads  <lb xml:id="ham-1611-22277x-bod-c01.xml-566"/>his armes.</stage></l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-567">If thou hast any sound or vse of voice,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-568">Speake to mee, if there be any good thing to bee done</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-569">That may to thee doe ease and grace to mee,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-570">Speake to mee.</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-571">If thou art priuy to thy contryes fate</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-572">Which happily foreknowing may auoyd,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-573">O speake:</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-574">Or if thou hast vphoorded in thy life</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-575">Extorted treasure in the wombe of earth,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-576">For which they say your spirits oft walke in death.<stage rend="italic, inline" type="business" xml:id="ham-1611-22277x-bod-c01.xml-577">The Cocke  <lb xml:id="ham-1611-22277x-bod-c01.xml-578"/>crowes.</stage></l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-579">Speake of it, stay and speake, stop it <name type="character" ref="#mar" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-580">Marcellus</name>.</l>
+		          </sp>
+		          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-581">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-582">Mar.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-583">Shall I strike it with my partizan?</l>
+		          </sp>
+		          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-584">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-585">Hor.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-586">Doe if it will not stand.</l>
+		          </sp>
+		          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-587">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-588">Bar.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-589">Tis heere.</l>
+		          </sp>
+		          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-590">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-591">Hor.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-592">Tis heere.</l>
+		          </sp>
+		          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-593">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-594">Mar.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-595">Tis gone,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-596">We doe it wrong being so Maiesticall</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-597">To offer it the showe of violence,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-598">For it is as the ayre, invulnerable,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-599">And our vaine blowes malicious mockery.</l>
+		          </sp>
+		          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-600">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-601">Bar.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-602">It was about to speake when the cock crew:</l>
+		          </sp>
+		          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-603">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-604">Hor.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-605">And then it started like a guilty thing,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-606">Vpon a fearefull summons; I haue heard,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-607">The Cock that is the trumpet to the morne,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-608">Doth with his lofty and shrill so<gap reason="illegible" agent="inkBlot" extent="1" resp="#fol" unit="chars" xml:id="ham-1611-22277x-bod-c01.xml-609"/>nding throate</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-610">Awake the God of day, and at his warning</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-611">Whether in fea or fire, in earth or ayre,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-612">Th'extrauagant and erring spirit hyes</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-613">To his confine, and of the truth heerein</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-614">This present obiect made probation.</l>
+		          </sp>
+		          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-615">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-616">Mar.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-617">It faded on the crowing of the Cock.</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-618">Some say that euer gainst that season comes,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-619">Wherein our Sauiours birth is celebrated</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-620">This bird of dawning singeth all night long,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-621">And then they say no spirit dare sturre abroade</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-622">The nights are wholsome, then no plannets strike,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-623">No fairy takes, nor witch hath power to charme</l>
+		            <fw type="signature" place="foot-centre" xml:id="ham-1611-22277x-bod-c01.xml-624">B3</fw>
+		            <fw type="catchword" place="foot-right" xml:id="ham-1611-22277x-bod-c01.xml-625">So</fw>
 </sp>	</div2></div1></body></text>
 </TEI>
