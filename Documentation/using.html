@@ -9,17 +9,59 @@
 
 
 <body>
+	<pre>
 	What is TILE?
-	
+		TILE stands for Text and Image Linking Environment. Put simply, it is a metadata tagger designed with the intention of being used for manuscript text. For more information, </pre><a href="http://mith.umd.edu/tile">go here</a><pre>
 	
 	Getting Started
-		Making your XML TILE-Ready
+	
 		
-		Images Locations
+		Making your XML TILE-Ready
+			Manuscript data must be somehow parsed into a JSON structure (See notes on JSON below). This can be done automatically using an importer, which takes your marked-up XML and transforms into a TILE-usable JSON structure. The goal of the TILE project is to design the interface for use with every type of XML parsing and coding standard. As of now, TILE only can parse TEI-formatted XML that has the following specs:
+			1. <lb/> tags are used after each line break.
+			2. There is a complete set of <surface> and <graphic> tags, complete with unique xml:id attributes. 
+			3. For each page, there is a <pb/> tag that contains a facs attribute, matching the xml:id of the related <surface>. Example:
+				<surface xml:id="foo">
+					<graphic <--xml:id optional--> url="image.jpg"></graphic>
+					</surface> 
+					<surface xml:id="bar">
+						<graphic <--xml:id optional--> url="otherimage.jpg"></graphic>
+						</surface>
+			<-- Other TEI data -->
+			<text>
+				<pb facs="#foo"/> <-- pb tag that matches the above surface tag. we can tell it matches because the facs attribute references the surface tag's xml:id -->
+				<--Other TEI data -->
+				<sp><l>And the cow jumped over the moon</l></sp><lb/> <-- lb tag at end of line -->
+				<pb facs="#bar"/> <-- different pb tag, this time referencing a different surface tag -->
+				
+			
+			
+	**NOTE:	Images and Image Locations
+			For images, remember:
+			
+				1. Image folder paths must match up with those in your XML/JSON files (see above and below). 
+				2. Very large images and images that are unprocessed (Such as TIF format files) perform poorly with TILE, especially on slower machines. Using png or jpg files seems to work more efficiently. 
+				
+		JSON and how it works with TILE
+			Javascript Object Notation (JSON) is a format for encoding data that is Javascript-friendly. You can read more here: <a href="http://www.json.org">JSON main page</a>
+			
+			The TILE interface uses a unique JSON format, outlined below. As long as your XML importation results in an acceptable JSON structure that follows the general outline below, the interface can use it. You can also just format your data into the below structure manually. 
+			
+				General Outline of JSON for TILE
+					
+				{
+					"sourceFile":"yourXMLFileGoesHere.xml",
+					"pages":[{"url":"path/to/the/image.jpg","info":{"detail1":"string","detail2":"string",...},
+								"lines":[{"text":"The text of a transcript line goes here","info":"XPath location goes here","shapes":[{"id":"uniqueIdForShape", "_scale":"Floating point scale for shape", "color":"[hex value]", "type":"rect, ellipse, or poly", "posInfo":{[Info for shape goes here - based on SVG elements]}},...{[shapeN]}]},...{[lineN]}]},
+					{"url":"path/to/the/image.jpg"...[Same as previous]},{[page3]}....{[pageN]}]
+					
+				} 
+			
 		
 	How to Use the Interface
 		Loading Data
-		
+			See the instructions above for formatting data into JSON. To Load 
+			
 		JSON Saving and Loading
 		
 		Drawing Shapes
@@ -42,7 +84,7 @@
 			
 		
 	
-	
+	</pre>
 	
 </body>
 </html>
