@@ -1,6 +1,6 @@
 {
 'base':'http://localhost:8888/TILE/postJuly/',
-'phpLoad':'http://localhost:8888/TILE/postJuly/importWidgets/importXML.php?uri=http://localhost:8888/TILE/postJuly/importWidgets/testArch.xml&rname=text&rnum=0&ipath=http://archimedespalimpsest.net/Data/065r-072v/',
+'phpLoad':'http://localhost:8888/TILE/postJuly/importWidgets/importXML.php?uri=http://localhost:8888/TILE/postJuly/importWidgets/testHam.xml&rname=text&rnum=0&ipath=http://localhost:8888/TILE/postJuly/Images/',
 'importDefault':'http://localhost:8888/TILE/postJuly/html/testList.txt',
 'exportDefault':'http://localhost:8888/TILE/postJuly/importWidgets/TEIexport.js'
 }
