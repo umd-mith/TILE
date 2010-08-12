@@ -19,7 +19,6 @@ function exportToTEI(JSON_str){
 		
 		$.ajax({url: src, 
 			success: function(xml){
-			// if(console) console.log('inside the success');
 			var f = $(xml).find("facsimile").eq(0);
 			
 			for (var i=0;i<JSONobj["pages"].length;i++){
@@ -27,7 +26,6 @@ function exportToTEI(JSON_str){
 			 	var page = JSONobj["pages"][i];
 				 var fac = page["info"]["facs"];
 				 var surface = f.find("surface[xml|id='"+fac+"']");
-				// if(console) console.log("page: "+page+ " Lines: "+page["lines"].length);
 				 for (var j=0;j<page["lines"].length;j++){
 				 	var ln = page["lines"][j];
 					shapes = ln["shapes"];
