@@ -2,8 +2,8 @@
 include_once('session.php');
 
 if($_POST["jsonData"]){
-	
-	$_SESSION['json']=$_POST["jsonData"];
+	$jsonData = htmlspecialchars_decode($_POST["jsonData"]);
+	$_SESSION['json']=$jsonData;
 	//get rid of extraneous text data
 	// $json=json_decode($_SESSION['json']);
 	// 	foreach($json->{'pages'} as $page => $item){
