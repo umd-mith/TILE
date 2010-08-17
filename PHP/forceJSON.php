@@ -12,7 +12,7 @@ if(isset($_POST['uploadData'])){
 	$path=preg_replace('/lib\/SaveProgress/',"",$path);
 	$cwd = "http://".$domain.$path."/loadJSON.php"; //path for loading this data back into TILE
 	
-	$JSON=htmlspecialchars($_POST['uploadData']);
+	$JSON=htmlspecialchars($_POST['uploadData'],ENT_NOQUOTES, "UTF-8");
 	//$JSON=addslashes($JSON);
 	//format the JSON text elements
 	//$dJSON=json_decode($JSON); //decode string
@@ -25,7 +25,7 @@ if(isset($_POST['uploadData'])){
 	//force-download the doc-string to the user to save
 	header('Content-Type: text/plain');
 	header('Content-Disposition: attachment; filename='.$filename);
-	header('Content-Transfer-Encoding: 8bit');
+	header('Content-Transfer-Encoding: binary');
 	echo $doc;
 }
 
