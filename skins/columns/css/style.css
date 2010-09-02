@@ -155,9 +155,25 @@ a:hover {
 	min-width:445px;
 	height:50%;
 }
+.log.max {
+	right:auto;
+	opacity:1;
+	z-index:3;
+	min-width:445px;
+	height:90%;
+}
 .activeBox{
 	width:40%;
 	top:50%;
+	min-width:445px;
+	right:auto;
+	opacity:1;
+	z-index:3;
+	min-width:445px;
+}
+.activeBox.closed{
+	width:40%;
+	top:90%;
 	min-width:445px;
 	right:auto;
 	opacity:1;
