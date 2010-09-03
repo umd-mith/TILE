@@ -7,21 +7,30 @@
 		<script>
 			function init(){
 				// called onload
-				$("#fileImgUpload")[0].submit();
-				
-				
+				$("img").load(function(e){
+					if($(this).attr('src')==""){
+						$(this).attr('src',"http://archimedespalimpsest.net/Data/065r-072v/065r-072v_Arch18r_Sinar_pseudo_sharpie.jpg");
+						return;
+					}
+					$("canvas")[0].width=$(this)[0].width;
+					$("canvas")[0].height=$(this)[0].height;
+					var context=$("canvas")[0].getContext('2d');
+					context.drawImage($(this)[0],0,0,$(this)[0].width,$(this)[0].height);
+				});
+			
+				$("img").attr('src',"../PHP/RemoteImgRedirect.php?uimg=http://archimedespalimpsest.net/Data/065r-072v/065r-072v_Arch18r_Sinar_pseudo_sharpie.jpg");
 				
 			}
 		</script>
 	</head>
-<body>
-	<!-- ><form id="fileImgUpload" action="../PHP/RemoteImgRedirect.php" enctype="" method="POST">
+<body onload="init();">
+	<!-- <form id="fileImgUpload" action="../PHP/RemoteImgRedirect.php" enctype="" method="POST">
 		<input type="text" value="http://archimedespalimpsest.net/Data/065r-072v/065r-072v_Arch18r_Sinar_pseudo_sharpie.jpg" id="fakeformInput" name="uimg" />
 		
 	</form>
-	<--- -->
+	 -->
 	
-	<img src="../PHP/RemoteImgRedirect.php?uimg=http://archimedespalimpsest.net/Data/065r-072v/065r-072v_Arch18r_Sinar_pseudo_sharpie.jpg" />
+	<img style="display:none" src="" />
 	
 	<canvas></canvas>
 	
