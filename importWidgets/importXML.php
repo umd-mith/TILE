@@ -1,9 +1,14 @@
 <?php 
 
- $uri = $_GET["uri"]; // uri of document
- $rname = $_GET["rname"]; // root nodeName 
- $rnum = $_GET["rnum"]; // index of root Node in document e.g. 0 = first TEXT node
- $imgPath = $_GET["ipath"]; // server path for images
+include_once('../PHP/secureInput.php');
+
+
+ $uri = checkXML($_GET["uri"]); // uri of document
+ 
+
+ $rname =checkXML($_GET["rname"]); // root nodeName 
+ $rnum =  checkXML($_GET["rnum"]); // index of root Node in document e.g. 0 = first TEXT node
+ $imgPath =  checkXML($_GET["ipath"]); // server path for images
 
 
 

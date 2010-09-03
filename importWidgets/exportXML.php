@@ -2,6 +2,12 @@
 // Receives a POST form data "JSON", that is a string 
 // of JSON data to be saved as XML
 
+include_once('../PHP/secureInput.php');
+
+checkJSON($_POST["JSON"]);
+
+checkLink($_POST["srcFile"]);
+
 if(isset($_POST["JSON"])){
 	$mine = $_POST["JSON"];
 	

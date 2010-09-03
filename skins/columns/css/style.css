@@ -100,6 +100,10 @@ a:hover {
 #srcImageForCanvas {
 	display:block;
 }
+.submitFormHidden {
+	display:none;
+}
+
 
 /* Clearfix styles--------- */
 .clear {

@@ -4,10 +4,13 @@
 // Code mostly taken from Doug Reside's sendData.php
 // Commits JSON data to a file to be stored on client's HDD
 
+include_once('secureInput.php');
+
+checkLink($_SERVER['PHP_SELF']);
 
 if(isset($_POST['uploadData'])){
 	$domain=$_SERVER['HTTP_HOST'];
-	$path=$_SERVER['PHP_SELF'];
+	$path=checkLink($_SERVER['PHP_SELF']);
 	$path = substr($path,0,strrpos($path,"/"));
 	$path=preg_replace('/lib\/SaveProgress/',"",$path);
 	$cwd = "http://".$domain.$path."/loadJSON.php"; //path for loading this data back into TILE
