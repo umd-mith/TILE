@@ -175,6 +175,7 @@ a:hover {
 	z-index:3;
 	min-width:445px;
 }
+/**added to create 'minimize' effect**/
 .activeBox.closed{
 	width:40%;
 	top:90%;
@@ -183,6 +184,10 @@ a:hover {
 	opacity:1;
 	z-index:3;
 	min-width:445px;
+	overflow:hidden;
+}
+.activeBox.closed ul {
+	overflow:hidden;
 }
 .tool {
 	right:auto;
@@ -571,6 +576,14 @@ a.btnIconLarge:hover {
 	margin:10px;
 	border:1px solid #afbf37;
 	background:#f0f2d2;
+}
+.activeBox .infoItem .infoItem.closed {
+	padding:5px;
+	margin:10px;
+	border:1px solid #afbf37;
+	background:#f0f2d2;
+	overflow:hidden;
+	height:15px;
 }
 /* tag styles ------------------- */
 .log .tag .tagname {
