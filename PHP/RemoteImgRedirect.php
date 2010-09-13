@@ -6,7 +6,7 @@
 include_once("secureInput.php");
 
 #check referer
-if(preg_match('/ftp:|FTP:|.JS|.js|.php|.PHP/',$_SERVER['HTTP_REFERER'])) 
+if(isset($_SERVER['HTTP_REFERER'])&&(preg_match('/ftp:|FTP:|.JS|.js|.php|.PHP/',$_SERVER['HTTP_REFERER']))) 
 	die("Security Error");
 
 # should stop if link is bad
