@@ -23,18 +23,22 @@ function imgRedirect($file){
 	switch($imgData["mime"]){
 		case "image/png":
 			$img=imagecreatefrompng($file);
-			header("Content-Type: image/png");
-			imagepng($img);
+			header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+			header("Content-Type: image/png; filename=\"tmp.png\"");
+			
+			imagepng($img,null,4);
 			break;
 		case "image/jpeg":
 			$img=imagecreatefromjpeg($file);
-			header("Content-Type: image/jpeg");
-			imagejpeg($img);
+			header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+			header("Content-Type: image/jpeg; filename=\"tmp.jpg\"");
+			imagejpeg($img,null,4);
 			break;
 		case "image/gif":
 			$img=imagecreatefromgif($file);
-			header("Content-Type: image/gif");
-			imagegif($img);
+			header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+			header("Content-Type: image/gif; filename=\"tmp.gif\"");
+			imagegif($img,null,4);
 			break;
 		default:
 			die("Security Error");
