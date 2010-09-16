@@ -30,9 +30,15 @@ function imgRedirect($file){
 			break;
 		case "image/jpeg":
 			$img=imagecreatefromjpeg($file);
+			# $img=new Imagick();
+			# $img->setResolution(72,72);
+			# $img->readImage($file);
+			# $img->setImageFormat("jpeg");
 			header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 			header("Content-Type: image/jpeg; filename=\"tmp.jpg\"");
 			imagejpeg($img,null,4);
+			echo $img;
+			
 			break;
 		case "image/gif":
 			$img=imagecreatefromgif($file);
