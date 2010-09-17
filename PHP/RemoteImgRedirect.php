@@ -19,7 +19,7 @@ function imgRedirect($file){
 	# first get mime type
 	$imgData=getimagesize($file);
 	$img="";
-	
+
 	switch($imgData["mime"]){
 		case "image/png":
 			$img=imagecreatefrompng($file);
@@ -29,15 +29,26 @@ function imgRedirect($file){
 			imagepng($img,null,4);
 			break;
 		case "image/jpeg":
-			$img=imagecreatefromjpeg($file);
+			$img=@imagecreatefromjpeg($file);
 			# $img=new Imagick();
 			# $img->setResolution(72,72);
 			# $img->readImage($file);
 			# $img->setImageFormat("jpeg");
 			header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 			header("Content-Type: image/jpeg; filename=\"tmp.jpg\"");
-			imagejpeg($img,null,4);
-			echo $img;
+			
+			# going to manipulate data output by imagejpeg - start ob
+			# $IG=imagecreatetruecolor($imgData[0]*.25,$imgData[1]*.25);
+			# imagecopyresampled($IG,$img,0,0,0,0,($imgData[0]*.25),($imgData[1]*.25),$imgData[0],$imgData[1]);
+			imagejpeg($img);
+			// ob_start();
+			// 		imagejpeg($img);
+			// 		$cdata=ob_get_contents();
+			// 		ob_end_clean();
+			// 		
+			// 		$cdata=substr_replace($cdata,pack('cnn',1,72,72),13,5);
+			// 		
+			// 		echo $cdata;
 			
 			break;
 		case "image/gif":
