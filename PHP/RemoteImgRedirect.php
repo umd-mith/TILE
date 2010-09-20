@@ -12,7 +12,20 @@ if(isset($_SERVER['HTTP_REFERER'])&&(preg_match('/ftp:|FTP:|.JS|.js|.php|.PHP/',
 # should stop if link is bad
 $path=checkLink($_GET["uimg"]);
 
-
+ function get_dpi($filename){  
+   
+     // open the file and read first 20 bytes.  
+     $a = fopen($filename,'r');  
+     $string = fread($a,20);  
+     fclose($a);  
+   
+     // get the value of byte 14th up to 18th  
+     $data = bin2hex(substr($string,14,4));  
+     $x = substr($data,0,4);  
+     $y = substr($data,4,4);  
+     return array(hexdec($x),hexdec($y));  
+   
+ }
 
 function imgRedirect($file){
 	# WARNING: images must pass the security tests from secureInput.php BEFORE getting here!
@@ -30,6 +43,9 @@ function imgRedirect($file){
 			break;
 		case "image/jpeg":
 			$img=@imagecreatefromjpeg($file);
+			$dpi=get_dpi($file);
+			$dpiCorrect=(72/$dpi[0]);
+			
 			# $img=new Imagick();
 			# $img->setResolution(72,72);
 			# $img->readImage($file);
@@ -38,8 +54,8 @@ function imgRedirect($file){
 			header("Content-Type: image/jpeg; filename=\"tmp.jpg\"");
 			
 			# going to manipulate data output by imagejpeg - start ob
-			# $IG=imagecreatetruecolor($imgData[0]*.25,$imgData[1]*.25);
-			# imagecopyresampled($IG,$img,0,0,0,0,($imgData[0]*.25),($imgData[1]*.25),$imgData[0],$imgData[1]);
+			$IG=imagecreatetruecolor($imgData[0]*$dpiCorrect,$imgData[1]*$dpiCorrect);
+		imagecopyresampled($IG,$img,0,0,0,0,($imgData[0]*$dpiCorrect),($imgData[1]*$dpiCorrect),$imgData[0],$imgData[1]);
 			imagejpeg($img);
 			// ob_start();
 			// 		imagejpeg($img);
