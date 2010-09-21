@@ -34,10 +34,26 @@ function checkXML($data){
 	
 }
 
+
+
+
 # Checks a link to make sure it is not a link to some kind of code, or has a 
 # prefix other than https: or http: 
 # If tainted URL, stops the program with a die() call
-function checkLink($data){
+function checkLink($link){
+	$passText=preg_match('/.php|.PHP|.js|.JS|[<>;]+/',$data);
+	if($passText>0){
+		die("Security Error Found in: ".preg_replace('/<[A-Za-z\t-]*>|([A-Za-z\t\n\w]*)/','',$data));
+	} else {
+		$allowed=array();
+		# returns a string returned by kses function
+		# adding 3rd parameter to make sure that only http and https are used - not file:: or javascript: for example
+		return kses($data,$allowed,array('http','https'));
+	}
+}
+
+#Checks a link to make sure it's only an image
+function checkImgLink($data){
 	$passText=preg_match('/.php|.PHP|.js|.JS|.html|.htm|.HTML|.HTM|[<>;]+/',$data);
 	if($passText>0){
 		die("Security Error Found in: ".preg_replace('/<[A-Za-z\t-]*>|([A-Za-z\t\n\w]*)/','',$data));

@@ -10,16 +10,16 @@ if(isset($_SERVER['HTTP_REFERER'])&&(preg_match('/ftp:|FTP:|.JS|.js|.php|.PHP/',
 	die("Security Error");
 
 # should stop if link is bad
-$path=checkLink($_GET["uimg"]);
+$path=checkImgLink($_GET["uimg"]);
 
  function get_dpi($filename){  
    
-     // open the file and read first 20 bytes.  
+     # open the file and read first 20 bytes.  
      $a = fopen($filename,'r');  
      $string = fread($a,20);  
      fclose($a);  
    
-     // get the value of byte 14th up to 18th  
+     # get the value of byte 14th up to 18th  
      $data = bin2hex(substr($string,14,4));  
      $x = substr($data,0,4);  
      $y = substr($data,4,4);  

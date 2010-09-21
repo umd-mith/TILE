@@ -6,7 +6,7 @@ include_once('../PHP/secureInput.php');
 
 checkJSON($_POST["JSON"]);
 
-checkLink($_POST["srcFile"]);
+checkImgLink($_POST["srcFile"]);
 
 if(isset($_POST["JSON"])){
 	$mine = $_POST["JSON"];
