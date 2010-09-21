@@ -43,8 +43,8 @@ function imgRedirect($file){
 			break;
 		case "image/jpeg":
 			$img=@imagecreatefromjpeg($file);
-			$dpi=get_dpi($file);
-			$dpiCorrect=(72/$dpi[0]);
+			// $dpi=get_dpi($file);
+			// $dpiCorrect=(72/$dpi[0]);
 			
 			# $img=new Imagick();
 			# $img->setResolution(72,72);
@@ -54,8 +54,8 @@ function imgRedirect($file){
 			header("Content-Type: image/jpeg; filename=\"tmp.jpg\"");
 			
 			# going to manipulate data output by imagejpeg - start ob
-			$IG=imagecreatetruecolor($imgData[0]*$dpiCorrect,$imgData[1]*$dpiCorrect);
-		imagecopyresampled($IG,$img,0,0,0,0,($imgData[0]*$dpiCorrect),($imgData[1]*$dpiCorrect),$imgData[0],$imgData[1]);
+			// $IG=imagecreatetruecolor($imgData[0]*$dpiCorrect,$imgData[1]*$dpiCorrect);
+		// imagecopyresampled($IG,$img,0,0,0,0,($imgData[0]*$dpiCorrect),($imgData[1]*$dpiCorrect),$imgData[0],$imgData[1]);
 			imagejpeg($img);
 			// ob_start();
 			// 		imagejpeg($img);
