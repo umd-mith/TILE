@@ -10,7 +10,7 @@ checkLink($_SERVER['PHP_SELF']);
 
 if(isset($_POST['uploadData'])){
 	$domain=$_SERVER['HTTP_HOST'];
-	$path=checkLink($_SERVER['PHP_SELF']);
+	$path=$_SERVER['PHP_SELF'];
 	$path = substr($path,0,strrpos($path,"/"));
 	$path=preg_replace('/lib\/SaveProgress/',"",$path);
 	$cwd = "http://".$domain.$path."/loadJSON.php"; //path for loading this data back into TILE

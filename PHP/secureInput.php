@@ -45,7 +45,7 @@ function checkLink($link){
 	if($passText>0){
 		die("Security Error Found in: ".preg_replace('/<[A-Za-z\t-]*>|([A-Za-z\t\n\w]*)/','',$data));
 	} else {
-		$allowed=array();
+		$allowed=array('PHP/1.5');
 		# returns a string returned by kses function
 		# adding 3rd parameter to make sure that only http and https are used - not file:: or javascript: for example
 		return kses($data,$allowed,array('http','https'));
