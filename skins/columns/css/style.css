@@ -189,6 +189,15 @@ a:hover {
 .activeBox.closed ul {
 	overflow:hidden;
 }
+#activeBox_min {
+	margin:2px;
+}
+#activeBox_min.btnIconLarge, #minInfo.btnIconLarge {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -338px -21px;
+}
+#activeBox_min.btnIconLarge:hover, #minInfo.btnIconLarge:hover {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -338px -0px;
+}
 .tool {
 	right:auto;
 	opacity:1;
@@ -583,7 +592,7 @@ a.btnIconLarge:hover {
 	border:1px solid #afbf37;
 	background:#f0f2d2;
 	overflow:hidden;
-	height:15px;
+	height:20px;
 }
 /* tag styles ------------------- */
 .log .tag .tagname {
