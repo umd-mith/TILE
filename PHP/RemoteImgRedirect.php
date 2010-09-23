@@ -51,12 +51,13 @@ function imgRedirect($file){
 			# $img->readImage($file);
 			# $img->setImageFormat("jpeg");
 			header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-			header("Content-Type: image/jpeg; filename=\"tmp.jpg\"");
+			header("Content-Type: image/jpeg");
 			
 			# going to manipulate data output by imagejpeg - start ob
 			// $IG=imagecreatetruecolor($imgData[0]*$dpiCorrect,$imgData[1]*$dpiCorrect);
 		// imagecopyresampled($IG,$img,0,0,0,0,($imgData[0]*$dpiCorrect),($imgData[1]*$dpiCorrect),$imgData[0],$imgData[1]);
 			imagejpeg($img);
+			imagedestroy($img);
 			// ob_start();
 			// 		imagejpeg($img);
 			// 		$cdata=ob_get_contents();
