@@ -198,6 +198,12 @@ a:hover {
 #activeBox_min.btnIconLarge:hover, #minInfo.btnIconLarge:hover {
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -338px -0px;
 }
+.activeBox.closed #activeBox_min.btnIconLarge, .infoItem.closed #minInfo.btnIconLarge {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -359px -21px;
+}
+.activeBox.closed #activeBox_min.btnIconLarge:hover, .infoItem.closed #minInfo.btnIconLarge:hover {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -359px -0px;
+}
 .tool {
 	right:auto;
 	opacity:1;
