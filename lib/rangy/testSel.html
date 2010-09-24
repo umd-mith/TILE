@@ -1,0 +1,23 @@
+<HTML>
+	<HEAD>
+	<SCRIPT language="JavaScript" type='text/javascript' src="rangy-core.js"></script>			
+	<SCRIPT language="JavaScript" type='text/javascript'>
+		function pushMe(){
+			dude = rangy.getSelection();
+			alert(JSON.stringify(dude));
+		}
+	</SCRIPT>
+	
+	</HEAD>
+	<BODY>
+	          
+<div>DIV <span>SPAN 1</span></div>
+<div>DIV 2</div>
+<div>D<em>IV</em> 3</div>
+<input type="button" value="push me" onclick="pushMe()"></input>
+<div id="mine">
+</div>
+
+
+	</BODY>
+</HTML>
