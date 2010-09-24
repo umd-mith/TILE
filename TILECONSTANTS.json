@@ -4,4 +4,4 @@
 'importDefault':'http://localhost:8888/TILE/1.5/html/testList.txt',
 'exportDefault':'http://localhost:8888/TILE/1.5/importWidgets/TEIexport.js',
 'pemLoad':'http://localhost:8888/TILE/1.5/importWidgets/importXML.php?uri=http://localhost:8888/TILE/1.5/importWidgets/testPemb.xml&rname=text&rnum=0&ipath=http://www.stoa.org/Pembroke25/Website-tv/IMT/'
-}http://localhost:8888/TILE/1.5/
+}
