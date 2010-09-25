@@ -1,20 +1,24 @@
 <HTML>
 	<HEAD>
 	<SCRIPT language="JavaScript" type='text/javascript' src="../jquery/jquery-1.3.2.min.js"></script>			
-	
 	<SCRIPT language="JavaScript" type='text/javascript' src="rangy-core.js"></script>			
 	<SCRIPT language="JavaScript" type='text/javascript' src="selectionsaverestore.js"></script>	
 		<SCRIPT language="JavaScript" type='text/javascript' src="textSelection.js"></script>
 	<SCRIPT language="JavaScript" type='text/javascript'>
 		var savedSelection=[1,2,3];
+		var endNode;
 		function pushMe(){
 				textsel = new TextSelector();
 		sel = textsel.getSelectedText();
 		alert(sel.EndParent);
-			 savedSelection = rangy.saveRestore.saveSelection();
+		endNode=sel.EndParent;
+			// savedSelection = rangy.saveRestore.saveSelection();
 		}
 		function pullyou(){
-			rangy.saveRestore.restoreSelection(savedSelection);
+			//BODY:eq(2)>DIV:eq(5)>EM:eq(1)>#text:eq(0)
+			//alert(endNode);
+			alert($("HTML>*:eq(2)>*:eq(0)>*:eq(2)")[0].innerHTML);
+			//rangy.saveRestore.restoreSelection(savedSelection);
 		}
 	
 	</SCRIPT>

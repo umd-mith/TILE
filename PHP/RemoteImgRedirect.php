@@ -1,7 +1,7 @@
 <?php
 # Redirects images that are on remote servers
 
-
+header("no-cache");
 
 include_once("secureInput.php");
 
