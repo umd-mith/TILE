@@ -1,10 +1,14 @@
 <HTML>
 	<HEAD>
 	<SCRIPT language="JavaScript" type='text/javascript' src="rangy-core.js"></script>			
+	<SCRIPT language="JavaScript" type='text/javascript' src="selectionsaverestore.js"></script>	
 	<SCRIPT language="JavaScript" type='text/javascript'>
+		var savedSelection=[1,2,3];
 		function pushMe(){
-			dude = rangy.getSelection();
-			alert(JSON.stringify(dude));
+			 savedSelection = rangy.saveRestore.saveSelection();
+		}
+		function pullyou(){
+			rangy.saveRestore.restoreSelection(savedSelection);
 		}
 	</SCRIPT>
 	
@@ -14,7 +18,8 @@
 <div>DIV <span>SPAN 1</span></div>
 <div>DIV 2</div>
 <div>D<em>IV</em> 3</div>
-<input type="button" value="push me" onclick="pushMe()"></input>
+<input type="button" value="save" onclick="pushMe()"></input>
+<input type="button" value="restore" onclick="pullyou()"></input>
 <div id="mine">
 </div>
 
