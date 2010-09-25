@@ -12,7 +12,6 @@ include_once('../PHP/secureInput.php');
 
 
 
-
 class txtNode {
 	public function __construct($txt,$context,$offset){
 	
