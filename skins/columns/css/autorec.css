@@ -49,7 +49,7 @@ display: none;
 }
 #content #transcript{
 	overflow:auto;
-	border:#CCBB93 2px solid;
+	border:#CCBB93 1px solid;
 	height:200px;
 	width:90%;
 }
@@ -59,8 +59,9 @@ display: none;
 }
 #content #transcript div:hover {
 	border:#afbf37 1px dotted;
+	background-color: #d5db97;
 }
 #content #transcript .selected{
-	background:#f6ecd4;
+	background:#baca42;
 	color:#14253d;
 }
