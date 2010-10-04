@@ -303,6 +303,13 @@ a.btnIconLarge:hover {
 	background-color:#FDFDEC;
 }
 
+/*HelpBox styles ---------------- */
+.helpbox {
+	position:absolute;
+	z-index:9999;
+	background:yellow;
+}
+
 /* Toolbar styles --------------- */
 .toolbar {
 	height:25px;
