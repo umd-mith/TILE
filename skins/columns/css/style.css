@@ -309,6 +309,9 @@ a.btnIconLarge:hover {
 	z-index:9999;
 	background:yellow;
 }
+.helpIcon {
+	
+}
 
 /* Toolbar styles --------------- */
 .toolbar {
@@ -606,6 +609,11 @@ a.btnIconLarge:hover {
 	background:#f0f2d2;
 	overflow:hidden;
 	height:20px;
+}
+/* LabelBar Styles -------------- */
+.az #labelList {
+	padding:0;
+	margin-top:47px;
 }
 /* tag styles ------------------- */
 .log .tag .tagname {
