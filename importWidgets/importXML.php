@@ -151,9 +151,12 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	$JSON .="]},";
 	
 }
+# ADD TEST LABELS - CAN BE DEACTIVATED
+$testLabels=", \"labels\":[{\"name\":\"label1\",\"id\":\"l_561\"},{\"name\":\"label2\",\"id\":\"l_576\"},{\"name\":\"label3\",\"id\":\"l_890\"},{\"name\":\"label4\",\"id\":\"l_900\"},{\"name\":\"label5\",\"id\":\"l_675\"}]";
+
 //get rid of excessive spaces and last comma
 $jlength=(strlen($JSON)-1);
-echo preg_replace("/\n/","",substr($JSON,0,$jlength)."]}");
+echo preg_replace("/\n/","",substr($JSON,0,$jlength)."]".$testLabels."}");
 
 
 

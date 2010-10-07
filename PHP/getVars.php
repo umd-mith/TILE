@@ -21,7 +21,9 @@ function checkCode($path){
 	}
 	$tokens=preg_split('/\n/',$contents);
 	for($x=0;$x<count($tokens);$x++){
-		
+		if(preg_match('/http:\/\//',$tokens[$x])){
+			
+		}
 	}
 	
 }
