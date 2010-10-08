@@ -1,40 +1,157 @@
-<HTML>
-	<HEAD>
-	<SCRIPT language="JavaScript" type='text/javascript' src="../jquery/jquery-1.3.2.min.js"></script>			
-		<SCRIPT language="JavaScript" type='text/javascript' src="getPath.js"></script>	
-	<SCRIPT language="JavaScript" type='text/javascript' src="rangy-core.js"></script>			
-	<SCRIPT language="JavaScript" type='text/javascript' src="selectionsaverestore.js"></script>	
-		<SCRIPT language="JavaScript" type='text/javascript' src="textSelection.js"></script>
-	<SCRIPT language="JavaScript" type='text/javascript'>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Text Highlighting Demo</title>
+
+<!--// Colorpicker Style Sheet //-->
+<link rel="stylesheet" media="screen" type="text/css" href="plugins/colorpicker/css/colorpicker.css" />
+<!--// jQuery Latest //-->
+<script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+<!--// jQuery Plugins //-->
+<script type="text/javascript" language="javascript" src="plugins/rangy.googleCode/rangy.js"></script>
+<script type="text/javascript" language="javascript" src="plugins/colorpicker/js/colorpicker.js"></script>
+<script type="text/javascript" language="javascript" src="plugins/jquery-json/jquery-json-2.2.js"></script>
+<!--// Main Code //-->
+<script type="text/javascript" language="javascript" src="getPath.js"></script>
+<script type="text/javascript" language="javascript" src="textSelection.js"></script>
+<!--// jQuery DOM ready //-->
+<script type="text/javascript" language="javascript">
+$(document).ready(function() {
+ 
 		var savedSelection=[1,2,3];
-		var endNode;
-		function pushMe(){
-				textsel = new TextSelector();
-		sel = textsel.getSelectedText();
-		alert(sel.EndParent);
-		endNode=sel.EndParent;
+		var textsel = new TextSelector();
+		
+		$('input#highlight').bind('click', function(e) {
+			
+			sel = textsel.getSelectedText();
+			//console.log(sel);
+			textsel.addSelection(sel);
+
 			// savedSelection = rangy.saveRestore.saveSelection();
-		}
-		function pullyou(){
-			//BODY:eq(2)>DIV:eq(5)>EM:eq(1)>#text:eq(0)
-			//alert(endNode);
-			alert($(endNode).html());
+		});
+	
+		$('input#restore').bind('click', function(e) {
+			var lookFor = $('span[class^="anno_"]');
+			console.log(lookFor.length);
+			
+			if(lookFor.length == 0) { // don't restore if there are already highlights
+				textsel.importSelections(textsel._selections);
+				return true;
+			}
+		});	
+		
+		$('input#remove').bind('click', function(e) {
+	
+			textsel.removeHighlightMarkers();
 			//rangy.saveRestore.restoreSelection(savedSelection);
-		}
+		});
+		
+		$('input#show').bind('click', function(e) {
+			
+			var myObj = textsel._showSelectionObject();
+			var myHTML = "<ul>";
+			
+			for (var i in myObj) {
+				if (myObj[i] instanceof Object) {
+					myHTML += "myObj["+i+"]<ul>";
+					for(var j in myObj[i]) {
+						myHTML += "<li>["+j+"] = "+ myObj[i][j] + "</li>";
+					}
+					myHTML += "</ul>";
+				} 
+			}
+			myHTML += "</ul>";
+		
+			
+			$('div#mine').html(myHTML).show();
+			
+		});		
 	
-	</SCRIPT>
-	
-	</HEAD>
-	<BODY>
-	        
-<div>DIV <span>SPAN 1</span></div>
-<div>DIV 2</div>
-<div>D<em>IV</em> 3</div>
-<input type="button" value="save" onclick="pushMe()"></input>
-<input type="button" value="restore" onclick="pullyou()"></input>
-<div id="mine">
+		$('input#hide').bind('click', function(e) {
+			$('div#mine').hide();
+		});		
+		
+		$('input#hideExport').bind('click', function(e) {
+			$('div#json').hide();
+		});	
+
+		$('input#clear').bind('click', function(e) {
+			textsel.clearSelections();
+			$('div#mine').empty().hide();
+		});
+		
+		$('input#export').bind('click', function(e) {
+			var json = textsel.exportSelections();
+			$('div#json').text('jsonObj = ' + json).show();
+		});	
+		
+		
+		
+		// highlight color change			
+		$('#penColor').ColorPicker({
+			color: '#0000ff',
+			onShow: function (colpkr) {
+				$(colpkr).fadeIn(500);
+				return false;
+			},
+			onHide: function (colpkr) {
+				$(colpkr).fadeOut(500);
+				return false;
+			},
+			onChange: function (hsb, hex, rgb) {
+				$('#penColor div').css('backgroundColor', '#' + hex);
+				textsel.changePenColor('#' + hex);
+			}
+		});
+});
+</script>
+
+
+<style type="text/css" media="screen">
+#penColor {
+	display: inline-block;
+	position: relative;
+	width: 18px;
+	height: 18px;
+	background: url('colorpicker/images/selectBoxCustom.png');
+}
+
+#penColor div {
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 16px;
+	height: 16px;
+	background: url('colorpicker/images/selectBoxCustom.png') center;
+}	
+</style>
+</head>
+<body>
+<div id="selection">
+  <div id="22">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas est tortor, ultrices at lobortis cursus, congue vitae lacus. Integer massa arcu, vestibulum id blandit sed, tempor nec ante. Nullam vulputate laoreet velit, in sollicitudin nisi sagittis quis. Aenean non commodo dui. <em id="hungry">Pellentesque <sub id="foo">male</sub><span id="goo">suada nulla pharetra est elementum consequat faucibus sapien aliquam.</span> Praesent placerat, libero in gravida pellentesque, turpis odio dictum mauris, eget posuere sem elit ac urna.</em><br id="2333" />
+    Fruity <br id="3434" />
+    Aenean scelerisque pretium mauris. <img src="http://www.456bereastreet.com/i/authentic-jobs.png" id="img" />Nunc non turpis suscipit sem rutrum pharetra. Praesent venenatis blandit leo, commodo aliquam felis sagittis nec. Donec eget enim nec magna varius gravida. Sed adipiscing, lacus sed dictum imperdiet, augue metus vulputate diam, in semper tortor nisi eget nisi. Integer eget neque vitae enim pharetra sodales. Mauris sit amet egestas orci.</div>
+  <div id="four">Fusce nec tincidunt mauris. Donec posuere metus vel nibh aliquam sit amet pulvinar risus convallis. Sed ac magna sit amet lectus rhoncus varius at vitae ipsum. Curabitur condimentum, ante in accumsan condimentum, lectus arcu venenatis arcu, vel tempus felis sapien et felis. Sed interdum molestie hendrerit. Suspendisse eu libero eros. <span id="green">Donec ullamcorper, mi non ultricies euismod, metus ligula tempus ante, id fermentum arcu eros nec ante. Donec eget arcu id augue facilisis <abbr id="five">eleifend <small id="ad">ac</small> id libero</abbr>. Nulla quis enim neque, nec scelerisque metus. Donec ac ip</span>sum ac dui euismod pellentesque nec nec orci. Donec neque nulla, pretium elementum varius at, fermentum eu nisi. Vivamus sit amet quam id lacus aliquet congue et mollis tortor. Quisque nec odio lacus. Suspendisse lobortis lectus sed lectus gravida non hendrerit eros rutrum. Pellentesque suscipit nunc a libero pharetra elementum. Curabitur eget augue lectus, eget imperdiet metus. Nullam bibendum scelerisque arcu eget fringilla. Donec luctus, magna sed fringilla iaculis, magna mauris porta eros, et tempus justo felis vitae libero. Pellentesque at lectus non justo fringilla bibendum a vitae felis. Praesent tempor enim vel mauris gravida sed convallis erat tempus.</div>
+  <div>Maecenas ac neque mauris. Suspendisse orci ante, tempor id fringilla id, adipiscing in lorem. Aliquam luctus blandit molestie. Phasellus convallis tellus tristique lectus lobortis placerat. Sed neque erat, congue ac gravida vitae, consectetur ut nunc. Nulla dictum placerat dictum. Nam at nunc orci, quis porttitor orci. Morbi fermentum luctus hendrerit. Morbi malesuada diam ultrices orci fermentum eget porttitor quam consequat. Donec vel diam risus, eu auctor est. Sed non pretium est. Aliquam ligula metus, tempus a vehicula ac, posuere vitae lorem. Etiam tincidunt lectus metus, non aliquet turpis. Fusce mollis gravida pharetra.</div>
 </div>
+<input type="button" value="HIGHLIGHT" id="highlight"/>
+<span style="padding: 2px; font-size: 0.8em;"><div id="penColor"><div style="background-color: #FDFF00;"></div></div> <- highlighter color</span>
+<input type="button" value="Restore Highlights" id="restore"/>
+<input type="button" value="Remove Highlights" id="remove"/>
+<input type="button" value="Show Selection Object" id="show"/>
+<input type="button" value="Hide Selection Object" id="hide"/>
+<input type="button" value="Clear Selection Object" id="clear"/>
+<input type="button" value="Export Selection Object" id="export"/>
+<input type="button" value="Hide Selection Object" id="hideExport"/>
+<div id="mine" style="display:none;"> </div>
+<div id="json" style="display:none; padding: 20px; background-color:#EBEBEB;"> </div>
 
-
-	</BODY>
-</HTML>
+<div><br>
+<br>
+<strong>NOTE:</strong> Once you've selected from the above text and chosen to highlight it (via button), you can click on the highlight itself to change color.
+<br>
+<br>
+</div>
+</body>
+</html>
