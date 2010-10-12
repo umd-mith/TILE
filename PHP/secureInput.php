@@ -25,7 +25,7 @@ function checkPOST($data){
 }
 
 function checkXML($data){
-	$passText=preg_match('/.php|.PHP|.js|.JS|.html|.htm|.HTML|.HTM|[<>;]+/',$data);
+	$passText=preg_match('/\bphp\b$|\bPHP\b$|\bjs\b$|\bJS\b$|\bhtml\b$|\bhtm\b$|\bHTML\b$|\bHTM\b|[<>;]+/',$data);
 	if($passText>0){
 		die("Security Error Found in: ".preg_replace('/<[A-Za-z\t-]*>|([A-Za-z\t\n\w]*)/','',$data));
 	} else {
@@ -41,7 +41,7 @@ function checkXML($data){
 # prefix other than https: or http: 
 # If tainted URL, stops the program with a die() call
 function checkLink($link){
-	$passText=preg_match('/.php|.PHP|.js|.JS|[<>;]+/',$data);
+	$passText=preg_match('/\bphp\b$|\bPHP\b$|\bjs\b$|\bJS\b$|[<>;]+/',$data);
 	if($passText>0){
 		die("Security Error Found in: ".preg_replace('/<[A-Za-z\t-]*>|([A-Za-z\t\n\w]*)/','',$data));
 	} else {
@@ -54,7 +54,7 @@ function checkLink($link){
 
 #Checks a link to make sure it's only an image
 function checkImgLink($data){
-	$passText=preg_match('/.php|.PHP|.js|.JS|.html|.htm|.HTML|.HTM|[<>;]+/',$data);
+	$passText=preg_match('/\bphp\b$|\bPHP\b$|\bjs\b$|\bJS\b$|\bhtml\b$|\bhtm\b$|\bHTML\b$|\bHTM\b|[<>;]+/',$data);
 	if($passText>0){
 		die("Security Error Found in: ".preg_replace('/<[A-Za-z\t-]*>|([A-Za-z\t\n\w]*)/','',$data));
 	} else {
@@ -68,7 +68,7 @@ function checkImgLink($data){
 function checkJSON($data){
 	$firstTest=preg_match('/[{}]*/',$data);
 	if($firstTest==0) die("Security Error: not a valid JSON datatype");
-	$passText=preg_match('/.php|.PHP|.js|.JS|.html|.htm|.HTML|.HTM/',$data);
+	$passText=preg_match('/\bphp\b$|\bPHP\b$|\bjs\b$|\bJS\b$|\bhtml\b$|\bhtm\b$|\bHTML\b$|\bHTM\b$/',$data);
 	if($passText>0){
 		die("Security Error Found in: ".preg_replace('/<[A-Za-z\t-]*>|([A-Za-z\t\n\w]*)/','',$data));
 	} else {
