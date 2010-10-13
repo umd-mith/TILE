@@ -261,6 +261,12 @@ a.btnIconLarge:hover {
 	cursor:pointer;	
 	width:auto;
 }
+.button.inactive, .button.inactive:hover {
+	color:#c7c3b5;
+	border:1px solid #FDFDEC;
+	background:#e7dab9 url('../images/bkgd_btn.jpg') repeat-x;
+	cursor:default;
+}
 .button:hover {
 	background:#FDFDEC url('../images/bkgd_btn-hover.jpg') repeat-x;
 	border-bottom:1px solid #ccbb93;
@@ -411,11 +417,21 @@ a.btnIconLarge:hover {
 .toolbar li a:hover#zoomIn.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -127px 0px;
 }
+.toolbar li a#zoomIn.btnIconLarge.inactive, .toolbar li a:hover#zoomIn.btnIconLarge.inactive {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -127px -65px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
 .toolbar li a#zoomOut.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -148px -21px;
 }
 .toolbar li a:hover#zoomOut.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -148px 0px;
+}
+.toolbar li a#zoomOut.btnIconLarge.inactive, .toolbar li a:hover#zoomOut.btnIconLarge.inactive {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -148px -65px;
+	border:1px solid #FDFDEC;
+	cursor:default;
 }
 .toolbar li span.listView {
 	padding-left:20px;
