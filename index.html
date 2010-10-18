@@ -58,7 +58,7 @@
 		<div id="azcontentarea" class="az content"></div>
 	<script>
 		//adding AR from autorecognizer_plugin.js
-		(function($,ar,it,lb,ts){
+		(function($,trans,ar,it,lb,ts){
 			// set verbose mode either true (on) or false (off)
 			__v=false;
 			// security test
@@ -66,9 +66,9 @@
 			if((reg.test(it))||(reg.test(ar))) die("Error");
 			
 			$(function(){
-				var engine=new TILE_ENGINE({toolSet:[it,ar,lb,ts]});
+				var engine=new TILE_ENGINE({toolSet:[it,trans,ar,lb,ts]});
 			});
-		})(jQuery,AR,IT,LB,TS);
+		})(jQuery,Trans,AR,IT,LB,TS);
 	</script>
 	
 </body>
