@@ -66,7 +66,7 @@
 			if((reg.test(it))||(reg.test(ar))) die("Error");
 			
 			$(function(){
-				var engine=new TILE_ENGINE({toolSet:[it,trans,ar,lb,ts]});
+				var engine=new TILE_ENGINE({toolSet:[it,trans,ar,lb,ts],defaultTool:lb});
 			});
 		})(jQuery,Trans,AR,IT,LB,TS);
 	</script>
