@@ -11,7 +11,7 @@ function exportToTEI(JSON_str){
 	var JSONobj = JSON.parse(JSON_str);
 	var str="";
 	src = JSONobj["sourceFile"];
-	// if(console) console.log("exportToTEI src: "+src);
+	// if(__v) console.log("exportToTEI src: "+src);
 	if (src==null) {
 		return;
 	} else if ((JSONobj["pages"]!=null)&&(JSONobj["pages"].length>0)){
@@ -53,7 +53,7 @@ function exportToTEI(JSON_str){
 							
 								str = (new XMLSerializer()).serializeToString($(xml)[0]);
 	 							//export out through a jQuery trigger
-								// if(console) console.log("str is: "+str);
+								// if(__v) console.log("str is: "+str);
 							}
 						
 						}
