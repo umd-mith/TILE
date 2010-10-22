@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="tv/tv.xsl" ?><TEI xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="..//tei_all.rng" type="xml"?>
+<?xml-stylesheet type="text/xsl" href="tv/tv.xsl" ?><TEI xmlns="http://www.tei-c.org/ns/1.0">
     <teiHeader>
         <fileDesc>
             <titleStmt>
@@ -30,29 +32,29 @@
         </revisionDesc>
     </teiHeader>
 	<facsimile>
-		<surface xml:id="11v">
+		<surface xml:id="Elevenv">
 			<graphic url="11v/11v_wv_zoom_011v.jpg"/>
 		</surface>
-		<surface xml:id="12r">
+		<surface xml:id="Twelver">
 			<graphic url="12r/12r_wv_zoom_012r.jpg"/>
 		</surface>
-		<surface xml:id="12v">
+		<surface xml:id="Twelvev">
 			<graphic url="12v/12v_wv_zoom_012v.jpg"/>
 		</surface>
-		<surface xml:id="13r">
+		<surface xml:id="Thirteenr">
 			<graphic url="13r/13r_wv_zoom_013r.jpg"/>
 		</surface>
-		<surface xml:id="13v">
+		<surface xml:id="Thirteenv">
 			<graphic url="13v/13v_wv_zoom_013v.jpg"/>
 		</surface>
 	</facsimile>
     <text xml:id="sermon6" next="#sermon7" prev="#sermon5">
         <body>
-            <head>Pembroke 25 Sermo 6 (fols. 11v–13v)</head><p>             <pb facs="#11v" n="11v"/>   
+            <head>Pembroke 25 Sermo 6 (fols. 11v–13v)</head><p>             <pb facs="#Elevenv" n="11v"/>   
 <lb n="26"/>ITEM ALIA . 
 <lb n="27"/>IN illo tempore . Exiit edictum a cesare agusto ut discri
                 
-<lb n="28"/>beretur uniuersus orbis . Haec discriptio prima facta <pb facs="#12r" n="12r"/>
+<lb n="28"/>beretur uniuersus orbis . Haec discriptio prima facta <pb facs="#Twelver" n="12r"/>
 <lb n="1"/> est ;
                 a preside syrie cirino . et ibant omnes ut profiterentur 
 <lb n="2"/>singuli in suam
@@ -102,7 +104,7 @@
 <lb n="27"/>ille
                 ueniebat in carne . qui electos 
 <lb n="28"/>suos adscriberet in aeternitate 
-<pb facs="#12v" n="12v"/><lb n="1"/> quo contra de reprobis per prophetam dicitur ; deleantur de 
+<pb facs="#Twelvev" n="12v"/><lb n="1"/> quo contra de reprobis per prophetam dicitur ; deleantur de 
 <lb n="2"/>libro
                 uiuentium . et cum iustis non scribantur . Qui bene 
 <lb n="3"/>etiam in bethleem nascitur
@@ -150,7 +152,7 @@
 <lb n="26"/>Diuina super eos gratia largius coruscat . Regem 
 <lb n="27"/>uero natum
                 angelus nuntiat . eiusque 
-<lb n="28"/>uoci angelorum chori concinunt <pb facs="#13r" n="13r"/>
+<lb n="28"/>uoci angelorum chori concinunt <pb facs="#Thirteenr" n="13r"/>
 <lb n="1"/> et
                 congaudentes clamant . Gloria in excelsis deo . et in terra pax 
 <lb n="2"/>hominibus bone
@@ -202,7 +204,7 @@
                 
 <lb n="27"/>dignitatem nostram . nulla nos luxuria inquinet . nulla 
 <lb n="28"/>turpis cogitatio
-                accuset . non malitia mentem mordeat . <pb facs="#13v" n="13v"/>
+                accuset . non malitia mentem mordeat . <pb facs="#Thirteenv" n="13v"/>
 <lb n="1"/> non inuidie rubigo
                 consumat . non elatio implet . non 
 <lb n="2"/>ambitio per terrena oblectamenta dilaniet .

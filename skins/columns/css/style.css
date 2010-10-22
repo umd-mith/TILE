@@ -312,6 +312,7 @@ a.btnIconLarge:hover {
 /*HelpBox styles ---------------- */
 .helpbox {
 	position:absolute;
+	width:450px;
 	z-index:9999;
 	background:yellow;
 }
