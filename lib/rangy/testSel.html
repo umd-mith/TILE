@@ -15,20 +15,25 @@
 <!--// Main Code //-->
 <script type="text/javascript" language="javascript" src="getPath.js"></script>
 <script type="text/javascript" language="javascript" src="textSelection.js"></script>
+<script type="text/javascript" language="javascript" src="floatingDiv.js"></script>
 <!--// jQuery DOM ready //-->
 <script type="text/javascript" language="javascript"> 
 $(document).ready(function() {
  
-		var savedSelection=[1,2,3];
+		//var savedSelection=[1,2,3];
 		var textsel = new TextSelector();
+		var floatingDiv = new FloatingDiv();
+		
 		
 		$('input#highlight').bind('click', function(e) {
 			
 			sel = textsel.getSelectedText();
-			//console.log(sel);
 			textsel.addSelection(sel);
+			
+			floatingDiv.init('labelDiv');
+			floatingDiv.createDialog(sel);
+			floatingDiv.addAutoComplete(sel);
 
-			// savedSelection = rangy.saveRestore.saveSelection();
 		});
 	
 		$('input#restore').bind('click', function(e) {
