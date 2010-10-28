@@ -1014,9 +1014,11 @@ a.btnIconLarge:hover {
 }
 /** SELECTION BOUNDING BOX STYLE **/
 /**selBB**/
-/TODO: make into a CSS style rather than JQUERY style
+/**TODO: make into a CSS style rather than JQUERY style**/
 #selBB{
 	border: 3px black solid,
 }
-
+.shpButtonHolder {
+	z-index:9999;
+}
 

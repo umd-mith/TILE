@@ -59,7 +59,10 @@
 		//adding AR from autorecognizer_plugin.js
 		(function($,trans,ar,it,lb,ts){
 			// set verbose mode either true (on) or false (off)
-			__v=true;
+			__v=false;
+			// automatically set to true if in localhost
+			if(/^http:\/\/localhost:8888/.test(document.URL)) __v=true;
+		
 			// security test
 			var reg=/.js|javascript:|.php|.JS|.PHP/;
 			if((reg.test(it))||(reg.test(ar))) die("Error");
