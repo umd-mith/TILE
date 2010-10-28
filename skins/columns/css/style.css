@@ -1018,7 +1018,7 @@ a.btnIconLarge:hover {
 #selBB{
 	border: 3px black solid,
 }
-.shpButtonHolder {
-	z-index:9999;
+.shpButtonHolder{
+	position:absolute;
+	z-index:100000;
 }
-

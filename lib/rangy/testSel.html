@@ -49,7 +49,6 @@ $(document).ready(function() {
 	
 		$('input#restore').bind('click', function(e) {
 			var lookFor = $('span[class^="anno_"]');
-			console.log(lookFor.length);
 			
 			if(lookFor.length == 0) { // don't restore if there are already highlights
 				textsel.importSelections(textsel._selections);
