@@ -1,0 +1,24 @@
+/* OVERWRITE jQuery UI theme */
+.ui-dialog { font-size: 0.8em; }
+.ui-dialog .ui-widget { background: none !important; }
+.ui-dialog .ui-widget-header { background:#D5DB97 !important; }
+.ui-dialog .ui-dialog-content { background:left repeat url("images/bkgd.green.png") #D5DB97 !important; }
+.
+/* STYLE Add Label Dialog */
+form#labelDiv_floatingDiv { background-color: #FFF; }
+form#labelDiv_floatingDiv fieldset.label_formFieldSet { background-color: #FFF !important; }
+form#labelDiv_floatingDiv .label_formOL { list-style:none; margin: 0; padding: 0;}
+form#labelDiv_floatingDiv .label_formLI { line-height: 1.2em; padding-bottom: 5px; }
+form#labelDiv_floatingDiv .label_formLabel { display: inline-block; width: 50px; text-transform: uppercase; font-size: 0.8em; }
+form#labelDiv_floatingDiv  input.submit {
+	display: block;
+	float: right;
+	width: 50px;
+	border: 1px solid #000;
+	background-color:#6C6F4C;
+	color:#FFF;
+	font-size: 0.9em;
+	font-weight: bold;
+	padding: 2px;
+	margin: 5px;
+}
