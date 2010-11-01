@@ -311,11 +311,16 @@ a.btnIconLarge:hover {
 }
 
 /*HelpBox styles ---------------- */
+.helpbox.text {
+	background:#F8ECCE;
+	border:1px solid #CCBB93;
+	padding:10px;
+	font-size:85%;
+}
 .helpbox {
 	position:absolute;
 	width:450px;
 	z-index:9999;
-	background:yellow;
 }
 .helpIcon {
 	text-indent:-9999px;
