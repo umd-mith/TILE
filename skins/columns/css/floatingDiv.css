@@ -2,7 +2,7 @@
 .ui-dialog { font-size: 0.8em; }
 .ui-dialog .ui-widget { background: none !important; }
 .ui-dialog .ui-widget-header { background:#D5DB97 !important; }
-.ui-dialog .ui-dialog-content { background:left repeat url("images/bkgd.green.png") #D5DB97 !important; }
+.ui-dialog .ui-dialog-content { background:left repeat url("../images/bkgd.green.png") #D5DB97 !important; }
 .
 /* STYLE Add Label Dialog */
 form#labelDiv_floatingDiv { background-color: #FFF; }
