@@ -49,6 +49,7 @@ q:before,q:after {
 }
 abbr,acronym { border:0;
 }
+div a { overflow: hidden; } /* makes negative text indent outline show up only around "a" link */
 
 /* General styles ------------------- */
 body {
@@ -344,6 +345,26 @@ a.btnIconLarge:hover {
 	/* border:1px solid #fff;
 	line-height:15px;*/
 }
+.toolbar li a#getHLite {
+	text-indent:-9999px;
+}
+.toolbar li a#getHLite.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -380px -21px;
+}
+.toolbar li a:hover#getHLite.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -380px -0px;
+}
+.toolbar li a#getHLite.btnIconLarge.inactive, .toolbar li a:hover#getHLite.btnIconLarge.inactive {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -378px -65px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#getHLite.btnIconLarge.active, .toolbar li a:hover#getHLite.btnIconLarge.active {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -378px -42px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+
 .toolbar li a#pointer.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -21px;
 }
