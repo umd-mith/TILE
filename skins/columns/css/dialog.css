@@ -73,19 +73,6 @@
 .dialog .header h2 a:hover.close.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -211px -0px;
 }
-/* .dialog .header h2 a.button {
-	float:right;
-	display:block;
-	top:0;
-	padding:1px 7px;
-	background:#e7dab9;
-	border:1px solid #ccbb93;
-} 
-.dialog .header h2 a.button:hover {
-	background:#F6ECD4;
-	border:1px solid #fff;
-	color:#14253d;
-}*/
 .dialog .body h3 {
 	font-weight:bold;
 	margin-bottom:10px;
