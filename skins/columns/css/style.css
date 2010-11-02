@@ -276,6 +276,9 @@ a.btnIconLarge:hover {
 	background:#FDFDEC url('../images/bkgd_btn-active.jpg') repeat-x;
 	border-bottom:1px solid #ccbb93;
 }
+.button.shape {
+	float:left;
+}
 .menuitem {
 	margin-right:10px;
 	display:inline;
@@ -1047,4 +1050,5 @@ a.btnIconLarge:hover {
 .shpButtonHolder{
 	position:absolute;
 	z-index:100000;
+	padding:5px;
 }
