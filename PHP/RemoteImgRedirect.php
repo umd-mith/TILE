@@ -37,7 +37,7 @@ function imgRedirect($file){
 		case "image/png":
 			$img=imagecreatefrompng($file);
 			header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-			header("Content-Type: image/png; filename=\"tmp.png\"");
+			header("Content-Type: image/png");
 			
 			imagepng($img,null,4);
 			break;
@@ -71,7 +71,7 @@ function imgRedirect($file){
 		case "image/gif":
 			$img=imagecreatefromgif($file);
 			header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-			header("Content-Type: image/gif; filename=\"tmp.gif\"");
+			header("Content-Type: image/gif");
 			imagegif($img,null,4);
 			break;
 		default:
