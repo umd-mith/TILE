@@ -279,6 +279,10 @@ a.btnIconLarge:hover {
 .button.shape {
 	float:left;
 }
+.button.shape.delete{
+	float:right;
+	margin-left:10px;
+}
 .menuitem {
 	margin-right:10px;
 	display:inline;
