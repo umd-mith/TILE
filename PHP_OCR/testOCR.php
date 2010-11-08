@@ -1,17 +1,11 @@
 <?php 
 include "imageOCR.php";
-
 $iocr = new imageOCR();
-$iocr->LoadImg("../Images/ham.jpg");
+$dims = array("top"=>220,"bottom"=>800,"right"=>1450,"left"=>300);
+$iocr->LoadImg("../Images/ham.jpg",4000000,$dims);
 header('Content-type: image/jpeg');
 $iocr->change_color($image);
 $iocr->showImage();
 
-/*
-$rgb = imagecolorat($im, 10, 15);
 
-$colors = imagecolorsforindex($im, $rgb);
-
-var_dump($colors);
-*/
 ?>

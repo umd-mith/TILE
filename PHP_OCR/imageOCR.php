@@ -68,13 +68,18 @@ class imageOCR{
 		$this->width=null;
 		$this->height=null;
 	}
-	public function LoadImg($imgname){
+	public function LoadImg($imgname,$thresh,$region){
 		 //get image dimensions
-		 
+		$this->threshold = $thresh; 
+		$this->top=$region["top"];
+		$this->left=$region["left"];
+		$this->right=$region["right"];
+		$this->bottom=$region["bottom"];
 		$info=getimagesize($imgname);
 		$this->mime=$info['mime'];
 		$this->width=$info[0];
 		$this->height=$info[1];
+		
 		//calculate necessary memory
 		/*
 $required_mem=Round($this->width*$this->height*$info['bits'])+100000;
