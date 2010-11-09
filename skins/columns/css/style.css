@@ -1049,7 +1049,7 @@ a.btnIconLarge:hover {
 /**selBB**/
 /**TODO: make into a CSS style rather than JQUERY style**/
 #selBB{
-	border: 3px black solid,
+	border: 3px dotted #afbf37;
 }
 .shpButtonHolder{
 	position:absolute;
