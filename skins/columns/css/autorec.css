@@ -35,7 +35,7 @@ display: none;
 .lineBox{
 	position:absolute;
 	background-color:transparent;
-	border: 1px solid green;
+	border: 1px solid #33FF00;
 
 }
 .lineBoxSelect{
@@ -49,8 +49,8 @@ display: none;
 }
 #content #transcript{
 	overflow:auto;
-	border:#CCBB93 2px solid;
-	height:80px;
+	border:#CCBB93 1px solid;
+	height:200px;
 	width:90%;
 }
 #content #transcript div {
@@ -58,9 +58,10 @@ display: none;
 	padding:.5em;
 }
 #content #transcript div:hover {
-	border:#000000 1px dotted;
+	border:#afbf37 1px dotted;
+	background-color: #d5db97;
 }
-#content #transcript .trLine.recLine.selected{
-	background:purple;
-	color:yellow;
+#content #transcript .selected{
+	background:#baca42;
+	color:#14253d;
 }

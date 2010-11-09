@@ -5,66 +5,76 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>TILE: Text-Image Linking Environment</title>
+	
+	<link rel="stylesheet" href="skins/columns/css/floatingDiv.css" type="text/css" media="screen, projection" charset="utf-8">
 	<link rel="stylesheet" href="skins/columns/css/style.css" type="text/css" media="screen, projection" charset="utf-8">
 	<link rel="stylesheet" href="skins/columns/css/dialog.css" type="text/css" media="screen, projection" charset="utf-8">
-	<link rel="stylesheet" href="lib/jquery/css/smoothness/jquery-ui-1.7.2.custom.css" type="text/css" media="screen, projection" charset="utf-8">
+	<link rel="stylesheet" href="lib/jquery/jquery-ui-1.8.5.custom/css/ui-lightness/jquery-ui-1.8.5.custom.css" type="text/css" media="screen, projection" charset="utf-8">
 <link rel="stylesheet" href="skins/columns/css/autorec.css" type="text/css" media="screen, projection" charset="utf-8">
-	<link rel="shortcut icon" href="skins/columns/images/favicon.ico" />
 
-	<script src="lib/jquery/js/jquery-1.3.2.min.js" type="text/javascript"></script>
-	<script src="lib/jquery/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+	<link rel="shortcut icon" href="skins/columns/images/favicon.ico" />
+	
+	<script type="text/javascript" language="javascript" src="lib/jquery/jquery-ui-1.8.5.custom/js/jquery-1.4.2.min.js"></script>
+	
+	<script type="text/javascript" language="javascript" src="lib/jquery/jquery-ui-1.8.5.custom/js/jquery-ui-1.8.5.custom.min.js"></script>
+	
+	<script type="text/javascript" language="javascript" src="lib/jquery/jquery-ui-1.8.5.custom/development-bundle/ui/jquery.ui.mouse.js"></script>
+	
 	<script src="lib/jquery/js/jquery.pngFix.pack.js" type="text/javascript"></script>
+	<script type="text/javascript" src="lib/jquery/jquery.xmlns.js"></script>
 	<script src="lib/raphael.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" language="javascript" src="lib/rangy/plugins/rangy.googleCode/rangy.js"></script>
 	<!-- <script type="text/javascript" src="nospacebar.js"></script> -->
-	<script type="text/javascript" src="lib/jquery/development-bundle/ui/ui.core.js"></script>
- 	<script type="text/javascript" src="lib/jquery/development-bundle/ui/ui.slider.js"></script>
 	<script type="text/javascript" src="lib/Extensible/Monomyth.js"></script>
-	<script type="text/javascript" src="lib/_Interface/base.js"></script>
-	<script type="text/javascript" src="lib/_Interface/tile_logbar.js"></script> 
+	<script type="text/javascript" src="lib/jquery/js/underscore.js"></script> 
+		<!-- underscore.js is required for VectorDrawer -->
+	<script type="text/javascript" src="lib/VectorDrawer_1.0/VectorDrawer.js"></script>
+	<script type="text/javascript" src="lib/_Interface/tile1.0.js"></script> 
 	<script type="text/javascript" src="lib/_Interface/image_tagger.js"></script> 
+	<script type="text/javascript" src="lib/_Interface/Transcript.js"></script> 
 	<script type="text/javascript" src="lib/_Interface/savingProgress_1.0.js"></script>
+	<script type="text/javascript" src="lib/_Interface/Labels.js"></script>
 	<link rel="stylesheet" href="lib/jquery/colorpicker/css/colorpicker.css" type="text/css" />
 	<link rel="stylesheet" href="lib/jquery/colorpicker/css/layout.css" type="text/css" />
 	<script type="text/javascript" src="lib/jquery/colorpicker/js/colorpicker.js"></script>
     <script type="text/javascript" src="lib/jquery/colorpicker/js/eye.js"></script>
     <script type="text/javascript" src="lib/jquery/colorpicker/js/utils.js"></script>
-	<script type="text/javascript" src="lib/jquery/js/underscore.js"></script> 
-		<!-- underscore.js is required for VectorDrawer -->
-	<script type="text/javascript" src="lib/VectorDrawer_1.0/DrawableCanvas.js"></script> 
-	<script type="text/javascript">
-		$('#customWidget').ColorPicker({
-			onSubmit: function(hsb, hex, rgb, el) {
-				$(el).val(hex);
-				$(el).ColorPickerHide();
-			},
-			onBeforeShow: function () {
-				$(this).ColorPickerSetColor(this.value);
-			}
-		})
-		.bind('keyup', function(){
-			$(this).ColorPickerSetColor(this.value);
-		});
-		
-	</script>
-
-    
+	<script type="text/javascript" src="lib/rangy/getPath.js"></script>
+	<script type="text/javascript" src="lib/rangy/textSelection.js"></script>
 	<!-- Auto Recognizer -->
 	<script type="text/javascript" src="lib/_Interface/autorecognizer_plugin.js"></script>
-	<style>
-		.vd-container{
-			z-index:1032;
-		}
-	</style>
+
 </head>
 
 <body>
+	<div class="az header"><div class="az logo"><img src="skins/columns/images/tile.gif" alt="TILE: Text-Image Linking Environment" /></div>
+	<div id="azglobalmenu" class="az globalmenu"><p><a id="restartall" href="" title="Discard all changes and start over">Restart</a> | <a id="tilehelp" title="Go to the TILE documentation page" href="http://mith.umd.edu/tile/documentation">Help</a></p></div>
+	</div>
+	<!-- Submit Form for save progress-->
+	<form id="inv_SaveProgress_Form" class="submitFormHidden" method="POST" action="PHP/forceJSON.php">
+		<input id="uploadData" name="uploadData" class="submitFormHidden" type="text"/>
+	</form>
+	<!-- -->
+	<div class="az main twocol">
+		<div id="az_log" class="az log"><div class="az inner"><div id="transcript_toolbar" class="toolbar"><div class="menuitem"><ul><li><a id="load_tags" href="" class="button" title="Load a saved session">Load</a></li></ul></div><div class="menuitem"><ul><li><a id="save_tags" href="" class="button" title="Save the current session">Save</a></li></ul></div><div class="menuitem"><ul><li><a id="exp_xml" href="" class="button" title="Export the current session back into the source XML file">Export XML</a></li></ul></div><div id="ddown"><!--><div class="menuitem ddown"><p>Tools:</p><select class="menu_body"></select></div><--></div></div><div id="logbar_list" class="az"></div></div></div>
+		<div id="az_activeBox" class="az activeBox"></div>
+		<div id="azcontentarea" class="az content"></div>
 	<script>
 		//adding AR from autorecognizer_plugin.js
-		(function($,ar,it){
+		(function($,trans,it,lb,ts){
+			// set verbose mode either true (on) or false (off)
+			__v=false;
+			// automatically set to true if in localhost
+			if(/^http:\/\/localhost:8888/.test(document.URL)) __v=true;
+		
+			// security test
+			var reg=/.js|javascript:|.php|.JS|.PHP/;
+			// if((reg.test(it))||(reg.test(ar))) die("Error");
+			
 			$(function(){
-				var engine=new TILE_ENGINE({toolSet:[it,ar]});
+				var engine=new TILE_ENGINE({toolSet:[it,trans,lb,ts],defaultTool:lb});
 			});
-		})(jQuery,AR,IT);
+		})(jQuery,Trans,IT,LB,TS);
 	</script>
 	
 </body>

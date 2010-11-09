@@ -49,6 +49,7 @@ q:before,q:after {
 }
 abbr,acronym { border:0;
 }
+div a { overflow: hidden; } /* makes negative text indent outline show up only around "a" link */
 
 /* General styles ------------------- */
 body {
@@ -100,6 +101,10 @@ a:hover {
 #srcImageForCanvas {
 	display:block;
 }
+.submitFormHidden {
+	display:none;
+}
+
 
 /* Clearfix styles--------- */
 .clear {
@@ -152,7 +157,53 @@ a:hover {
 	right:auto;
 	opacity:1;
 	z-index:3;
-	min-width:430px;
+	min-width:445px;
+	height:50%;
+}
+.log.max {
+	right:auto;
+	opacity:1;
+	z-index:3;
+	min-width:445px;
+	height:90%;
+}
+.activeBox{
+	width:40%;
+	top:50%;
+	min-width:445px;
+	right:auto;
+	opacity:1;
+	z-index:3;
+	min-width:445px;
+}
+/**added to create 'minimize' effect**/
+.activeBox.closed{
+	width:40%;
+	top:90%;
+	min-width:445px;
+	right:auto;
+	opacity:1;
+	z-index:3;
+	min-width:445px;
+	overflow:hidden;
+}
+.activeBox.closed ul {
+	overflow:hidden;
+}
+#activeBox_min {
+	margin:2px;
+}
+#activeBox_min.btnIconLarge, #minInfo.btnIconLarge {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -338px -21px;
+}
+#activeBox_min.btnIconLarge:hover, #minInfo.btnIconLarge:hover {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -338px -0px;
+}
+.activeBox.closed #activeBox_min.btnIconLarge, .infoItem.closed #minInfo.btnIconLarge {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -359px -21px;
+}
+.activeBox.closed #activeBox_min.btnIconLarge:hover, .infoItem.closed #minInfo.btnIconLarge:hover {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -359px -0px;
 }
 .tool {
 	right:auto;
@@ -194,7 +245,14 @@ a.btnIconLarge:hover {
 }
 .workspace{
 	position:absolute;
+	overflow:auto;
 }
+.vd-container{
+	z-index:1032;
+}
+/**specific to the content area**/
+
+
 /* Dropdown and menu styles --------------- */
 .button {
 	padding:2px 7px;
@@ -204,6 +262,12 @@ a.btnIconLarge:hover {
 	cursor:pointer;	
 	width:auto;
 }
+.button.inactive, .button.inactive:hover {
+	color:#c7c3b5;
+	border:1px solid #FDFDEC;
+	background:#e7dab9 url('../images/bkgd_btn.jpg') repeat-x;
+	cursor:default;
+}
 .button:hover {
 	background:#FDFDEC url('../images/bkgd_btn-hover.jpg') repeat-x;
 	border-bottom:1px solid #ccbb93;
@@ -212,8 +276,15 @@ a.btnIconLarge:hover {
 	background:#FDFDEC url('../images/bkgd_btn-active.jpg') repeat-x;
 	border-bottom:1px solid #ccbb93;
 }
+.button.shape {
+	float:left;
+}
+.button.shape.delete{
+	float:right;
+	margin-left:10px;
+}
 .menuitem {
-	margin-right:3px;
+	margin-right:10px;
 	display:inline;
 	float:left;
 	position:relative;
@@ -246,9 +317,32 @@ a.btnIconLarge:hover {
 	background-color:#FDFDEC;
 }
 
+/*HelpBox styles ---------------- */
+.helpbox.text {
+	background:#F8ECCE;
+	border:1px solid #CCBB93;
+	padding:10px;
+	font-size:85%;
+}
+.helpbox {
+	position:absolute;
+	width:450px;
+	z-index:9999;
+}
+.helpIcon {
+	text-indent:-9999px;
+	display:inline-block;
+	background:url(../images/help.gif) no-repeat 0 0;
+	height:21px;
+	width:21px;
+}
+.helpIcon:hover {
+	background:url(../images/help.gif) no-repeat 0 -21px;
+}
+
 /* Toolbar styles --------------- */
 .toolbar {
-	height:1.5em;
+	height:25px;
 	background:#f8ecce;
 	border:1px solid #fff;
 	padding:10px;
@@ -263,6 +357,26 @@ a.btnIconLarge:hover {
 	/* border:1px solid #fff;
 	line-height:15px;*/
 }
+.toolbar li a#getHLite {
+	text-indent:-9999px;
+}
+.toolbar li a#getHLite.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -380px -21px;
+}
+.toolbar li a:hover#getHLite.btnIconLarge{
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -380px -0px;
+}
+.toolbar li a#getHLite.btnIconLarge.inactive, .toolbar li a:hover#getHLite.btnIconLarge.inactive {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -378px -65px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#getHLite.btnIconLarge.active, .toolbar li a:hover#getHLite.btnIconLarge.active {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -378px -42px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+
 .toolbar li a#pointer.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -21px;
 }
@@ -344,11 +458,21 @@ a.btnIconLarge:hover {
 .toolbar li a:hover#zoomIn.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -127px 0px;
 }
+.toolbar li a#zoomIn.btnIconLarge.inactive, .toolbar li a:hover#zoomIn.btnIconLarge.inactive {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -127px -65px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
 .toolbar li a#zoomOut.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -148px -21px;
 }
 .toolbar li a:hover#zoomOut.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -148px 0px;
+}
+.toolbar li a#zoomOut.btnIconLarge.inactive, .toolbar li a:hover#zoomOut.btnIconLarge.inactive {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -148px -65px;
+	border:1px solid #FDFDEC;
+	cursor:default;
 }
 .toolbar li span.listView {
 	padding-left:20px;
@@ -495,6 +619,21 @@ a.btnIconLarge:hover {
 	padding:4px;
 	background:#eaedc6; */
 }
+.log #logbar_list {
+	overflow-y:auto;
+	margin-top:47px;
+}
+.log #logbar_list div {
+	padding:1px 10px;
+}
+.log #logbar_list .trans_line_hover{
+	background-color: #d5db97;
+}
+.log #logbar_list .line_selected{
+	background-color: #baca42;
+}
+
+/**added by Grant Dickie **/
 .log #logbar_list .tag:hover {
 	border:3px solid #afbf37;
 	padding:4px;
@@ -503,6 +642,51 @@ a.btnIconLarge:hover {
 	border:3px dotted #afbf37;
 	padding:4px;
 }
+/* activeBox styles ------------------- */
+.activeBox .infoItem {
+	overflow-y:auto;
+	height:100%
+}
+.activeBox .infoItem li {
+	padding:2px 10px 2px 10px;
+}
+.activeBox .infoItem li:first-child {
+	padding-top:10px;
+}
+.activeBox .infoItem .infoItem {
+	padding:5px;
+	margin:10px;
+	border:1px solid #afbf37;
+	background:#f0f2d2;
+}
+.activeBox .infoItem .infoItem.closed {
+	padding:5px;
+	margin:10px;
+	border:1px solid #afbf37;
+	background:#f0f2d2;
+	overflow:hidden;
+	height:20px;
+}
+/* LabelBar Styles -------------- */
+.az #labelList {
+	padding:0;
+	margin-top:47px;
+}
+.az #labelList .labelItem  {
+	padding:0.5em;
+	margin-top:2px;
+}
+.az #labelList .labelItem:hover {
+	padding:0.5em;
+	margin-top:2px;
+	background-color:#f0f2d2;
+}
+.az #labelList .labelItem.active {
+	padding:0.5em;
+	margin-top:2px;
+	background-color:#afbf37;
+}
+/* tag styles ------------------- */
 .log .tag .tagname {
 	/* width:70%; 
 	float:left; */
@@ -690,14 +874,14 @@ a.btnIconLarge:hover {
 /* Tool styles ------------------- */
 .tool .inner #content {
 	padding:10px;
+	overflow:auto;
+	margin-top:47px;
 }
 .tool .toolbar .menuitem {
 	float:right;
 	margin-right:0;
 }
-/* auto recognizer styles */
-.tool .autorec_toolbar {
-}
+/* auto recognizer styles ----- */
 .tool .autorec_toolbar #colorSection #backgroundimage {
 	margin:10px 0;
 	color:#fff;
@@ -753,6 +937,11 @@ a.btnIconLarge:hover {
 	font-style:italic;
 	font-weight:bold;
 }
+.tool .autorec_toolbar #content .textlink {
+	margin-right:5px;
+	margin-left:5px;
+	cursor:pointer;
+}
 
 /* Content and Content clone styles ------------------- */
 .content .inner, .contentclone .inner {
@@ -761,20 +950,20 @@ a.btnIconLarge:hover {
 	position:relative;
 	top:3px;
 }
-.content .textImageList {
-}
 .content .textImageList .list {
 	float:left; 
 	width:30%;
-	background:#FDFDEC;
+	background:#F0F2D2;
 	border-right:1px dashed #AFBF37;
-	height:100%;
-	padding:10px 0;
+	margin-top:47px;
 }
 .content .textImageList .list ul {
-	list-style-type: disc;
-	margin-left:20px;
-	padding:5px;
+	list-style: none;
+	margin-left:10px;
+	padding:5px 0;
+}
+.content .textImageList .list ul li {
+	padding:2px 0;
 }
 .content .textImageList .image {
 	padding:10px;
@@ -858,7 +1047,12 @@ a.btnIconLarge:hover {
 }
 /** SELECTION BOUNDING BOX STYLE **/
 /**selBB**/
-/TODO: make into a CSS style rather than JQUERY style
+/**TODO: make into a CSS style rather than JQUERY style**/
 #selBB{
-	border: 3px black solid,
+	border: 3px dotted #afbf37;
+}
+.shpButtonHolder{
+	position:absolute;
+	z-index:100000;
+	padding:5px;
 }

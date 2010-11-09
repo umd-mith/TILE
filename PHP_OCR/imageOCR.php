@@ -1,7 +1,7 @@
 <?php
 ini_set("memory_limit","64M");
 class imageOCR{
-	private $image;
+	public $image;
 	private $threshold=4000000;
 	private $top=220;
 	private $left=300;
@@ -68,13 +68,18 @@ class imageOCR{
 		$this->width=null;
 		$this->height=null;
 	}
-	public function LoadImg($imgname){
+	public function LoadImg($imgname,$thresh,$region){
 		 //get image dimensions
-		 
+		$this->threshold = $thresh; 
+		$this->top=$region["top"];
+		$this->left=$region["left"];
+		$this->right=$region["right"];
+		$this->bottom=$region["bottom"];
 		$info=getimagesize($imgname);
 		$this->mime=$info['mime'];
 		$this->width=$info[0];
 		$this->height=$info[1];
+		
 		//calculate necessary memory
 		/*
 $required_mem=Round($this->width*$this->height*$info['bits'])+100000;

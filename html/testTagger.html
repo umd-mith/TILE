@@ -30,6 +30,11 @@
 				//making a json wrapper to load into the IT start function
 				var URL_LIST=[{"title":"MSS","uri":"../Images/mss.jpg"}];
 				IT.start('enterprise',"http://localhost:8888/TILE/trunk/",{"images":URL_LIST});
+				$("#done").click(function(e){
+					e.preventDefault();
+					IT.close();
+				});
+				
 				
 			}
 		</script>
@@ -41,7 +46,7 @@
 				
 		
 		</div>
-	
+		<div id="datadisplay"><a id="done">DISPLAY DATA -- CLICK HERE</a></div>
 	
 	</body>
 </html>

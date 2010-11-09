@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="..//tei_all.rng" type="xml"?>
+<?xml-stylesheet type="text/css" href="tei-11-08-08.css"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader></teiHeader>
+	<facsimile>
+        <surface xml:id="ham-1611-22277x-bod-c01-image001"><desc>Image 001</desc><graphic url="ham-1611-22277-bod-001.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image002"><desc>Image 002</desc><graphic url="ham-1611-22277-bod-002.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image003"><desc>Image 003</desc><graphic url="ham-1611-22277-bod-003.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image004"><desc>Image 004</desc><graphic url="ham-1611-22277-bod-004.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image005"><desc>Image 005</desc><graphic url="ham-1611-22277-bod-005.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image006"><desc>Image 006</desc><graphic url="ham-1611-22277-bod-006.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image007"><desc>Image 007</desc><graphic url="ham-1611-22277-bod-007.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image008"><desc>Image 008</desc><graphic url="ham-1611-22277-bod-008.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image009"><desc>Image 009</desc><graphic url="ham-1611-22277-bod-009.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image010"><desc>Image 010</desc><graphic url="ham-1611-22277-bod-010.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image011"><desc>Image 011</desc><graphic url="ham-1611-22277-bod-011.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image012"><desc>Image 012</desc><graphic url="ham-1611-22277-bod-012.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image013"><desc>Image 013</desc><graphic url="ham-1611-22277-bod-013.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image014"><desc>Image 014</desc><graphic url="ham-1611-22277-bod-014.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image015"><desc>Image 015</desc><graphic url="ham-1611-22277-bod-015.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image016"><desc>Image 016</desc><graphic url="ham-1611-22277-bod-016.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image017"><desc>Image 017</desc><graphic url="ham-1611-22277-bod-c01-017.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image018"><desc>Image 018</desc><graphic url="ham-1611-22277-bod-c01-018.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image019"><desc>Image 019</desc><graphic url="ham-1611-22277x-bod-c01-019.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image020"><desc>Image 020</desc><graphic url="ham-1611-22277x-bod-c01-020.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image021"><desc>Image 021</desc><graphic url="ham-1611-22277x-bod-c01-021.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image022"><desc>Image 022</desc><graphic url="ham-1611-22277x-bod-c01-022.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image023"><desc>Image 023</desc><graphic url="ham-1611-22277x-bod-c01-023.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image024"><desc>Image 024</desc><graphic url="ham-1611-22277x-bod-c01-024.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image025"><desc>Image 025</desc><graphic url="ham-1611-22277x-bod-c01-025.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image026"><desc>Image 026</desc><graphic url="ham-1611-22277x-bod-c01-026.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image027"><desc>Image 027</desc><graphic url="ham-1611-22277x-bod-c01-027.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image028"><desc>Image 028</desc><graphic url="ham-1611-22277x-bod-c01-028.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image029"><desc>Image 029</desc><graphic url="ham-1611-22277x-bod-c01-029.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image030"><desc>Image 030</desc><graphic url="ham-1611-22277x-bod-c01-030.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image031"><desc>Image 031</desc><graphic url="ham-1611-22277x-bod-c01-031.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image032"><desc>Image 032</desc><graphic url="ham-1611-22277x-bod-c01-032.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image033"><desc>Image 033</desc><graphic url="ham-1611-22277x-bod-c01-033.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image034"><desc>Image 034</desc><graphic url="ham-1611-22277x-bod-c01-034.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image035"><desc>Image 035</desc><graphic url="ham-1611-22277x-bod-c01-035.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image036"><desc>Image 036</desc><graphic url="ham-1611-22277x-bod-c01-036.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image037"><desc>Image 037</desc><graphic url="ham-1611-22277x-bod-c01-037.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image038"><desc>Image 038</desc><graphic url="ham-1611-22277x-bod-c01-038.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image039"><desc>Image 039</desc><graphic url="ham-1611-22277x-bod-c01-039.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image040"><desc>Image 040</desc><graphic url="ham-1611-22277x-bod-c01-040.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image041"><desc>Image 041</desc><graphic url="ham-1611-22277x-bod-c01-041.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image042"><desc>Image 042</desc><graphic url="ham-1611-22277x-bod-c01-042.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image043"><desc>Image 043</desc><graphic url="ham-1611-22277x-bod-c01-043.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image044"><desc>Image 044</desc><graphic url="ham-1611-22277x-bod-c01-044.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image045"><desc>Image 045</desc><graphic url="ham-1611-22277x-bod-c01-045.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image046"><desc>Image 046</desc><graphic url="ham-1611-22277x-bod-c01-046.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image047"><desc>Image 047</desc><graphic url="ham-1611-22277x-bod-c01-047.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image048"><desc>Image 048</desc><graphic url="ham-1611-22277x-bod-c01-048.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image049"><desc>Image 049</desc><graphic url="ham-1611-22277x-bod-c01-049.jpg"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image050"><desc>Image 050</desc><graphic url="ham-1611-22277x-bod-c01-050.jpg"/></surface>
+    </facsimile>
+	<text xml:id="ham-1611-22277x-bod-c01.xml-223">
+	    <front xml:id="ham-1611-22277x-bod-c01.xml-224">
+	      <div1 type="addition" xml:id="ham-1611-22277x-bod-c01.xml-225">
+	        <pb facs="#ham-1611-22277x-bod-c01-image001" xml:id="ham-1611-22277x-bod-c01-001"/>
+	        <pb facs="#ham-1611-22277x-bod-c01-image002" xml:id="ham-1611-22277x-bod-c01-002a"/>
+	        <pb facs="#ham-1611-22277x-bod-c01-image002" xml:id="ham-1611-22277x-bod-c01-002b"/>
+	        <pb facs="#ham-1611-22277x-bod-c01-image003" xml:id="ham-1611-22277x-bod-c01-003a"/>
+	        <p xml:id="ham-1611-22277x-bod-c01.xml-226">
+	          <add place="textBlock" type="note" hand="#aa" resp="#fol" xml:id="ham-1611-22277x-bod-c01.xml-227">Malone.Add.              <lb xml:id="ham-1611-22277x-bod-c01.xml-228"/>866.</add>
+	        </p>
+	        <p xml:id="ham-1611-22277x-bod-c01.xml-229">
+	          <add place="textBlock" type="figure" hand="#ab" resp="#fol" xml:id="ham-1611-22277x-bod-c01.xml-230">
+	            <figure xml:id="ham-1611-22277x-bod-c01.xml-231">
+	              <figDesc xml:id="ham-1611-22277x-bod-c01.xml-232">Circle.</figDesc>
+	            </figure>
+	          </add>
+	          <add place="textBlock" type="figure" hand="#aa" resp="#fol" xml:id="ham-1611-22277x-bod-c01.xml-233">
+	            <figure xml:id="ham-1611-22277x-bod-c01.xml-234">
+	              <figDesc xml:id="ham-1611-22277x-bod-c01.xml-235">Circle.</figDesc>
+	            </figure>
+	          </add>
+	        </p>
+	        <p xml:id="ham-1611-22277x-bod-c01.xml-236">
+	          <add place="textBlock" type="note" hand="#ab" resp="#fol" xml:id="ham-1611-22277x-bod-c01.xml-237">Arch. G.e. 13</add>
+	        </p>
+	        <pb facs="#ham-1611-22277x-bod-c01-image003" xml:id="ham-1611-22277x-bod-c01-003b"/>
+	        <pb facs="#ham-1611-22277x-bod-c01-image004" xml:id="ham-1611-22277x-bod-c01-004a"/>
+	        <pb facs="#ham-1611-22277x-bod-c01-image004" xml:id="ham-1611-22277x-bod-c01-004b"/>
+	        <pb facs="#ham-1611-22277x-bod-c01-image005" xml:id="ham-1611-22277x-bod-c01-005a"/>
+	        <pb facs="#ham-1611-22277x-bod-c01-image005" xml:id="ham-1611-22277x-bod-c01-005b"/>
+	        <pb facs="#ham-1611-22277x-bod-c01-image006" xml:id="ham-1611-22277x-bod-c01-006a"/>
+	        <pb facs="#ham-1611-22277x-bod-c01-image006" xml:id="ham-1611-22277x-bod-c01-006b"/>
+	        <pb facs="#ham-1611-22277x-bod-c01-image007" xml:id="ham-1611-22277x-bod-c01-007a"/>
+	      </div1>
+	      <titlePage xml:id="ham-1611-22277x-bod-c01.xml-238">
+	        <pb facs="#ham-1611-22277x-bod-c01-image007" xml:id="ham-1611-22277x-bod-c01-007b"/>
+	        <docTitle xml:id="ham-1611-22277x-bod-c01.xml-239">
+	          <titlePart type="main" xml:id="ham-1611-22277x-bod-c01.xml-240"><add hand="#ae" place="inline" type="unclear" resp="#fol" xml:id="ham-1611-22277x-bod-c01.xml-241">5470</add><lb/>THE  <lb xml:id="ham-1611-22277x-bod-c01.xml-242"/>TRAGEDY  <lb xml:id="ham-1611-22277x-bod-c01.xml-243"/>OF      <lb xml:id="ham-1611-22277x-bod-c01.xml-244"/><name type="character" ref="#ham" xml:id="ham-1611-22277x-bod-c01.xml-245">HAMLET</name><lb xml:id="ham-1611-22277x-bod-c01.xml-246"/>Prince of Denmarke.</titlePart>
+	        </docTitle>
+	        <byline xml:id="ham-1611-22277x-bod-c01.xml-247">BY  <lb xml:id="ham-1611-22277x-bod-c01.xml-248"/><docAuthor xml:id="ham-1611-22277x-bod-c01.xml-249">WILLIAM SHAKESPEARE</docAuthor>.</byline>
+	        <docEdition xml:id="ham-1611-22277x-bod-c01.xml-250">Newly imprinted and enlarged to almost as much  <lb xml:id="ham-1611-22277x-bod-c01.xml-251"/>againe as it was, according to the true  <lb xml:id="ham-1611-22277x-bod-c01.xml-252"/>and perfect Coppy.</docEdition>
+	        <figure xml:id="ham-1611-22277x-bod-c01.xml-253">
+	          <figDesc xml:id="ham-1611-22277x-bod-c01.xml-254">Printer's mark depicting a bird and the motto “NON ALTVM PETO IS”.</figDesc>
+	        </figure>
+	        <docImprint xml:id="ham-1611-22277x-bod-c01.xml-255">AT LONDON,  <lb xml:id="ham-1611-22277x-bod-c01.xml-256"/>Printed for <hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-257">Iohn Smethwicke</hi>, and are to be sold at his shoppe  <lb xml:id="ham-1611-22277x-bod-c01.xml-258"/>in Saint <hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-259">Dunstons</hi> Church yeard in Fleetstreet.  <lb xml:id="ham-1611-22277x-bod-c01.xml-260"/>Vnder the Diall. <docDate xml:id="ham-1611-22277x-bod-c01.xml-261">1611</docDate>.</docImprint>
+	      </titlePage>
+	    </front>
+	    <body xml:id="ham-1611-22277x-bod-c01.xml-262">
+	      <pb facs="#ham-1611-22277x-bod-c01-image008" xml:id="ham-1611-22277x-bod-c01-008a"/>
+	      <pb facs="#ham-1611-22277x-bod-c01-image008" xml:id="ham-1611-22277x-bod-c01-008b"/>
+	      <div1 type="act" n="1" xml:id="ham-1611-22277x-bod-c01.xml-263">
+	        <div2 type="scene" n="1" xml:id="ham-1611-22277x-bod-c01.xml-264">
+	          <head xml:id="ham-1611-22277x-bod-c01.xml-265"><milestone unit="unspecified" rend="decorativeBorder" xml:id="ham-1611-22277x-bod-c01.xml-266"/><lb/>The Tragedie of  <lb xml:id="ham-1611-22277x-bod-c01.xml-267"/><name type="character" ref="#ham" xml:id="ham-1611-22277x-bod-c01.xml-268">HAMLET</name><lb xml:id="ham-1611-22277x-bod-c01.xml-269"/><hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-270">Prince of Denmarke.</hi></head>
+	          <lb/><stage rend="italic, centred" type="entrance" xml:id="ham-1611-22277x-bod-c01.xml-271">Enter <name type="character" ref="#bar" xml:id="ham-1611-22277x-bod-c01.xml-272">Bernardo</name>, and <name type="character" ref="#fra" xml:id="ham-1611-22277x-bod-c01.xml-273">Fran<gap reason="illegible" agent="unclear" extent="1" resp="#fol" unit="chars" xml:id="ham-1611-22277x-bod-c01.xml-274"/>isco</name>, two Centinels.</stage>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-275">
+	          <lb/>  <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-276">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-277"><c rend="droppedCapital" xml:id="ham-1611-22277x-bod-c01.xml-278">VV</c>Hose there?</l>
+	          </sp>
+	          <sp who="#fra" xml:id="ham-1611-22277x-bod-c01.xml-279">
+	          <lb/>  <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-280">Fran.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-281">Nay answer me. Stand and vnfold your selfe.</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-282">
+	         <lb/>   <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-283">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-284">Long liue the King.</l>
+	          </sp>
+	          <sp who="#fra" xml:id="ham-1611-22277x-bod-c01.xml-285">
+	         <lb/>   <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-286">Fran.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-287"><name type="character" ref="#bar" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-288">Barnardo</name>.</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-289">
+	         <lb/>   <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-290">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-291">Hee.</l>
+	          </sp>
+	          <sp who="#fra" xml:id="ham-1611-22277x-bod-c01.xml-292">
+	         <lb/>   <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-293">Fran.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-294">You come most carefully vpon your houre,</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-295">
+	          <lb/>  <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-296">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-297">Tis now strooke twelue, get thee to bed <name type="character" ref="#fra" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-298">Francisco</name>.</l>
+	          </sp>
+	          <sp who="#fra" xml:id="ham-1611-22277x-bod-c01.xml-299">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-300">Fran.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-301">For this reliefe much thanks, tis bitter cold,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-302">And I am sick at heart.</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-303">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-304">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-305">Haue you had quiet guard?</l>
+	          </sp>
+	          <sp who="#fra" xml:id="ham-1611-22277x-bod-c01.xml-306">
+	          <lb/>  <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-307">Fran.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-308">Not a Mouse stirring.</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-309">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-310">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-311">Well, good night:</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-312">If you doe meete <name type="character" ref="#hor" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-313">Horatio</name> and <name type="character" ref="#mar" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-314">Marcellus</name>,</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-315">The riuals of my watch, bid them make hast.</l>
+	          </sp>
+	          <stage rend="italic, centred" type="entrance" xml:id="ham-1611-22277x-bod-c01.xml-316">Enter <name type="character" ref="#hor" xml:id="ham-1611-22277x-bod-c01.xml-317">Horatio</name> and <name type="character" ref="#mar" xml:id="ham-1611-22277x-bod-c01.xml-318">Mar<gap reason="illegible" agent="unclear" extent="1" resp="#fol" unit="chars" xml:id="ham-1611-22277x-bod-c01.xml-319"/>ellus</name>.</stage>
+	          <sp who="#fra" xml:id="ham-1611-22277x-bod-c01.xml-320">
+	          <lb/>  <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-321">Fran.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-322">I thinke I heare them, stand ho, who is there?</l>
+	          </sp>
+	          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-323">
+	       <lb/>     <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-324">Hora.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-325">Friends to this ground.</l>
+	          </sp>
+	          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-326">
+	            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-327">Mar.</speaker>
+	        <lb/>    <l xml:id="ham-1611-22277x-bod-c01.xml-328">And Leegemen to the Dane,</l>
+	          </sp>
+	          <sp who="#fra" xml:id="ham-1611-22277x-bod-c01.xml-329">
+	       <lb/>     <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-330">Fran.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-331">Giue you good night.</l>
+	          </sp>
+	          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-332">
+	        <lb/>    <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-333">Mar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-334">O, farewell honest souldiers, who hath relieu'd you?</l>
+	          </sp>
+	          <sp who="#fra" xml:id="ham-1611-22277x-bod-c01.xml-335">
+	          <lb/>  <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-336">Fran.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-337"><name type="character" ref="#bar" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-338">Bernardo</name> hath my place; giue you good night.<stage rend="italic, inline" type="exit" xml:id="ham-1611-22277x-bod-c01.xml-339">Exit <name type="character" ref="#fra" xml:id="ham-1611-22277x-bod-c01.xml-340">Fran</name>.</stage></l>
+	          </sp>
+	         <lb/> <fw type="signature" place="foot-centre" xml:id="ham-1611-22277x-bod-c01.xml-341">B</fw>
+	        <fw type="catchword" place="foot-right" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-342">Mar.</fw>
+	          <pb facs="#ham-1611-22277x-bod-c01-image009" xml:id="ham-1611-22277x-bod-c01-009a"/>
+	          <lb/><fw type="runningHeader" place="top-centre" xml:id="ham-1611-22277x-bod-c01.xml-343"><hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-344">The Tragedy of</hi> Hamlet</fw>
+	          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-345">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-346">Mar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-347">Holla, <name type="character" ref="#bar" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-348">Barnardo</name>,</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-349">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-350">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-351">Say what is <name type="character" ref="#hor" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-352">Horatio</name> there?</l>
+	          </sp>
+	          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-353">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-354">Hora.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-355">A peece of him,</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-356">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-357">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-358">Welcome <name type="character" ref="#hor" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-359">Horatio</name>, welcome good <name type="character" ref="#mar" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-360">Marcellus</name>,</l>
+	          </sp>
+	          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-361">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-362">Hora.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-363">What ha's this thing appeard againe to night?</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-364">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-365">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-366">I haue seene nothing.</l>
+	          </sp>
+	          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-367">
+	          <lb/>  <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-368">Mar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-369"><name type="character" ref="#hor" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-370">Horatio</name> sayes tis but a fanta<gap reason="illegible" agent="inkBlot" extent="2" resp="#fol" unit="chars" xml:id="ham-1611-22277x-bod-c01.xml-371"/>e,</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-372">And will not let beleefe take hold of him,</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-373">Touching this dreaded sight twice seene of vs,</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-374">Therefore I haue intreated him along,</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-375">With vs to watch the minuts of this night,</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-376">That if againe this apparition come,</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-377">Hee may <c rend="inverted" xml:id="ham-1611-22277x-bod-c01.xml-378">,</c>approue our eyes and speake to it.</l>
+	          </sp>
+	          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-379">
+	          <lb/>  <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-380">Hora.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-381">Tush, tush, twill not appeare.</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-382">
+	          <lb/>  <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-383">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-384">Sit downe awhile,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-385">And let vs once againe assaile your eares,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-386">That are so fortified against our story,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-387">What wee haue two nights seene.</l>
+	          </sp>
+	          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-388">
+	          <lb/>  <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-389">Hora.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-390">Well sit wee downe,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-391">And let vs heare <name type="character" ref="#bar" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-392">Barnardo</name> speake of this.</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-393">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-394">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-395">Last night of all,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-396">When yond same starre thats westward from the pole;</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-397">Had made his course t'illume that part of heauen</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-398">Where now it burnes, <name type="character" ref="#mar" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-399">Marcellus</name> and my selfe</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-400">The Bell then beating one.</l>
+	          </sp>
+	          <stage rend="italic, centred" type="entrance" xml:id="ham-1611-22277x-bod-c01.xml-401">Enter Ghost.</stage>
+	          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-402">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-403">Mar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-404">Peace, breake thee off looke where it comes a­  <lb rend="turnover" xml:id="ham-1611-22277x-bod-c01.xml-405"/><c rend="turnover" xml:id="ham-1611-22277x-bod-c01.xml-406">(</c>gaine,</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-407">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-408">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-409">In the same figure like the King thats dead<c rend="inverted" xml:id="ham-1611-22277x-bod-c01.xml-410">.</c></l>
+	          </sp>
+	          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-411">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-412">Mar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-413">Thou art a Scholler speake to it <name type="character" ref="#hor" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-414">Horatio</name>.</l>
+	          </sp>
+	          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-415">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-416">Hora.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-417">Most like, it horrowes me with feare &amp; wonder.</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-418">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-419">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-420">It would be spoke to.</l>
+	          </sp>
+	          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-421">
+	         <lb/>   <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-422">Mar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-423">Speake to it <name type="character" ref="#hor" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-424">Horatio</name>.</l>
+	          </sp>
+	          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-425">
+	          <lb/>  <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-426">Hora.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-427">What art thou that vsurpst this time of night,</l>
+	        <lb/>    <l xml:id="ham-1611-22277x-bod-c01.xml-428">Together with that faire and warlike forme,</l>
+	         <lb/>   <l xml:id="ham-1611-22277x-bod-c01.xml-429">In which the Maiesty of buried Denmarke</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-430">Did sometimes march: by heauen I charge the speake.</l>
+	          </sp>
+	          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-431">
+	         <lb/>   <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-432">Mar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-433">It is offended.</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-434">
+	         <lb/>   <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-435">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-436">See it staukes away.</l>
+	          </sp>
+	         <lb/> <fw type="catchword" place="foot-right" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-437">.Hora</fw>
+	          <pb facs="#ham-1611-22277x-bod-c01-image009" xml:id="ham-1611-22277x-bod-c01-009b"/>
+	         <lb/> <fw type="runningHeader" place="top-centre" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-438">Prince of Denmarke.</fw>
+	          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-439">
+	         <lb/>   <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-440">Hora.</speaker>
+	           <l xml:id="ham-1611-22277x-bod-c01.xml-441">Stay, speake, speake I charge thee speake.<stage rend="italic, inline" type="exit" xml:id="ham-1611-22277x-bod-c01.xml-442">Exit Ghost.</stage></l>
+	          </sp>
+	          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-443">
+	         <lb/>   <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-444">Ma.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-445">Tis gone and will not answere.</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-446">
+	         <lb/>   <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-447">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-448">How now <name type="character" ref="#hor" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-449">Horatio</name>, you tremble and looke pale,</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-450">Is not this something more then phantasie?</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-451">What thinke you of it?</l>
+	          </sp>
+	          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-452">
+	         <lb/>   <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-453">Hora.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-454">Before my God I might not this beleeue,</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-455">Without the sencible and true auouch</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-456">Of mine owne eyes.</l>
+	          </sp>
+	          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-457">
+	          <lb/>  <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-458">Mar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-459">Isit not like the King?</l>
+	          </sp>
+	          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-460">
+	         <lb/>   <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-461">Hora.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-462">As thou art to thy selfe:</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-463">Such was the very Armor hee had on,</l>
+	         <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-464">When hee the ambitious <name type="character" ref="#nor" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-465">Norway</name> combated,</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-466">So frownde hee once when in an angry parle</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-467">Hee smote the sleaded pollax on the ice.</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-468">Tis strange.</l>
+	          </sp>
+	          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-469">
+	         <lb/>   <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-470">Mar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-471">Thus twice before and iump at this dead houre,</l>
+	         <lb/>   <l xml:id="ham-1611-22277x-bod-c01.xml-472">With Martiall stauke hath hee gone by our watch.</l>
+	          </sp>
+	          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-473">
+	          <lb/>  <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-474">Hora.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-475">In what perticular thought, to worke I know not,</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-476">But in the grosse and scope of mine opinion,</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-477">This bodes some strange eruption to our state.</l>
+	          </sp>
+	          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-478">
+	            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-479">Mar.</speaker>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-480">Good now sit downe, and tell me hee that knowes,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-481">Why this same strict and most obseruant watch</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-482">So nightly toyles the subiect of the land,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-483">And with such dayly cost of brazen Cannon</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-484">And forraine marte for implements of warre,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-485">Why such impresse of ship‐wrights, whose sore taske</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-486">Does not deuide the Sunday from the weeke,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-487">What might bee toward, that this sweaty hast</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-488">Doth make the night ioynt labourer with the day,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-489">Who ist that can informe mee?</l>
+	          </sp>
+	          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-490">
+	            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-491">Hora.</speaker>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-492">That can I.</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-493">At least the whisper goes so, our last King,</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-494">Whose image euen but now appea'd to vs,</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-495">Was as you know by <name type="character" ref="#ofo" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-496">Fortinbrasse</name> of <hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-497">Norway</hi>,</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-498">Thereto prickt on by a most emulate pride</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-499">Dar'd to the combate; in which our valiant <name type="character" ref="#oha" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-500">Hamlet</name>,</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-501">(For so this side of our knowne world esteemd him)</l>
+	           <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-502">Did slay this <name type="character" ref="#ofo" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-503">Fortinbrasle</name>, who by a seald compact</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-504">Well ratified by law and Heraldry</l>
+	           <lb/> <fw type="signature" place="foot-centre" xml:id="ham-1611-22277x-bod-c01.xml-505">B2</fw>
+	           <lb/> <fw type="catchword" place="foot-right" xml:id="ham-1611-22277x-bod-c01.xml-506">Did</fw>
+	            <pb facs="#ham-1611-22277x-bod-c01-image010" xml:id="ham-1611-22277x-bod-c01-010a"/>
+	          <lb/>  <fw type="runningHeader" place="top-centre" xml:id="ham-1611-22277x-bod-c01.xml-507"><hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-508">The Tragedy of</hi> Hamlet</fw>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-509">Did forfait (with his life) all these his lands</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-510">Which hee stood seaz'd of, to the co<c rend="inverted" xml:id="ham-1611-22277x-bod-c01.xml-511">n</c>querour.</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-512">Against the which a moity competent</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-513">Was gaged by our King, which had returne</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-514">To the inheritance of <name type="character" ref="#ofo" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-515">Fortinbrasse</name>,</l>
+	          <lb/>  <l xml:id="ham-1611-22277x-bod-c01.xml-516">Had hee beene vanquisher; as by the same comart,</l>
+	          <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-517">And carriage of the articles deseigne,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-518">His fell to <name type="character" ref="#oha" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-519">Hamlet</name>; now Sir, young <name type="character" ref="#for" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-520">Fortinbrasse</name></l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-521">Of vnimprooued mettle, hot and full,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-522">Hath in the skirts of <hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-523">Norway</hi> heere and there</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-524">Sharkt vp a list of lawlesse resolutes</l>
+	           <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-525">For food and diet to some enterprise</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-526">That hath a stomake in't, which no other</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-527">As it doth well appeare vnto our state</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-528">But to recouer of vs by strong hand</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-529">And tearmes compulsatory, those foresaid lands</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-530">So by his father lost; and this I take it,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-531">Is the maine motiue of our preparations</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-532">The source of this our watch, and the cheefe head</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-533">Of this post‐hast and romeage in the land.</l>
+	          </sp>
+	          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-534">
+	           <lb/> <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-535">Bar.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-536">I thinke it be no other but euen so;</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-537">Well may it sort that this portentous figure</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-538">Comes armed through our watch so like the King</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-539">That was and is the question of these warres.</l>
+	          </sp>
+	          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-540">
+	            <lb/><speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-541">Hora.</speaker>
+	            <l xml:id="ham-1611-22277x-bod-c01.xml-542">A moth it is to trouble the mindes eye:</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-543">In the most high and palmy state of Rome,</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-544">A little ere the mightiest <hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-545">Iulius</hi> fell</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-546">The graues stood tennantlesse, and the sheeted dead</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-547">Did squeake and gibber in the Romane streets</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-548">As starres with traines of fire, and dewes of bloud</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-549">Disasters in the Sunne; and the moist starre,</l>
+	           <lb/> <l xml:id="ham-1611-22277x-bod-c01.xml-550">Vpon whose influence <hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-551">Neptunes</hi> Empie<gap reason="illegible" agent="partiallyInkedType" extent="1" resp="#fol" unit="chars" xml:id="ham-1611-22277x-bod-c01.xml-552"/> stands,</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-553">Was sick almost to doomesday with eclipse.</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-554">And euen the like precurse of fearce euents</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-555">As harbingers preceading still the fates</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-556">And prologue to the <hi rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-557">Omen</hi> comming on</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-558">Haue heauen and earth together demonstrated</l>
+	            <lb/><l xml:id="ham-1611-22277x-bod-c01.xml-559">Vnto our Climatures and contrimen.</l>
+	            <stage rend="italic, centred" type="entrance" xml:id="ham-1611-22277x-bod-c01.xml-560">Enter Ghost.</stage>
+	            <fw type="catchword" place="foot-right" xml:id="ham-1611-22277x-bod-c01.xml-561">But</fw>
+	            <pb facs="#ham-1611-22277x-bod-c01-image010" xml:id="ham-1611-22277x-bod-c01-010b"/>
+				
+				<fw type="runningHeader" place="top-centre" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-562">Prince of Denmarke.</fw>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-563">But soft, behold, lo where it comes againe</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-564">Ile crosse it though it blast mee: stay illusion,<stage rend="italic, inline" type="business" xml:id="ham-1611-22277x-bod-c01.xml-565">It spreads  <lb xml:id="ham-1611-22277x-bod-c01.xml-566"/>his armes.</stage></l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-567">If thou hast any sound or vse of voice,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-568">Speake to mee, if there be any good thing to bee done</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-569">That may to thee doe ease and grace to mee,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-570">Speake to mee.</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-571">If thou art priuy to thy contryes fate</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-572">Which happily foreknowing may auoyd,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-573">O speake:</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-574">Or if thou hast vphoorded in thy life</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-575">Extorted treasure in the wombe of earth,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-576">For which they say your spirits oft walke in death.<stage rend="italic, inline" type="business" xml:id="ham-1611-22277x-bod-c01.xml-577">The Cocke  <lb xml:id="ham-1611-22277x-bod-c01.xml-578"/>crowes.</stage></l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-579">Speake of it, stay and speake, stop it <name type="character" ref="#mar" rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-580">Marcellus</name>.</l>
+		          </sp>
+		          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-581">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-582">Mar.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-583">Shall I strike it with my partizan?</l>
+		          </sp>
+		          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-584">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-585">Hor.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-586">Doe if it will not stand.</l>
+		          </sp>
+		          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-587">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-588">Bar.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-589">Tis heere.</l>
+		          </sp>
+		          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-590">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-591">Hor.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-592">Tis heere.</l>
+		          </sp>
+		          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-593">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-594">Mar.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-595">Tis gone,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-596">We doe it wrong being so Maiesticall</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-597">To offer it the showe of violence,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-598">For it is as the ayre, invulnerable,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-599">And our vaine blowes malicious mockery.</l>
+		          </sp>
+		          <sp who="#bar" xml:id="ham-1611-22277x-bod-c01.xml-600">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-601">Bar.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-602">It was about to speake when the cock crew:</l>
+		          </sp>
+		          <sp who="#hor" xml:id="ham-1611-22277x-bod-c01.xml-603">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-604">Hor.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-605">And then it started like a guilty thing,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-606">Vpon a fearefull summons; I haue heard,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-607">The Cock that is the trumpet to the morne,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-608">Doth with his lofty and shrill so<gap reason="illegible" agent="inkBlot" extent="1" resp="#fol" unit="chars" xml:id="ham-1611-22277x-bod-c01.xml-609"/>nding throate</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-610">Awake the God of day, and at his warning</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-611">Whether in fea or fire, in earth or ayre,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-612">Th'extrauagant and erring spirit hyes</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-613">To his confine, and of the truth heerein</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-614">This present obiect made probation.</l>
+		          </sp>
+		          <sp who="#mar" xml:id="ham-1611-22277x-bod-c01.xml-615">
+		            <speaker rend="italic" xml:id="ham-1611-22277x-bod-c01.xml-616">Mar.</speaker>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-617">It faded on the crowing of the Cock.</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-618">Some say that euer gainst that season comes,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-619">Wherein our Sauiours birth is celebrated</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-620">This bird of dawning singeth all night long,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-621">And then they say no spirit dare sturre abroade</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-622">The nights are wholsome, then no plannets strike,</l>
+		            <l xml:id="ham-1611-22277x-bod-c01.xml-623">No fairy takes, nor witch hath power to charme</l>
+		            <fw type="signature" place="foot-centre" xml:id="ham-1611-22277x-bod-c01.xml-624">B3</fw>
+		            <fw type="catchword" place="foot-right" xml:id="ham-1611-22277x-bod-c01.xml-625">So</fw>
+</sp>	</div2></div1></body></text>
+</TEI>
