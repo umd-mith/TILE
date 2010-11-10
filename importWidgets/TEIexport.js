@@ -24,7 +24,8 @@ function exportToTEI(JSON_str){
 			for (var i=0;i<JSONobj["pages"].length;i++){
 				
 			 	var page = JSONobj["pages"][i];
-				 var fac = page["info"]["facs"];
+				if(!page) continue;
+				 var fac = (page["info"])?page["info"]["facs"]:"undefined";
 				 var surface = f.find("surface[xml|id='"+fac+"']");
 				 for (var j=0;j<page["lines"].length;j++){
 				 	var ln = page["lines"][j];
@@ -66,6 +67,9 @@ function exportToTEI(JSON_str){
 			} 
 			// Export out the finished string through a trigger
 			$("body:first").trigger("exportStrDone",[str]);
+		},
+		failure:function(e){
+			if(__v) console.log("Error parsing XML "+e);
 		}
 	});	
 }
