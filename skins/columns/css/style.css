@@ -146,6 +146,10 @@ a:hover {
 	text-align:right;
 	width:300px;
 }
+.version {
+	font-style:italic;
+	font-size:85%;
+}
 /* Main area styles ------------------- */
 .main {
 	top:75px;
