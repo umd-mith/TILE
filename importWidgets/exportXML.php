@@ -38,7 +38,7 @@ if(isset($_POST["JSON"])){
 	// output to the user in a force download
 	// Set headers
 	header("Content-Disposition: attachment; filename=".$filename);
-	header('Content-Type: text/plain');
+	header('Content-Type: text/xml');
 	header('Content-Transfer-Encoding: binary');
 	echo $mine;
 }
