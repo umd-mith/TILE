@@ -48,7 +48,7 @@
 
 <body>
 	<div class="az header"><div class="az logo"><img src="skins/columns/images/tile.gif" alt="TILE: Text-Image Linking Environment" /></div>
-	<div id="azglobalmenu" class="az globalmenu"><p><a id="restartall" href="" title="Discard all changes and start over">Restart</a> | <a id="tilehelp" title="Go to the TILE documentation page" href="http://mith.umd.edu/tile/documentation">Help</a> | <span class="version">version 0.52</span></p></div>
+	<div id="azglobalmenu" class="az globalmenu"><p><a id="restartall" href="" title="Discard all changes and start over">Restart</a> | <a id="tilehelp" title="Go to the TILE documentation page" href="http://mith.umd.edu/tile/documentation">Help</a> | <span class="version">version 0.521</span></p></div>
 	</div>
 	<!-- Submit Form for save progress-->
 	<form id="inv_SaveProgress_Form" class="submitFormHidden" method="POST" action="PHP/forceJSON.php">
@@ -56,7 +56,7 @@
 	</form>
 	<!-- -->
 	<div class="az main twocol">
-		<div id="az_log" class="az log"><div class="az inner"><div id="transcript_toolbar" class="toolbar"><div class="menuitem"><ul><li><a id="load_tags" href="" class="button" title="Load a saved session">Load</a></li></ul></div><div class="menuitem"><ul><li><a id="save_tags" href="" class="button" title="Save the current session">Save</a></li></ul></div><div class="menuitem"><ul><li><a id="exp_xml" href="" class="button" title="Export the current session back into the source XML file">Export XML</a></li></ul></div><div id="ddown"><div class="menuitem ddown"><p>Tools:</p><select class="menu_body"></select></div></div></div><div id="logbar_list" class="az"></div></div></div>
+		<div id="az_log" class="az log"><div class="az inner"><div id="transcript_toolbar" class="toolbar"><div class="menuitem"><ul><li><a id="load_tags" href="" class="button" title="Load a saved session">Load</a></li></ul></div><div class="menuitem"><ul><li><a id="save_tags" href="" class="button" title="Save the current session">Save</a></li></ul></div><div class="menuitem"><ul><li><a id="exp_xml" href="" class="button" title="Export the current session back into the source XML file">Export XML</a></li></ul></div><div id="ddown"><!--><div class="menuitem ddown"><p>Tools:</p><select class="menu_body"></select></div><--></div></div><div id="logbar_list" class="az"></div></div></div>
 		<div id="az_activeBox" class="az activeBox"></div>
 		<div id="azcontentarea" class="az content"></div>
 	<script>
@@ -72,7 +72,7 @@
 			// if((reg.test(it))||(reg.test(ar))) die("Error");
 			
 			$(function(){
-				var engine=new TILE_ENGINE({toolSet:[it,trans,lb,ts,ar],defaultTool:lb});
+				var engine=new TILE_ENGINE({toolSet:[it,trans,lb,ts],defaultTool:lb});
 			});
 		})(jQuery,Trans,IT,LB,TS,AR);
 	</script>
