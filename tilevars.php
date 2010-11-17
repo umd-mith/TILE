@@ -19,7 +19,8 @@ if(preg_match('/\.php$|\.js$/',$m)==0){
 	\"exportDefault\":\"".$prefix."importWidgets\/TEIexport.js\",
 	\"pemLoad\":\"".$prefix."importWidgets\/importXML.php?uri=".$prefix."importWidgets\/testPemb.xml&rname=text&rnum=0&ipath=http:\/\/www.stoa.org\/Pembroke25\/Website-tv\/IMT\/\",
 	\"jsLoad\":\"http:\/\/peach.umd.edu\/staff\/jdickie\/swinburne.json\",
-	\"locJS\":\"".$prefix."html\/hooptydamndoo.js\"
+	\"locJS\":\"".$prefix."html\/hooptydamndoo.js\",
+	\"swineburne\":\"".$prefix."html\/swineburneJSON.json\"
 	}";
 	
 	

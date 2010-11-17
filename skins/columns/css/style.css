@@ -885,6 +885,12 @@ a.btnIconLarge:hover {
 	float:right;
 	margin-right:0;
 }
+/* ------ form styles --------- */
+.dialog .body input.form_Choice{
+	width:25px;
+	margin-right:5p;
+}
+
 /* auto recognizer styles ----- */
 .tool .autorec_toolbar #colorSection #backgroundimage {
 	margin:10px 0;
