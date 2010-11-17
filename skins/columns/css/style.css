@@ -672,20 +672,25 @@ a.btnIconLarge:hover {
 	height:20px;
 }
 /* LabelBar Styles -------------- */
-.az #labelList {
+.az #labelList, #labelList {
 	padding:0;
 	margin-top:47px;
 }
-.az #labelList .labelItem  {
-	padding:0.5em;
-	margin-top:2px;
+#labelList {
+	margin-top:0;
+	border:1px solid #e0d1ac;
+	background-color:#FFFAEF;
+	overflow:auto;
 }
-.az #labelList .labelItem:hover {
+.az #labelList .labelItem, #labelList .labelItem {
 	padding:0.5em;
-	margin-top:2px;
+	border-bottom: 1px solid #f0f2d2;
+}
+.az #labelList .labelItem:hover, #labelList .labelItem:hover {
+	padding:0.5em;
 	background-color:#f0f2d2;
 }
-.az #labelList .labelItem.active {
+.az #labelList .labelItem.active, #labelList .labelItem.active {
 	padding:0.5em;
 	margin-top:2px;
 	background-color:#afbf37;
