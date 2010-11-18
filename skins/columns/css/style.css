@@ -1071,3 +1071,10 @@ a.btnIconLarge:hover {
 	z-index:100000;
 	padding:5px;
 }
+/**** Highlight Selection Style ****/
+#az_log #az_transcript_area.az.inner #logbar_list .line span:hover {
+	border-bottom: 0.5px solid #afbd37;
+}
+#az_log #az_transcript_area.az.inner #logbar_list .line span.selected {
+	border: 0.5px dashed #afbf37;
+} 
