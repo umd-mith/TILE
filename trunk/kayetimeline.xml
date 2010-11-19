@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kayeEvents>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>1</ID>
+<EventType>kayeEvent</EventType>
+<Person>Danny</Person>
+<DisplayLabel>Danny Kaye born</DisplayLabel>
+<Description>David Daniel Kaminsky (Danny Kaye) is born in Brooklyn, New York. He is the first native-born American and the youngest of three sons born to Clara and Jacob Kaminski, both of whom were originally from the Ukraine.</Description>
+<StartDate>1913-01-18 00:00:00.0</StartDate>
+<IsDuration>No</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>2</ID>
+<EventType>kayeEvent</EventType>
+<Person>Sylvia</Person>
+<DisplayLabel>Sylvia Fine born</DisplayLabel>
+<Description>Sylvia Fine is born in Brooklyn, New York. She is one of three children born to Bessie and Dr. Samuel Fine, a dentist, who coincidently employed twelve-year-old David Daniel Kaminski (Danny Kaye) for a short period.</Description>
+<StartDate>1913-08-29 00:00:00.0</StartDate>
+<IsDuration>No</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>3</ID>
+<EventType>kayeEvent</EventType>
+<Person>Sylvia</Person>
+<DisplayLabel>Sylvia Fine begins piano lessons.</DisplayLabel>
+<Description>Sylvia Fine is reported to have discovered the piano at age 3 and taken to it immediately. She began piano lessons at age 6.</Description>
+<StartDate>1919-01-01 00:00:00.0</StartDate>
+<IsDuration>No</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>9</ID>
+<EventType>kayeEvent</EventType>
+<Person>Danny</Person>
+<DisplayLabel>Kaye work's for Sylvia Fine's father at his dentist office.</DisplayLabel>
+<Description>Sylvia Fine remembered meeting Danny for the first time when he worked for her father, a dentist.</Description>
+<StartDate>1925-06-01 00:00:00.0</StartDate>
+<IsDuration>Yes</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>4</ID>
+<EventType>kayeEvent</EventType>
+<Person>Danny</Person>
+<DisplayLabel>Danny Kaye performs in "Red and Blackie".</DisplayLabel>
+<Description>Kaye and his friend Louis Eisen begin performing in a minstrel show they call 'Red and Blackie'.</Description>
+<StartDate>1927-01-01 00:00:00.0</StartDate>
+<IsDuration>No</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>5</ID>
+<EventType>kayeEvent</EventType>
+<Person>Sylvia</Person>
+<DisplayLabel>Fine begins studying music at Hunter College.</DisplayLabel>
+<Description>Fine, an excellent student, graduates from Thomas Jefferson High School at the age of fifteen. She enrolls in Hunter College (later known as Brooklyn College) to study music. Although she had a fear of performing in front of large audiences, she developed an interest in writing and composing.</Description>
+<StartDate>1928-01-01 00:00:00.0</StartDate>
+<IsDuration>No</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>6</ID>
+<EventType>kayeEvent</EventType>
+<Person>Danny</Person>
+<DisplayLabel>Kaye begins "tummling" at White Roe Lake House.</DisplayLabel>
+<Description>Kaye drops out of high school and continues to perform with his partner Lou as "Red and Blackie". After seeing the two boys perform, Nat Lichtman invites them to work for the summer at a resort hotel called White Roe Lake House in the Catskill Mountains in New York. Over several summers he works his way up to headlining with comedian Fishel Goldfarb. It is at White Roe that David Daniel Daminski adopts the name "Danny Kaye"</Description>
+<StartDate>1929-01-01 00:00:00.0</StartDate>
+<IsDuration>Yes</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>7</ID>
+<EventType>kayeEvent</EventType>
+<Person>Danny</Person>
+<DisplayLabel>Kaye tours the vaudeville circuit.</DisplayLabel>
+<Description>Throughout 1933, Kaye toured the vaudeville circuit with Kathleen Young and Dave Mack as part of a dancing act known as "The Three Terpsichoreans".</Description>
+<StartDate>1933-01-01 00:00:00.0</StartDate>
+<IsDuration>No</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>8</ID>
+<EventType>kayeEvent</EventType>
+<Person>Danny</Person>
+<DisplayLabel>Kaye tours with La Vie Paree.</DisplayLabel>
+<Description>In 1933 Producer A.B. Marcus saw the group and signed the act for a tour of the revue La Vie Paree. They performed for five months in the United States before going to the Far East where they performed in Tokyo, Osaka, Shanghai, Hong Kong, the Philippines, Siam, and Malaysia.</Description>
+<StartDate>1934-02-01 00:00:00.0</StartDate>
+<IsDuration>Yes</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>10</ID>
+<EventType>kayeEvent</EventType>
+<Person>Danny</Person>
+<DisplayLabel>Kaye films Moon Over Manhattan.</DisplayLabel>
+<Description>Danny Kaye made his film debut in Moon Over Manhattan, a short musical comedy, in 1935.</Description>
+<StartDate>1935-01-01 00:00:00.0</StartDate>
+<IsDuration>No</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>11</ID>
+<EventType>kayeEvent</EventType>
+<Person>Danny</Person>
+<DisplayLabel>Kaye performs at Casa Manana.</DisplayLabel>
+<Description>Danny Kaye performed as the "stooge" for Nick Long at the famous NYC night club, the Cafe Manana.</Description>
+<StartDate>1936-01-01 00:00:00.0</StartDate>
+<IsDuration>No</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>12</ID>
+<EventType>kayeEvent</EventType>
+<Person>Danny</Person>
+<DisplayLabel>Kaye performs in film Dime a Dance with Imogene Coca.</DisplayLabel>
+<Description>Insert info about Dime a Dance.</Description>
+<StartDate>1937-01-01 00:00:00.0</StartDate>
+<IsDuration>No</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>13</ID>
+<EventType>kayeEvent</EventType>
+<Person>Danny</Person>
+<DisplayLabel>Kaye signs film deal with Educational Pictures.</DisplayLabel>
+<Description>Kaye is signed to make two-reel comedies by Educational Pictures. Filmed in Astoria, New York, Kaye performs in Cupid Takes a Holiday, Money or Your Life, and Getting an Eyeful.</Description>
+<StartDate>1937-01-01 00:00:00.0</StartDate>
+<IsDuration>No</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>14</ID>
+<EventType>kayeEvent</EventType>
+<Person>Danny</Person>
+<DisplayLabel>Kaye performs at Dorchester Hotel .</DisplayLabel>
+<Description>In 1938 Kaye traveled to London to appear in a seven-week booking at the nightclub of the Dorchester Hotel with Nick Long, billed as Nick Long &amp; Co. The appearance is not successful and Kaye is sent home after three weeks.</Description>
+<StartDate>1938-01-01 00:00:00.0</StartDate>
+<IsDuration>No</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>15</ID>
+<EventType>kayeEvent</EventType>
+<Person>Danny</Person>
+<DisplayLabel>Kaye performs at annual Kiwanis benefit at the Paramount Theatre.</DisplayLabel>
+<Description>The New York Times reports on February 28 that Kaye will be among the entertainers for the fourteenth annual Kiwanis benefit at the Paramount Theatre, which Arthur Hammerstein and Sam Harris will co-produce.</Description>
+<StartDate>1939-02-28 00:00:00.0</StartDate>
+<IsDuration>No</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+<row xmlns:xspdoc="http://apache.org/cocoon/XSPDoc/v1" xmlns:esql="http://apache.org/cocoon/SQL/v2" xmlns:log="http://apache.org/xsp/log/2.0" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-response="http://apache.org/xsp/response/2.0">
+<ID>16</ID>
+<EventType>kayeEvent</EventType>
+<Person>Both</Person>
+<DisplayLabel>Kaye and Fine meet again.</DisplayLabel>
+<Description>Kaye and Fine meet again during the auditions for The Sunday Night Varieties at the Keystone Theatre in New York, produced by Max Liebman. The production closes after one performance. Max Liebman hires Fine to work on the revues for the summer resort, Camp Tamiment, in Stroudsburg, Pennsylvania, and Fine convinces him to hire Kaye as well.</Description>
+<StartDate>1939-03-28 00:00:00.0</StartDate>
+<IsDuration>No</IsDuration>
+<edit>2010-04-06 10:45:28.0</edit>
+</row>
+</kayeEvents>

@@ -1,0 +1,24 @@
+<div id="LTlight" class="white_content">
+	<div id="loadTagsDialog" class="dialog">
+	<div class="header">
+		<h2 class="title">Import</h2>
+		<h2><a href="#" id="loadTagsClose" class="button">Close</a></h2>
+		<div class="clear"></div>
+	</div>
+	<div class="body">
+		<div class="option">
+			<h3>Load Tags From File</h3>
+			<form id="loadTagsForm" action="./lib/Dialog/importTags.php" method="post"
+			enctype="multipart/form-data">
+			<label for="file">Filename:</label>
+			<input id="importTagsFileName" type="file" name="fileTags" value="" />
+			<br />
+			<input id="importTagsSubmit" type="submit" class="button" name="submitTags" value="Submit" />
+			</form>		
+		</div>
+		<div class="clear"></div>
+	</div>	
+</div>
+</div>
+
+<div id="LTfade" class="black_overlay"></div>

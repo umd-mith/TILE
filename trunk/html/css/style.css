@@ -1,0 +1,587 @@
+/* =====================
+TILE Project
+Copyright 2010 MITH
+
+Written by Elisabeth Kvernen
+Maryland Institute for Technology in the Humanities
+
+swatch colors
+------------------
+f6ecd4 - cream 1
+f2e4c2 - cream 2
+ccbb93 - tan 1
+564a25 - tan 2
+e6e7b8 - green 1
+dadb9d - green 2
+afbf37 - green 3
+14253d - dark blue
+41475b - almost dark blue
+======================== */
+
+/* Yahoo CSS Reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+	margin:0;
+	padding:0;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+fieldset,img { 
+	border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-style:normal;
+	font-weight:normal;
+}
+ol,ul {
+	list-style:none;
+}
+caption,th {
+	text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-size:100%;
+	font-weight:normal;
+}
+q:before,q:after {
+	content:'';
+}
+abbr,acronym { border:0;
+}
+
+/* General styles ------------------- */
+body {
+	bottom:0;
+	left:0;
+	margin:0;
+	overflow:hidden;
+	position:absolute;
+	right:0;
+	top:0;
+	color:#41475b;
+	font-family:Helvetica, Arial, Verdana, sans-serif;
+	font-size:90%;
+	line-height:1.5em;
+	background:#fffaef url('../images/bkgd.gif');
+}
+.az {
+	bottom:0;
+	left:0;
+	overflow:visible;
+	position:absolute;
+	right:0;
+	top:0;
+}
+h1 {
+	font-size:2em;
+}
+h2 {
+	font-size:1.5em;
+}
+h3 {
+	font-size:1.25em;
+}
+h4 {
+	font-size:1em;
+}
+p {
+	font-size:1em;
+}
+a {
+	color:#41475b;
+	text-decoration:none;
+}
+a:hover {
+	color:#061224;
+	border-bottom:1px dashed #14253d;
+}
+/* Headings and text styles--------- */
+h1 {}
+h2 {
+	text-transform:uppercase;
+}
+.clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0
+}
+.clearfix:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0
+} 
+* html .clearfix {
+    height: 1%
+}
+/* Header styles ------------------- */
+.header {
+	bottom:auto;
+	opacity:1;
+	z-index:2;
+	height:75px;
+}
+.header .logo {
+	padding:10px;
+	left:0;
+	width:280px;
+}
+.header .globalmenu {
+	padding:45px 10px 10px 10px;
+	right:0;
+	left:auto;
+	text-align:right;
+	width:300px;
+}
+/* Main area styles ------------------- */
+.main {
+	top:75px;
+	height:auto;
+	opacity:1;
+	z-index:1;
+}
+.log {
+	right:auto;
+	opacity:1;
+	z-index:3;
+}
+.tool {
+	right:auto;
+	opacity:1;
+	z-index:2;
+}
+.content {
+	right:0;
+	opacity:1;
+	z-index:1;
+}
+.contentclone {
+	right:0;
+	opacity:1;
+	z-index:1;
+}
+.inner {
+	margin:3px 3px 5px 3px;
+	border:1px solid #d5db97;
+	height:auto;
+	background:#fff;
+}
+.btnIcon {
+	width:15px;
+	height:15px;
+	display:inline-block;
+	border:1px solid #fff;
+}
+/* Dropdown and menu styles --------------- */
+.menuitem {
+	margin-right:5px;
+	display:inline;
+	float:left;
+}
+#ddown {
+	/* float: right; */
+	display: inline;
+	height:21px;
+	position:absolute;
+	right:10px;
+}
+#ddown ul {
+	float: left; 
+	width: 98px;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	visibility:hidden;
+	border-right:1px solid #afbf37;
+	border-bottom:1px solid #afbf37;
+	border-left:1px solid #afbf37;
+}
+#ddown li {
+	float: left;
+}
+#ddown a {
+	float: left;
+ 	width: 94px;
+	height:21px;
+	display: block;
+ 	margin: 0;
+	padding:3px;
+	background:#fff; 
+	color:#41475b; 
+	border-bottom:1px solid #fff;
+}
+#ddown ul a:hover {
+	color:#061224;
+	border-bottom:1px dashed #14253d;
+}
+#ddown li.menu_head a {
+	border-top:1px solid #afbf37;
+	width:94px; 
+	padding:1px 3px;
+	cursor:pointer;
+	background:#fff url(../images/dropdownOpen.gif) no-repeat scroll 90% 50%;
+}
+#ddown li.menu_head a:hover {
+	border-bottom:1px solid #fff;
+}
+.tag #ddown {
+	right:58px;
+}
+/* Toolbar styles --------------- */
+.toolbar {
+	height:1.5em;
+	background:#f8ecce;
+	border:1px solid #fff;
+	padding:10px;
+	position:relative;
+}
+.toolbar ul, .toolbar ul li, .toolbar p {
+	display:inline;
+}
+.toolbar li.small {
+	font-size:.8em;
+	padding:2px;
+	/* border:1px solid #fff;
+	line-height:15px;*/
+}
+.toolbar li a#pointer.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -285px 0px;
+}
+.toolbar li a:hover#pointer.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -285px -15px;
+}
+.toolbar li a#pointer.btnIcon.inactive, .toolbar li a:hover#pointer.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -300px -15px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#pointer.btnIcon.active, .toolbar li a:hover#pointer.btnIcon.active {
+	background:url('../images/iconsSprite.gif') no-repeat -300px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#rect.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -45px 0px;
+}
+.toolbar li a:hover#rect.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -45px -15px;
+}
+.toolbar li a#rect.btnIcon.inactive, .toolbar li a:hover#rect.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -150px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#rect.btnIcon.active, .toolbar li a:hover#rect.btnIcon.active {
+	background:url('../images/iconsSprite.gif') no-repeat -240px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#poly.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -60px 0px;
+}
+.toolbar li a:hover#poly.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -60px -15px;
+}
+.toolbar li a#poly.btnIcon.inactive, .toolbar li a:hover#poly.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -165px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#poly.btnIcon.active, .toolbar li a:hover#poly.btnIcon.active {
+	background:url('../images/iconsSprite.gif') no-repeat -255px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#elli.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -75px 0px;
+}
+.toolbar li a:hover#elli.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -75px -15px;
+}
+.toolbar li a#elli.btnIcon.inactive, .toolbar li a:hover#elli.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -180px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#elli.btnIcon.active, .toolbar li a:hover#elli.btnIcon.active {
+	background:url('../images/iconsSprite.gif') no-repeat -270px 0px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#areaDel.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -210px 0px;
+}
+.toolbar li a:hover#areaDel.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -210px -15px;
+}
+.toolbar li a#areaDel.btnIcon.inactive, .toolbar li a:hover#areaDel.btnIcon.inactive {
+	background:url('../images/iconsSprite.gif') no-repeat -150px -15px;
+	border:1px solid #FDFDEC;
+	cursor:default;
+}
+.toolbar li a#zoomIn.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -90px 0px;
+}
+.toolbar li a:hover#zoomIn.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -90px -15px;
+}
+.toolbar li a#zoomOut.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -105px 0px;
+}
+.toolbar li a:hover#zoomOut.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -105px -15px;
+}
+.toolbar li a#pgPrev.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -120px 0px;
+}
+.toolbar li a:hover#pgPrev.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -120px -15px;
+}
+.toolbar li a#pgNext.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -135px 0px;
+}
+.toolbar li a:hover#pgNext.btnIcon{
+	background:url('../images/iconsSprite.gif') no-repeat -135px -15px;
+}
+/* Image scrollbar -------------------*/
+#scroller {
+	bottom:0;
+	top:auto;
+	width:100%;
+	height:120px;
+	background:#fdfdec;
+	/* filter:alpha(opacity=90);
+	-moz-opacity:0.9;
+	-khtml-opacity: 0.9;
+	opacity: 0.9; */
+}
+#scroller .toolbar {
+	padding:5px;
+	margin-bottom:5px;
+}
+#scroller .handle a {
+	display:block;
+	cursor:pointer;
+	background:url('../images/resize.jpg') no-repeat 40% 35%;
+	outline:none;
+}
+#scroller .toolbar a.open {
+	background:transparent url(../images/dropdownOpen.gif) no-repeat scroll 0px 2px;
+}
+#scroller .toolbar a.closed {
+	background:transparent url(../images/dropdownClosed.gif) no-repeat scroll 0px 1px;
+}
+#scroller span.button {
+	padding-left:20px;
+}
+#scroller .toolbar a:hover {
+	color:#14253d;
+	text-decoration:none;
+}
+#scroller .tileScroll_controls {
+	width:40px;
+	height:50px;
+}
+#scroller .tileScroll_controls a {
+	display:block;
+	height:100%;
+	padding:10px;
+}
+#scroller tileScroll_imagescroller {
+	position:relative;
+}
+#scroller .tileScroll_controls.left {
+	float:left;
+	width:10%;
+}
+#scroller #tileScroll_viewer {
+	float:left;
+	width:80%;
+	height:75px;
+}
+#scroller .tileScroll_controls.right {
+	float:right;
+	width:10%;
+}
+#scroller #tileScroll_container {
+	width:80%;
+	overflow:auto;
+}
+#scroller .tileScroll_item {
+	display:inline;
+}
+
+/* Log styles ------------------- */
+.log .inner .tags {
+	overflow:auto;
+}
+.inner .tag {
+	border:1px solid #afbf37;
+	background:#fff;
+	padding:5px;
+	margin:5px;
+	font-size:.9em;
+	position:relative;
+}
+.inner .tag .tagname {
+	width:70%;
+	color:#14253d;
+	font-family:Helvetica, Arial, Verdana, sans-serif;
+	font-size:1em;
+	line-height:1.5em;
+	float:left;
+}
+.inner .tag .tagmenu {
+	width:30%;
+	float:left;
+	height:21px;
+}
+.inner .tag .menuitem {
+	float:right;
+}
+.inner .tag .tagcontent {
+	width:100%;
+	clear:both;
+}
+.inner .tag .btnIconLarge {
+	width:19px;
+	height:19px;
+	display:inline-block;
+	border:1px solid #afbf37;
+}
+.inner .tag .btnIconLarge.rect {
+	background: url("../images/iconsSprite.gif") no-repeat scroll -62px 0;
+}
+.inner .tag .btnIconLarge.poly {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -85px 0;
+}
+.inner .tag .btnIconLarge.elli {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -104px 0;
+}
+.inner .tag .btnIconLarge.text {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -1px 0;
+}
+.inner .tag .btnIconLarge.hand {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -275px -21px;
+}
+.inner .tag .btnIconLarge.hand:hover {
+	background: url("../images/iconsSpriteLarge.gif") no-repeat scroll -275px 0px;
+	cursor:move;
+}
+.inner .tag .shapename, .inner .tag .transname {
+	font-weight:bold;
+	margin-bottom:5px;
+}
+.inner .tag .tagname input {
+	width:100%;
+}
+.inner .group .tag .tagname input {
+	width:98%;
+}
+.inner .tag input.submit {
+	width:auto;
+}
+.inner .tag .tagcontent textarea {
+	width:100%;
+}
+.inner .group {
+	background:#fef5df;
+	margin:5px;
+	padding:3px;
+}
+.inner .group .groupname {
+	background:#d5db97;
+	font-weight:bold;
+	margin:-3px;
+	padding:5px;
+	margin-bottom:3px;
+}
+.inner .group a.open {
+	background:transparent url(../images/dropdownOpenBlue.gif) no-repeat scroll 0px 2px;
+}
+.inner .group a.closed {
+	background:transparent url(../images/dropdownClosedBlue.gif) no-repeat scroll 0px 1px;
+}
+.inner .group .groupname .btnIcon {
+	border:none;
+	height:12px;
+	width:12px;
+}
+.inner .group .groupname span {
+	padding-left:5px;
+}
+.inner .group .groupname span.btnIconLarge {
+	padding-left:0;
+}
+.toolbar .menuitem li#customWidget {
+	height:19px;
+	position:relative;
+	display:inline-block;
+}
+/* Tool styles ------------------- */
+.tool .inner {
+
+}
+/* Content and Content clone styles ------------------- */
+.content .inner, .contentclone .inner {
+}
+/* Positioning (2, 3, 4 columns) ------------------- */
+/* 2 columns */
+.twocol .log {
+	left:0;
+	width:40%;
+}
+.twocol .tool {
+	display:none;
+}
+.twocol .content {
+	left:40%;
+	width:60%;
+}
+.twocol .contentclone {
+	display:none;
+}
+
+/* 3 columns */
+.threecol .log {
+	left:0;
+	width:40%;
+}
+.threecol .tool {
+	left:40%;
+	width:15%;
+}
+.threecol .content {
+	left:55%;
+	width:45%;
+}
+.threecol .contentclone {
+	display:none;
+}
+
+/* 4 columns */
+.fourcol .log {
+	left:0;
+	width:25%;
+}
+.fourcol .tool {
+	left:25%;
+	width:15%;
+}
+.fourcol .content {
+	right:auto;
+	left:40%;
+	width:30%;
+}
+.fourcol .contentclone {
+	left:70%;
+	width:30%;
+}

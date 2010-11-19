@@ -1,0 +1,246 @@
+body {
+	font-family:Impact, "Franklin Gothic Medium", Geneva, serif;
+	word-spacing: 0.1em;
+	letter-spacing:.25px;
+	font-weight:100;
+	color:#231f20;
+	background:#e4be75 url(images/paper.jpg) repeat; 
+	min-width:700px;
+	margin:10px 30px 10px 10px;
+}h1 {
+	font-size:1.5em;
+}
+/* branding div styles --------------------------------------- */
+#branding {
+	height:200px;
+	width:20%;
+}
+
+/* main container styles --------------------------------------- */
+.container {
+	width:80%;
+	float:right;
+	height:650px;
+	padding:0;
+	margin:20px 0 0 0;
+}#page{
+	width:100%;
+	height:650px;
+	position:relative;
+	background:#fff;
+	z-index:100;
+}.pageLeft {
+	background:url(images/pageSide.jpg) repeat-y left;
+	width:20px;
+	height:690px;
+	display:block;
+	position:absolute;
+	left:-20px;
+	top:-20px;
+	bottom:-20px;
+}.pageRight {
+	background:url(images/pageSide.jpg) repeat-y right;
+	height:690px;
+	width:20px;
+	display:block;
+	position:absolute;
+	right:-20px;
+	top:-20px;
+	bottom:-20px;	
+}.pageTop {
+	background:url(images/pageTop.jpg) repeat-x top;
+	width:100%;
+	height:20px;
+	display:block;
+	position:absolute;
+	top:-20px;
+}.pageBottom {
+	background:url(images/pageTop.jpg) repeat-x bottom;
+	width:100%;
+	height:20px;
+	display:block;
+	position:absolute;
+	bottom:-20px;
+}
+
+/* main panel styles --------------------------------------- */
+div.panel {
+    background:none;
+	z-index:900;
+	position:relative;
+	border-bottom:1px groove #231f20; 
+	border-right:1px groove #231f20; 
+}.panelContainer{
+	width:100%;
+	height:650px;
+}div.panel_InBckGrnd {
+    background:#d2b89c;
+	width:800px;
+	position:absolute;
+	z-index:0;
+	overflow:hidden;
+}div.panel_annoOpen {
+    background:#d2b89c;
+	width:800px;	
+	position:absolute;
+	z-index:499;
+	overflow:hidden;
+}
+/* main section styles --------------------------------------- */
+.hd {    
+	text-align: left;
+}.panelBody {
+}.ft {
+	clear:both;
+    position: relative;
+    color: #291f1a;
+}
+/* hd 1st sub-section styles --------------------------------------- */
+.quartoInfo {
+    display: block;
+    margin-right: 0;
+    z-index: 0;
+	padding:5px;
+}.quartoInfoHeader, .quartoInfo {
+    font-size: 1.1em;
+    position: relative;
+    left: 0;
+    text-decoration: none;
+}
+/* hd 2nd sub-section styles (controls div) --------------------------------------- */ 
+#page .controls {
+	background:#6e2c03;
+	font-family:Helvetica;
+	height:30px;
+	color:#e4be75;
+	background:url(images/bkgd_controls.jpg) repeat-x;
+}.pageControls, .zoomControls {
+    float: left;
+    display: block;
+    margin-right: 15px;
+	padding-top:7px;
+	padding-left:5px;
+}.pageBack, .pageNext, .zoomIn, .zoomOut {
+    display: block;
+ 	float: left;
+    cursor: pointer;
+    width: 40px;
+    height: 20px;
+	color:#fff;
+	margin-top:-2px;
+	margin-right: 1px;
+	padding-right:5px;
+	padding-left:7px;
+}.pageBack, .pageNext {
+	background: url("images/bkgd_pageNextPrev.png") no-repeat left;
+}.zoomIn, .zoomOut {
+	background: url("images/bkgd_zoom.png") no-repeat left;
+}.textLabelSpan {
+    float: left;
+    margin-right: 7px;
+    cursor: pointer;
+}img {
+    -moz-user-select: none;
+}
+/**-added button styles----------*/
+.zoomIn,.zoomOut,.ocrControls,.pageLoad,.pageBack,.pageNext{
+	cursor:pointer;
+}.lineRemove{
+	width:10%;
+	height:10%;
+	cursor:pointer;
+}
+
+/* panelBody styles --------------------------------------- */
+.panelBodyContents {
+	/*height:350px !important;*/
+}.layers {
+	float:left;
+	width:275px;
+	overflow-y:auto;
+	overflow-x:hidden;
+	background:#e9dab9;
+	height:100%;
+	/*padding:5px 5px 5px 10px;*/
+}.layers a {
+	text-decoration:none;
+	color:#985434;
+}.layers a:hover {
+	text-decoration:underline;
+}.layers ul {
+	list-style-type:none;
+	padding-left:0px;
+	padding:0px 5px 5px 5px;  
+}.layers h3 {
+	color:#291F1A;
+	font-size:11px;
+	margin:15px 0px 5px 20px; 
+	display:inline;
+}.layers .categories {
+	margin-top:10px;
+}.layers h3:first-child {
+	margin-left:10px;
+}.olMapViewport{
+}.mapDiv.olMap {
+	width:100%;
+	height:100%;
+}.mapDiv{
+	width:100%;
+	height:588px;
+}
+/**Sidebar ------*/
+.sidebar{
+	width:20%;
+	height:auto;
+	float:left;
+	margin:0;
+	padding: 0em;
+}
+.sidebody{
+	margin:10px 10px 10px 10px;
+}
+.sidelist{
+	list-style-type:none;
+	padding-left:0;
+}
+.sideitem{
+	padding:.5em .5em .5em .5em;
+	margin-right:20px;
+	border-bottom:1px dashed #b83201;
+	font-size:.9em;
+}
+.sideitemlabel{
+	margin:0em;
+}
+.sideiteminput{
+	margin:.2em .2em .2em 0;
+}
+.sideitemoption{
+	display:inline-block;
+	cursor:pointer;
+	padding:.2em .2em .2em 0;
+}
+/**Output Div-------*/
+.outputContainer{
+	display:none;
+}
+/**Progress Bar ---------*/
+.progressBar{
+	height:1em;
+	width:4em;
+	float:right;
+	margin:5px;
+}.progressBarText{
+	width:250px;
+	float:right;
+	height:1em;
+	padding-top:7px;
+}
+/**WordBar--------**/
+.wordbar{
+	
+}
+.wordbarList{
+	list-style:none;
+}
+

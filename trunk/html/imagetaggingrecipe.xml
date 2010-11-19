@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="..//tei_all.rng" type="xml"?>
+<?xml-stylesheet type="text/css" href="tei-11-08-08.css"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader></teiHeader>
+	<facsimile>
+		<surface xml:id="ham-1611-22277x-bod-c01-image001"><desc>Image 001</desc><graphic url="promontorymoc.png"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image002"><desc>Image 002</desc><graphic url="rockart.png"/></surface>
+        <surface xml:id="ham-1611-22277x-bod-c01-image003"><desc>Image 003</desc><graphic url="DeneYeniseianMap.png"/></surface>
+	</facsimile>
+	<text>
+		<pb facs="#ham-1611-22277x-bod-c01-image001" />
+		<lb/>
+		<l>Semi-circular puckered vamp</l>
+		<lb/>
+		<l>quill work</l>
+		<lb/>
+		<l>grass-lining</l>
+		<pb facs="#ham-1611-22277x-bod-c01-image002" />
+		<lb/>
+		<l>Funky Shoulders</l>
+		<lb/>
+		<l>Spear</l>
+		<pb facs="#ham-1611-22277x-bod-c01-image003" />
+		<lb/>
+		<l>Location of the Dene-Yeniseian Languages</l>
+		<lb/>
+		<l>Location of the Promontory Point Moccasins</l>
+	</text>
+</TEI>

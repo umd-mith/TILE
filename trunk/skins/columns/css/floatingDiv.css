@@ -1,0 +1,117 @@
+/* This file OVERWRITES jQuery UI theme defaults */
+
+/* adding style for general dialog box */
+.ui-widget.ui-dialog.ui-widget-content { font-family:Helvetica, Arial, Verdana, sans-serif; font-size:90%; color:#41475B; font-weight:normal;}
+
+.ui-dialog.ui-widget-content { 
+	border:1px solid #D5DB97;
+	background:#fff;
+	-moz-border-radius:0;-webkit-border-radius:0; border-radius:0;
+	padding:0;
+	font-family:Helvetica, Arial, Verdana, sans-serif; 
+	font-size:90%;
+	color:#41475B;
+	font-weight:normal;
+}
+/* adding style for the widget header */
+.ui-dialog .ui-widget-header .ui-icon, .uidialog.ui-widget-content .ui-icon, .ui-dialog .ui-icon {background-image:none;}
+
+.ui-dialog .ui-dialog-titlebar.ui-widget-header {
+	font-family:Helvetica, Arial, Verdana, sans-serif;
+	background:#F8ECCE;
+	border:1.5px solid #ffffff;
+	height:1.5em;
+	padding:10px;
+	-moz-border-radius:0;-webkit-border-radius:0; border-radius:0;
+	font-family:Helvetica, Arial, Verdana, sans-serif;
+	font-weight:normal;
+	color:#41475B;
+}
+.ui-dialog .ui-widget-header .ui-dialog-titlebar-close span {
+	margin:0;
+}
+.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close  {
+	text-indent:-9999px;
+	-moz-border-radius:0;-webkit-border-radius:0; border-radius:0;
+	width:19px;
+	height:19px;
+	display:inline-block;
+	border:1px solid #fff;
+	padding:0;
+}
+.ui-dialog .ui-dialog-titlebar-close {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -211px -21px;
+}
+.ui-dialog .ui-dialog-titlebar-close.ui-state-hover {
+	background:url('../images/iconsSpriteLarge.gif') no-repeat -211px 0px;
+}
+/* style for add/subtract label form */
+#tilefloat_floatingDiv .label_formLabel {
+	padding-right:5px;
+}
+/* style for add/subtract label form submit button */
+#submitFloatingDiv.submit{
+	font-family:Helvetica, Arial, Verdana, sans-serif;
+	background:url("../images/bkgd_btn.jpg") repeat-x scroll 0 0 #E7DAB9;
+	border:1px solid #CCBB93;
+	cursor:pointer;
+	margin:0;
+	padding:2px 7px;
+	width:auto;
+	margin:20px 5px 0 0;
+}
+#submitFloatingDiv.submit:hover {
+	background:#FDFDEC url('../images/bkgd_btn-hover.jpg') repeat-x;
+	border-bottom:1px solid #ccbb93;
+}
+/* STYLE Add Label Dialog */
+form#labelDiv_floatingDiv { background-color: #FFF;}
+form#labelDiv_floatingDiv fieldset.label_formFieldSet { background-color: #FFF !important; }
+form#labelDiv_floatingDiv .label_formOL { list-style:none; margin: 0; padding: 0;}
+form#labelDiv_floatingDiv .label_formLI { line-height: 1.2em; padding-bottom: 5px; }
+form#labelDiv_floatingDiv .label_formLabel { display: inline-block; width: 50px; text-transform: uppercase; font-size: 0.8em; }
+form#labelDiv_floatingDiv  input.submit {
+	display: block;
+	float: right;
+	width: 50px;
+	border: 1px solid #000;
+	background-color:#6C6F4C;
+	color:#FFF;
+	font-size: 0.9em;
+	font-weight: bold;
+	padding: 2px;
+	margin: 5px;
+}
+
+/****CSS FOR COLORSELECTOR IN FLOATING DIV******/
+#penColor {
+	display: inline-block;
+	position: relative;
+	width: 18px;
+	height: 18px;
+	background: url('../floatingDivIcons/selectBoxCustom.png');
+}
+
+#penColor div {
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 16px;
+	height: 16px;
+	background: url('../floatingDivIcons/selectBoxCustom.png') center;
+}	
+#floatingPenColor {
+	display: inline-block;
+	position: relative;
+	width: 18px;
+	height: 18px;
+	background: url('../floatingDivIcons/selectBoxCustom.png');
+}
+#floatingPenColor div {
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 16px;
+	height: 16px;
+	background: url('../floatingDivIcons/selectBoxCustom.png') center;
+

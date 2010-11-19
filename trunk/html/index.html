@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>TILE: Text-Image Linking Environment</title>
+	<link rel="stylesheet" href="../skins/columns/css/style.css" type="text/css" media="screen, projection" charset="utf-8">
+	<script type="text/javascript" src="scripts/jquery-1.3.2.min.js"></script>
+	<link rel="stylesheet" href="../lib/jquery/colorpicker/css/colorpicker.css" type="text/css" />
+	<link rel="stylesheet" href="../lib/jquery/colorpicker/css/layout.css" type="text/css" />
+	<script type="text/javascript" src="../lib/jquery/colorpicker/js/colorpicker.js"></script>
+    <script type="text/javascript" src="../lib/jquery/colorpicker/js/eye.js"></script>
+    <script type="text/javascript" src="../lib/jquery/colorpicker/js/utils.js"></script>
+	<script type="text/javascript" src="../lib/jquery/js/underscore.js"></script> 
+	<script type="text/javascript">
+		$('#customWidget').ColorPicker({
+			onSubmit: function(hsb, hex, rgb, el) {
+				$(el).val(hex);
+				$(el).ColorPickerHide();
+			},
+			onBeforeShow: function () {
+				$(this).ColorPickerSetColor(this.value);
+			}
+		})
+		.bind('keyup', function(){
+			$(this).ColorPickerSetColor(this.value);
+		});
+		
+	</script>
+	<!-- <script type="text/javascript">
+		$(document).ready(function () {
+			var startingHeight = 21; // Specifies the height of your navigation when collapsed
+			var speed = 300; // Specifies the speed of the animation
+			var heights = new Array();
+			var i = 1;
+			while ($("#ddown"+i).length) {
+				heights.push($("#ddown"+i).height() + 8);
+				$("#ddown"+i).height(startingHeight);
+				$("#ddown"+i).mouseover(function () {
+					$(this).stop().animate({height:heights[this.id.substr(5)-1]},{queue:false, duration:speed});
+				});
+				$("#ddown"+i).mouseout(function () {
+					$(this).stop().animate({height:startingHeight+'px'}, {queue:false, duration:speed});
+				});
+				i++;
+			}
+			$("#ddown ul").css("visibility", "visible");
+		}); 
+  </script> -->
+
+</head>
+
+<body>
+	<div class="az header">
+		<div class="az logo"><img src="images/tile.gif" alt="TILE: Text-Image Linking Environment" /></div>
+		<div class="az globalmenu">
+			<p>
+				<a href="">Restart</a> | 
+				<a href="">Help</a>
+			</p>
+		</div>
+	</div>
+
+	<div class="az main twocol">
+		<div class="az log"><div class="az inner">
+			<div class="toolbar">
+				
+				<div class="menuitem">
+					<ul>
+						<li><a href="" class="button">Load</a></li> 
+					</ul>
+				</div>
+				<div class="menuitem">
+					<ul>
+						<li><a href="" class="button">Save</a></li>				
+					</ul>
+				</div>
+				<div class="menuitem ddown">
+					<p>Tools:</p>
+					<select class="menu_body">
+						<option value="tool1"><a href="#">Tool-1</a></option>
+						<option value="tool2"><a href="#">Auto Recognizer</a></option>
+					</select>
+				</div>
+				<div class="menuitem ddown">
+					<p>New:</p>
+					<select class="menu_body">
+						<option value="option1"><a href="#">Tag</a></option>
+						<option value="option2"><a href="#">Group</a></option>
+					</select>
+				</div>
+				
+		  <!-- <div id="ddown">
+					<div class="menuitem">
+						<ul id="ddown1" class="menu_body">
+							<li class="menu_head"><a href="#">Tools</a></li>
+							<li><a href="#">Tool-1</a></li>
+						 	<li><a href="#">Tool-2</a></li>
+					  	</ul>
+					</div>	
+					<div class="menuitem">
+						<ul id="ddown2" class="menu_body">
+							<li class="menu_head"><a href="#">New</a></li>
+							<li><a href="#">Tag</a></li>
+						 	<li><a href="#">Group</a></li>
+					  	</ul>
+					</div> 
+				
+				</div>-->
+
+			</div>
+			
+			<div class="editor">
+				
+			</div>
+			<div class="tags">
+				<!-- shape tag ------------- -->
+				
+				<div class="tag shape">
+					<div class="tagname">	
+						<input type="text" />
+						<p class="shapename">This is a test shape tag</p>
+						
+						<div class="tagmenu">
+
+							<div class="menuitem"><span class="btnIconLarge poly"></span></div>
+
+							<div class="menuitem"><span class="btnIconLarge hand"></span></div>
+
+							<div class="menuitem ddown">
+								<span class="btnIconLarge ddown"></span>
+								<select class="menu_body">
+									<option value="option1"><a href="#">Edit</a></option>
+									<option value="option2"><a href="#">Delete</a></option>
+									<option value="option3"><a href="#">Add to group</a></option>
+								</select>
+							</div>
+
+						</div>
+					</div>
+					
+					
+					<div class="tagcontent">			
+						<ul>
+							<li><span class="attrbname">Attribute 1:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 2:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 3:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 4:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 5:</span> <span class="attrb">attribute</span></li>
+						</ul>
+					</div>
+				</div>
+				<!-- transcript tag ------------- -->
+				
+				<div class="tag transcript">
+					<div class="tagname">	
+						<input type="text" />
+						<p class="transname">This is a test transcript tag</p>
+					</div>
+					
+					<div class="tagmenu">
+						<div class="menuitem"><span class="btnIconLarge text"></span></div>
+						
+						<div class="menuitem"><span class="btnIconLarge hand"></span></div>
+						
+						<div class="menuitem ddown">
+							<span class="btnIconLarge ddown"></span>
+							<select class="menu_body">
+								<option value="option1"><a href="#">Edit</a></option>
+								<option value="option2"><a href="#">Delete</a></option>
+								<option value="option3"><a href="#">Add to group</a></option>
+							</select>
+						</div>
+						
+						
+					</div>
+					<div class="tagcontent">			
+						<p class="transcript">This is a test transcript that goes on for a while about nothing. This is a test transcript that goes on for a while about nothing. This is a test transcript that goes on for a while about nothing.</p>
+						<form>
+							<textarea>This is what an input area would look like.</textarea><span class="menu"></span>
+							<br />
+							<input type="submit" value="Delete" class="submit" /><input type="submit" value="Done" class="submit" />
+						</form>
+					</div>
+				</div>
+			
+				<div class="group">
+					<div class="groupname">
+						<a class="open btnIcon" href="#"></a><span>Group name</span>
+						<div class="menuitem"><span class="btnIconLarge hand"></span></div>
+					</div>
+				<!-- group insides -->
+				<div class="tag shape">
+					<div class="tagname">	
+						<input type="text" />
+						<p class="shapename">This is a test shape tag</p>
+					</div>
+					
+					<div class="tagmenu">
+						<div class="menuitem"><span class="btnIconLarge poly"></span></div>
+						
+						<div class="menuitem"><span class="btnIconLarge hand"></span></div>
+						
+						<div class="menuitem ddown">
+							<span class="btnIconLarge ddown"></span>
+							<select class="menu_body">
+								<option value="option1"><a href="#">Edit</a></option>
+								<option value="option2"><a href="#">Delete</a></option>
+								<option value="option3"><a href="#">Add to group</a></option>
+							</select>
+						</div>
+					
+						
+					</div>
+					<div class="tagcontent">			
+						<ul>
+							<li><span class="attrbname">Attribute 1:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 2:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 3:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 4:</span> <span class="attrb">attribute</span></li>
+							<li><span class="attrbname">Attribute 5:</span> <span class="attrb">attribute</span></li>
+						</ul>
+					</div>
+				</div>
+			
+				<!-- end group insides ---------------- -->
+				</div>
+			</div><!-- end tags ---- -->
+		</div></div>
+		<div class="az tool"><div class="az inner">
+			<div class="toolbar">
+				
+			</div>
+		</div></div>
+		<div class="az content"><div class="az inner textImageList">
+			<div class="toolbar">
+				<ul class="menuitem">
+					<li><label>Select:</label></li>
+					<li><a href="#" id="pointer" class="btnIconLarge inactive"></a></li>
+					<li class="small"><a id="showAllShapes" class="inactive" href="#">all</a></li>
+					<li class="small"><a id="showNoShapes" class="inactive" href="#">none</a></li>
+					<li class="small"><a id="showCurrentShape" href="#">current</a></li>
+				</ul>
+				<ul class="menuitem">
+					<li><label>Add shape:</label</li>
+					<li><a href="#" id="rect" class="btnIconLarge inactive"></a></li>
+					<li><a href="#" id="poly" class="btnIconLarge inactive"></a></li>
+					<li><a href="#" id="elli" class="btnIconLarge inactive"></a></li>
+					<li id="customWidget">
+						<div id="colorSelector2" class="btnIconLarge inactive">
+							<div id="colorSelectorBkgd" style="background-color: #ff0000"></div>
+						</div>
+		            	<div id="colorpickerHolder2"></div>
+					</li>
+					<li><a href="#" id="areaDel" class="btnIconLarge inactive"></a></li>
+				</ul>	
+				<ul class="menuitem">
+					<li><label>Zoom:</label</li>
+					<li><a href="#" id="zoomIn" class="btnIconLarge"></a></li>
+					<li><a href="#" id="zoomOut" class="btnIconLarge"></a></li>
+				</ul>
+				<ul class="menuitem">					
+					<li><a href="#" class="button">Prev</a></li>
+					<li><a href="#" class="button">Next</a></li>
+				</ul>	
+				<ul class="menuitem">	
+					<li><a href="#" class="button"><span class="imgView">Img view</span></a></li>
+				</ul>
+			</div>
+			
+			<div class="list">
+				<ul>
+					<li><a href="#">Image 1</a></li>
+					<li><a href="#">Image 2</a></li>
+					<li><a href="#">Image 3</a></li>
+					<li><a href="#">Image 4 with a really long name; names should wrap</a></li>
+				</ul>
+			</div>
+			<div class="image">
+				<img src="images/wood.jpg">
+			</div>
+			
+	   <!-- <div id="scroller" class="az">
+				<div id="scrollerHandle" class="toolbar"><a href="#" class="open"><span class="button">Images</span></a></div>
+				<div id="tileScroll_imagescroller">
+					<div id="tileScroll_controls" class="tileScroll_controls left">
+						<a id="rtl" href="#" title="rtl">&lt;&lt;&lt;</a>
+					</div>
+					<div id="tileScroll_viewer">
+						<div id="tileScroll_container">
+							<div id="container_0" class="tileScroll_item">
+								<img class="" width="75" height="75" src="http://localhost:8888/TILE/trunk/Images/mss.jpg"/>
+							</div>
+							<div id="container_1" class="tileScroll_item">
+								<img class="" width="145" height="75" src="http://localhost:8888/TILE/trunk/Images/hamTitle.jpg"/>
+							</div>
+							<div id="container_2" class="tileScroll_item">
+								<img class="" width="145" height="75" src="http://localhost:8888/TILE/trunk/Images/hamTitle.jpg"/>
+							</div>
+							<div id="container_0" class="tileScroll_item">
+								<img class="" width="75" height="75" src="http://localhost:8888/TILE/trunk/Images/mss.jpg"/>
+							</div>
+							<div id="container_1" class="tileScroll_item">
+								<img class="" width="145" height="75" src="http://localhost:8888/TILE/trunk/Images/hamTitle.jpg"/>
+							</div>
+							<div id="container_2" class="tileScroll_item">
+								<img class="" width="145" height="75" src="http://localhost:8888/TILE/trunk/Images/hamTitle.jpg"/>
+							</div>
+						</div>
+					</div>
+					<div id="tileScroll_controls" class="tileScroll_controls right">
+						<a id="ltr" href="#" title="ltr">&gt;&gt;&gt;</a>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div> -->
+			
+		</div></div>
+		<div class="az contentclone"><div class="az inner">
+			<div class="toolbar">
+			</div>
+		</div></div>
+	</div>
+
+	
+</body>
+</html>

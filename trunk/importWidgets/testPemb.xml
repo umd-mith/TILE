@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="..//tei_all.rng" type="xml"?>
+<?xml-stylesheet type="text/xsl" href="tv/tv.xsl" ?><TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Pembroke 25 Sermo 6 (fols. 11v–13v)</title>
+                <author>Thomas N. Hall</author>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <date>2006-08-13T06:02:00</date>
+                </edition>
+            </editionStmt>
+            <publicationStmt>
+                <authority/>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Written by OpenOffice</p>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <langUsage>
+                <language ident="lat"/>
+            </langUsage>
+        </profileDesc>
+        <revisionDesc>
+            <change>
+                <name>Arts &amp; Letters Computing</name>
+                <date>2007-09-21T06:58:00</date>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+	<facsimile>
+		<surface xml:id="Elevenv">
+			<graphic url="11v/11v_wv_zoom_011v.jpg"/>
+		</surface>
+		<surface xml:id="Twelver">
+			<graphic url="12r/12r_wv_zoom_012r.jpg"/>
+		</surface>
+		<surface xml:id="Twelvev">
+			<graphic url="12v/12v_wv_zoom_012v.jpg"/>
+		</surface>
+		<surface xml:id="Thirteenr">
+			<graphic url="13r/13r_wv_zoom_013r.jpg"/>
+		</surface>
+		<surface xml:id="Thirteenv">
+			<graphic url="13v/13v_wv_zoom_013v.jpg"/>
+		</surface>
+	</facsimile>
+    <text xml:id="sermon6" next="#sermon7" prev="#sermon5">
+        <body>
+            <head>Pembroke 25 Sermo 6 (fols. 11v–13v)</head><p>             <pb facs="#Elevenv" n="11v"/>   
+<lb n="26"/>ITEM ALIA . 
+<lb n="27"/>IN illo tempore . Exiit edictum a cesare agusto ut discri
+                
+<lb n="28"/>beretur uniuersus orbis . Haec discriptio prima facta <pb facs="#Twelver" n="12r"/>
+<lb n="1"/> est ;
+                a preside syrie cirino . et ibant omnes ut profiterentur 
+<lb n="2"/>singuli in suam
+                ciuitatem . Ascendit autem et ioseph a gali 
+<lb n="3"/>lea de ciuitate nazareth . in
+                iudeam ciuitatem dauid que uo 
+<lb n="4"/>catur bethleem . eo quod esset de domo et familia
+                dauid . 
+<lb n="5"/>ut profiteretur cum maria desponsata sibi uxore praegnan 
+<lb n="6"/>te .
+                Factum est autem cum essent ibi . impleti sunt dies 
+<lb n="7"/>ut pareret . et peperit
+                filium suum primogenitum . et pannis 
+<lb n="8"/>eum inuoluit . et reclinauit eum in
+                presepio . quia non erat ei 
+<lb n="9"/>locus in diuersorio . Et pastores erant in regione
+                
+<lb n="10"/>eadem . uigilantes et custodientes uigilias noctis super 
+<lb n="11"/>gregem suum . Et
+                ecce angelus domini stetit iuxta illos . et cla 
+<lb n="12"/>ritas dei circumfulsit illos .
+                et timuerunt timore mag 
+<lb n="13"/>no . Et dixit illis angelus . Nolite timere . Ecce enim
+                euan 
+<lb n="14"/>gelizo uobis gaudium magnum . quod erit omni populo . 
+<lb n="15"/>quia natus est
+                uobis hodie saluator qui est christus dominus in 
+<lb n="16"/>ciuitate dauid . Et hoc uobis
+                signum . Inuenietis enim 
+<lb n="17"/>infantem pannis inuolutum . et positum in presepio .
+                Et 
+<lb n="18"/>subito facta est cum angelo multitudo militie celestis . 
+<lb n="19"/>
+                 laudantium deum et dicentium . Gloria in
+                altissimis deo . 
+<lb n="20"/>et in terra pax hominibus bone uoluntatis . </p><p><add place="margin">.vi.</add> Quia lar
+                
+<lb n="21"/>giente domino missarum sollemnitatem hodie cælebra 
+<lb n="22"/>turi sumus . loqui diu
+                de euangelica lectione non pos 
+<lb n="23"/>sumus . sed nos aliquid uel breuiter dicere
+                redempto 
+<lb n="24"/>ris nostri natiuitas ipsa compellit . Quid est quod 
+<lb n="25"/>nascituro
+                domino mundus describitur . nisi 
+<lb n="26"/>hoc quod aperte monstratur . quia 
+<lb n="27"/>ille
+                ueniebat in carne . qui electos 
+<lb n="28"/>suos adscriberet in aeternitate 
+<pb facs="#Twelvev" n="12v"/><lb n="1"/> quo contra de reprobis per prophetam dicitur ; deleantur de 
+<lb n="2"/>libro
+                uiuentium . et cum iustis non scribantur . Qui bene 
+<lb n="3"/>etiam in bethleem nascitur
+                . Bethleem quippe domus panis 
+<lb n="4"/>interpretatur . Ipse namque est qui ait . Ego sum
+                panis uiuus 
+<lb n="5"/>qui de celo descendi . locus ergo in quo dominus nasceretur do
+                
+<lb n="6"/>mus panis ante uocatus est . quia futurum profecto erat . 
+<lb n="7"/>ut ille ibi per
+                materiam carnis appareret . qui electorum 
+<lb n="8"/>mentes eterna satietate reficeret .
+                Qui non in parentum 
+<lb n="9"/>domu . sed in uia nascitur . ut profecto ostenderet quia
+                
+<lb n="10"/>per humanitatem quam assumpserat quasi in alieno nasce 
+<lb n="11"/>batur . Alienum
+                uidelicit non secundum potestatem dico . sed 
+<lb n="12"/>secundum naturam nam de potestate
+                eius scriptum est ; In propria 
+<lb n="13"/>uenit . In natura etenim sua ante tempora natus
+                est ; in nostra 
+<lb n="14"/>  uenit ex tempore .
+                </p><p><add place="margin">.vii.</add> Qui ergo eternus permanens tempora 
+<lb n="15"/>lis apparuit . Alienum est ubi
+                descendit et quia per pro 
+<lb n="16"/>phetam dicitur . Omnis caro foenum factus homo foenum
+                nostrum 
+<lb n="17"/>uertit in frumentum qui de semetipso ait . Nisi granum frumen 
+<lb n="18"/>ti
+                cadens in terra mortuum fuerit . ipsum solum manet . Unde 
+<lb n="19"/>et natus in presipi
+                reclinatur . ut fideles omnes uidelicet sancta 
+<lb n="20"/>animalia carnis sue frumento
+                reficeret . Ne ab eterne in 
+<lb n="21"/>telligentiæ pabulo ieiuna remanerent . Quid est
+                autem 
+<lb n="22"/>quod uigilantibus pastoribus angelus apparet . eosque dei clari 
+<lb n="23"/>tas
+                circumfulsit . nisi quod illi pre ceteris uidere sublimia 
+<lb n="24"/>merentur . qui
+                fidelibus gregibus preesse sollicite 
+<lb n="25"/>sciunt . dumque ipsi pie super gregem
+                uigilant . 
+<lb n="26"/>Diuina super eos gratia largius coruscat . Regem 
+<lb n="27"/>uero natum
+                angelus nuntiat . eiusque 
+<lb n="28"/>uoci angelorum chori concinunt <pb facs="#Thirteenr" n="13r"/>
+<lb n="1"/> et
+                congaudentes clamant . Gloria in excelsis deo . et in terra pax 
+<lb n="2"/>hominibus bone
+                uoluntatis . </p><p><add place="margin">.viii.</add> Prius quippe quam redemp- 
+<lb n="3"/>tor noster per carnem
+                nasceretur . discordiam cum angelis habuimus . 
+<lb n="4"/>A quorum claritate atque
+                munditia prime culpe merito <add>per cotidiana delicta longe</add> dista 
+<lb n="5"/>bamus . quia
+                enim peccando extranei eramus a deo . extraneos 
+<lb n="6"/>nos á suo consortio deputabant
+                angeli ciues dei . Sed quia 
+<lb n="7"/>nos cognouimus regem nostrum . recognouerunt nos
+                angeli 
+<lb n="8"/>ciues suos . quia enim celi rex terram nostre carnis adsumpsit . 
+<lb n="9"/>
+                 infirmitatem nostram illa iam angelica
+                celsitudo non dispexit . 
+<lb n="10"/>ad pacem nostram redeunt angeli . intentionem prioris
+                discordie 
+<lb n="11"/>postponentes . et quos infirmos prius abiectosque dispexe 
+<lb n="12"/>rant .
+                iam ut socios uenerantur . Hinc est enim quod loth uel 
+<lb n="13"/>iesu naue angelos
+                adorant . nec tamen adorare prohibentur . 
+<lb n="14"/>Iohannes uero in apocalipsyn adorare
+                angelum uoluit . sed 
+<lb n="15"/>tamen hunc angelus né sé debeat adorare compescuit di-
+                
+<lb n="16"/>cens . Uide ne feceris . conseruus enim tuus sum et fratrum tuorum .
+                
+<lb n="17"/></p><p><add place="margin">.viii.</add> Quid est quod ante redemptoris aduentum angeli ab hominibus
+                
+<lb n="18"/>adorantur et tacent . Postmodum uero adorari refugiunt? 
+<lb n="19"/>nisi quod naturum
+                nostram quam prius dispexerant . Postquam 
+<lb n="20"/>hanc super se adsumptam conspiciunt
+                subtractam sibi uidere 
+<lb n="21"/>pertimescunt . nec iam sub se uelut infirmam contemnere
+                
+<lb n="22"/>ausi sunt . quam super se uidelicet in caeli rege uenerantur . 
+<lb n="23"/>nec habere
+                dedignantur socium hominem . qui super se ado- 
+<lb n="24"/>rant hominem deum . Curemus nos
+                ergo fratres karissimi nequaquam 
+<lb n="25"/>nos inmunditia polluat . qui in aeterna
+                prescientia et dei 
+<lb n="26"/>ciues . et angelis aequales sumus . Uindicemus moribus
+                
+<lb n="27"/>dignitatem nostram . nulla nos luxuria inquinet . nulla 
+<lb n="28"/>turpis cogitatio
+                accuset . non malitia mentem mordeat . <pb facs="#Thirteenv" n="13v"/>
+<lb n="1"/> non inuidie rubigo
+                consumat . non elatio implet . non 
+<lb n="2"/>ambitio per terrena oblectamenta dilaniet .
+                Dii etenim uoca 
+<lb n="3"/>ti sunt homines . Defende ergo tibi o homo contra 
+<lb n="4"/>
+                 uitam honorem dei filius dignatus est agere
+                . ut humanum 
+<lb n="5"/>genus liberaret a peccato . et secum duceret ad celestia reg
+                
+<lb n="6"/>na . qui cum patre et spiritu sancto uiuit et regnat in secula seculorum . amen
+            </p></body>    </text>
+</TEI>

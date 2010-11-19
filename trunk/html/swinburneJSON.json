@@ -1,0 +1,225 @@
+{
+    "sourceFile": "http://ella.slis.indiana.edu/~jawalsh/tile/sample_data/acs0000007-01/acs0000007-01.xml", "pages":[ {
+        "url": "http://ella.slis.indiana.edu/~jawalsh/tile/sample_data/acs0000007-01/images/acs0000007-01-001.jpg", "lines":[]
+    }, {
+        "url": "http://ella.slis.indiana.edu/~jawalsh/tile/sample_data/acs0000007-01/images/acs0000007-01-002.jpg", "lines":[ {
+            "text": "“Her beauty might outface the jealous hours,", "info": "/TEI/text[1]/body[1]/epigraph[1]/cit[1]/quote[1]/lg[1]/l[1]"
+        }, {
+            "text": "Turn shame to love and pain to a tender sleep,", "info": "/TEI/text[1]/body[1]/epigraph[1]/cit[1]/quote[1]/lg[1]/l[2]"
+        }, {
+            "text": "And the strong nerve of hate to sloth and tears;", "info": "/TEI/text[1]/body[1]/epigraph[1]/cit[1]/quote[1]/lg[1]/l[3]"
+        }, {
+            "text": "Make spring rebellious in the sides of frost,", "info": "/TEI/text[1]/body[1]/epigraph[1]/cit[1]/quote[1]/lg[1]/l[4]"
+        }, {
+            "text": "Thrust out lank winter with hot August growths,", "info": "/TEI/text[1]/body[1]/epigraph[1]/cit[1]/quote[1]/lg[1]/l[5]"
+        }, {
+            "text": "Compel sweet blood into the husks of death,", "info": "/TEI/text[1]/body[1]/epigraph[1]/cit[1]/quote[1]/lg[1]/l[6]"
+        }, {
+            "text": "And from strange beasts enforce harsh courtesy.”", "info": "/TEI/text[1]/body[1]/epigraph[1]/cit[1]/quote[1]/lg[1]/l[7]"
+        }, {
+            "text": "Her mouth is fragrant as a vine,", "info": "/TEI/text[1]/body[1]/lg[1]/l[1]"
+        }, {
+            "text": "A vine with birds in all its boughs;", "info": "/TEI/text[1]/body[1]/lg[1]/l[2]"
+        }, {
+            "text": "Serpent and scarab for a sign", "info": "/TEI/text[1]/body[1]/lg[1]/l[3]"
+        }, {
+            "text": "Between the beauty of her brows", "info": "/TEI/text[1]/body[1]/lg[1]/l[4]"
+        }, {
+            "text": "And the amorous deep lids divine.", "info": "/TEI/text[1]/body[1]/lg[1]/l[5]"
+        }, {
+            "text": "Her great curled hair makes luminous", "info": "/TEI/text[1]/body[1]/lg[2]/l[1]"
+        }, {
+            "text": "Her cheeks, her lifted throat and chin.", "info": "/TEI/text[1]/body[1]/lg[2]/l[2]"
+        }, {
+            "text": "Shall she not have the hearts of us", "info": "/TEI/text[1]/body[1]/lg[2]/l[3]"
+        }, {
+            "text": "To shatter, and the loves therein", "info": "/TEI/text[1]/body[1]/lg[2]/l[4]"
+        }, {
+            "text": "To shred between her fingers thus?", "info": "/TEI/text[1]/body[1]/lg[2]/l[5]"
+        }, {
+            "text": "Small ruined broken strays of light,", "info": "/TEI/text[1]/body[1]/lg[3]/l[1]"
+        }, {
+            "text": "Pearl after pearl she shreds them through", "info": "/TEI/text[1]/body[1]/lg[3]/l[2]"
+        }, {
+            "text": "Her long sweet sleepy fingers, white", "info": "/TEI/text[1]/body[1]/lg[3]/l[3]"
+        }, {
+            "text": "As any pearl\'s heart veined with blue,", "info": "/TEI/text[1]/body[1]/lg[3]/l[4]"
+        }, {
+            "text": "And soft as dew on a soft night.", "info": "/TEI/text[1]/body[1]/lg[3]/l[5]"
+        }, {
+            "text": "As if the very eyes of love", "info": "/TEI/text[1]/body[1]/lg[4]/l[1]"
+        }, {
+            "text": "Shone through her shutting lids, and stole", "info": "/TEI/text[1]/body[1]/lg[4]/l[2]"
+        }, {
+            "text": "The slow looks of a snake or dove;", "info": "/TEI/text[1]/body[1]/lg[4]/l[3]"
+        }, {
+            "text": "As if her lips absorbed the whole", "info": "/TEI/text[1]/body[1]/lg[4]/l[4]"
+        }, {
+            "text": "Of love, her soul the soul thereof.", "info": "/TEI/text[1]/body[1]/lg[4]/l[5]"
+        }, {
+            "text": "Lost, all the lordly pearls that were", "info": "/TEI/text[1]/body[1]/lg[5]/l[1]"
+        }, {
+            "text": "Wrung from the sea\'s heart, from the green", "info": "/TEI/text[1]/body[1]/lg[5]/l[2]"
+        }, {
+            "text": "Coasts of the Indian gulf-river;", "info": "/TEI/text[1]/body[1]/lg[5]/l[3]"
+        }, {
+            "text": "Lost, all the loves of the world—so keen", "info": "/TEI/text[1]/body[1]/lg[5]/l[4]"
+        }, {
+            "text": "Towards this queen for love of her.", "info": "/TEI/text[1]/body[1]/lg[5]/l[5]"
+        }, {
+            "text": "You see against her throat the small", "info": "/TEI/text[1]/body[1]/lg[6]/l[1]"
+        }, {
+            "text": "Sharp glittering shadows of them shake;", "info": "/TEI/text[1]/body[1]/lg[6]/l[2]"
+        }, {
+            "text": "And through her hair the imperial", "info": "/TEI/text[1]/body[1]/lg[6]/l[3]"
+        }, {
+            "text": "Curled likeness of the river snake,", "info": "/TEI/text[1]/body[1]/lg[6]/l[4]"
+        }, {
+            "text": "Whose bite shall make an end of all.", "info": "/TEI/text[1]/body[1]/lg[6]/l[5]"
+        },]
+    }, {
+        "url": "http://ella.slis.indiana.edu/~jawalsh/tile/sample_data/acs0000007-01/images/acs0000007-01-003.jpg", "lines":[ {
+            "text": "Through the scales sheathing him like wings,", "info": "/TEI/text[1]/body[1]/lg[7]/l[1]"
+        }, {
+            "text": "Through hieroglyphs of gold and gem,", "info": "/TEI/text[1]/body[1]/lg[7]/l[2]"
+        }, {
+            "text": "The strong sense of her beauty stings,", "info": "/TEI/text[1]/body[1]/lg[7]/l[3]"
+        }, {
+            "text": "Like a keen pulse of love in them,", "info": "/TEI/text[1]/body[1]/lg[7]/l[4]"
+        }, {
+            "text": "A running flame through all his rings.", "info": "/TEI/text[1]/body[1]/lg[7]/l[5]"
+        }, {
+            "text": "Under those low large lids of hers", "info": "/TEI/text[1]/body[1]/lg[8]/l[1]"
+        }, {
+            "text": "She hath the histories of all time;", "info": "/TEI/text[1]/body[1]/lg[8]/l[2]"
+        }, {
+            "text": "The fruit of foliage-stricken years;", "info": "/TEI/text[1]/body[1]/lg[8]/l[3]"
+        }, {
+            "text": "The old seasons with their heavy chime", "info": "/TEI/text[1]/body[1]/lg[8]/l[4]"
+        }, {
+            "text": "That leaves its rhyme in the world\'s ears.", "info": "/TEI/text[1]/body[1]/lg[8]/l[5]"
+        }, {
+            "text": "She sees the hand of death made bare,", "info": "/TEI/text[1]/body[1]/lg[9]/l[1]"
+        }, {
+            "text": "The ravelled riddle of the skies,", "info": "/TEI/text[1]/body[1]/lg[9]/l[2]"
+        }, {
+            "text": "The faces faded that were fair,", "info": "/TEI/text[1]/body[1]/lg[9]/l[3]"
+        }, {
+            "text": "The mouths made speechless that were wise,", "info": "/TEI/text[1]/body[1]/lg[9]/l[4]"
+        }, {
+            "text": "The hollow eyes and dusty hair;", "info": "/TEI/text[1]/body[1]/lg[9]/l[5]"
+        }, {
+            "text": "The shape and shadow of mystic things,", "info": "/TEI/text[1]/body[1]/lg[10]/l[1]"
+        }, {
+            "text": "Things that fate fashions or forbids;", "info": "/TEI/text[1]/body[1]/lg[10]/l[2]"
+        }, {
+            "text": "The staff of time-forgotten Kings", "info": "/TEI/text[1]/body[1]/lg[10]/l[3]"
+        }, {
+            "text": "Whose name falls off the Pyramids,", "info": "/TEI/text[1]/body[1]/lg[10]/l[4]"
+        }, {
+            "text": "Their coffin-lids and grave-clothings;", "info": "/TEI/text[1]/body[1]/lg[10]/l[5]"
+        }, {
+            "text": "Dank dregs, the scum of pool or clod,", "info": "/TEI/text[1]/body[1]/lg[11]/l[1]"
+        }, {
+            "text": "God-spawn of lizard-footed clans,", "info": "/TEI/text[1]/body[1]/lg[11]/l[2]"
+        }, {
+            "text": "And those dog-headed hulks that trod", "info": "/TEI/text[1]/body[1]/lg[11]/l[3]"
+        }, {
+            "text": "Swart necks of the old Egyptians,", "info": "/TEI/text[1]/body[1]/lg[11]/l[4]"
+        }, {
+            "text": "Raw draughts of man\'s beginning God;", "info": "/TEI/text[1]/body[1]/lg[11]/l[5]"
+        }, {
+            "text": "The poised hawk, quivering ere he smote,", "info": "/TEI/text[1]/body[1]/lg[12]/l[1]"
+        }, {
+            "text": "With plume-like gems on breast and back;", "info": "/TEI/text[1]/body[1]/lg[12]/l[2]"
+        }, {
+            "text": "The asps and water-worms afloat", "info": "/TEI/text[1]/body[1]/lg[12]/l[3]"
+        }, {
+            "text": "Between the rush-flowers moist and slack;", "info": "/TEI/text[1]/body[1]/lg[12]/l[4]"
+        }, {
+            "text": "The cat\'s warm black bright rising throat.", "info": "/TEI/text[1]/body[1]/lg[12]/l[5]"
+        }, {
+            "text": "The purple days of drouth expand", "info": "/TEI/text[1]/body[1]/lg[13]/l[1]"
+        }, {
+            "text": "Like a scroll opened out again;", "info": "/TEI/text[1]/body[1]/lg[13]/l[2]"
+        }, {
+            "text": "The molten heaven drier than sand,", "info": "/TEI/text[1]/body[1]/lg[13]/l[3]"
+        }, {
+            "text": "The hot red heaven without rain,", "info": "/TEI/text[1]/body[1]/lg[13]/l[4]"
+        }, {
+            "text": "Sheds iron pain on the empty land.", "info": "/TEI/text[1]/body[1]/lg[13]/l[5]"
+        }, {
+            "text": "All Egypt aches in the sun\'s sight;", "info": "/TEI/text[1]/body[1]/lg[14]/l[1]"
+        }, {
+            "text": "The lips of men are harsh for drouth,", "info": "/TEI/text[1]/body[1]/lg[14]/l[2]"
+        }, {
+            "text": "The fierce air leaves their cheeks burnt white,", "info": "/TEI/text[1]/body[1]/lg[14]/l[3]"
+        }, {
+            "text": "Charred by the bitter blowing south,", "info": "/TEI/text[1]/body[1]/lg[14]/l[4]"
+        }, {
+            "text": "Whose dusty mouth is sharp to bite.", "info": "/TEI/text[1]/body[1]/lg[14]/l[5]"
+        },]
+    }, {
+        "url": "http://ella.slis.indiana.edu/~jawalsh/tile/sample_data/acs0000007-01/images/acs0000007-01-004.jpg", "lines":[ {
+            "text": "All this she dreams of, and her eyes", "info": "/TEI/text[1]/body[1]/lg[15]/l[1]"
+        }, {
+            "text": "Are wrought after the sense hereof.", "info": "/TEI/text[1]/body[1]/lg[15]/l[2]"
+        }, {
+            "text": "There is no heart in her for sighs;", "info": "/TEI/text[1]/body[1]/lg[15]/l[3]"
+        }, {
+            "text": "The face of her is more than love—", "info": "/TEI/text[1]/body[1]/lg[15]/l[4]"
+        }, {
+            "text": "A name above the Ptolemies.", "info": "/TEI/text[1]/body[1]/lg[15]/l[5]"
+        }, {
+            "text": "Her great grave beauty covers her", "info": "/TEI/text[1]/body[1]/lg[16]/l[1]"
+        }, {
+            "text": "As that sleek spoil beneath her feet", "info": "/TEI/text[1]/body[1]/lg[16]/l[2]"
+        }, {
+            "text": "Clothed once the anointed soothsayer;", "info": "/TEI/text[1]/body[1]/lg[16]/l[3]"
+        }, {
+            "text": "The hallowing is gone forth from it", "info": "/TEI/text[1]/body[1]/lg[16]/l[4]"
+        }, {
+            "text": "Now, made unmeet for priests to wear.", "info": "/TEI/text[1]/body[1]/lg[16]/l[5]"
+        }, {
+            "text": "She treads on gods and god-like things,", "info": "/TEI/text[1]/body[1]/lg[17]/l[1]"
+        }, {
+            "text": "On fate and fear and life and death,", "info": "/TEI/text[1]/body[1]/lg[17]/l[2]"
+        }, {
+            "text": "On hate that cleaves and love that clings,", "info": "/TEI/text[1]/body[1]/lg[17]/l[3]"
+        }, {
+            "text": "All that is brought forth of man\'s breath", "info": "/TEI/text[1]/body[1]/lg[17]/l[4]"
+        }, {
+            "text": "And perisheth with what it brings.", "info": "/TEI/text[1]/body[1]/lg[17]/l[5]"
+        }, {
+            "text": "She holds her future close, her lips", "info": "/TEI/text[1]/body[1]/lg[18]/l[1]"
+        }, {
+            "text": "Hold fast the face of things to be;", "info": "/TEI/text[1]/body[1]/lg[18]/l[2]"
+        }, {
+            "text": "Actium, and sound of war that dips", "info": "/TEI/text[1]/body[1]/lg[18]/l[3]"
+        }, {
+            "text": "Down the blown valleys of the sea,", "info": "/TEI/text[1]/body[1]/lg[18]/l[4]"
+        }, {
+            "text": "Far sails that flee, and storms of ships;", "info": "/TEI/text[1]/body[1]/lg[18]/l[5]"
+        }, {
+            "text": "The laughing red sweet mouth of wine", "info": "/TEI/text[1]/body[1]/lg[19]/l[1]"
+        }, {
+            "text": "At ending of life\'s festival;", "info": "/TEI/text[1]/body[1]/lg[19]/l[2]"
+        }, {
+            "text": "That spice of cerecloths, and the fine", "info": "/TEI/text[1]/body[1]/lg[19]/l[3]"
+        }, {
+            "text": "White bitter dust funereal", "info": "/TEI/text[1]/body[1]/lg[19]/l[4]"
+        }, {
+            "text": "Sprinkled on all things for a sign;", "info": "/TEI/text[1]/body[1]/lg[19]/l[5]"
+        }, {
+            "text": "His face, who was and was not he,", "info": "/TEI/text[1]/body[1]/lg[20]/l[1]"
+        }, {
+            "text": "In whom, alive, her life abode;", "info": "/TEI/text[1]/body[1]/lg[20]/l[2]"
+        }, {
+            "text": "The end, when she gained heart to see", "info": "/TEI/text[1]/body[1]/lg[20]/l[3]"
+        }, {
+            "text": "Those ways of death wherein she trod,", "info": "/TEI/text[1]/body[1]/lg[20]/l[4]"
+        }, {
+            "text": "Goddess by god, with Antony.", "info": "/TEI/text[1]/body[1]/lg[20]/l[5]"
+        }]
+    }]
+}
