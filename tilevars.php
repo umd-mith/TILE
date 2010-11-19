@@ -18,7 +18,7 @@ if(preg_match('/\.php$|\.js$/',$m)==0){
 	\"importDefault\":\"".$prefix."html\/testList.txt\",
 	\"exportDefault\":\"".$prefix."importWidgets\/TEIexport.js\",
 	\"pemLoad\":\"".$prefix."importWidgets\/importXML.php?uri=".$prefix."importWidgets\/testPemb.xml&rname=text&rnum=0&ipath=http:\/\/www.stoa.org\/Pembroke25\/Website-tv\/IMT\/\",
-	\"jsLoad\":\"http:\/\/peach.umd.edu\/staff\/jdickie\/swinburne.json\",
+	\"jsLoad\":\"http:\/\/ella.slis.indiana.edu\/~jawalsh\/tile\/sample_data\/acs0000007-01\/acs0000007-01.json\",
 	\"locJS\":\"".$prefix."html\/hooptydamndoo.js\",
 	\"swineburne\":\"http:\/\/mith.umd.edu\/tile\/trunk\/html\/swinburneJSON.json\"
 	}";
