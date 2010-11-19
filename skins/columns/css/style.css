@@ -380,22 +380,25 @@ a.btnIconLarge:hover {
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
-
 .toolbar li a#pointer.btnIconLarge, .toolbar li a#getTrans.btnIconLarge {
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -21px;
+	text-indent:-9999px;
 }
 .toolbar li a:hover#pointer.btnIconLarge, .toolbar li a:hover#getTrans.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -0px;
+	text-indent:-9999px;
 }
 .toolbar li a#pointer.btnIconLarge.inactive, .toolbar li a:hover#pointer.btnIconLarge.inactive, .toolbar li a#getTrans.btnIconLarge.inactive, .toolbar li a:hover#getTrans.btnIconLarge.inactive {
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -65px;
 	border:1px solid #FDFDEC;
 	cursor:default;
+	text-indent:-9999px;
 }
 .toolbar li a#pointer.btnIconLarge.active, .toolbar li a:hover#pointer.btnIconLarge.active, .toolbar li a#getTrans.btnIconLarge.active, .toolbar li a:hover#getTrans.btnIconLarge.active {
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -42px;
 	border:1px solid #FDFDEC;
 	cursor:default;
+	text-indent:-9999px;
 }
 .toolbar li a#rect.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -64px -21px;
@@ -692,7 +695,6 @@ a.btnIconLarge:hover {
 }
 .az #labelList .labelItem.active, #labelList .labelItem.active {
 	padding:0.5em;
-	margin-top:2px;
 	background-color:#afbf37;
 }
 /* tag styles ------------------- */
