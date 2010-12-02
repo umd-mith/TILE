@@ -41,7 +41,7 @@ colorChanged
 		* currently active link to apply change to
 
 TILEImage
-Constructor: Image({url: {String}})
+Constructor: TILEImage({url: {String}})
     getZoomLevel - Returns a copy of the current zoom level {Integer}
 
     activate - Shows the container DOM
@@ -49,13 +49,29 @@ Constructor: Image({url: {String}})
     deactivate - Hide the container DOM
 
 Used as a Parent Class for all Image-based objects (e.g. RaphaelCanvas in image_tagger.js)
+
 Dialog
+
 Constructor: Dialog({loc: {String}, html: {String}})
+
 **These arguments are used for all Dialog Objects
     loc - {String} representing ID of parent DOM - defaults to 'body'
 
     html - {String} HTML in string format for this Dialog box
+
 This is a Parent Class for all Dialog boxes. The ones below are parents of this class.
+
+HelpBox
+
+Usage: 
+new HelpBox({text:{String},iconId:{String}});
+
+text {String} - text to display when the mouse hovers over the icon
+iconId {String} - element ID of the icon to attach HelpBox functions to
+
+appear - Called by mouseover. Causes the DOM to show
+hide - Called by mouseout. Causes the DOM to hide 
+
 Import Dialog
 Constructor: ImportDialog({loc: {String}, html: {String}, auto: {String}})
 **Arguments same as Dialog except:
@@ -82,7 +98,7 @@ Constructor: LoadTags({loc: {String}, html: {String}})
     close({e: {Event}}) - Hides the container DOM
    
 ExportDialog
-Constructor: LoadTags({loc: {String}, html: {String}})
+Constructor: LoadTags({loc: {String}, html: {String}, defaultExport:{String}})
 **Arguments same as Dialog
    
    
