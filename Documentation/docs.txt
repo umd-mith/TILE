@@ -154,9 +154,14 @@ Functions
     setUpTool({String} toolname) - sets a new tool - users must define tool in .js code and proper JSON format
 
     saveSettingsHandle({Event} e) - Called by "SaveAllSettings" Event. Starts prompt to save the current manifest of data as a JSON object
-
+	
+	exportToXMLHandle(e {Event}) - Called by "exportToXML". Takes JSON data that is stored in TILE_ENGINE and PluginController, parses it, then sends off to savePrompt to save to the user.
+	
+	savePrompt(json {Object}) - Used by saveSettingsHandle and exportToXMLHandle to prompt the user to save the html/xml data
    
+PluginController
 
+Used to control all of the plugins for a given TILE session. Plugins are fed through TILE_ENGINE to PluginController and each plugin has its standard start(), restart(), close() methods called. 
            
 TileToolBar
 Constructor: TileToolBar({loc:{String}})
