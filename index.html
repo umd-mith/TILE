@@ -32,22 +32,22 @@
 		<!-- underscore.js is required for VectorDrawer -->
 	<script type="text/javascript" src="lib/VectorDrawer_1.0/VectorDrawer.js"></script>
 	<script type="text/javascript" src="lib/_Interface/tile1.0.js"></script> 
-	<script type="text/javascript" src="lib/_Interface/image_tagger.js"></script>
-	<script type="text/javascript" src="lib/_Interface/Transcript.js"></script> 
-	<script type="text/javascript" src="lib/_Interface/Labels.js"></script>
+	<script type="text/javascript" src="lib/Plugins/ImageTagger/image_tagger.js"></script>
+	<script type="text/javascript" src="lib/Plugins/Transcript/Transcript.js"></script> 
+	<script type="text/javascript" src="lib/Plugins/Labels/Labels.js"></script>
+	
+	<script type="text/javascript" src="lib/Plugins/TextSelection/textSelection.js"></script>
+	<script type="text/javascript" src="lib/Plugins/AutoLineRecognizer/autorecognizer_plugin.js"></script>
 	<script type="text/javascript" src="lib/jquery/plugins/colorpicker/js/colorpicker.js"></script>
     <script type="text/javascript" src="lib/jquery/plugins/colorpicker/js/eye.js"></script>
     <script type="text/javascript" src="lib/jquery/plugins/colorpicker/js/utils.js"></script>
 	<script type="text/javascript" src="lib/rangy/getPath.js"></script>
-	<script type="text/javascript" src="lib/rangy/textSelection.js"></script>
-	<!-- Auto Recognizer -->
-	<script type="text/javascript" src="lib/_Interface/autorecognizer_plugin.js"></script>
 
 </head>
 
 <body>
 	<div class="az header"><div class="az logo"><img src="skins/columns/images/tile.gif" alt="TILE: Text-Image Linking Environment" /></div>
-	<div id="azglobalmenu" class="az globalmenu"><p><a id="restartall" href="" title="Discard all changes and start over">Restart</a> | <a id="tilehelp" title="Go to the TILE documentation page" href="http://mith.umd.edu/tile/documentation">Help</a> | <span class="version">version 0.61</span></p></div>
+	<div id="azglobalmenu" class="az globalmenu"><p><a id="restartall" href="" title="Discard all changes and start over">Restart</a> | <a id="tilehelp" title="Go to the TILE documentation page" href="http://mith.umd.edu/tile/documentation">Help</a> | <span class="version">version 0.80</span></p></div>
 	</div>
 	<!-- Submit Form for save progress-->
 	<form id="inv_SaveProgress_Form" class="submitFormHidden" method="POST" action="PHP/forceJSON.php">

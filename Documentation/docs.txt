@@ -110,47 +110,33 @@ Constructor: LoadTags({loc: {String}, html: {String}, defaultExport:{String}})
     _submitHandle(e: {Event}) - Takes the user-defined filepath in ExportDialog and
 
                                 uses it to output current JSON session as XML
-NewImageDialog
-Constructor: LoadTags({loc: {String}, html: {String}})
-**Arguments same as Dialog
-   
-   
-   
-    display({e: {Event}) - Displays the container DOM
-
-    close({e: {Event}}) - Hides the container DOM
-
-    handleImageForm(e: {Event}) - Takes file input path and sends it out using trigger
-
-                                "newImageAdded"
    
 TILE_ENGINE
-Constructor: TILE_ENGINE({attach:(optional){String},toolSet:{Array}})
-Arguments:
-    attach - {String} what to attach the interface to (defaults to "body")
-    toolSet - {Array} Array of plugin objects that are fed into the TILE_ENGINE to be used as plugins
-                These are displayed in the "Tools" drop-down
-Loads in HTML layout from columns.json, parses JSON and sends to all
+	Constructor: TILE_ENGINE({toolSet:[Array],defaultTool:String});
+		toolSet (Array) :: An array of plugin wrappers, each wrapper having the specified properties and methods. These will be 
+                   fed into PluginController
 
-other objects.
+		defaultTool (String) :: ID of the default tool to use (Shows up first after TILE is loaded)
 
+		Sets up the TILE toolbar (upper left-hand corner) with the 
+		tool selection drop-down, buttons for saving and exporting 
+		data
 
 
 Functions
+	
 
-    getBase - Calls TILECONSTANTS.json file and gets base, possible json data
+    checkJSON - Called to see if there is a JSON object stored in the PHP session(). Uses PHP/isJSON.php
+    getBase - Calls TILECONSTANTS.php file and gets the base URI for this interface. 
 
-    checkJSON - Called to see if there is a JSON object stored in the PHP session()
-
-    setUp({Object} html) - Called after getBase(). Creates main TILE interface objects and
-
-            setting up the HTML
+    setUp() - Called after getBase(). Creates main TILE interface objects and
+            attaches listeners and objects to the existing HTML in index.html
 
     getSchema({Event} e, {String} file) - Called from Custom Event "schemaFileImport". Passed a string 'file', which
 
                 is then used in an AJAX call to retrieve the JSON data. JSON data should follow TILE specifications and include
 
-                all relevant page data, lines, and optionally stored shapes
+                all relevant page data, lines, and optionally stored shapes and other plugin data
 
     addDialogBoxes - called during setUp(). Takes dialogs.json data and loads this into the interface. Sets up New Image Dialog,
 
