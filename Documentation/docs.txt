@@ -33,8 +33,14 @@ floatDivOutput
 
 deleteMetaLink
 	Passes:
-		* 
-	
+		* {Object} containing: 
+			** id: {String}
+			** type: {String}
+			** tool: {String} - tool ID that the object of id and type belongs to
+			** parentTool: {String} - tool ID of the tool that linked this object to itself
+			** parentObj: {Object} - parent object from the tool of ID parentTool
+			** parentType: {String} - type of object from tool of ID parentTool
+	 
 colorChanged
 	Passes:
 		* hexidecimal color value
@@ -161,13 +167,49 @@ Functions
    
 PluginController
 
-Used to control all of the plugins for a given TILE session. Plugins are fed through TILE_ENGINE to PluginController and each plugin has its standard start(), restart(), close() methods called. 
-           
+Used to control all of the plugins for a given TILE session. Plugins are fed through TILE_ENGINE to PluginController and each plugin has its standard start(), restart(), close() methods called. Then controls the data that is output and input in each plugin. 
+
+Constructor: PluginController({toolSet:{Array},defaultTool:{String}});
+
+* toolSet {Array} - array of tool wrapper objects. Each one has to be under the specifications defined by TILE.
+
+* defaultTool {String} - ID of the tool to start the interface with. This tool shows up once the interface and javascript fully load.
+
+setUpToolData - 
+Takes the input toolSet and walks through each plugin wrapper, calling the wrapper's start(), close(), then restart().
+
+switchTool(name {String}, json {Object}) - 
+Finds the name of the tool in toolSet and starts that tool with the passed JSON data
+
+setUpTool(toolname {String},json {Object})- 
+Updates the passed JSON data, then runs the restart() function for the tool that has name toolname
+
+initTools(json {Object}) - 
+Takes the passed JSON data and runs start() and close() on all plugin wrappers. This sets up any JSON data that is referenced by a plugin
+
+_setActiveTool(e {Event},id {String}) - 
+Called by any plugins 'activeCall' event. Makes the tool with ID 'id' the active tool
+
+_toolOutputHandle(e {Event}, data {Object}) -
+Called by any plugins' 'outputCall' event. Takes the passed data (a link from the tool triggering outputCall), then either attaches it to the activeTool, or if no activeTool is present, it will attach the FloatingDiv to the object passed in data.  
+
+_attachFloatDiv(id {String}, link {Object}, refs {Array}) - 
+Called by PluginController to attach the FloatingDiv to the object link that has an element with ID 'id'. 
+
+_floatDivOutputHandle(e {Event}, o {Object}) -
+Called by the event 'floatDivOutput'. Takes the Object o () and attaches link for the object and its reference
+
+
+_deleteLinkHandle(e {Event}, ref {Object}) - 
+Called by the event 'deleteMetaLink' from FloatingDiv - deletes the ref ID and TYPE from the manifest in PluginController. 
+
+getPluginData(passManifest {Object}) - 
+Takes the passManifest object from TILE_ENGINE, and updates the JSON data contained with all of the plugin data that is in each plugin's manifest array. Does this by calling the bundleData() function contained in each plugin wrapper. 
+
+
 TileToolBar
 Constructor: TileToolBar({loc:{String}})
-Arguments:
-
-    loc {String} - Represents ID of parent DOM
+	* loc {String} - Represents ID of parent DOM
    
    
     setChoices(data: {Object}) - Populates the Tools select menu. Takes JSON object data and sets each
