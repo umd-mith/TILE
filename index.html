@@ -33,6 +33,9 @@
     <script type="text/javascript" src="lib/jquery/plugins/colorpicker/js/eye.js"></script>
     <script type="text/javascript" src="lib/jquery/plugins/colorpicker/js/utils.js"></script>
 	<script type="text/javascript" src="lib/rangy/getPath.js"></script>
+	
+	<script type="text/javascript" src="lib/Plugins/TutorialPlugin/HelloWorld.js"></script>
+	
 </head>
 <body>
 	<div class="az header"><div class="az logo"><img src="skins/columns/images/tile.gif" alt="TILE: Text-Image Linking Environment" /></div>
@@ -49,7 +52,7 @@
 		<div id="azcontentarea" class="az content"></div>
 	<script>
 		//adding AR from autorecognizer_plugin.js
-		(function($,trans,it,lb,ts,ar){
+		(function($,trans,it,lb,ts,ar,hw){
 			// set verbose mode either true (on) or false (off)
 			__v=false;
 			// automatically set to true if in localhost
@@ -60,9 +63,9 @@
 			// if((reg.test(it))||(reg.test(ar))) die("Error");
 			
 			$(function(){
-				var engine=new TILE_ENGINE({toolSet:[it,trans,lb,ts,ar],defaultTool:lb.id});
+				var engine=new TILE_ENGINE({toolSet:[it,trans,lb,ts,ar,hw],defaultTool:lb.id});
 			});
-		})(jQuery,Trans,IT,LB,TS,AR);
+		})(jQuery,Trans,IT,LB,TS,AR,HW);
 	</script>
 	
 </body>
