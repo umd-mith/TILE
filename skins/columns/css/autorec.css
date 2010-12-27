@@ -1,17 +1,15 @@
-#regionBox{
-display: none;
-}
+
 
 .boxer_plainbox{
 	position:absolute;
-	left:0px;
-	top:17px;
+	
 	background-color:transparent;
 	border: 2px solid #ff510b;
 	width:200px;
 	height:300px;
+	/*
 	margin-right:5px;
-	padding-right:5px;
+	padding-right:5px;*/
 }
 .boxer_plainbox_close{
 	position:absolute;
