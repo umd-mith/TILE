@@ -111,6 +111,16 @@ $curLb =0;
 $lastP = 0;
 $pbs[]=array(strlen($ptxt),"",null);
 $JSON = "{\"sourceFile\": \"$uri\", \"pages\": [";
+
+// Generate random ID for all objects - in this case, lines
+$characters=array("A","B","C","D","E","F","G","H","J","K","L","M",
+"N","P","Q","R","S","T","U","V","W","X","Y","Z",
+"1","2","3","4","5","6","7","8","9");
+// empty container for array keys
+$keys=array();
+
+
+
 for ($i=0;$i<(count($pbs)-1);$i++){
 	$facID = substr($pbs[$i][2]->getNamedItem("facs")->value,1);
 
@@ -136,9 +146,22 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	}
 	
 	//$linetxt = substr($ptxt,$lastlb,$len);
+	// RANDOM ID GENERATION
+	// generate random array that's not yet in $keys
+	$x=rand(0,10000);
+	if(count($keys)>0){
+		while(in_array($x, $keys)){
+			
+			// if in array, go through this loop
+			$x=rand(0,10000);
+		}
+	}
+	
+	// store in $keys
+	$keys[]=$x;
 	
 	
-	$JSON.='{"text":"'.addslashes($linetxt).'","info": "lb['.$curLb.']>'.$startCon.'"}';
+	$JSON.='{"id":"line_'.$x.'", "text":"'.addslashes($linetxt).'","info": "lb['.$curLb.']>'.$startCon.'"}';
 	$lastlb = $lbs[$curLb][0];	
 	$curLb=$curLb+1;	
 	if (($curLb<count($lbs))&&($lbs[$curLb][0]<$pbs[$i+1][0])){
