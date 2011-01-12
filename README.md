@@ -4,12 +4,12 @@ TILE API
 copyright MITH
 --------------
 
-Grant Dickie
-Dave Lester
-Dot Porter
-John Walsh
-Tim Bowman
-Doug Reside
+Grant Dickie  
+Dave Lester  
+Dot Porter  
+John Walsh  
+Tim Bowman  
+Doug Reside  
 
 Main site
 ----
