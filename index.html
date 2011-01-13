@@ -51,6 +51,8 @@
 		<div id="az_activeBox" class="az activeBox"></div>
 		<div id="azcontentarea" class="az content"></div>
 	<script>
+		// TODO: generate global instance of TILE_ENGINE - needs to be the same name each
+		// time so plugins can inherit the variable
 		var engine=null;
 		//adding AR from autorecognizer_plugin.js
 		(function($,trans,it,lb,ts,ar,hw,v){
