@@ -34,6 +34,9 @@
     <script type="text/javascript" src="lib/jquery/plugins/colorpicker/js/utils.js"></script>
 	<script type="text/javascript" src="lib/rangy/getPath.js"></script>
 	<script type="text/javascript" src="lib/Plugins/Views/views.js"></script>
+	<script type="text/javascript" src="lib/Plugins/LoadTags/loadJSON1.0.js"></script>
+	<script type="text/javascript" src="lib/Plugins/ImportDialog/import1.0.js"></script>
+	<script type="text/javascript" src="lib/Plugins/ExportDialog/export1.0.js"></script>
 	<script type="text/javascript" src="lib/Plugins/TutorialPlugin/HelloWorld.js"></script>
 	
 </head>
@@ -55,20 +58,19 @@
 		// time so plugins can inherit the variable
 		var engine=null;
 		//adding AR from autorecognizer_plugin.js
-		(function($,trans,it,lb,ts,ar,hw,v){
-			// set verbose mode either true (on) or false (off)
-			__v=false;
-			// automatically set to true if in localhost
-			if(/^http:\/\/localhost:8888/.test(document.URL)) __v=true;
+		// set verbose mode either true (on) or false (off)
+		__v=false;
+		// automatically set to true if in localhost
+		if(/^http:\/\/localhost:8888/.test(document.URL)) __v=true;
+	
+		// security test
+		var reg=/.js|javascript:|.php|.JS|.PHP/;
+		// if((reg.test(it))||(reg.test(ar))) die("Error");
 		
-			// security test
-			var reg=/.js|javascript:|.php|.JS|.PHP/;
-			// if((reg.test(it))||(reg.test(ar))) die("Error");
-			
-			$(function(){
-				engine=new TILE_ENGINE({toolSet:[it,trans,lb,ts,ar,v],defaultTool:lb.id});
-			});
-		})(jQuery,Trans,IT,LB,TS,AR,HW,V);
+		$(function(){
+			engine=new TILE_ENGINE({toolSet:[IT,Trans,LB,TS,AR,V,importdialog_tile,LoadJSONTILE],defaultTool:LB.id});
+		});
+	
 	</script>
 	
 </body>
