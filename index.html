@@ -61,7 +61,7 @@
 		// set verbose mode either true (on) or false (off)
 		__v=false;
 		// automatically set to true if in localhost
-		if(/^http:\/\/localhost:8888/.test(document.URL)) __v=true;
+		if(/^http:\/\/localhost/.test(document.URL)) __v=true;
 	
 		// security test
 		var reg=/.js|javascript:|.php|.JS|.PHP/;

@@ -73,7 +73,7 @@ function getTxts4Node($node,$off,$txtStr,$offsets,$context,$milestones){
 
 	else {
 		 if(isset($node->nodeName)){
-	 		if (is_null($milestones[$node->nodeName])){
+	 		if ($node&&$node->nodeName&&(is_null($milestones[$node->nodeName]))){
 	 			$milestones[$node->nodeName]=array();	
 	 		}
 	 	
