@@ -1,7 +1,8 @@
 <?php 
 
 include_once('../PHP/secureInput.php');
-
+#turn off error reporting and display errors
+error_reporting(0); 
 
  $uri = checkXML($_GET["uri"]); // uri of document
  
