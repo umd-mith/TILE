@@ -6,12 +6,23 @@
 #
 #
 
+
+$ids=array();
 $file=$_GET['file'];
 if(preg_match("/^<[A-Za-z]*/",$file)>0){
 	# contains html
 	die("Error parsing ".$file);
 }
 
+# create a unique ID 
+function genID(){
+	
+}
+# takes JSON PHP object
+function parseOut(json){
+	if(is_null(json)) die("Returned JSON is null");
+	
+}
 
 # Gets contents of the [safe] url and 
 # then echos them out 
@@ -21,6 +32,11 @@ function getData($url){
 	while(!feof($fp)){
 		$content.=fread($fp,8192);
 	}
+	
+	#check to make sure JSON string is parsed
+	#correctly
+	parseOut(json_decode($content));
+	
 	echo $content;
 	#close stream
 	fclose($fp);
