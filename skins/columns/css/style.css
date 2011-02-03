@@ -361,40 +361,43 @@ a.btnIconLarge:hover {
 	/* border:1px solid #fff;
 	line-height:15px;*/
 }
-.toolbar li a#getHLite {
+.toolbar li a.getHLite {
 	text-indent:-9999px;
 }
-.toolbar li a#getHLite.btnIconLarge{
+.toolbar div.category{
+	display:inline;
+}
+.toolbar li a.getHLite.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -380px -21px;
 }
-.toolbar li a:hover#getHLite.btnIconLarge{
+.toolbar li a:hover.getHLite.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -380px -0px;
 }
-.toolbar li a#getHLite.btnIconLarge.inactive, .toolbar li a:hover#getHLite.btnIconLarge.inactive {
+.toolbar li a.getHLite.btnIconLarge.inactive, .toolbar li a:hover#getHLite.btnIconLarge.inactive {
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -378px -65px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
-.toolbar li a#getHLite.btnIconLarge.active, .toolbar li a:hover#getHLite.btnIconLarge.active {
+.toolbar li a.getHLite.btnIconLarge.active, .toolbar li a:hover#getHLite.btnIconLarge.active {
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -378px -42px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 }
-.toolbar li a#pointer.btnIconLarge, .toolbar li a#getTrans.btnIconLarge {
+.toolbar li a#pointer.btnIconLarge, .toolbar li a.getTrans.btnIconLarge {
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -21px;
 	text-indent:-9999px;
 }
-.toolbar li a:hover#pointer.btnIconLarge, .toolbar li a:hover#getTrans.btnIconLarge{
+.toolbar li a:hover#pointer.btnIconLarge, .toolbar li a:hover.getTrans.btnIconLarge{
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -0px;
 	text-indent:-9999px;
 }
-.toolbar li a#pointer.btnIconLarge.inactive, .toolbar li a:hover#pointer.btnIconLarge.inactive, .toolbar li a#getTrans.btnIconLarge.inactive, .toolbar li a:hover#getTrans.btnIconLarge.inactive {
+.toolbar li a#pointer.btnIconLarge.inactive, .toolbar li a:hover#pointer.btnIconLarge.inactive, .toolbar li a.getTrans.btnIconLarge.inactive, .toolbar li a:hover.getTrans.btnIconLarge.inactive {
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -65px;
 	border:1px solid #FDFDEC;
 	cursor:default;
 	text-indent:-9999px;
 }
-.toolbar li a#pointer.btnIconLarge.active, .toolbar li a:hover#pointer.btnIconLarge.active, .toolbar li a#getTrans.btnIconLarge.active, .toolbar li a:hover#getTrans.btnIconLarge.active {
+.toolbar li a#pointer.btnIconLarge.active, .toolbar li a:hover#pointer.btnIconLarge.active, .toolbar li a.getTrans.btnIconLarge.active, .toolbar li a:hover.getTrans.btnIconLarge.active {
 	background:url('../images/iconsSpriteLarge.gif') no-repeat -317px -42px;
 	border:1px solid #FDFDEC;
 	cursor:default;
