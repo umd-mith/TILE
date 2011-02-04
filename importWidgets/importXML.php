@@ -111,17 +111,34 @@ $lastlb =0;
 $curLb =0;
 $lastP = 0;
 $pbs[]=array(strlen($ptxt),"",null);
+$stack=array();
 $JSON = "{\"sourceFile\": \"$uri\", \"pages\": [";
 
 // Generate random ID for all objects - in this case, lines
 $characters=array("A","B","C","D","E","F","G","H","J","K","L","M",
-"N","P","Q","R","S","T","U","V","W","X","Y","Z",
-"1","2","3","4","5","6","7","8","9");
+"N","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9");
 // empty container for array keys
 $keys=array();
 
+# collate pb tags
+/*
+for ($i=0;$i<(count($pbs)-1);$i++){
+	# register URL for this page
+	$facID = substr($pbs[$i][2]->getNamedItem("facs")->value,1);
+	# parse out the facsimile tag
+	$fac = $imgPath.$xmlDoc->getElementById($facID)->getElementsByTagName("graphic")->item(0)->getAttribute("url");
+	# put in stack if not already there
+	if(is_null($stack[$fac])){
+		$stack[$fac]=true;
+	} else {
+		# collate by removing duplicate page
+		$pbs=array_splice($pbs,$i,(-$i));
+	}
+	
+	
 
-
+}
+*/
 for ($i=0;$i<(count($pbs)-1);$i++){
 	$facID = substr($pbs[$i][2]->getNamedItem("facs")->value,1);
 

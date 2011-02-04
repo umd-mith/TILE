@@ -42,7 +42,7 @@
 </head>
 <body>
 	<div class="az header"><div class="az logo"><img src="skins/columns/images/tile.gif" alt="TILE: Text-Image Linking Environment" /></div>
-	<div id="azglobalmenu" class="az globalmenu"><p><a id="restartall" href="" title="Discard all changes and start over">Restart</a> | <a id="tilehelp" title="Go to the TILE documentation page" href="http://mith.umd.edu/tile/documentation">Help</a> | <span class="version">version 0.80</span></p></div>
+	<div id="azglobalmenu" class="az globalmenu"><p class="globalbuttons"></p><p><a id="restartall" href="" title="Discard all changes and start over">Restart</a> | <a id="tilehelp" title="Go to the TILE documentation page" href="http://mith.umd.edu/tile/documentation">Help</a> | <span class="version">version 0.80</span></p></div>
 	</div>
 	<!-- Submit Form for save progress-->
 	<form id="inv_SaveProgress_Form" class="submitFormHidden" method="POST" action="PHP/forceJSON.php">
@@ -50,9 +50,9 @@
 	</form>
 	<!-- -->
 	<div class="az main twocol">
-		<div id="az_log" class="az log"><div class="az inner"><div id="tile_toolbar" class="toolbar"></div><div id="logbar_list" class="az"></div></div></div>
+		<div id="az_log" class="az log"><div class="az inner"><div id="tile_toolbar" class="toolbar"><span class="pluginTitle"></span></div><div id="logbar_list" class="az"></div></div></div>
 		<div id="az_activeBox" class="az activeBox"></div>
-		<div id="azcontentarea" class="az content"></div>
+		<div id="azcontentarea" class="az content"><span class="pluginTitle"></span></div>
 	<script>
 		// TODO: generate global instance of TILE_ENGINE - needs to be the same name each
 		// time so plugins can inherit the variable
@@ -62,7 +62,7 @@
 		__v=false;
 		// automatically set to true if in localhost
 		if(/^http:\/\/localhost/.test(document.URL)) __v=true;
-	
+		
 		// security test
 		var reg=/.js|javascript:|.php|.JS|.PHP/;
 		// if((reg.test(it))||(reg.test(ar))) die("Error");
