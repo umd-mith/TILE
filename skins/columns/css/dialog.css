@@ -10,6 +10,17 @@
 	display:none;
 	z-index:1005;
 }
+#ALRLOADDIALOG.dialog{
+	position:absolute;
+	left:50%;
+	top:50%;
+	width:800px;
+	height:auto;
+	border:1px solid #D5DB97;
+	/**initially invisible**/
+	display:none;
+	z-index:1005;
+}
 #exportDialog.dialog {
 	position:absolute;
 	left:100px;
