@@ -140,15 +140,27 @@ a:hover {
 	width:280px;
 }
 .header .globalmenu {
-	padding:45px 10px 10px 10px;
+	padding:25px 10px 10px 10px;
 	right:0;
 	left:auto;
 	text-align:right;
-	width:300px;
 }
 .version {
 	font-style:italic;
 	font-size:85%;
+}
+.header .globalmenu .globalbuttons{
+	
+}
+.header .globalmenu .globalbuttons .modeitems{
+	
+}
+.header .globalmenu .globalbuttons .dataitems{
+	
+	
+}
+.header .globalmenu .globalbuttons .misc{
+	
 }
 /* Main area styles ------------------- */
 .main {
