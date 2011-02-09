@@ -153,8 +153,16 @@ a:hover {
 	
 }
 .header .globalmenu .globalbuttons .modeitems{
-	overflow:auto; 
-	float:left;
+	-webkit-border-radius: 10px;
+	    -moz-border-radius: 10px;
+	    border-radius: 10px;
+	    background-color: #EAEDBA;
+	    border: 1px solid #FFFFFF;
+	    float: left;
+	    margin-right: 15px;
+	    margin-top: -10px;
+	    overflow: auto;
+	    padding: 10px 0 10px 10px;
 }
 .header .globalmenu .globalbuttons .dataitems{
 	float:left;
@@ -165,10 +173,13 @@ a:hover {
 }
 .header .globalmenu .globalbuttons .modeitems .menuitem {}
 .header .globalmenu .globalbuttons .dataitems .menuitem {}
-.header .globalmenu .globalbuttons .misc .menuitem {}
+.header .globalmenu .globalbuttons .misc .menuitem {
+	float: right;
+	   margin-top: 5px;
+}
 .header .globalmenu .globalbuttons div {}
 #tilehelp{
-	
+	border-bottom: 1px dashed #14253D;
 }
 /* Main area styles ------------------- */
 .main {
