@@ -55,14 +55,18 @@
 }
 #loadDialogSplash.dialog{
 	position:absolute;
-	left:50%;
+	left:38%;
 	top:50%;
-	width:800px;
-	height:auto;
+	width:100px;
+	height:100px;
 	z-index:1003;
 	border:1px solid #D5DB97;
 	/**initially invisible**/
 	display:none;
+}
+#loadDialogSplash.dialog .body{
+	background:#fff url('../images/tileload.gif');
+	padding:50px;
 }
 .dialog .header {
 	background:#F8ECCE;
