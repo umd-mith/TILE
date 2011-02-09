@@ -167,6 +167,9 @@ a:hover {
 .header .globalmenu .globalbuttons .dataitems .menuitem {}
 .header .globalmenu .globalbuttons .misc .menuitem {}
 .header .globalmenu .globalbuttons div {}
+#tilehelp{
+	
+}
 /* Main area styles ------------------- */
 .main {
 	top:75px;
