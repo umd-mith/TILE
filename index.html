@@ -46,8 +46,8 @@
 	<div id="azglobalmenu" class="az globalmenu">
 		<div class="globalbuttons">
 			<div class="modeitems"></div>
-			<div class="dataitems"><a class="button" id="restartall" href="" title="Discard all changes and start over">Start Over</a></div>
-			<div class="misc"><a id="tilehelp" title="Go to the TILE documentation page" href="http://mith.umd.edu/tile/documentation">Documentation</a> | <span class="version">version 0.9</span></div>
+			<div class="dataitems"><div class="menuitem"><a class="button" id="restartall" href="" title="Discard all changes and start over">Start Over</a></div></div>
+			<div class="misc"><div class="menuitem"><a id="tilehelp" title="Go to the TILE documentation page" href="http://mith.umd.edu/tile/documentation">Documentation</a></div> | <span class="version">version 0.9</span></div>
 		</div>
 	</div>
 	</div>
@@ -75,7 +75,7 @@
 		// if((reg.test(it))||(reg.test(ar))) die("Error");
 		
 		$(function(){
-			engine=new TILE_ENGINE({toolSet:[IT,Trans,LB,TS,AR,V,AutoLoad,WD,LoadJSONTILE,ExportTile],defaultTool:LB.id});
+			engine=new TILE_ENGINE({toolSet:[IT,Trans,LB,TS,AR,V,AutoLoad,LoadJSONTILE,ExportTile],defaultTool:LB.id});
 		});
 	
 	</script>

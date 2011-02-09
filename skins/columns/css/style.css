@@ -153,10 +153,11 @@ a:hover {
 	
 }
 .header .globalmenu .globalbuttons .modeitems{
-	
+	overflow:auto; 
+	float:left;
 }
 .header .globalmenu .globalbuttons .dataitems{
-	
+	float:left;
 	
 }
 .header .globalmenu .globalbuttons .misc{
