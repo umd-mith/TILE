@@ -196,6 +196,8 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	$JSON .="]},";
 	
 }
+#push on some more labels
+array_push($labels,"{\"id\":\"l_89Wk99c\",\"name\":\"margin\"}","{\"id\":\"l_0091CcI\",\"name\":\"annotation\"}");
 # ADD TEST LABELS - CAN BE DEACTIVATED
 $finalLabels=", \"labels\":[";
 foreach($labels as $lab){
