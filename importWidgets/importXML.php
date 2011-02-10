@@ -119,6 +119,8 @@ $characters=array("A","B","C","D","E","F","G","H","J","K","L","M",
 "N","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9");
 // empty container for array keys
 $keys=array();
+# empty array of labels 
+$labels=array();
 
 # collate pb tags
 /*
@@ -141,7 +143,7 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 */
 for ($i=0;$i<(count($pbs)-1);$i++){
 	$facID = substr($pbs[$i][2]->getNamedItem("facs")->value,1);
-
+	array_push($labels,"{\"name\":\"".preg_replace('/\#/','',$facID)."\", \"id\":\"".$facID."\"}");
 	$fac = $imgPath.$xmlDoc->getElementById($facID)->getElementsByTagName("graphic")->item(0)->getAttribute("url");
 	$pageInfo = "\"xpath\": \"".$pbs[$i][1]."\", \"facs\": \"".$facID."\""; 
 	$JSON .= "{\"url\": \"".$fac."\", \"info\": {".$pageInfo."}, \"lines\": [";
@@ -195,11 +197,15 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	
 }
 # ADD TEST LABELS - CAN BE DEACTIVATED
-$testLabels=", \"labels\":[{\"name\":\"label1\",\"id\":\"l_561\"},{\"name\":\"label2\",\"id\":\"l_576\"},{\"name\":\"label3\",\"id\":\"l_890\"},{\"name\":\"label4\",\"id\":\"l_900\"},{\"name\":\"label5\",\"id\":\"l_675\"}]";
-
+$finalLabels=", \"labels\":[";
+foreach($labels as $lab){
+	$finalLabels.=$lab.",";
+}
+$finalLabels=substr($finalLabels,0,(count($finalLabels)-2));
+$finalLabels.="]";
 //get rid of excessive spaces and last comma
 $jlength=(strlen($JSON)-1);
-echo preg_replace("/\n/","",substr($JSON,0,$jlength)."]".$testLabels."}");
+echo preg_replace("/\n/","",substr($JSON,0,$jlength)."]".$finalLabels."}");
 
 
 
