@@ -71,15 +71,25 @@
 		//adding AR from autorecognizer_plugin.js
 		// set verbose mode either true (on) or false (off)
 		__v=false;
-		// automatically set to true if in localhost
-		if(/^http:\/\/localhost/.test(document.URL)) __v=true;
+		// array of tools to use in engine
+		var tools=[];
 		
+		// automatically set to true if in localhost
+		if(/^http:\/\/localhost/.test(document.URL)){
+			 __v=true;
+			// adding everything except for Welcome Dialog
+			tools=[IT,Trans,LB,TS,AR,AutoLoad,LoadJSONTILE,ExportTile,V];
+		} else {
+			// adding Image tagger, Labels, Transcript area, Auto-Recognizer, 
+			// AutoLoad, Welcome Screen, Loading Dialog, and Export Dialog
+			tools=[IT,Trans,LB,TS,AR,WD,AutoLoad,LoadJSONTILE,ExportTile];
+		}
 		// security test
 		var reg=/.js|javascript:|.php|.JS|.PHP/;
 		// if((reg.test(it))||(reg.test(ar))) die("Error");
 		
 		$(function(){
-			engine=new TILE_ENGINE({toolSet:[IT,Trans,LB,TS,AR,AutoLoad,LoadJSONTILE,ExportTile],defaultTool:LB.id});
+			engine=new TILE_ENGINE({toolSet:tools,defaultTool:LB.id});
 		});
 	
 	</script>
