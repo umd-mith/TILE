@@ -3,7 +3,7 @@
 	position:absolute;
 	left:100px;
 	top:45px;
-	width:800px;
+	width:500px;
 	height:auto;
 	border:1px solid #D5DB97;
 	/**initially invisible**/
@@ -127,7 +127,6 @@
 .dialog .body .description {
 	float:left;
 	margin:0 5% 0 0;
-	width:55%;
 }
 
 .dialog .body .option label {
