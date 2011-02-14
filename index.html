@@ -77,9 +77,11 @@
 		// automatically set to true if in localhost
 		if(/^http:\/\/localhost/.test(document.URL)){
 			 __v=true;
+			// ADD NEW PLUGIN WRAPPERS FOR LOCAL VERSION HERE
 			// adding everything except for Welcome Dialog
 			tools=[IT,Trans,LB,TS,AR,AutoLoad,LoadJSONTILE,ExportTile,V,HW];
 		} else {
+			// ADD NEW PLUGIN WRAPPERS HERE
 			// adding Image tagger, Labels, Transcript area, Auto-Recognizer, 
 			// AutoLoad, Welcome Screen, Loading Dialog, and Export Dialog
 			tools=[IT,Trans,LB,TS,AR,WD,AutoLoad,LoadJSONTILE,ExportTile];
