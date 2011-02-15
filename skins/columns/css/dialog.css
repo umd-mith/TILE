@@ -1,5 +1,5 @@
 /* styles for dialog popup box */
-#dialogImport.dialog {
+#welcomeDialog.dialog {
 	position:absolute;
 	left:100px;
 	top:45px;
@@ -53,6 +53,7 @@
 	/**initially invisible**/
 	display:none;
 }
+
 #loadDialogSplash.dialog{
 	position:absolute;
 	left:38%;
@@ -61,12 +62,51 @@
 	height:100px;
 	z-index:1003;
 	border:1px solid #D5DB97;
+	
 	/**initially invisible**/
 	display:none;
 }
 #loadDialogSplash.dialog .body{
 	background:#fff url('../images/tileload.gif');
 	padding:50px;
+}
+.dialog.screenshot {
+	height:150px;
+	width:150px;
+	position:absolute;
+	
+	z-index:1007;
+	display:none;
+}
+#importShot.dialog.screenshot {
+	left:80%;
+	top:10%;
+}
+#importShot.dialog.screenshot .body {
+	position:relative;
+	width:100%;
+	height:100%;
+}
+#ALRShot.dialog.screenshot {
+	left:50%;
+	top:10%;
+}
+#ALRShot.dialog.screenshot .body {
+	position:relative;
+	width:100%;
+	height:100%;
+}
+#imageShot.dialog.screenshot {
+	left:65%;
+	top:50%;
+}
+#imageShot.dialog.screenshot .body {
+	position:relative;
+	width:100%;
+	height:100%;
+}
+#welcomeDialog.dialog .body .description p a.point {
+	cursor:pointer;
 }
 .dialog .header {
 	background:#F8ECCE;
