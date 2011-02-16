@@ -20,7 +20,7 @@ Main site
 [Sandbox](http://mith.umd.edu/tile/sandbox)  
 
 
-API
+[API](http://mith.umd.edu/tile/documentation/tile-api/)
 ----
 
 ADDING HTML
