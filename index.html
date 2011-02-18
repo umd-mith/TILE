@@ -61,9 +61,9 @@
 	</form>
 	<!-- -->
 	<div class="az main twocol">
-		<div id="az_log" class="az log"><div class="az inner"><div id="tile_toolbar" class="toolbar"><div class="menuitem pluginTitle"></div></div><div id="logbar_list" class="az"></div></div></div>
-		<div id="az_activeBox" class="az activeBox"><div class="az inner"><div class="toolbar"><ul class="menuitem pluginTitle"></ul></div></div></div>
-		<div id="azcontentarea" class="az content"><div class="az inner"><div class="toolbar"><ul class="menuitem pluginTitle"></ul></div></div></div>
+		<div id="az_log" class="az log"></div>
+		<div id="az_activeBox" class="az activeBox"></div>
+		<div id="azcontentarea" class="az content"></div>
 	<script>
 		// TODO: generate global instance of TILE_ENGINE - needs to be the same name each
 		// time so plugins can inherit the variable
@@ -79,7 +79,7 @@
 			 __v=true;
 			// ADD NEW PLUGIN WRAPPERS FOR LOCAL VERSION HERE
 			// adding everything except for Welcome Dialog
-			tools=[IT,Trans,LB,TS,AR,AutoLoad,LoadJSONTILE,ExportTile,V];
+			tools=[];
 		} else {
 			// ADD NEW PLUGIN WRAPPERS HERE
 			// adding Image tagger, Labels, Transcript area, Auto-Recognizer, 
@@ -90,7 +90,22 @@
 		var reg=/.js|javascript:|.php|.JS|.PHP/;
 		
 		$(function(){
-			engine=new TILE_ENGINE({toolSet:tools,defaultTool:LB.id});
+			engine=new TILE_ENGINE({toolSet:tools});
+			// add plugins
+			// Image tagger
+			engine.insertPlugin(IT);
+			// Auto recognizer
+			engine.insertPlugin(AR);
+			// transcript lines
+			engine.insertPlugin(Trans);
+			// text selection
+			engine.insertPlugin(TS);
+			// labels
+			engine.insertPlugin(LB);
+			// autoload
+			engine.insertPlugin(AutoLoad);
+			
+			
 		});
 	
 	</script>
