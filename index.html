@@ -90,6 +90,8 @@
 		var reg=/.js|javascript:|.php|.JS|.PHP/;
 		
 		$(function(){
+			// Initialize the core functions and objects:
+			// (Metadata dialog, TILE_ENGINE, Save dialog, Toolbar)
 			engine=new TILE_ENGINE({toolSet:tools});
 			// add plugins
 			// Image tagger
@@ -104,8 +106,16 @@
 			engine.insertPlugin(LB);
 			// autoload
 			engine.insertPlugin(AutoLoad);
+			// load dialog
+			engine.insertPlugin(LoadDialog);
+			// Export dialog
+			engine.insertPlugin(ExportDialog);
 			
-			
+			if(!(/^http:\/\/localhost/.test(document.URL))){
+				// welcome dialog
+				engine.insertPlugin(WelcomeDialog);
+			}
+			// Done adding plugins
 		});
 	
 	</script>
