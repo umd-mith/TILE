@@ -1114,3 +1114,28 @@ a.btnIconLarge:hover {
 #az_log #az_transcript_area.az.inner #logbar_list .line span.selected {
 	border: 0.5px dashed #afbf37;
 } 
+
+/*** Dashboard styles ***/
+#dashboard_main{
+	padding:15px;
+	height:400px;
+	overflow:auto;
+}
+.dashboard_table{
+	overflow:auto;
+	padding: 20px;
+}
+.dashboard_table h3{
+	text-decoration:underline;
+}
+.dashboard_table p{
+	text-decoration:underline;
+}
+.dashboard_footer{
+	padding:20px;
+	display:inline;
+	position:relative;
+}
+.dashboard_footer p{
+	text-decoration:underline;
+}
