@@ -40,6 +40,7 @@
 	<script type="text/javascript" src="lib/Plugins/TutorialPlugin/HelloWorld.js"></script>
 	<script type="text/javascript" src="importWidgets/exportJSONXML.js"></script>
 	<script type="text/javascript" src="lib/Plugins/AutoLoad/autoload.js"></script>
+	<script type="text/javascript" src="lib/Plugins/Dashboard/dashboard.js"></script>
 </head>
 <body>
 	<div class="az header"><div class="az logo"><img src="skins/columns/images/tile.gif" alt="TILE: Text-Image Linking Environment" /></div>
@@ -110,6 +111,9 @@
 			engine.insertPlugin(LoadDialog);
 			// Export dialog
 			engine.insertPlugin(ExportDialog);
+			// Dashboard
+			engine.insertPlugin(Dashboard);
+			
 			
 			if(!(/^http:\/\/localhost/.test(document.URL))){
 				// welcome dialog

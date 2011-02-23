@@ -13,7 +13,7 @@ if(isset($_POST['uploadData'])){
 	$path=$_SERVER['PHP_SELF'];
 	$path = substr($path,0,strrpos($path,"/"));
 	$path=preg_replace('/lib\/SaveProgress/',"",$path);
-	$cwd = "http://".$domain.$path."/loadJSON.php"; //path for loading this data back into TILE
+	$cwd = "loadJSON.php"; //path for loading this data back into TILE
 	
 	$JSON=htmlspecialchars($_POST['uploadData']);
 	//$JSON=addslashes($JSON);
