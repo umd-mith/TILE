@@ -11,6 +11,10 @@ John Walsh
 Tim Bowman  
 Doug Reside  
 
+About
+----
+TILE is an editing framework for working with digital texts and scholarly editions. It uses JSON to represent and edit manuscript data. To learn more, visit the [main site](http://mith.umd.edu/tile).
+
 Main site
 ----
 [Tile Blog](http://mith.umd.edu/tile)  
@@ -30,6 +34,18 @@ Attaches a button to the interface, based on the criteria passed. Returns a butt
 
 insertTags(tags {Object array})
 Adds tags to the Attach Metadata dialog
+
+insertMode(name {String}, callback {Function})
+Creates a new Mode named name, or set of plugins that are organized in the interface. Each Mode has a unique name, which is represented by a button at the top of the interface.
+
+insertModeHTML(html {String}, section {String}, name {String})
+Takes the string of HTML code html and inserts it into the pre-defined section of the interface section, which is part of the Mode object with name *name*.
+
+insertPlugin(obj {Object})
+Takes the plugin wrapper obj and passes it off to PluginController, which initiates the plugin into the interface.
+
+insertModeButtons(html {String}, section {String}, name {String})
+Takes the string of HTML code html and inserts it into the pre-defined toolbar section of the interface section, which is part of the Mode object with name *name*.
 
 INPUT AND OUTPUT
 
