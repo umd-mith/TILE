@@ -336,14 +336,35 @@ function jsonPretty($arr){
 	return $html;
 }
 
+function getURL($url){
+	
+	$c=curl_init($url);
+	curl_setopt($c,CURLOPT_RETURNTRANSFER,true);
+	$f=curl_exec($c);
+	curl_close($c);
+	return $f;
+}
+
+
+# OCCURS ON PAGE LOAD
+$res=null;
 # take GET file and put it in process
 $f=$_GET['file'];
-$raw=inputJSON($f);
-$res=parseStringIntoJSON($raw);
+# if this is a URL, use the CURL function above
+# to get the data
+if(preg_match('/http\:\/\//i',$f)){
+	echo $f."<br/><br/>";
+	$str=getURL($f);
+	echo $str."<br/>";
+	# $res=parseStringIntoJSON($str);
+} else {
+	$raw=inputJSON($f);
+	$res=parseStringIntoJSON($raw);
+}
 if(isset($_GET['pretty'])){
 	echo jsonPretty($res);
 } else {
-	echo json_encode($res);
+	# echo json_encode($res);
 }
 
 
