@@ -339,7 +339,16 @@ function jsonPretty($arr){
 function getURL($url){
 	
 	$c=curl_init($url);
+	# set headers for HTML input
+	$headers = array ("Content-type: application/json;charset=ISO-8859-1,UTF-8;",
+							"Accept: application/json");
+	
+	# curl_setopt($ch, CURLOPT_URL, $_POST['rest_service']);
+
+	curl_setopt($c, CURLOPT_HTTPHEADER, $headers);
+	# make sure curl doesn't output what it finds directly
 	curl_setopt($c,CURLOPT_RETURNTRANSFER,true);
+	
 	$f=curl_exec($c);
 	curl_close($c);
 	return $f;
@@ -353,10 +362,9 @@ $f=$_GET['file'];
 # if this is a URL, use the CURL function above
 # to get the data
 if(preg_match('/http\:\/\//i',$f)){
-	echo $f."<br/><br/>";
 	$str=getURL($f);
-	echo $str."<br/>";
-	# $res=parseStringIntoJSON($str);
+	
+	$res=parseStringIntoJSON($str);
 } else {
 	$raw=inputJSON($f);
 	$res=parseStringIntoJSON($raw);
@@ -364,7 +372,8 @@ if(preg_match('/http\:\/\//i',$f)){
 if(isset($_GET['pretty'])){
 	echo jsonPretty($res);
 } else {
-	# echo json_encode($res);
+
+	echo json_encode($res);
 }
 
 
