@@ -22,6 +22,25 @@ function inputJSON($file){
 	return $str;
 }
 
+# copies a given object and returns result
+function copyObject($obj){
+	$resultObj=array();
+	
+	foreach($obj as $key=>$prop){
+		if(is_null($resultObj[$key])){
+			$resultObj[$key]=array();
+		}
+		
+		if(is_array($prop)){
+			$v=copyObject($prop);
+			array_push($resultObj[$key],$v);
+		} else {
+			$resultObj[$key]=$prop;
+		}
+	}
+	return $resultObj;
+}
+
 # take a string of the SimpleModel JSON and convert
 # it into TILE JSON
 function parseStringIntoJSON($str){
@@ -30,53 +49,260 @@ function parseStringIntoJSON($str){
 	$result=array('pages'=>array(),'labels'=>array());
 	# make string into a JSON object
 	$json=json_decode($str);
+	# quick lookup array
+	$pageMatch=array();
+	
 	# go through pages and make a new page for each new image
-	foreach($json->imagelist as $img){
+	foreach($json->images as $img){
 		
 		# new page obect
 		$page=array('id'=>$img->id,'url'=>$img->url,'lines'=>array());
 		array_push($result['pages'],$page);
 		
+		
 	}
 	
-	# go through array references and add things together
-	foreach($json->references as $ref){
-		# check what objects are linked
-		if($ref->imagelist){
-			
-			if($ref->textfragments){
-				# add a line of text into the page
-				$l=null;
-				#find the line 
-				foreach($json->textfragments as $text){
-					if($text->id==$ref->textfragments){
-						# found the object
-						$l=$text;
-						break;
-					}
-				}
-			
-				# create a new line object
-				$lobj=array('id'=>$l->id,'text'=>$l->text);
-					
-					
-				# attaching to a page - find page
+	# make sure to store imagelist connections first
+	foreach($json->links as $pageref){
+		# only store links between pages
+		# and other objects
+		$p=null;
+		foreach($pageref as $arr=>$id){
+			if(is_null($p)&&($arr=='images')){
+				# is a page
+				# put other object into page
+				# first, find the page
+				/*
 				foreach($result['pages'] as &$page){
-
-					if($page['id']==$ref->imagelist){
-						# found page
-						array_push($page['lines'],$lobj);
-						
+					if($id==$page['id']){
+						$p=$page;
 						break;
 					}
-				}	
-				
+					
+				}
+				*/
+				$p=$id;
+				# got page, now find other object
 				
 			} else {
-				# no handler for other objects right now
+				# got page
+				foreach($json->$arr as &$prop){
+					if($prop->id==$id){
+						# found the object, insert 
+						# into page
+						if($arr=='text') $arr='lines';
+						if(is_null($p[$arr])){
+							$p[$arr]=array();
+							
+						}
+						
+						
+						# copy object
+						$or=copyObject($prop);
+						
+						# find the page and insert
+						foreach($result['pages'] as &$page){
+							if($page['id']==$p){
+								array_push($page[$arr],$or);
+							
+								break;
+							}
+						}
+					
+						break;
+						
+					}
+				}
+				# store as object that belongs in a page
+				$pageMatch[$id]=$p['id'];
 			}
 		}
-		
+	}
+	
+	# go through array references again and this 
+	# time only focus on the links between non-page
+	# objects
+	foreach($json->links as $ref){
+		# check what objects are linked
+		$obj1=null;
+		$obj1Key=null;
+		# first link obj1 with obj2
+		foreach($ref as $key=>$id){
+			# skip images
+			if($key=='images') break;
+			if($key=='text') $key='lines';
+			if(is_null(obj1)){
+				# init first object
+				# if the object ID is in pageMatch,
+				# match it with that page
+				$obj1Key=$key;
+				if(is_null($pageMatch[$id])){
+					# not in a page
+					# initialize result array if not already
+					if(is_null($result[$key])){
+						$result[$key]=array();
+					}
+					
+					foreach($result[$key] as &$obj){
+						if($id==$obj['id']){
+							$obj1=$obj;
+							
+							break;
+						}
+					}
+					
+					if(is_null(obj1)){
+						# find the object in json
+						# and put it in result
+						foreach($json->$key as $prop){
+							if($prop->id==$id){
+								# found object
+								
+								# put into the results array
+								array_push($result[$key],$prop);
+								# need to use the referenced value 
+								# in results, not in json
+								foreach($result[$key] as &$val){
+									if($prop->id==$val['id']){
+										$obj1=$val;
+										break;
+									}
+								}
+							}
+						}
+					}
+				} else {
+				
+					# in a page - find the page then the obj
+					$p=null;
+					foreach($result['pages'] as &$page){
+						
+						if($page['id']==$pageMatch[$id]){
+							$p=$page;
+							#find object in the page
+							foreach($p[$key] as &$obj){
+								if($obj['id']==$id){
+									# set obj1
+									$obj1=$obj;
+									
+									# push on to array for obj2
+									if(is_null($obj[$obj1Key])){
+										# init array
+										$obj[$obj1Key]=array();
+									}
+									# push on to obj array the obj1 id
+									array_push($obj[$obj1Key],$ob);
+								}
+							}
+							break;
+						}
+					}
+					
+				
+					
+				} 
+				
+			} else {
+				# obj1 already found - now link this next object
+				# with obj1
+				# find in the page or 
+				# in the global results
+				if($pageMatch[$id]){
+					# this is a page
+					# locate and attach obj1 inside page
+					foreach($result['pages'] as &$val){
+						if($val['id']==$pageMatch[$id]){
+							# page found - find second
+							# object
+							$obj2=null;
+							
+							foreach($val[$key] as &$o){
+								if($id==$o['id']){
+									$obj2=$o;
+									break;
+								}
+							}
+							
+							
+							# link objects together
+							
+							# make sure to set up 
+							# array if not present
+							if(is_null($o[$obj1Key])){
+								$o[$obj1Key]=array();
+							}
+							array_push($o[$obj1Key],$obj1['id']);
+							
+							# connect the obj1 to obj2
+							if(is_null($obj1[$key])){
+								# init array
+								$obj1[$key]=array();
+							}
+							# push on to obj1 array
+							array_push($obj1[$key],$id);
+							
+							break;
+						}
+					}
+					
+				} else {
+					# find object in results, or 
+					# insert into results
+					$obj2=null;
+					
+					if(is_null($result[$key])){
+						# need to init
+						
+						#first find in json
+						foreach($json->$key as $prop){
+							if($id==$prop->id){
+								$obj2=$prop;
+								break;
+							}
+						}
+						
+						$result[$key]=array($obj2);
+						# get actual result reference
+						foreach($result[$key] as &$o){
+							if($o['id']==$id){
+								$obj2=$o;
+								break;
+							}
+						}
+					}
+					
+					if(is_null($obj2)){
+						# get actual result reference
+						foreach($result[$key] as &$o){
+							if($o['id']==$id){
+								$obj2=$o;
+								break;
+							}
+						}
+					}
+					
+					# link objects together
+					
+					# push onto obj1 array
+					if(is_null($obj1[$key])){
+						$obj1[$key]=array();
+						
+					}
+					array_push($obj1[$key],$obj1['id']);
+					
+					# push onto obj2 array
+					if(is_null($obj2[$obj1Key])){
+						$obj2[$obj1Key]=array();
+						
+					}
+					array_push($obj2[$obj1Key],$obj1['id']);
+					
+					
+					
+					
+				} 
+			}
+		}
 	}
 	
 	#return a copy of the array
