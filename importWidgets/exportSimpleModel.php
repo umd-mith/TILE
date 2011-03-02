@@ -6,10 +6,10 @@ Simplified model - as defined by Mortiz Wissenbach and Gregor Middel
 
 # takes as input a JSON object in PHP
 function reverseJSONToSM($arr){
-	$result=array('imagelist'=>array(),'textfragments'=>array(),'references'=>array());
+	$result=array('images'=>array(),'text'=>array(),'links'=>array());
 	foreach($arr['pages'] as $page){
 		$p=array('id'=>$page['id'],'url'=>$page['url']);
-		array_push($result['imagelist'],$p);
+		array_push($result['images'],$p);
 		# create reference objecst for each type of link
 		foreach($page as $key=>$prop){
 			
@@ -18,10 +18,10 @@ function reverseJSONToSM($arr){
 				if($key=='lines'){
 					#replace lines with textfragments
 					foreach($prop as $line){
-						array_push($result['textfragments'],$line);
+						array_push($result['text'],$line);
 						# store as reference
-						$ref=array('textfragments'=>$line['id'],'imagelist'=>$page['id']);
-						array_push($result['references'],$ref);
+						$ref=array('text'=>$line['id'],'images'=>$page['id']);
+						array_push($result['links'],$ref);
 					}
 					
 				} else {
@@ -34,8 +34,8 @@ function reverseJSONToSM($arr){
 					foreach($prop as $obj){
 						array_push($result[$key],$obj);
 						
-						$ref=array($key=>$obj['id'],'imagelist'=>$page['id']);
-						array_push($result['references'],$ref);
+						$ref=array($key=>$obj['id'],'images'=>$page['id']);
+						array_push($result['links'],$ref);
 					}
 				}
 			}
