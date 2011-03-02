@@ -1,5 +1,5 @@
 <?php
-# PHP Importing script designed for use in TILE
+# PHP Importing library designed for use in TILE
 # Uses the simple model as outlined by Gregor Middel
 # Author: Grant Dickie
 # 
@@ -99,7 +99,9 @@ function parseStringIntoJSON($str){
 						
 						# copy object
 						$or=copyObject($prop);
-						
+						if($or['content']){
+							$or['text']=$or['content'];
+						}
 						# find the page and insert
 						foreach($result['pages'] as &$page){
 							if($page['id']==$p){
@@ -310,6 +312,13 @@ function parseStringIntoJSON($str){
 	
 }
 
+# returns a string object - for loading directly into TILE
+function parseStringIntoString($str){
+	$result="";
+	
+	
+}
+
 # take a JSON array and print out
 # it's structure in a user-friendly
 # format
@@ -355,26 +364,7 @@ function getURL($url){
 }
 
 
-# OCCURS ON PAGE LOAD
-$res=null;
-# take GET file and put it in process
-$f=$_GET['file'];
-# if this is a URL, use the CURL function above
-# to get the data
-if(preg_match('/http\:\/\//i',$f)){
-	$str=getURL($f);
-	
-	$res=parseStringIntoJSON($str);
-} else {
-	$raw=inputJSON($f);
-	$res=parseStringIntoJSON($raw);
-}
-if(isset($_GET['pretty'])){
-	echo jsonPretty($res);
-} else {
 
-	echo json_encode($res);
-}
 
 
 ?>
