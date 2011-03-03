@@ -47,8 +47,6 @@ function reverseJSONToSM($arr){
 	}
 	
 }
-$res=reverseJSONToSM($_POST['JSON']);
-echo json_encode($res);
 
 
 

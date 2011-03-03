@@ -9,12 +9,21 @@ include_once('simpleJSONLoad.php');
 $res=null;
 # take GET file and put it in process
 $f=$_GET['file'];
+$str='';
 # if this is a URL, use the CURL function above
 # to get the data
-if(preg_match('/http\:\/\//i',$f)){
+if(preg_match('/\.xml/',$f)){
+	
+} else if(preg_match('/http\:\/\//i',$f)){
+	
 	$str=getURL($f);
 	
-	$res=parseStringIntoJSON($str);
+	if(preg_match('/\{\'images\':/i',$str)){
+		# different model - use the SM converter
+		$res=parseStringIntoJSON($str);
+	} 
+	
+	
 } else {
 	$raw=inputJSON($f);
 	$res=parseStringIntoJSON($raw);
