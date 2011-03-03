@@ -15,6 +15,7 @@ function processMethod($format){
 			break;
 		case 'simple':
 			$res=reverseJSONToSM($_POST['JSON']);
+			echo json_encode($res);
 			break;
 	}
 }
@@ -22,6 +23,7 @@ function processMethod($format){
 $to=null;
 if(isset($_POST['format'])){
 	$to=$_POST['format'];
+	processMethod($to);
 	
 } else {
 	echo json_encode($res);

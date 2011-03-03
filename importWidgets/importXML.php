@@ -146,7 +146,7 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	array_push($labels,"{\"name\":\"".preg_replace('/\#/','',$facID)."\", \"id\":\"".$facID."\"}");
 	$fac = $imgPath.$xmlDoc->getElementById($facID)->getElementsByTagName("graphic")->item(0)->getAttribute("url");
 	$pageInfo = "\"xpath\": \"".$pbs[$i][1]."\", \"facs\": \"".$facID."\""; 
-	$JSON .= "{\"url\": \"".$fac."\", \"info\": {".$pageInfo."}, \"lines\": [";
+	$JSON .= "{\"id\":\"".$facID."\", \"url\": \"".$fac."\", \"info\": {".$pageInfo."}, \"lines\": [";
 	
 	//echo $i." ".$curLb."<br/>";
 	

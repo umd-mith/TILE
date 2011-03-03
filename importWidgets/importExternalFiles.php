@@ -15,7 +15,8 @@ $str='';
 if(preg_match('/\.xml/',$f)){
 	
 } else if(preg_match('/http\:\/\//i',$f)){
-	
+	# either a script or REST protocol - get file
+	# then determine the type of data returned
 	$str=getURL($f);
 	
 	if(preg_match('/\{\'images\':/i',$str)){
@@ -25,6 +26,7 @@ if(preg_match('/\.xml/',$f)){
 	
 	
 } else {
+	# just a string that needs to be parsed
 	$raw=inputJSON($f);
 	$res=parseStringIntoJSON($raw);
 }

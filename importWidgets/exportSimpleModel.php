@@ -42,10 +42,10 @@ function reverseJSONToSM($arr){
 			
 			
 		}
+	
+	}
 		#done converting over to Simple Model 
 		return $result;
-	}
-	
 }
 
 
