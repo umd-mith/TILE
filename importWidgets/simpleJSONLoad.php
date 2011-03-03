@@ -350,7 +350,7 @@ function getURL($url){
 	$c=curl_init($url);
 	# set headers for HTML input
 	$headers = array ("Content-type: application/json;charset=ISO-8859-1,UTF-8;",
-							"Accept: application/json");
+							"Accept: application/json,text/plain");
 	
 	# curl_setopt($ch, CURLOPT_URL, $_POST['rest_service']);
 
@@ -359,6 +359,7 @@ function getURL($url){
 	curl_setopt($c,CURLOPT_RETURNTRANSFER,true);
 	
 	$f=curl_exec($c);
+
 	curl_close($c);
 	return $f;
 }

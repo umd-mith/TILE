@@ -19,10 +19,12 @@ if(preg_match('/\.xml/',$f)){
 	# then determine the type of data returned
 	$str=getURL($f);
 	
-	if(preg_match('/\{\'images\':/i',$str)){
+	if(preg_match('/\{\'images\':|\{\"images/i',$str)){
 		# different model - use the SM converter
 		$res=parseStringIntoJSON($str);
-	} 
+	} else {
+		echo $str;
+	}
 	
 	
 } else {
