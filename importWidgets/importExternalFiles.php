@@ -4,16 +4,29 @@
 
 
 include_once('simpleJSONLoad.php');
+include_once('importXMLLib.php');
+
 
 # OCCURS ON PAGE LOAD
 $res=null;
 # take GET file and put it in process
 $f=$_GET['file'];
+
+# cancel the operation if this is an
+# unsafe file
+
+if((preg_match('/http\:\/\/|\.json|\.php|\.txt|\.xml/i',$f))==0){
+	# something wrong with the file - not recognized
+	header('HTTP/1.0 415 Error file not recognized');
+	die();
+}
+
 $str='';
 # if this is a URL, use the CURL function above
 # to get the data
 if(preg_match('/\.xml/',$f)){
-	
+	# use the import XML library
+	$res=convertXMLIntoTILEJSON($f,'text',0);
 } else if(preg_match('/http\:\/\//i',$f)){
 	# either a script or REST protocol - get file
 	# then determine the type of data returned
@@ -27,11 +40,17 @@ if(preg_match('/\.xml/',$f)){
 	}
 	
 	
-} else {
+} else if(preg_match('/\{&\}/i',$f)>0) {
 	# just a string that needs to be parsed
 	$raw=inputJSON($f);
 	$res=parseStringIntoJSON($raw);
+} else {
+	# something wrong with the file - not recognized
+	header('HTTP/1.0 415 Error file not recognized');
+	die();
 }
+
+
 if(isset($_GET['pretty'])){
 	echo jsonPretty($res);
 } else {

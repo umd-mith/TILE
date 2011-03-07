@@ -348,6 +348,10 @@ function jsonPretty($arr){
 function getURL($url){
 	
 	$c=curl_init($url);
+	if(!$c){
+		# returned false - init 500 error
+		header('HTTP/1.0 500 Error could not reach URL');
+	}
 	# set headers for HTML input
 	$headers = array ("Content-type: application/json;charset=ISO-8859-1,UTF-8;",
 							"Accept: application/json,text/plain");
@@ -359,7 +363,11 @@ function getURL($url){
 	curl_setopt($c,CURLOPT_RETURNTRANSFER,true);
 	
 	$f=curl_exec($c);
-
+	if(!$f){
+		# returned false - init 500 error
+		header('HTTP/1.0 500 Error in opening URL');
+	}
+	
 	curl_close($c);
 	return $f;
 }
