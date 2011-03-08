@@ -1122,29 +1122,64 @@ a.btnIconLarge:hover {
 	height:400px;
 }
 #dashboard_body .dashboard_main{
-	position:relative;
+	width:50%;
+	height:100%;
 	padding:15px;
 	overflow:auto;
 	border-right:2px solid #000;
-	
+	float:left;
 
 }
-#dashboard_body .dashboard_sidebar {
-	position:relative;
-	overflow:auto;
+#dashboard_body .dashboard_main .pagelist {
+	width:100%;
 	padding:10px;
+}
+#dashboard_body .dashboard_main .pagelist .page{
+	width:100%;
+	padding-left:15px;
+	cursor:pointer;
+}
+#dashboard_body .dashboard_main .pagelist .page.nolinks{
+	width:50%;
+	padding-left:15px;
+	opacity:0.4;
+}
+#dashboard_body .dashboard_main .pagelist .page .pagedetail{
+	padding-left:20px;
+}
+#dashboard_body .dashboard_main .page{
+	padding:10px;
+	width:100%;
+}
+#dashboard_body .dashboard_main div .itemlist{
+	padding-left:15px;
+	width:100%;
+}
+#dashboard_body .dashboard_main div .itemlist .item{
+	padding-left:15px;
+}
+#dashboard_body .dashboard_main div .itemlist .item .itemdetail{
+	padding-left:30px;
 	
 }
-.dashboard_table{
+#dashboard_body .dashboard_sidebar {
+	
+	overflow:auto;
+	padding:10px;
+	height:400px;
+	float:right;
+}
+#dashboard_body .itemlist{
 	overflow:auto;
 	padding: 20px;
 }
-.dashboard_table h3{
+#dashboard_body .itemlist h3{
 	text-decoration:underline;
 }
-.dashboard_table p{
+#dashboard_body .itemlist p{
 	text-decoration:underline;
 }
+
 .dashboard_footer{
 	padding:20px;
 	display:inline;
