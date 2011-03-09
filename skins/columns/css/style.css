@@ -1142,10 +1142,16 @@ a.btnIconLarge:hover {
 	padding: 3px 18px 3px 10px;
 	cursor: pointer;
 	width:128px;
+}
+#dashboard_body .dashboard_main table thead tr th.sorting{
 	background:url('../images/sort_both.png') no-repeat right center transparent;
 }
-#dashboard_body .dashboard_main table thead tr th.sorting, #dashboard_body .dashboard_main table thead tr th.sorting-asc{
-	
+#dashboard_body .dashboard_main table thead th.sorting_asc{
+	background:url('../images/sort_asc.png') no-repeat right center transparent;
+
+}
+#dashboard_body .dashboard_main table thead th.sorting_desc{
+	background:url('../images/sort_desc.png') no-repeat right center transparent;
 }
 #dashboard_body .dashboard_main .pagelist {
 	width:100%;
