@@ -1130,6 +1130,23 @@ a.btnIconLarge:hover {
 	float:left;
 
 }
+#dashboard_body .dashboard_main table {
+	padding:20px;
+	margin:10px 5px 10px 5px;
+}
+/** Using styles that mimic dataTables **/
+#dashboard_body .dashboard_main table thead {
+	border-bottom:solid 1px black;
+}
+#dashboard_body .dashboard_main table thead tr th {
+	padding: 3px 18px 3px 10px;
+	cursor: pointer;
+	width:128px;
+	background:url('../images/sort_both.png') no-repeat right center transparent;
+}
+#dashboard_body .dashboard_main table thead tr th.sorting, #dashboard_body .dashboard_main table thead tr th.sorting-asc{
+	
+}
 #dashboard_body .dashboard_main .pagelist {
 	width:100%;
 	padding:10px;
