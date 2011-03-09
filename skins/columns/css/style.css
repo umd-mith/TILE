@@ -1119,10 +1119,10 @@ a.btnIconLarge:hover {
 
 #dashboard_body{
 	padding:20px;
-	height:400px;
+	height:100%;
 }
 #dashboard_body .dashboard_main{
-	width:50%;
+	width:80%;
 	height:100%;
 	padding:15px;
 	overflow:auto;
@@ -1133,33 +1133,55 @@ a.btnIconLarge:hover {
 #dashboard_body .dashboard_main .pagelist {
 	width:100%;
 	padding:10px;
+	background:#CCFF33;
 }
 #dashboard_body .dashboard_main .pagelist .page{
 	width:100%;
 	padding-left:15px;
 	cursor:pointer;
+	background:#669900;
 }
 #dashboard_body .dashboard_main .pagelist .page.nolinks{
 	width:50%;
 	padding-left:15px;
 	opacity:0.4;
+	background:#669900;
 }
 #dashboard_body .dashboard_main .pagelist .page .pagedetail{
 	padding-left:20px;
+	background:#999933;
 }
 #dashboard_body .dashboard_main .page{
 	padding:10px;
 	width:100%;
+	background:#669900;
 }
 #dashboard_body .dashboard_main div .itemlist{
 	padding-left:15px;
 	width:100%;
+	background:#009966;
 }
 #dashboard_body .dashboard_main div .itemlist .item{
 	padding-left:15px;
+	background:#3399FF;
 }
 #dashboard_body .dashboard_main div .itemlist .item .itemdetail{
 	padding-left:30px;
+	background:#003366;
+	
+}
+#dashboard_body .dashboard_main .itemlist{
+	padding-left:15px;
+	width:100%;
+	background:#009966;
+}
+#dashboard_body .dashboard_main .itemlist .item{
+	padding-left:15px;
+	background:#3399FF;
+}
+#dashboard_body .dashboard_main .itemlist .item .itemdetail{
+	padding-left:30px;
+	background:#003366;
 	
 }
 #dashboard_body .dashboard_sidebar {
