@@ -165,6 +165,11 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 		$linetxt = substr($ptxt,$lbs[$curLb][0],$len);
 	}
 	
+	// check to make sure there are no escape characters or illegal JSON 
+	// characters
+	// check for: / and \n
+	$cleantxt=preg_replace('/\n|\//',$linetxt);
+	
 	//$linetxt = substr($ptxt,$lastlb,$len);
 	// RANDOM ID GENERATION
 	// generate random array that's not yet in $keys
@@ -181,7 +186,7 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	$keys[]=$x;
 	
 	
-	$JSON.='{"id":"line_'.$x.'", "text":"'.addslashes($linetxt).'","info": "lb['.$curLb.']>'.$startCon.'"}';
+	$JSON.='{"id":"line_'.$x.'", "text":"'.addslashes($cleantxt).'","info": "lb['.$curLb.']>'.$startCon.'"}';
 	$lastlb = $lbs[$curLb][0];	
 	$curLb=$curLb+1;	
 	if (($curLb<count($lbs))&&($lbs[$curLb][0]<$pbs[$i+1][0])){
