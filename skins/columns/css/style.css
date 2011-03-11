@@ -1130,6 +1130,7 @@ a.btnIconLarge:hover {
 	border-left:2px solid #000;
 
 }
+
 #dashboard_body .dashboard_main h1{
 	padding:5px;
 }
@@ -1149,6 +1150,11 @@ a.btnIconLarge:hover {
 	padding: 3px 18px 3px 10px;
 	cursor: pointer;
 	width:128px;
+}
+#dashboard_body .dashboard_main table tbody td {
+	padding: 3px 18px 3px 10px;
+	cursor: pointer;
+	
 }
 #dashboard_body .dashboard_main table thead tr th.sorting{
 	background:url('../images/sort_both.png') no-repeat right center transparent;
