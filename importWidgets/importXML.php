@@ -168,9 +168,9 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	// check to make sure there are no escape characters or illegal JSON 
 	// characters
 	// check for: / and \n
-	$cleantxt=preg_replace("/[\n+]|[\t+]|[\r*]|\//",'',$linetxt);
+	$cleantxt=preg_replace('/\n/','',$linetxt,-1);
 #	$cleantxt=preg_replace('/\n|\t|\r/','    NEWLINE   ',$cleantxt);
-	if(preg_match('/[A-Za-z0-9]*/',$cleantxt)==0) continue;
+	# if(preg_match('/[A-Za-z0-9]/',$cleantxt)==0) continue;
 	//$linetxt = substr($ptxt,$lastlb,$len);
 	// RANDOM ID GENERATION
 	// generate random array that's not yet in $keys
@@ -212,6 +212,6 @@ $finalLabels=substr($finalLabels,0,(count($finalLabels)-2));
 $finalLabels.="]";
 //get rid of excessive spaces and last comma
 $jlength=(strlen($JSON)-1);
-echo preg_replace("/\n/","",substr($JSON,0,$jlength)."]".$finalLabels."}");
-
+$JSON=preg_replace("/\n/","",substr($JSON,0,$jlength)."]".$finalLabels."}");
+echo $JSON;
 ?>
