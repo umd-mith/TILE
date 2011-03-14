@@ -168,12 +168,14 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	// check to make sure there are no escape characters or illegal JSON 
 	// characters
 	// check for: / and \n
-	$cleantxt=preg_replace('/\n|\//',$linetxt);
-	
+	$cleantxt=preg_replace("/[\n+]|[\t+]|[\r*]|\//",'',$linetxt);
+#	$cleantxt=preg_replace('/\n|\t|\r/','    NEWLINE   ',$cleantxt);
+	if(preg_match('/[A-Za-z0-9]*/',$cleantxt)==0) continue;
 	//$linetxt = substr($ptxt,$lastlb,$len);
 	// RANDOM ID GENERATION
 	// generate random array that's not yet in $keys
 	$x=rand(0,10000);
+	# echo "line_".$x.'<hr/>   '.$cleantxt."<br/>";
 	if(count($keys)>0){
 		while(in_array($x, $keys)){
 			
@@ -201,8 +203,6 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	$JSON .="]},";
 	
 }
-#push on some more labels
-array_push($labels,"{\"id\":\"l_89Wk99c\",\"name\":\"margin\"}","{\"id\":\"l_0091CcI\",\"name\":\"annotation\"}");
 # ADD TEST LABELS - CAN BE DEACTIVATED
 $finalLabels=", \"labels\":[";
 foreach($labels as $lab){
@@ -213,7 +213,5 @@ $finalLabels.="]";
 //get rid of excessive spaces and last comma
 $jlength=(strlen($JSON)-1);
 echo preg_replace("/\n/","",substr($JSON,0,$jlength)."]".$finalLabels."}");
-
-
 
 ?>
