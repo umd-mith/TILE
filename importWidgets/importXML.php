@@ -168,7 +168,8 @@ for ($i=0;$i<(count($pbs)-1);$i++){
 	// check to make sure there are no escape characters or illegal JSON 
 	// characters
 	// check for: / and \n
-	$cleantxt=preg_replace('/\n/','',$linetxt,-1);
+	$cleantxt=preg_replace('/(\n|[^A-Za-z0-9])/','[A]',$linetxt,-1);
+	$cleantxt=preg_replace('/\[A\]/','',$cleantxt,-1);
 #	$cleantxt=preg_replace('/\n|\t|\r/','    NEWLINE   ',$cleantxt);
 	# if(preg_match('/[A-Za-z0-9]/',$cleantxt)==0) continue;
 	//$linetxt = substr($ptxt,$lastlb,$len);
