@@ -1142,7 +1142,7 @@ a.btnIconLarge:hover {
 #dashboard_body .dashboard_main #linedata_wrapper #linedata_filter{
 	display:none;
 }
-#dashboard_body .dashboard_main h1,h2,h3{
+#dashboard_body .dashboard_main h1 h2 h3{
 	padding:15px;
 	font-height:14px;
 }
