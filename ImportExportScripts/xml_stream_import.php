@@ -17,7 +17,6 @@ class XMLStreamImport extends CoreData
 	}
 	
 	public function parse_content($content) {
-		echo "Parsing XML [$content]";
 		$this -> element_stack = array();
 		$this -> element_stack_depth = 0;
 		$this -> text_stack = array("");
