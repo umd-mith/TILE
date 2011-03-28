@@ -40,7 +40,7 @@ class CoreDataContainer {
 	
 	public function addLine($line) {
 		print "Adding [$line]\n";
-		$lines[] = $line;
+		$this -> lines[] = $line;
 	}
 }
 
