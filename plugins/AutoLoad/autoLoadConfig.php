@@ -11,7 +11,7 @@ $DEFAULT_SCRIPT="".$prefix."importWidgets/importXML.php?uri=".$prefix."importWid
 
 $swinburne="".$prefix."swinburne.json";
 
-echo $swinburne;
+echo $DEFAULT_SCRIPT;
 
 
 
