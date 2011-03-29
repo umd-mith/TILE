@@ -1299,6 +1299,10 @@ var TILEIMGSCALE=1;
 				if(__v) console.log(d);
 				// parse if it's a string
 				json=(typeof d=='object')?d:JSON.parse(d);
+			} else if((typeof(file)!='object')){
+				// parse JSON as string
+				json=JSON.parse(file);
+				if(__v) console.log(json);
 			} else {
 				if(typeof file!='object'){
 					json=JSON.parse(file);
