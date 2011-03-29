@@ -17,8 +17,11 @@ Attaches a button to the interface, based on the criteria passed. Returns a butt
 **insertTags**(tags {Object array})
 Adds tags to the Attach Metadata dialog
 
-**insertMode**(name {String}, callback {Function})
-Creates a new Mode named name, or set of plugins that are organized in the interface. Each Mode has a unique name, which is represented by a button at the top of the interface.
+**insertMode**(name {String})
+Creates a new Mode named name, or set of plugins that are organized in the interface. Each Mode has a unique name, which is represented by a button at the top of the interface. Returns: the Mode object
+
+**insertModePlugin**(name {String}, plugin {Object})
+Inserts the plugin wrapper *plugin* into the Mode with matching name *name*.
 
 **insertModeHTML**(html {String}, section {String}, name {String})
 Takes the string of HTML code html and inserts it into the pre-defined section of the interface section, which is part of the Mode object with name *name*.
