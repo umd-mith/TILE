@@ -34,13 +34,13 @@ function parseOut($json){
 	
 	if(is_null($json)) die("Returned JSON is null");
 	#go through entire JSON to make sure lines have ID values attached
-	foreach($json['pages'] as $page){
+	foreach($json->{'pages'} as $page){
 		#inside loop - looking at page
-		foreach($page['lines'] as $line){
+		foreach($page->{'lines'} as $line){
 			#inner loop - looking at lines of $page
-			if((is_null($line['id'])||($line['id']=='undefined'))){
+			if((is_null($line->{'id'})||($line->{'id'}=='undefined'))){
 				# generate line id
-				$line['id']=genLineId();
+				$line->{'id'}=genLineId();
 			}
 		}
 	}
@@ -71,7 +71,8 @@ function getScript($url){
 }
 $file=preg_replace('/_AND_/',"&",$file);
 
-if(preg_match("/\.txt$|\.json$|\.TXT$|\.JSON$/",$file)>0){
+if(preg_match("/\.(txt)|(json)|(TXT)|(JSON)/",$file)>0){
+
 	# some kind of text file - get it
 	getData($file);
 }

@@ -101,10 +101,14 @@
 			// add Mode
 			engine.insertMode('Image Annotation');
 			
+			engine.insertMode('Auto Line Recognizer');
+			
+			engine.insertMode('Dashboard');
+			
 			// Image tagger
 			engine.insertModePlugin('Image Annotation',IT);
 			// Auto recognizer
-			// engine.insertPlugin(AR);
+			engine.insertModePlugin('Auto Line Recognizer',AR);
 			// transcript lines
 			engine.insertModePlugin('Image Annotation',Trans);
 			// text selection
@@ -118,7 +122,7 @@
 			// Export dialog
 			 engine.insertPlugin(ExportDialog);
 			// dashboard
-			// engine.insertPlugin(Dashboard);
+			engine.insertModePlugin('Dashboard',Dashboard);
 			
 			
 			if(!(/^http:\/\/localhost/.test(document.URL))){
