@@ -1,1 +1,0 @@
-{"sourceFile":"http://localhost:8888/TILE/1.5/importWidgets/ham.xml","pages":[{"url":"http://localhost:8888/TILE/1.5/Images/ham-1611-22277-bod-001.jpg","info":{"info1":"info2","info3":"info4"},"lines":[{"text":"Some text"}]}],"labels":[{"id":"label1","name":"label1"}]}

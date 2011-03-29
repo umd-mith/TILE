@@ -176,6 +176,14 @@
 	width:125px;
 	margin-right:5px;
 }
+.dialog .body input.chooseFile {
+	width:50px;
+	margin-right:5px;
+}
+.dialog .body input.long {
+	width:500px;
+	margin-right:5px;
+}
 .dialog .body input.button {
 	background:#e7dab9;
 	height:21px;
