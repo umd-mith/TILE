@@ -1,31 +1,13 @@
-TILE API
-========
+TILE: Text-Image Linking Environment
+====================================
 
-copyright MITH
+The Text-Image Linking Environment (TILE) is a web-based tool for creating and editing image-based electronic editions and digital archives of humanities texts. More information is available on the [TILE website](http://mith.umd.edu/tile).
+
 --------------
 
-Grant Dickie  
-Dave Lester  
-Dot Porter  
-John Walsh  
-Tim Bowman  
-Doug Reside  
-
-About
+TILE API
 ----
-TILE is an editing framework for working with digital texts and scholarly editions. It uses JSON to represent and edit manuscript data. To learn more, visit the [main site](http://mith.umd.edu/tile).
-
-Main site
-----
-[Tile Blog](http://mith.umd.edu/tile)  
-
-[Trunk](http://mith.umd.edu/tile/trunk)  
-
-[Sandbox](http://mith.umd.edu/tile/sandbox)  
-
-
-[API](http://mith.umd.edu/tile/documentation/tile-api/)
-----
+A summary of the most-recent TILE API is included below. [API documentation](http://mith.umd.edu/tile/documentation/tile-api/) is also provided on the TILE website and reflects code shipped in the latest release; the API documented below may change with future commits.
 
 ### ADDING HTML
 
@@ -90,3 +72,7 @@ Takes the TILE JSON pointer to the previous page URL and calls the newPage event
 
 **changePage**(val {Integer})
 Changes to the Nth position in the URL stack – based on what value the integer passed is (Does not accept negative integers or integers that go beyond the array of pages)
+
+Credits
+----
+TILE is a collaboration between the [Maryland Institute for Technology in the Humanities](http://mith.umd.edu/) and Indiana University, and has been supported by an NEH Preservation and Access grant. The TILE team includes Tim Bowman, Grant Dickie, Dave Lester, Dot Porter, Doug Reside, Jim Smith, and John Walsh.
