@@ -9,7 +9,7 @@ var AutoLoad={
 		var self=this;
 		// get data from config file
 		$.ajax({
-			url:'./lib/Plugins/AutoLoad/autoLoadConfig.php',
+			url:'./plugins/AutoLoad/autoLoadConfig.php',
 			dataType:'text',
 			type:'GET',
 			success:function(data){

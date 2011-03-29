@@ -1220,6 +1220,11 @@ var TILEIMGSCALE=1;
 				pluginModes.push(obj);
 			}
 			
+			// if(plugin.name){
+			// 				var script='<script src="plugins/'+plugin.name+'/tileplugin.js" type="text/javascript"></script>';
+			// 				$("header").append(script);
+			// 			}
+			
 			obj.appendPlugin(plugin);
 			
 		},
@@ -2454,7 +2459,7 @@ var TILEIMGSCALE=1;
 			// handle represents element to attach to
 			data=self.findTileObj(data.id,data.type);
 			if(!data) return;
-			if(__v) console.log('data in attachFloatDiv: '+JSON.stringify(data));
+			
 			if(!handle) handle="body";
 			var pos=$(handle).offset();
 			if(!pos) return;
@@ -2465,6 +2470,9 @@ var TILEIMGSCALE=1;
 			}
 			if((top+$(".ui-dialog").height())>$(document).height()){
 				top=(pos.top-$(".ui-dialog").height()-10);
+			}
+			if(top<$(document).height()){
+				top=25;
 			}
 			$("#tilefloat_floatingDiv").parent().css("left",left+'px');
 			$("#tilefloat_floatingDiv").parent().css("top",top+'px');

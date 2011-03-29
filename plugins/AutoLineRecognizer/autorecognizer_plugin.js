@@ -1915,7 +1915,7 @@ var AR={
 		} 
 	},
 	constructed:false,
-	name:"Auto Line Recognizer",
+	name:"AutoLineRecognizer",
 	done:"closeOutAutoRec",
 	outputCall:"outputAutoRecData",
 	
