@@ -98,18 +98,21 @@
 			engine=new TILE_ENGINE({});
 			// add plugins
 			
+			// add Mode
+			engine.insertMode('Image Annotation');
+			
 			// Image tagger
-			engine.insertPlugin(IT);
+			engine.insertModePlugin('Image Annotation',IT);
 			// Auto recognizer
 			// engine.insertPlugin(AR);
 			// transcript lines
-			engine.insertPlugin(Trans);
+			engine.insertModePlugin('Image Annotation',Trans);
 			// text selection
-			engine.insertPlugin(TS);
+			engine.insertModePlugin('Image Annotation',TS);
 			// labels
-			engine.insertPlugin(LB);
+			engine.insertModePlugin('Image Annotation',LB);
 			// autoload
-			engine.insertPlugin(AutoLoad);
+			engine.insertModePlugin('Image Annotation',AutoLoad);
 			// load dialog
 			engine.insertPlugin(LoadDialog);
 			// Export dialog
@@ -123,6 +126,8 @@
 				engine.insertPlugin(WelcomeDialog);
 			}
 			// Done adding plugins
+			$("a:contains(Image Annotation)").trigger('click');
+			
 		});
 	
 	</script>
