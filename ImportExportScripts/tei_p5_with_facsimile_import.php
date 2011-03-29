@@ -15,6 +15,7 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
     // assert relationships between a canvas and contents (images, text, areas)
 
     protected $containers_by_id = array();
+    private   $zone_xpath;
 	
 	public function __construct($content) {
 		$this -> setMilestoneXPath('//facsimile|//text/body/div');
@@ -23,6 +24,7 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
 		$this -> setLineStartXPath('//body/div/div/*|//body/div/div/*/*');
 		// we don't want to 
 		$this -> setDocumentStartXPath('//facsimile');
+		$this -> zone_xpath = $this -> build_xpath_regex('//facsimile/surface/zone');
 		parent::__construct($content);
 	}
 	
@@ -42,6 +44,23 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
 		    && array_key_exists($attributes['xml:id'], $this -> containers_by_id)
 		) {
 			$this -> current_container = $this -> containers_by_id[$attributes['xml:id']];
+		}
+	}
+	
+	public function start_tag($parser, $name, $attributes) {
+		parent::start_tag($parser, $name, $attributes);
+		
+		if($this -> stack_matches_path_q($this -> zone_xpath)) {
+			$shape = $this -> current_container -> addShape('rect');
+			$shape -> id = $attributes['xml:id'];
+			$posInfo = array();
+			$posInfo['x'] = $attributes['ulx'] + 0;
+			$posInfo['y'] = $attributes['uly'] + 0;
+			$posInfo['width'] = $attributes['lrx'] - $attributes['ulx'];
+			$posInfo['height'] = $attributes['lry'] - $attributes['uly'];
+			$shape -> posInfo = $posInfo;
+			$label = $attributes['rendition'];
+			$this -> addLabel($label, $shape);
 		}
 	}
 }

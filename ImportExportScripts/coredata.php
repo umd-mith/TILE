@@ -2,6 +2,7 @@
 class CoreData
 {
 	private $containers = array();
+	private $labels = array();
 	public  $current_container;
 	private $content;
 	
@@ -30,10 +31,34 @@ class CoreData
 			if(!$container -> is_empty()) {
 				$page = array();
 				$page['url'] = $container -> image_url;
-				$page['lines'] = $container -> lines;
+				$page['lines'] = array();
+				$page['shapes'] = array();
+				
+				foreach($container -> lines as $line) {
+					$l = array();
+					$l['text'] = $line->text;
+					if($line->id != "") {
+						$l['id'] = $line->id;
+					}
+					$page['lines'][] = $l;
+				}
+				
+				foreach($container -> shapes as $shape) {
+					$s = array();
+					if($shape -> id != "") {
+						$s['id'] = $shape -> id;
+					}
+					$s['type'] = $shape -> type;
+					$s['color'] = $shape -> color;
+					$s['_scale'] = $shape -> scale;
+					$s['posInfo'] = $shape -> posInfo;
+					$page['shapes'][] = $s;
+				}
 				$data['tile']['pages'][] = $page;
 			}
 		}
+		$data['tile']['labels'] = array_values($this -> labels);
+		
 		return json_encode($data, $options);
 	}
 	
@@ -42,10 +67,30 @@ class CoreData
 		$this -> containers[] = $c;
 		$this -> current_container = $c;
 	}
+	
+	public function addLabel($label, $object, $container = false) {
+		if(!$container) {
+			$container = $this -> current_container;
+		}
+		if($object -> id == "") {
+			return; // we can't add a label for an object with no id
+		}
+		if(array_key_exists($label, $this -> labels)) {
+			$this -> labels[$label]['selections'][] = $object -> id;
+		}
+		else {
+			$this -> labels[$label] = array();
+			$this -> labels[$label]['id'] = "lbl_" . (count($this -> labels) + 1);
+			$this -> labels[$label]['name'] = $label;
+			$this -> labels[$label]['selections'] = array();
+			$this -> labels[$label]['selections'][] = $object -> id;
+		}
+	}
 }
 
 class CoreDataContainer {
 	public $lines = array();
+	public $shapes = array();
 	public $image_url = "";
 	
 	
@@ -55,8 +100,16 @@ class CoreDataContainer {
 	
 	public function addLine($line) {
 		if($line != "") {
-			$this -> lines[] = $line;
+			$l = new CoreDataLine($line);
+			$this -> lines[] = $l;
+			return $l;
 		}
+	}
+	
+	public function addShape($type, $color = "#000000", $scale = 1) {
+		$s = new CoreDataShape($type, $color, $scale);
+		$this -> shapes[] = $s;
+		return $s;
 	}
 	
 	public function is_empty() {
@@ -64,4 +117,27 @@ class CoreDataContainer {
 	}
 }
 
+class CoreDataLine {
+	public $text = "";
+	public $id = "";
+	
+	public function __construct($text, $id = "") {
+		$this -> id = $id;
+		$this -> text = $text;
+	}
+}
+
+class CoreDataShape {
+	public $id;
+	public $type;
+	public $scale;
+	public $color;
+	public $posInfo;
+	
+	public function __construct($type, $color = "#000000", $scale = 1) {
+		$this -> type = $type;
+		$this -> color = $color;
+		$this -> scale = $scale;
+	}
+}
 ?>
