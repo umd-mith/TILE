@@ -5,13 +5,13 @@
 // Displays global information about the user's current TILE session
 
 var Dashboard={
-	start:function(engine,mode){
+	start:function(mode){
 		var self=this;
 		
 		// holder for other mode data
 		self.modeData={};
 		// copy of the core data
-		self.data=engine.getJSON();
+		self.data=TILE.engine.getJSON();
 		
 		// google charts api constructor
 		self.jgapi=new jGCharts.Api();
@@ -39,7 +39,7 @@ var Dashboard={
 		// engine.insertMode('Dashboard',onActive);
 		self.mode=mode;
 		// create new mode for opensocial
-		engine.insertModeHTML(self.html,'contentarea',self.mode.name);
+		TILE.engine.insertModeHTML(self.html,'contentarea',self.mode.name);
 		
 		
 		// attempt to load current modes
@@ -318,7 +318,7 @@ var Dashboard={
 		var self=e.data.obj;
 		
 		// get full JSON data
-		self.data=o.engine.getJSON();
+		self.data=TILE.engine.getJSON();
 		// erase html
 		$(".dashboard_main").empty();
 		// init HTML

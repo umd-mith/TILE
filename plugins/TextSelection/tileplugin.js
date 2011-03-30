@@ -441,11 +441,11 @@ var TS={
 	outputCall:"tsOutputCall101",
 	activeCall:"sprTSActivate**",
 	deleteCall:"sprTSDeleteItem",
-	start:function(engine,mode){
+	start:function(mode){
 		var self=this;
 		self.textsel=new TextSelector();
 		// append button HTML to the interface
-		engine.insertModeButtons('<div class="menuitem"><ul><li><a id="getHLite" class="btnIconLarge getHLite" title="Activate Highlight Mode">Activate Highlight Mode</a></li></ul></div>','log',mode.name);
+		TILE.engine.insertModeButtons('<div class="menuitem"><ul><li><a id="getHLite" class="btnIconLarge getHLite" title="Activate Highlight Mode">Activate Highlight Mode</a></li></ul></div>','log',mode.name);
 		
 		// if no other active buttons, then this one is active
 		if(!$("#tile_toolbar > .menuitem > ul > li > a").hasClass('active')){
@@ -455,7 +455,7 @@ var TS={
 		self.manifest=[];
 		self.activeSel="";
 		self.curLink=null;
-		var json=engine.getJSON();
+		var json=TILE.engine.getJSON();
 		if(json){
 			for(j in json){
 				
@@ -532,7 +532,7 @@ var TS={
 			var handle="span."+h.id+":eq("+($("span."+h.id).length-1)+")";
 			var disp=$("span."+h.id+":eq(0)").text().substring(0,10);
 			
-			engine.insertData({id:h.id,type:'selections',display:disp,attachHandle:handle,obj:{id:id,type:'selections',jsonName:url}});
+			TILE.engine.insertData({id:h.id,type:'selections',display:disp,attachHandle:handle,obj:{id:id,type:'selections',jsonName:url}});
 			// $("body:first").trigger(self.outputCall,[{id:h.id,type:'selections',display:disp,attachHandle:handle,obj:{id:id,type:'selections',jsonName:url}}]);
 		};
 		
@@ -541,9 +541,9 @@ var TS={
 			self.clearHighlights();
 			var sel=self.createHighlight();
 			if(__v) console.log("TExt selection retrieved by createHighlight: "+JSON.stringify(sel));
-			engine.insertData(sel);
+			TILE.engine.insertData(sel);
 			var handle="span."+sel.id+":eq("+($("span."+sel.id).length-1)+")";
-			engine.attachMetadataDialog(sel,handle);
+			TILE.engine.attachMetadataDialog(sel,handle);
 		};
 		
 		// getText button
@@ -586,7 +586,7 @@ var TS={
 			var o=self.selectHighlight(id);
 			if(__v) console.log("highlight selected: "+o[0]+'  '+o[1]);
 			// use data to attach metadata box
-			if(o) engine.attachMetadataDialog(o[0],o[1]);
+			if(o) TILE.engine.attachMetadataDialog(o[0],o[1]);
 			
 		});
 		$("span[class^='anno']").live('mouseover',function(e){
@@ -646,7 +646,7 @@ var TS={
 		$("body").live("newPage",{obj:self},self.newPageHandle);
 		$("body").live('deleteSel',function(e,sel){
 			// delete the selection in engine
-			engine.deleteObj(sel);
+			TILE.engine.deleteObj(sel);
 		});
 		
 		
@@ -665,7 +665,7 @@ var TS={
 	newJSONHandle:function(e,o){
 		var self=e.data.obj;
 		self.manifest=[];
-		var json=o.engine.getJSON();
+		var json=TILE.engine.getJSON();
 		if(json){
 			for(j in json.pages){
 				// if(!self.manifest[j]) self.manifest[j]=[];
@@ -682,7 +682,7 @@ var TS={
 	// selection
 	newPageHandle:function(e,o){
 		var self=e.data.obj;
-		var engine=o.engine;
+		var engine=TILE.engine;
 		if($("#getHLite").hasClass('active')){
 			// reactivate the text selection mode 
 			// in logbar_list
@@ -693,9 +693,9 @@ var TS={
 				self.clearHighlights();
 				var sel=self.createHighlight();
 				if(__v) console.log("TExt selection retrieved by createHighlight: "+JSON.stringify(sel));
-				engine.insertData(sel);
+				TILE.engine.insertData(sel);
 				var handle="span."+sel.id+":eq("+($("span."+sel.id).length-1)+")";
-				engine.attachMetadataDialog(sel,handle);
+				TILE.engine.attachMetadataDialog(sel,handle);
 			};
 			// make active and stop all listeners of other objects
 		

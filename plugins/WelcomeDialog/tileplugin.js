@@ -110,14 +110,14 @@
 var WelcomeDialog={
 	id:"WD1090910",
 	// wrapper for TILE
-	start:function(engine){
+	start:function(mode){
 		var self=this;
 		self.dialog=new dialogOfWelcome({loc:$("body")});
 		
 		// show dialog at beginning - user clicks continue
 		// and dialog goes away
 		
-		if(!engine.getJSON()){
+		if(!TILE.engine.getJSON()){
 			$("#light").show();
 			$("#fade").show();
 			$("#welcomeDialog").show();

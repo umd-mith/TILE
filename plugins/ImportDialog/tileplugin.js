@@ -121,11 +121,11 @@ ImportD.ImportDialog=ImportDialog;
 // Wrapper that activates the importDialog and sends to 
 var importdialog_tile={
 	id:'importdialog_tile',
-	start:function(engine){
+	start:function(mode){
 		var self=this;
 		
-		var choices=engine.preLoads;
-		self.dialog=new ImportDialog({loc:$("body"),choices:choices,auto:engine._importDefault});
+		var choices=TILE.engine.preLoads;
+		self.dialog=new ImportDialog({loc:$("body"),choices:choices,auto:TILE.engine._importDefault});
 		$("body").live("schemaFileImported",{obj:self},function(e,file){
 			self.dialog.close();
 			// send to engine
@@ -135,7 +135,7 @@ var importdialog_tile={
 		});
 		
 		// shows when TILE starts up - set as opening dialog
-		var data=engine.getJSON();
+		var data=TILE.engine.getJSON();
 		if(!data){
 			// open dialog
 			$("body:first").trigger("openImport");

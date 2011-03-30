@@ -1999,7 +1999,7 @@ var IT={
 	// start(id,base,json): creates the imagetagger. Takes id (string representing
 	// DOM location of tagger), base (string representing location of images - provided by TILE), and json
 	//  (either null or JSON object representing TILE JSON data)
-	start:function(engine,mode){
+	start:function(mode){
 		var self=this;
 		self.activeShape=null;
 		var _shapeDeletedHandle=function(e,data){
@@ -2029,7 +2029,7 @@ var IT={
 				obj:data
 			};
 			// delete data from engine
-			engine.deleteObj(w);
+			TILE.engine.deleteObj(w);
 		};
 		
 		var _receiveShapeObjHandle=function(shape){
@@ -2045,10 +2045,10 @@ var IT={
 			// make active
 			self.activeShape=data.obj.id;
 			// send directly to engine
-			engine.insertData(data);
+			TILE.engine.insertData(data);
 		
 			// link with activeObj, if any
-			engine.linkWithActiveObj(data);
+			TILE.engine.linkWithActiveObj(data);
 			
 			// put on dashboard
 			$("body:first").trigger('displayOnDashboard',[{mode:'Image Annotation',html:''}]);
@@ -2059,7 +2059,7 @@ var IT={
 			e.preventDefault();
 			
 			// get images from engine JSON
-			var data=engine.getJSON();
+			var data=TILE.engine.getJSON();
 			var urls=[];
 			for(var p in data.pages){
 				if(!data.pages[p]) continue;
@@ -2086,7 +2086,7 @@ var IT={
 				};
 			}
 			// post to TILE
-			engine.insertData(obj);
+			TILE.engine.insertData(obj);
 		};
 		
 		// handles when a link in imagelist is clicked
@@ -2095,10 +2095,10 @@ var IT={
 			e.preventDefault();
 			
 			// change page
-			engine.changePage(uri);
+			TILE.engine.changePage(uri);
 		};
 		
-		var json=engine.getJSON();
+		var json=TILE.engine.getJSON();
 		if(!self.itagger){
 			// var id="azcontentarea"; //defaults to TILE page
 			this.itagger=new _Itag({loc:"azcontentarea",json:null});
@@ -2106,9 +2106,9 @@ var IT={
 			
 			// attach HTML and
 			// create new engine mode
-			engine.insertModeHTML(this.itagger.htmlContent,'contentarea','Image Annotation');
+			TILE.engine.insertModeHTML(this.itagger.htmlContent,'contentarea','Image Annotation');
 			// add toolbar buttons
-			engine.insertModeButtons(this.itagger.htmlToolbar,'contentarea','Image Annotation');
+			TILE.engine.insertModeButtons(this.itagger.htmlToolbar,'contentarea','Image Annotation');
 			
 			$("#azcontentarea > .imageannotator > .toolbar").attr('id','_raphshapebar');
 			this.itagger.setHTML();
@@ -2128,9 +2128,9 @@ var IT={
 			// bind turnPage events
 			$("body").live("turnPage",function(e,val){
 				if(val>0){
-					engine.nextPage();
+					TILE.engine.nextPage();
 				} else if(val<0){
-					engine.prevPage();
+					TILE.engine.prevPage();
 				}
 			});
 			
@@ -2150,7 +2150,7 @@ var IT={
 					obj:shape
 				};
 				// make active obj
-				engine.attachMetadataDialog(data,"#selBB");
+				TILE.engine.attachMetadataDialog(data,"#selBB");
 			});
 			// bind ENGINE events
 			$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
@@ -2158,7 +2158,7 @@ var IT={
 			$("body").live("newJSON newPage",{obj:self},self.newJSONHandle);
 			
 			// check to see if data has been loaded
-			var j=engine.getJSON(true);
+			var j=TILE.engine.getJSON(true);
 			if(j){
 				// data loaded - start up image tagger
 				self.itagger.curUrl=TILEPAGE;
@@ -2203,7 +2203,7 @@ var IT={
 				jsonName:TILEPAGE,
 				obj:a
 			};
-			engine.attachMetadataDialog(shp,"#selBB");
+			TILE.engine.attachMetadataDialog(shp,"#selBB");
 		}
 		
 	},

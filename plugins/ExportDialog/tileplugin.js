@@ -176,7 +176,7 @@
 
 var ExportDialog={
 	id:'Export901898JJJ',
-	start:function(engine){
+	start:function(mode){
 		var self=this;
 		// default output format is TEI
 	self.format='TEI';
@@ -203,7 +203,7 @@ var ExportDialog={
 		'</div><div id="exportFade" class="black_overlay"></div>';
 		$(html).appendTo($("body"));
 		// self.index=($("#dialog").length+self.loc.width());
-		self.defaultExport=engine.defaultExport;
+		self.defaultExport=TILE.engine.defaultExport;
 		
 		self.DOM=$("#exportDialog");
 		self.light=$("#exportLight");
@@ -221,7 +221,7 @@ var ExportDialog={
 			// using a script
 			e.preventDefault();
 			// get json from engine
-			var json=engine.getJSON();
+			var json=TILE.engine.getJSON();
 			// attach to the invisible JSON input
 			// $("#exportData").val(json);
 			// get file
@@ -252,7 +252,7 @@ var ExportDialog={
 		self.exportJSONXML=$("#exportJSONXML");
 		self.exportJSONXML.live('click',function(e){
 			e.preventDefault();
-			var xml=json2xml(engine.getJSON());
+			var xml=json2xml(TILE.engine.getJSON());
 			$("#exportDataForm").attr("action","importWidgets/exportXML.php");
 			$("#exportDataForm")[0].submit();
 			// $("iframe").remove();
@@ -271,7 +271,7 @@ var ExportDialog={
 		// Help Icons
 		self.genHelp=new HelpBox({iconId:"exportHelpGenericXML",text:"Exports an XML file that has no markup library associated with it. This will only output the structure of the TILE JSON in XML format."});
 		self.scriptHelp=new HelpBox({iconId:"exportScriptHelp",text:"Exports an XML file using a script of your making. Some default scripts have been provided."});
-		self.json=engine.getJSON();
+		self.json=TILE.engine.getJSON();
 		
 		var button={
 			display:'Export Data',
@@ -279,7 +279,7 @@ var ExportDialog={
 			type:'global',
 			category:'data'
 		};
-		var el=engine.addDialogButton(button);
+		var el=TILE.engine.addDialogButton(button);
 		if(!el) return;
 		// attach click event
 		el.elem.live('click',function(e){
@@ -287,7 +287,7 @@ var ExportDialog={
 			
 			// get current json and display
 			// export dialog
-			self.json=engine.getJSON();
+			self.json=TILE.engine.getJSON();
 			self.light.show();
 			self.DOM.show();
 			self.dark.show();

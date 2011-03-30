@@ -171,7 +171,7 @@
 // wrapper for TILE
 var LoadDialog={
 	id:'loadjsontile',
-	start:function(engine){
+	start:function(mode){
 		var self=this;
 		self.dialog=new LoadTags({loc:$("body")});
 		
@@ -185,7 +185,7 @@ var LoadDialog={
 			
 		};
 		// add button
-		var el=engine.addDialogButton(button);
+		var el=TILE.engine.addDialogButton(button);
 		// add click event to return el
 		if(!el) return;
 		el.elem.live('click',function(e){
@@ -201,7 +201,7 @@ var LoadDialog={
 			self.dialog.light.hide();
 			self.dialog.DOM.hide();
 			self.dialog.fade.hide();
-			engine.parseJSON(json);
+			TILE.engine.parseJSON(json);
 			
 		});
 		

@@ -811,7 +811,7 @@
 			if((/file::/.test(url)==false)&&(/PHP\//.test(url)==false)){
 				var rootUri = window.location.href;
 				rootUri=rootUri.substring(0,rootUri.lastIndexOf("/"));
-				url=rootUri+"/"+engine.serverRemoteImgUrl+"?uimg="+url;
+				url=rootUri+"/"+TILE.engine.serverRemoteImgUrl+"?uimg="+url;
 			}
 			$("#srcImageForCanvas")[0].src=url;
 		},
@@ -1775,9 +1775,9 @@ var AR={
 	// id {String} - ID for parent DOM
 	// data {Object} - JSON data with transcript lines
 	// layout {String} : HTML layout in string format
-	start:function(engine,mode){
+	start:function(mode){
 		var self=this;
-		self.engine=engine;
+		// self.engine=engine;
 		// If AR object not yet set, create new one
 		if(!self.__AR__){
 			var json=engine.getJSON();
@@ -1785,7 +1785,7 @@ var AR={
 			// create a new mode with a callback function
 			var onActive=function(){
 				// get data
-				var data=self.engine.getJSON(true);
+				var data=TILE.engine.getJSON(true);
 				
 				
 				self.__AR__._restart(data);
@@ -1796,9 +1796,9 @@ var AR={
 			
 			// attach html to the interface
 			// sidbar - left side
-			engine.insertModeHTML(this.__AR__.logHTML,'main',self.tileMode.name);
+			TILE.engine.insertModeHTML(this.__AR__.logHTML,'main',self.tileMode.name);
 			// canvas area - right side
-			engine.insertModeHTML(this.__AR__.canvasHTML,'contentarea',self.tileMode.name);
+			TILE.engine.insertModeHTML(this.__AR__.canvasHTML,'contentarea',self.tileMode.name);
 			// alter some classnames
 			$("#az_log > .az.inner.autolinerecognizer > .toolbar").removeClass("toolbar").addClass("autorec_toolbar");
 			
@@ -1885,8 +1885,8 @@ var AR={
 					
 					// engine.setActiveObj(line);
 					// 				if(__v) console.log("autorec vd[prop]: "+JSON.stringify(vd[prop]));
-					engine.insertData(shape);
-					engine.linkObjects(line,shape);
+					TILE.engine.insertData(shape);
+					TILE.engine.linkObjects(line,shape);
 				};
 				
 				// start loadScreen

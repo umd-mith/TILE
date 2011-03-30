@@ -315,7 +315,7 @@ var LB={
 	
 	// Initialize the Label Box (Lower-left) and 
 	// prepare data to sent to PluginController
-	start:function(engine,mode){
+	start:function(mode){
 		var self=this;
 		self.lbls=[];
 		
@@ -325,7 +325,7 @@ var LB={
 	
 		
 		// add HTML content to interface
-		engine.insertModeHTML(html,'active',mode.name);
+		TILE.engine.insertModeHTML(html,'active',mode.name);
 		
 		// create new label instance
 		self.LBL=new Label({data:[]});
@@ -333,7 +333,7 @@ var LB={
 		$("body").bind("labelSelected",function(e,obj){
 			// send obj to the engine
 			var lbl={id:obj.id,type:'labels',jsonName:'labels',obj:obj};
-			engine.setActiveObj(lbl);
+			TILE.engine.setActiveObj(lbl);
 		});
 		
 		// data being sent to the pluginController must include
@@ -345,7 +345,7 @@ var LB={
 		// 			self.lbls[lbl.id]=lbl;
 		// 		}
 		if(self.lbls.length) {
-			engine.insertTags(self.lbls);
+			TILE.engine.insertTags(self.lbls);
 			self.LBL.loadLabels(self.lbls);
 		}
 		
@@ -357,7 +357,7 @@ var LB={
 		$("body").live("newActive",{obj:self},self.activeObjHandle);
 		
 		// check to see if json data is already loaded
-		var data=engine.getJSON(true);
+		var data=TILE.engine.getJSON(true);
 		if(data)
 		{
 			// data loaded - start labels
@@ -379,7 +379,7 @@ var LB={
 			// 	}
 			self.LBL.loadLabels(vd);
 			if(newLbls.length){
-				o.engine.insertTags(newLbls);
+				TILE.engine.insertTags(newLbls);
 			}
 			
 		}
@@ -391,7 +391,7 @@ var LB={
 			$("#labelList").empty();
 		}
 		$(".labelItem").removeClass('active');
-		var data=o.engine.getJSON();
+		var data=TILE.engine.getJSON();
 
 		if(!data.labels) return;
 		var vd=[];
@@ -411,7 +411,7 @@ var LB={
 		// 	}
 		self.LBL.loadLabels(vd);
 		if(newLbls.length){
-			o.engine.insertTags(newLbls);
+			TILE.engine.insertTags(newLbls);
 		}
 		self.createWordle(data);
 	},
@@ -419,7 +419,7 @@ var LB={
 		var self=e.data.obj;
 		var check=false;
 		
-		var data=o.engine.getJSON();
+		var data=TILE.engine.getJSON();
 		
 		// deactivate labels
 		// $(".labelItem").removeClass('active');
@@ -439,7 +439,7 @@ var LB={
 		
 		
 		if(newLbls.length){
-			o.engine.insertTags(newLbls);
+			TILE.engine.insertTags(newLbls);
 		}
 		
 		self.createWordle(data);
@@ -447,7 +447,7 @@ var LB={
 	activeObjHandle:function(e,o){
 		var self=e.data.obj;
 		
-		var data=o.engine.getJSON();
+		var data=TILE.engine.getJSON();
 		
 		// deactivate labels
 		$(".labelItem").removeClass('active');
@@ -473,7 +473,7 @@ var LB={
 		
 		self.LBL.loadLabels(vd);
 		if(newLbls.length){
-			o.engine.insertTags(self.lbls);
+			TILE.engine.insertTags(self.lbls);
 		}
 	},
 	// finds labels referenced in engine JSON

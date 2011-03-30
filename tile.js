@@ -29,9 +29,14 @@
 var TILEPAGE=null;
 // Keep track of Image scale
 var TILEIMGSCALE=1;
+var TILE=[];
+TILE.activeItems=[];
+TILE.url='';
+TILE.engine={};
+
 
 (function($){
-	var TILE=this;
+	var tile=this;
 
 	// Private variables used within TILE_ENGINE
 	// that can be accessed only in the TILE() 
@@ -142,13 +147,13 @@ var TILEIMGSCALE=1;
 		var self=this;
 		var file=null;
 		file=$.ajax({
-			url:ENGINE.serverStateUrl,
+			url:TILE.engine.serverStateUrl,
 			accepts: "application/json",
 			dataType:"text",
 			async:false
 		}).responseText;
 		if(file){
-			ENGINE.parseJSON(file);
+			TILE.engine.parseJSON(file);
 		} else if((window.location.href.search(/\?json\=/i))>=0){
 				// grab the GET parameter only - 
 				// user defines this by putting ?json= followed
@@ -175,7 +180,7 @@ var TILEIMGSCALE=1;
 						}
 					},
 					success:function(txt){
-						ENGINE.parseJSON(txt);
+						TILE.engine.parseJSON(txt);
 						// remove the welcome dialog in case it's present
 						if($("#light").length){
 							$("#light").remove();
@@ -226,7 +231,7 @@ var TILEIMGSCALE=1;
 		removeLoad();
 		
 		if(json){	
-			ENGINE.parseJSON(json);
+			TILE.engine.parseJSON(json);
 		}
 		
 	};
@@ -641,7 +646,7 @@ var TILEIMGSCALE=1;
 					// add name to stack
 					self.labelNames.push(lbls[x]);
 					// ADD NEW LABEL TO THE JSON
-					ENGINE.insertData(el);
+					TILE.engine.insertData(el);
 				} else {
 					// find in stack
 					for(var prop in self._labels){
@@ -665,7 +670,7 @@ var TILEIMGSCALE=1;
 			for(var r in refs){
 				if(!refs[r]) continue;
 				setTimeout(function(s,r){
-					ENGINE.linkObjects(s,r);
+					TILE.engine.linkObjects(s,r);
 				},1,self._curLink,refs[r]);
 				
 			}
@@ -714,9 +719,9 @@ var TILEIMGSCALE=1;
 			// 			}
 			// 			$.extend(lb,{parentTool:self._curLink.tool,parentObj:self._curLink.id,parentType:self._curLink.type});
 			
-			ENGINE.deleteObj(self._curLink,lb);
+			TILE.engine.deleteObj(self._curLink,lb);
 			// also need to do reverse in order for link to be severed
-			ENGINE.deleteObj(lb,self._curLink);
+			TILE.engine.deleteObj(lb,self._curLink);
 			
 			
 			// $("body:first").trigger("deleteMetaLink",[lb]);
@@ -779,7 +784,7 @@ var TILEIMGSCALE=1;
 		}
 	};
 	
-	TILE.HelpBox=HelpBox;
+	tile.HelpBox=HelpBox;
 	
 	/**
 	Dialog Boxes: Import, New Image, Load Tags
@@ -1137,7 +1142,7 @@ var TILEIMGSCALE=1;
 	var TILE_ENGINE=function(args){
 		// set local ENGINE variable so that PluginController + other local
 		// methods can access this
-		ENGINE=this;
+		TILE.engine=this;
 	
 		//get HTML from PHP script and attach to passed container
 		this.loc=(args.attach)?args.attach:$("body");
@@ -1289,7 +1294,7 @@ var TILEIMGSCALE=1;
 			
 				// set JSON and run parsing
 				var d=$.ajax({
-					url:ENGINE.serverRemoteStateUrl+"?file="+self.imageFile,
+					url:TILE.engine.serverRemoteStateUrl+"?file="+self.imageFile,
 					dataType:'text',
 					async:false,
 					error:function(d,x,e){
@@ -1302,7 +1307,7 @@ var TILEIMGSCALE=1;
 			} else if((typeof(file)!='object')){
 				// parse JSON as string
 				json=JSON.parse(file);
-				if(__v) console.log(json);
+				
 			} else {
 				if(typeof file!='object'){
 					json=JSON.parse(file);
@@ -1673,7 +1678,7 @@ var TILEIMGSCALE=1;
 	};
 	// TILE ENGINE IS MADE A PUBLIC API TOOL - CAN 
 	// BE ACCESSED OUTSIDE OF LOCAL SCOPE
-	TILE.TILE_ENGINE=TILE_ENGINE;
+	tile.TILE_ENGINE=TILE_ENGINE;
 
 	// ----------------- //
 	// Mode //
@@ -1876,7 +1881,7 @@ var TILEIMGSCALE=1;
 			if(!self.setUp){
 				// set up the plugins in array
 				for(var x in self.parr){
-					self.parr[x].start(ENGINE,self);
+					self.parr[x].start(self);
 				}
 				self.setUp=true;
 			}
@@ -1975,7 +1980,7 @@ var TILEIMGSCALE=1;
 				
 				if(!x) activeItems.push(obj);
 				// set dataadded
-				$("body:first").trigger('dataAdded',[{engine:ENGINE,activeItems:activeItems}]);
+				$("body:first").trigger('dataAdded',[{engine:TILE.engine,activeItems:activeItems}]);
 				
 			}
 			
@@ -2097,7 +2102,7 @@ var TILEIMGSCALE=1;
 				throw "Error: plugin wrapper passed that doesn't contain a start method.";
 			}
 			// call the wrapper's start method
-			obj.start(ENGINE);
+			obj.start();
 			
 		},
 		initTools:function(){
@@ -2121,7 +2126,7 @@ var TILEIMGSCALE=1;
 						// $("body").unbind(self.toolSet[toolIds[(t-1)]]._close);
 						self.curTool=null;
 						
-						self.toolSet[self.startTool].start(ENGINE);
+						self.toolSet[self.startTool].start();
 						// fix up transcript bar area
 						$("#az_log > *").hide();
 						
@@ -2136,7 +2141,7 @@ var TILEIMGSCALE=1;
 					if(__v) console.log('calling start for: '+ct.id);
 					
 					// Running the tool plugin constructor
-					ct.start(ENGINE);
+					ct.start();
 					// if(ct.activeCall){
 					// 						$("body").bind(ct.activeCall,{obj:self},self._setActiveTool);
 					// 					}
@@ -2280,7 +2285,7 @@ var TILEIMGSCALE=1;
 			}
 			if(__v) console.log('things now in activeItems: '+JSON.stringify(activeItems));
 			// notify plugins of new active object
-			$("body:first").trigger("newActive",[{engine:ENGINE,activeItems:activeItems}]);
+			$("body:first").trigger("newActive",[{engine:TILE.engine,activeItems:activeItems}]);
 		},
 		// insert data into the JSON without making it activeObj
 		putData:function(data){
@@ -2552,7 +2557,7 @@ var TILEIMGSCALE=1;
 				if(!found) activeItems.push(o1);
 
 				// notify plugins of change
-				$("body:first").trigger("dataAdded",[{engine:ENGINE,activeItems:activeItems}]);
+				$("body:first").trigger("dataAdded",[{engine:TILE.engine,activeItems:activeItems}]);
 				mouseNormal();
 				
 			},10);
@@ -2628,7 +2633,7 @@ var TILEIMGSCALE=1;
 			
 			if(__v) console.log("items in activeItems: "+JSON.stringify(activeItems));
 			// notify plugins of change
-			$("body:first").trigger("dataAdded",[{engine:ENGINE,activeItems:activeItems}]);
+			$("body:first").trigger("dataAdded",[{engine:TILE.engine,activeItems:activeItems}]);
 			if(__v) console.log("*****ADDDATATOJSONSTARTEND**********");
 			mouseNormal();
 			return;
@@ -3182,9 +3187,9 @@ var TILEIMGSCALE=1;
 				e.preventDefault();
 				// hide the metadata box
 				$(".ui-dialog").hide();
-				if(!ENGINE) return;
+				if(!TILE.engine) return;
 				// get JSON data
-				var json=ENGINE.getJSON();
+				var json=TILE.engine.getJSON();
 				// insert text version of data into 
 				// upload form text box
 				$("#uploadData").val(JSON.stringify(json));

@@ -542,7 +542,7 @@
 	
 	var Trans={
 		id:"Transcript1000",
-		start:function(engine,mode){
+		start:function(mode){
 			var self=this;
 			
 			
@@ -559,9 +559,9 @@
 			self.transcript=new Transcript({text:[],loc:'logbar_list'});
 			// insert the HTML into the interface
 			var html='<div id="tile_toolbar" class="toolbar"><div class="menuitem pluginTitle">Transcript Lines</div></div><div id="logbar_list" class="az"></div>';
-			engine.insertModeHTML(html,'log',mode.name);
+			TILE.engine.insertModeHTML(html,'log',mode.name);
 			// insert button
-			engine.insertModeButtons('<div class="menuitem"><ul><li><a id="L579" class="btnIconLarge getTrans" title="Activate Transcript Mode">Activate Transcript Mode</a></li></ul></div>','log',mode.name);
+			TILE.engine.insertModeButtons('<div class="menuitem"><ul><li><a id="L579" class="btnIconLarge getTrans" title="Activate Transcript Mode">Activate Transcript Mode</a></li></ul></div>','log',mode.name);
 			
 			// if no other active buttons, then this one is active
 			if(!$("#tile_toolbar > .menuitem > ul > li > a").hasClass('active')){
@@ -579,7 +579,7 @@
 			// trnsClick handler
 			var _trnsClickHandle=function(e,id){
 				var obj={id:id,type:'lines',jsonName:TILEPAGE,display:$("#"+id).text().substring(0,10),obj:{id:id,type:'lines'}};
-				engine.setActiveObj(obj);
+				TILE.engine.setActiveObj(obj);
 			};
 			
 			
@@ -617,7 +617,7 @@
 			// $("body").live("newPage",{obj:self},self.newJSONHandle);
 			
 			// check to see if data already loaded
-			var data=engine.getJSON(true);
+			var data=TILE.engine.getJSON(true);
 			if(data){
 				var text=[];
 				if(data&&(data.lines)){
@@ -667,7 +667,7 @@
 		newJSONHandle:function(e,o){
 			var self=e.data.obj;
 			// get current page
-			var data=o.engine.getJSON(true);
+			var data=TILE.engine.getJSON(true);
 			var text=[];
 			if(data&&(data.lines)){
 				// parse out data
@@ -694,7 +694,7 @@
 		loadJSON:function(engine,activeItems){
 			var self=this;
 			// get current page
-			var data=engine.getJSON(true);
+			var data=TILE.engine.getJSON(true);
 			if(__v) console.log("new transcript data: "+JSON.stringify(data));
 			var text=[];
 			if(data&&(data.lines)){
