@@ -1780,7 +1780,7 @@ var AR={
 		// self.engine=engine;
 		// If AR object not yet set, create new one
 		if(!self.__AR__){
-			var json=engine.getJSON();
+			var json=TILE.engine.getJSON();
 			this.__AR__=new TileOCR({loc:"az_log",transcript:json});
 			// create a new mode with a callback function
 			var onActive=function(){
@@ -1968,3 +1968,7 @@ var AR={
 	// fully closed down
 	_close:"closeOutAutoRec"
 };
+
+
+// register the wrapper with TILE
+TILE.engine.registerPlugin(AR);

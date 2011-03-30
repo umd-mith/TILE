@@ -2303,3 +2303,6 @@ var IT={
 	done:"closeOutITag",
 	_close:"closeITAG"
 };
+
+// register the plugin with TILE
+TILE.engine.registerPlugin(IT);

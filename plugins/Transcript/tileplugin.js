@@ -808,3 +808,5 @@
 			return json;
 		}
 	};
+	// register the plugin with TILE
+	TILE.engine.registerPlugin(Trans);

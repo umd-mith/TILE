@@ -209,3 +209,5 @@ var LoadDialog={
 	}
 	
 };
+// register the plugin with TILE
+TILE.engine.registerPlugin(LoadDialog);

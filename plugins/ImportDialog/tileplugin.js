@@ -145,5 +145,5 @@ var importdialog_tile={
 	}
 	// no close or loadJSON functions
 };
-
-
+// register the plugin with TILE
+TILE.engine.registerPlugin(importdialog_tile);

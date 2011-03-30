@@ -26,21 +26,14 @@
 	<script type="text/javascript" src="lib/jquery/plugins/underscore.js"></script> 
 	<script type="text/javascript" src="lib/VectorDrawer_1.0/VectorDrawer.js"></script>
 	<script type="text/javascript" src="tile.js"></script> 
-	<script type="text/javascript" src="plugins/ImageTagger/tileplugin.js"></script>
-	<script type="text/javascript" src="plugins/Transcript/tileplugin.js"></script> 
-	<script type="text/javascript" src="plugins/Labels/tileplugin.js"></script>
-	<script type="text/javascript" src="plugins/TextSelection/tileplugin.js"></script>
-	<script type="text/javascript" src="plugins/AutoLineRecognizer/tileplugin.js"></script>
+	
 	<script type="text/javascript" src="lib/jquery/plugins/colorpicker/js/colorpicker.js"></script>
     <script type="text/javascript" src="lib/jquery/plugins/colorpicker/js/eye.js"></script>
     <script type="text/javascript" src="lib/jquery/plugins/colorpicker/js/utils.js"></script>
 	<script type="text/javascript" src="lib/rangy/getPath.js"></script>
-	<script type="text/javascript" src="plugins/LoadTags/tileplugin.js"></script>
-	<script type="text/javascript" src="plugins/ExportDialog/tileplugin.js"></script>
-	<script type="text/javascript" src="plugins/WelcomeDialog/tileplugin.js"></script>
+	
 	<script type="text/javascript" src="importWidgets/exportJSONXML.js"></script>
-	<script type="text/javascript" src="plugins/AutoLoad/tileplugin.js"></script>
-	<script type="text/javascript" src="plugins/Dashboard/tileplugin.js"></script>
+
 </head>
 <body>
 	<div class="az header"><div class="az logo"><img src="skins/default/images/tile.gif" alt="TILE: Text-Image Linking Environment" /></div>
@@ -104,28 +97,28 @@
 			engine.insertMode('Dashboard');
 			
 			// Image tagger
-			engine.insertModePlugin('Image Annotation',IT);
+			engine.insertModePlugin('Image Annotation','ImageTagger');
 			// Auto recognizer
-			engine.insertModePlugin('Auto Line Recognizer',AR);
+			engine.insertModePlugin('Auto Line Recognizer','AutoLineRecognizer');
 			// transcript lines
-			engine.insertModePlugin('Image Annotation',Trans);
+			engine.insertModePlugin('Image Annotation','Transcript');
 			// text selection
-			engine.insertModePlugin('Image Annotation',TS);
+			engine.insertModePlugin('Image Annotation','TextSelection');
 			// labels
-			engine.insertModePlugin('Image Annotation',LB);
+			engine.insertModePlugin('Image Annotation','Labels');
 			// autoload
-			engine.insertModePlugin('Image Annotation',AutoLoad);
+			engine.insertModePlugin('Image Annotation','AutoLoad');
 			// load dialog
-			engine.insertPlugin(LoadDialog);
+			engine.insertPlugin('LoadTags');
 			// Export dialog
-			 engine.insertPlugin(ExportDialog);
+			 engine.insertPlugin('ExportDialog');
 			// dashboard
-			engine.insertModePlugin('Dashboard',Dashboard);
+			engine.insertModePlugin('Dashboard','Dashboard');
 			
 			
 			if(!(/^http:\/\/localhost/.test(document.URL))){
 				// welcome dialog
-				engine.insertPlugin(WelcomeDialog);
+				engine.insertPlugin('WelcomeDialog');
 			}
 			// Done adding plugins
 			$("a:contains(Image Annotation)").trigger('click');

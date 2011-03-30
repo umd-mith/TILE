@@ -640,4 +640,5 @@ var Dashboard={
 	}
 };
 
-
+// register the plugin with TILE
+TILE.engine.registerPlugin(Dashboard);

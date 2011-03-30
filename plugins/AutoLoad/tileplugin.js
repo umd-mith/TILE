@@ -29,3 +29,5 @@ var AutoLoad={
 	
 	
 };
+// register the plugin with TILE
+TILE.engine.registerPlugin(AutoLoad);

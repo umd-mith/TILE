@@ -29,9 +29,13 @@
 var TILEPAGE=null;
 // Keep track of Image scale
 var TILEIMGSCALE=1;
+// Large, global variable that 
+// stores data for other plugins 
+
 var TILE=[];
 TILE.activeItems=[];
 TILE.url='';
+// ENGINE allows access to global API
 TILE.engine={};
 
 
@@ -44,9 +48,7 @@ TILE.engine={};
 	var pluginControl=null; // instance of plugincontroller
 	var json=null; // Global JSON session
 	var _tileBar=null;
-	// local variable for ENGINE, which is fed to 
-	// plugins on start()
-	var ENGINE=null;
+	
 	// used to import data into TILE
 	var importDialog=null;
 	var curPage=null;
@@ -1142,7 +1144,7 @@ TILE.engine={};
 		// set local ENGINE variable so that PluginController + other local
 		// methods can access this
 		TILE.engine=this;
-	
+		
 		//get HTML from PHP script and attach to passed container
 		this.loc=(args.attach)?args.attach:$("body");
 		var self=this;
@@ -1153,6 +1155,12 @@ TILE.engine={};
 		self.serverRemoteStateUrl = (urls.remoteState ? urls.remoteState : "PHP/parseRemoteJSON.php");
 		self.serverRemoteImgUrl = (urls.remoteImg ? urls.remoteImg : "PHP/RemoteImgRedirect.php");
 
+		// plugins array
+		self.plugins=[];
+		// array of plugins with key being
+		// plugin name, value mode its in
+		self.modeplugins=[];
+		
 		json=null;
 		self.manifest=null;
 		self.curUrl=null;
@@ -1173,20 +1181,21 @@ TILE.engine={};
 		},
 		// adds a plugin to the main set 
 		// of plugins in TILE
-		insertPlugin:function(obj){
+		insertPlugin:function(name){
 			var self=this;
 			// obj is plugin wrapper
+			// add to array - no mode
+			self.plugins.push(name);
 		
+			// figure out src path
+			var src='plugins/'+name+'/tileplugin.js';
+			var script='<script src="'+src+'" type="text/javascript"></script>';
+			// attach script to header
+			$("head").append(script);
+			
 			// call pluginControl to init the tool
-			pluginControl.initTool(obj);
-		},
-		// adds a new content object
-		// returns TILE CONTENT OBJECT
-		insertHTML:function(html,section,mode){
-			var self=this;
 			
-			
-			
+			// pluginControl.initTool(obj);
 		},
 		// takes a description for a mode
 		// and creates a new mode object
@@ -1224,12 +1233,15 @@ TILE.engine={};
 				pluginModes.push(obj);
 			}
 			
-			// if(plugin.name){
-			// 				var script='<script src="plugins/'+plugin.name+'/tileplugin.js" type="text/javascript"></script>';
-			// 				$("header").append(script);
-			// 			}
+			// figure out src path
+			var src='plugins/'+plugin+'/tileplugin.js';
+			var script='<script src="'+src+'" type="text/javascript"></script>';
+			// attach script to header
+			$("head").append(script);
 			
-			obj.appendPlugin(plugin);
+			// obj.appendPlugin(plugin);
+			// insert into modeplugins array
+			self.modeplugins[plugin]=obj.name;
 			
 		},
 		// either appends html to Mode object of name or 
@@ -1273,6 +1285,30 @@ TILE.engine={};
 			mode.appendButtonHTML(html,section);
 			
 			
+		},
+		// adds the plugin wrapper to the 
+		// internal array 
+		registerPlugin:function(pw){
+			var self=this;
+			
+			// if part of a mode, add to 
+			// that mode 
+			// If not, activate the plugin immediately
+			if(self.modeplugins[pw.name]){
+				// has stored mode name
+				// in array - find matching
+				// mode with that name
+				for(var x in pluginModes){
+					if(pluginModes[x].name==self.modeplugins[pw.name]){
+						// will start when mode is active
+						pluginModes[x].appendPlugin(pw);
+						break;
+					}
+				}
+			} else {
+				// no mode - just start the plugin
+				pw.start();
+			}
 		},
 		/**Get Schema**/
 		//taken from setMultiFileImport Custom Event call from ImportDialog

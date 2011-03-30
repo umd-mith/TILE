@@ -1056,3 +1056,5 @@ var TS={
 	},
 	_close:"CloseSelector"
 };
+// register the plugin with TILE
+TILE.engine.registerPlugin(TS);
