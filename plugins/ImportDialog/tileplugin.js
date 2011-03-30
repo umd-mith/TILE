@@ -129,7 +129,7 @@ var importdialog_tile={
 		$("body").live("schemaFileImported",{obj:self},function(e,file){
 			self.dialog.close();
 			// send to engine
-			engine.parseJSON(file);
+			TILE.engine.parseJSON(file);
 			// close dialog
 			
 		});

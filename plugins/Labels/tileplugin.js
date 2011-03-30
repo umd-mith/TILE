@@ -384,7 +384,7 @@ var LB={
 			
 		}
 	},
-	newJSONHandle:function(e,o){
+	newJSONHandle:function(e){
 		var self=e.data.obj;
 		if(e.type=='newPage'){
 			// clear the label area
@@ -415,7 +415,7 @@ var LB={
 		}
 		self.createWordle(data);
 	},
-	dataAddedHandle:function(e,o){
+	dataAddedHandle:function(e){
 		var self=e.data.obj;
 		var check=false;
 		
@@ -444,7 +444,7 @@ var LB={
 		
 		self.createWordle(data);
 	},
-	activeObjHandle:function(e,o){
+	activeObjHandle:function(e){
 		var self=e.data.obj;
 		
 		var data=TILE.engine.getJSON();
@@ -465,9 +465,9 @@ var LB={
 		
 		vd=self.findLabelsOnPage(data);
 		
-		for(var item in o.activeItems){
-			if(self.lbls[o.activeItems[item].id]){
-				$("#lbl_"+o.activeItems[item].id).addClass('active');
+		for(var item in TILE.activeItems){
+			if(self.lbls[TILE.activeItems[item].id]){
+				$("#lbl_"+TILE.activeItems[item].id).addClass('active');
 			}
 		}
 		

@@ -2171,7 +2171,7 @@ var IT={
 			
 		} 
 	},
-	dataAddedHandle:function(e,o){
+	dataAddedHandle:function(e){
 	
 		var self=e.data.obj;
 		if(self.itagger.curURL!=TILEPAGE){
@@ -2180,15 +2180,15 @@ var IT={
 		}
 		// check to see if any shapes added to activeItems
 		var vd=[];
-		if(__v) console.log('dataadded handle in imagetagger activeitems: '+JSON.stringify(o.activeItems));
+		if(__v) console.log('dataadded handle in imagetagger activeitems: '+JSON.stringify(TILE.activeItems));
 		var a=false;
-		for(var prop in o.activeItems){
-			if(__v) console.log("activeItem: "+o.activeItems[prop]);
-			if(!o.activeItems[prop]) continue;
-			if(o.activeItems[prop].posInfo){
-				vd.push(o.activeItems[prop]);
-				if(o.activeItems[prop].id==self.activeShape){
-					a=o.activeItems[prop];
+		for(var prop in TILE.activeItems){
+			if(__v) console.log("activeItem: "+TILE.activeItems[prop]);
+			if(!TILE.activeItems[prop]) continue;
+			if(TILE.activeItems[prop].posInfo){
+				vd.push(TILE.activeItems[prop]);
+				if(TILE.activeItems[prop].id==self.activeShape){
+					a=TILE.activeItems[prop];
 				}
 			}
 		}
@@ -2207,29 +2207,29 @@ var IT={
 		}
 		
 	},
-	newActiveHandle:function(e,o){
+	newActiveHandle:function(e){
 		if(__v) console.log("NEW ACTIVE CALLED");
 		var self=e.data.obj;
 		self.itagger.curURL=TILEPAGE;
 		// check to see if any shapes added to activeItems
 		var vd=[];
-		for(var prop in o.activeItems){
-			if(!o.activeItems[prop]) continue;
-			if(o.activeItems[prop].posInfo){
-				vd.push(o.activeItems[prop]);
+		for(var prop in TILE.activeItems){
+			if(!TILE.activeItems[prop]) continue;
+			if(TILE.activeItems[prop].posInfo){
+				vd.push(TILE.activeItems[prop]);
 			}
 		}
-		if(__v) console.log('imagetagger newactivehandle '+JSON.stringify(o.activeItems));
+		if(__v) console.log('imagetagger newactivehandle '+JSON.stringify(TILE.activeItems));
 	
 		self.itagger.loadNewShapes(vd);
 	
-		// self.itagger._restart(o.activeItems);
+		// self.itagger._restart(TILE.activeItems);
 	},
-	newJSONHandle:function(e,o){
+	newJSONHandle:function(e){
 		var self=e.data.obj;
 		if(__v) console.log("NEW JSON CALLED");
 		self.itagger.curUrl=TILEPAGE;
-		self.itagger._restart(o.activeItems);
+		self.itagger._restart(TILE.activeItems);
 	
 	},	
 	// Listens for the ObjectChange event call

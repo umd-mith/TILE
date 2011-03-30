@@ -50,8 +50,7 @@ TILE.engine={};
 	// used to import data into TILE
 	var importDialog=null;
 	var curPage=null;
-	// keep track of what items are active
-	var activeItems=[];
+
 	// stores layouts of different modes
 	var pluginModes=[];
 	// array of all plugins
@@ -1314,8 +1313,8 @@ TILE.engine={};
 				} else {
 					json=file;
 				}
-				if(activeItems||curPage){
-					activeItems=[];
+				if(TILE.activeItems||curPage){
+					TILE.activeItems=[];
 					curPage=null;
 				}
 			}
@@ -1338,7 +1337,7 @@ TILE.engine={};
 			
 			// notify plugins that there is a JSON
 			// loaded
-			$("body:first").trigger("newJSON",[{engine:self,activeItems:activeItems}]);
+			$("body:first").trigger("newJSON");
 			
 			
 			
@@ -1424,7 +1423,7 @@ TILE.engine={};
 				pluginControl.newPage();
 
 				// notify plugins of change
-				$("body:first").trigger("newPage",[{engine:self,activeItems:activeItems}]);
+				$("body:first").trigger("newPage");
 				// done, remove load dialog
 				mouseNormal();
 			},10);
@@ -1462,7 +1461,7 @@ TILE.engine={};
 				pluginControl.newPage();
 			
 				// notify plugins of change
-				$("body:first").trigger("newPage",[{engine:self,activeItems:activeItems}]);
+				$("body:first").trigger("newPage");
 				// done, remove load dialog
 				mouseNormal();
 			},10);
@@ -1506,7 +1505,7 @@ TILE.engine={};
 				pluginControl.newPage();
 			
 				// notify plugins of change
-				$("body:first").trigger("newPage",[{engine:self,activeItems:activeItems}]);
+				$("body:first").trigger("newPage");
 				// done, remove load dialog
 				mouseNormal();
 			},10);
@@ -1971,16 +1970,16 @@ TILE.engine={};
 				// add/change to activeItems
 				var x=null;
 				
-				for(var a in activeItems){
-					if(activeItems[a].id==obj.id){
-						activeItems[a].color=color;
+				for(var a in TILE.activeItems){
+					if(TILE.activeItems[a].id==obj.id){
+						TILE.activeItems[a].color=color;
 						x=true;
 					}
 				}
 				
-				if(!x) activeItems.push(obj);
+				if(!x) TILE.activeItems.push(obj);
 				// set dataadded
-				$("body:first").trigger('dataAdded',[{engine:TILE.engine,activeItems:activeItems}]);
+				$("body:first").trigger('dataAdded');
 				
 			}
 			
@@ -2181,7 +2180,7 @@ TILE.engine={};
 		// and hides dialogs each time a new page is loaded into TILE
 		newPage:function(){
 			var self=this;
-			activeItems=[];
+			TILE.activeItems=[];
 			self.activeObj=null;
 			// make  sure metadata dialog is hidden
 			$(".ui-dialog").hide();
@@ -2201,7 +2200,7 @@ TILE.engine={};
 			if(self.activeObj&&(self.activeObj.id==_newActiveObj.id)) return;
 			self.activeObj=null;
 			// reset activeItems
-			activeItems=[];
+			TILE.activeItems=[];
 			// find object in JSON
 			// assign that object to activeObj
 			if(_newActiveObj.type!=_newActiveObj.jsonName){
@@ -2215,7 +2214,7 @@ TILE.engine={};
 							json.pages[prop][_newActiveObj.type]=[_newActiveObj.obj];
 							self.activeObj=_newActiveObj;
 							if(__v) console.log("obj inserted setActiveObj: "+JSON.stringify(self.activeObj));
-							activeItems.push(self.activeObj.obj);
+							TILE.activeItems.push(self.activeObj.obj);
 						} else {
 							// already an array in session - check to see
 							// if there is a matching ID
@@ -2227,7 +2226,7 @@ TILE.engine={};
 									
 									self.activeObj=_newActiveObj;
 									if(__v) console.log("obj found on page: "+JSON.stringify(self.activeObj));
-									activeItems.push(self.activeObj.obj);
+									TILE.activeItems.push(self.activeObj.obj);
 									break;
 								}
 							}
@@ -2235,7 +2234,7 @@ TILE.engine={};
 								// insert into array
 								json.pages[prop][_newActiveObj.type].push(_newActiveObj.obj);
 								self.activeObj=_newActiveObj;
-								activeItems.push(self.activeObj.obj);
+								TILE.activeItems.push(self.activeObj.obj);
 							} 
 						}
 					}
@@ -2246,21 +2245,21 @@ TILE.engine={};
 				if(!json[_newActiveObj.jsonName]){
 					json[_newActiveObj.jsonName]=[_newActiveObj.obj];
 					self.activeObj=_newActiveObj;
-					activeItems.push(self.activeObj.obj);
+					TILE.activeItems.push(self.activeObj.obj);
 				} else {
 					// found array - check for the matching ID
 					for(var item in json[_newActiveObj.jsonName]){
 						if(json[_newActiveObj.jsonName][item].id==_newActiveObj.id){
 							_newActiveObj.obj=deepcopy(json[_newActiveObj.jsonName][item]);
 							self.activeObj=_newActiveObj;
-							activeItems.push(self.activeObj.obj);
+							TILE.activeItems.push(self.activeObj.obj);
 							break;
 						}
 					}
 					if(!self.activeObj){
 						json[_newActiveObj.jsonName].push(_newActiveObj.obj);
 						self.activeObj=_newActiveObj;
-						activeItems.push(self.activeObj.obj);
+						TILE.activeItems.push(self.activeObj.obj);
 					}
 				
 					
@@ -2278,14 +2277,14 @@ TILE.engine={};
 						
 						var n=self.findObj(self.activeObj.obj[prop][id],prop);
 						// insert into activeItems
-						if(n&&(n!='undefined')) {activeItems.push(n);}
+						if(n&&(n!='undefined')) {TILE.activeItems.push(n);}
 						
 					}
 				}
 			}
-			if(__v) console.log('things now in activeItems: '+JSON.stringify(activeItems));
+			if(__v) console.log('things now in activeItems: '+JSON.stringify(TILE.activeItems));
 			// notify plugins of new active object
-			$("body:first").trigger("newActive",[{engine:TILE.engine,activeItems:activeItems}]);
+			$("body:first").trigger("newActive");
 		},
 		// insert data into the JSON without making it activeObj
 		putData:function(data){
@@ -2542,22 +2541,22 @@ TILE.engine={};
 
 				// update activeItems and notify data change
 				var found=null;
-				for(var v in activeItems){
-					if(activeItems[v].id==o2.id){
+				for(var v in TILE.activeItems){
+					if(TILE.activeItems[v].id==o2.id){
 						found=true;
 					}
 				}
-				if(!found) activeItems.push(o2);
+				if(!found) TILE.activeItems.push(o2);
 				found=null;
-				for(var v in activeItems){
-					if(activeItems[v].id==o1.id){
+				for(var v in TILE.activeItems){
+					if(TILE.activeItems[v].id==o1.id){
 						found=true;
 					}
 				}
-				if(!found) activeItems.push(o1);
+				if(!found) TILE.activeItems.push(o1);
 
 				// notify plugins of change
-				$("body:first").trigger("dataAdded",[{engine:TILE.engine,activeItems:activeItems}]);
+				$("body:first").trigger("dataAdded");
 				mouseNormal();
 				
 			},10);
@@ -2604,36 +2603,36 @@ TILE.engine={};
 			}
 			var found=null;
 			var okItems=[];
-			for(var v in activeItems){
-				if(activeItems[v].id==obj.id){
+			for(var v in TILE.activeItems){
+				if(TILE.activeItems[v].id==obj.id){
 					found=true;
-					okItems.push(activeItems[v]);
+					okItems.push(TILE.activeItems[v]);
 				} else {
 					// check object - if it's not 
 					// connected to something, then
 					// get rid of it
 					var gut=false;
-					for(var prop in activeItems[v]){
-						if($.isArray(activeItems[v][prop])){
+					for(var prop in TILE.activeItems[v]){
+						if($.isArray(TILE.activeItems[v][prop])){
 							gut=true;
 						}
 					}
 					if(gut){
-						okItems.push(activeItems[v]);
+						okItems.push(TILE.activeItems[v]);
 					}
 				}
 			}
-			activeItems=okItems;
-			if(!found) activeItems.push(obj);
+			TILE.activeItems=okItems;
+			if(!found) TILE.activeItems.push(obj);
 		
 						// 
 						// if(self.activeObj){
 						// 	self.parseLink(self.activeObj,obj);
 						// }
 			
-			if(__v) console.log("items in activeItems: "+JSON.stringify(activeItems));
+			if(__v) console.log("items in activeItems: "+JSON.stringify(TILE.activeItems));
 			// notify plugins of change
-			$("body:first").trigger("dataAdded",[{engine:TILE.engine,activeItems:activeItems}]);
+			$("body:first").trigger("dataAdded");
 			if(__v) console.log("*****ADDDATATOJSONSTARTEND**********");
 			mouseNormal();
 			return;
@@ -2727,8 +2726,8 @@ TILE.engine={};
 						}
  					}
 				}
-				$.merge(activeItems,refs);
-				activeItems.push(data.obj);
+				$.merge(TILE.activeItems,refs);
+				TILE.activeItems.push(data.obj);
 			}
 			
 		},
@@ -2981,12 +2980,12 @@ TILE.engine={};
 			
 			// delete from activeItems
 			var ag=[];
-			for(var prop in activeItems){
-				if(activeItems[prop].id!=obj.id){
-					ag.push(activeItems[prop]);
+			for(var prop in TILE.activeItems){
+				if(TILE.activeItems[prop].id!=obj.id){
+					ag.push(TILE.activeItems[prop]);
 				}
 			}
-			activeItems=ag;
+			TILE.activeItems=ag;
 			
 			if(__v) console.log('finished deleting');
 			

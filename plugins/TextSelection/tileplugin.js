@@ -715,9 +715,9 @@ var TS={
 		self.textsel.removeHighlightMarkers();
 		
 		// check if selections are active
-		for(var x in o.activeItems){
-			if(!o.activeItems[x]) continue;
-			var id=o.activeItems[x].id;
+		for(var x in TILE.activeItems){
+			if(!TILE.activeItems[x]) continue;
+			var id=TILE.activeItems[x].id;
 			// if already visible, don't add to stack
 			if($("span."+id).length) continue;
 			for(var item in self.manifest){
@@ -743,9 +743,9 @@ var TS={
 		self.textsel.removeHighlightMarkers();
 		var data=[];
 		// check if selections are active
-		for(var x in o.activeItems){
-			if(!o.activeItems[x]||(o.activeItems[x].type!='selections')) continue;
-			var id=o.activeItems[x].id;
+		for(var x in TILE.activeItems){
+			if(!TILE.activeItems[x]||(TILE.activeItems[x].type!='selections')) continue;
+			var id=TILE.activeItems[x].id;
 			// if already visible, don't add to stack
 			if($("span."+id).length) continue;
 			for(var item in self.manifest){

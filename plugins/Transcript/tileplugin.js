@@ -646,12 +646,12 @@
 			$(".line_selected").removeClass("line_selected");
 			// check to see if activeItems contain ID for 
 			// lines
-			for(var prop in o.activeItems){
+			for(var prop in TILE.activeItems){
 				
-				if((!o.activeItems[prop])||(o.activeItems[prop]=='undefined')||(!o.activeItems[prop].id)) continue;
-				var uid=o.activeItems[prop].id;
+				if((!TILE.activeItems[prop])||(TILE.activeItems[prop]=='undefined')||(!TILE.activeItems[prop].id)) continue;
+				var uid=TILE.activeItems[prop].id;
 				if(typeof uid=='string'){
-					uid=o.activeItems[prop].id.replace(/\.\:/,'');
+					uid=TILE.activeItems[prop].id.replace(/\.\:/,'');
 				}
 				if($("#logbar_list > #"+uid+".line").length){
 					
@@ -682,8 +682,8 @@
 
 			self.transcript._drawText();
 
-			for(var a in o.activeItems){
-				var id=o.activeItems[a].id;
+			for(var a in TILE.activeItems){
+				var id=TILE.activeItems[a].id;
 				if($("#"+id+".line").length){
 					$("#"+id+".line").addClass('line_selected');
 				}
