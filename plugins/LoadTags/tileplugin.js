@@ -171,6 +171,7 @@
 // wrapper for TILE
 var LoadDialog={
 	id:'loadjsontile',
+	name:'LoadTags',
 	start:function(mode){
 		var self=this;
 		self.dialog=new LoadTags({loc:$("body")});

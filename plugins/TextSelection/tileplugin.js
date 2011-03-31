@@ -438,9 +438,7 @@
 
 var TS={
 	id:"TS1000",
-	outputCall:"tsOutputCall101",
-	activeCall:"sprTSActivate**",
-	deleteCall:"sprTSDeleteItem",
+	name:'TextSelection',
 	start:function(mode){
 		var self=this;
 		self.textsel=new TextSelector();

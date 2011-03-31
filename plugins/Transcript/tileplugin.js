@@ -542,6 +542,7 @@
 	
 	var Trans={
 		id:"Transcript1000",
+		name:'Transcript',
 		start:function(mode){
 			var self=this;
 			

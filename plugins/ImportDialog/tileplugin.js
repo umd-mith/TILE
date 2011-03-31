@@ -121,6 +121,7 @@ ImportD.ImportDialog=ImportDialog;
 // Wrapper that activates the importDialog and sends to 
 var importdialog_tile={
 	id:'importdialog_tile',
+	name:'ImportDialog',
 	start:function(mode){
 		var self=this;
 		

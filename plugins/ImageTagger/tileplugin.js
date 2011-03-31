@@ -1995,12 +1995,13 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 var IT={
 	id:"IT1000",
 	// name: {string} used as an array key for the TILE toolSet array
-	
+	name:'ImageTagger',
 	// start(id,base,json): creates the imagetagger. Takes id (string representing
 	// DOM location of tagger), base (string representing location of images - provided by TILE), and json
 	//  (either null or JSON object representing TILE JSON data)
 	start:function(mode){
 		var self=this;
+		if(__v) console.log('image tagger has mode: '+mode);
 		self.activeShape=null;
 		var _shapeDeletedHandle=function(e,data){
 			if(!(data)) return;

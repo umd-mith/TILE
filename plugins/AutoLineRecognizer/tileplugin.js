@@ -1791,7 +1791,7 @@ var AR={
 				self.__AR__._restart(data);
 				$("#autoreclog").css("z-index","5");
 			};
-			
+			if(__v) console.log('start function for '+mode);
 			self.tileMode=mode;
 			
 			// attach html to the interface
@@ -1915,7 +1915,7 @@ var AR={
 		} 
 	},
 	constructed:false,
-	name:"Auto Line Recognizer",
+	name:"AutoLineRecognizer",
 	done:"closeOutAutoRec",
 	outputCall:"outputAutoRecData",
 	

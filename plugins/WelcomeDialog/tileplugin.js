@@ -109,6 +109,7 @@
 })();
 var WelcomeDialog={
 	id:"WD1090910",
+	name:'WelcomeDialog',
 	// wrapper for TILE
 	start:function(mode){
 		var self=this;

@@ -5,6 +5,7 @@
 
 var AutoLoad={
 	id:"Auto1000101",
+	name:'AutoLoad',
 	start:function(mode){
 		var self=this;
 		// get data from config file

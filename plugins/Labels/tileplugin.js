@@ -312,7 +312,7 @@ Label.prototype={
 
 // Plugin object that is fed into TILE_ENGINE 1.0
 var LB={
-	
+	name:"Labels",
 	// Initialize the Label Box (Lower-left) and 
 	// prepare data to sent to PluginController
 	start:function(mode){
@@ -564,4 +564,4 @@ var LB={
 	}
 };
 // register the plugin with TILE
-TILE.engine.registerPlugin(LBL);
+TILE.engine.registerPlugin(LB);

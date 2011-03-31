@@ -5,6 +5,7 @@
 // Displays global information about the user's current TILE session
 
 var Dashboard={
+	name:'Dashboard',
 	start:function(mode){
 		var self=this;
 		

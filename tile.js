@@ -1172,6 +1172,40 @@ TILE.engine={};
 		checkJSON();
 	};
 	TILE_ENGINE.prototype={
+		// activates the engine - called after loading all 
+		// plugins into the array through insertPlugin
+		// or insertModePlugin
+		activate:function(mode){
+			var self=this;
+			// optional: pass mode to determine
+			// which mode of name 'mode' gets 
+			// activated first
+			
+			// go through plugins array and attach the 
+			// src elements
+			var count=0;
+		 	var recLoad=function(){
+				count++;
+				if(count==self.plugins.length){
+					// see if user defined a mode
+					if(mode){
+						// find matching mode and
+						// open that mode up
+						for(var y in pluginModes){
+							if(pluginModes[y].name==mode){
+								pluginModes[y].setActive();
+								break;
+							}
+						}
+					}
+				} else {
+					$.getScript(self.plugins[count],recLoad);
+				}
+			};
+			$.getScript(self.plugins[count],recLoad);
+			
+		
+		},
 		// Called to see if there is a JSON object stored in the PHP session() 
 		// adds a toolbar button to TileToolBar
 		addDialogButton:function(button){
@@ -1184,14 +1218,13 @@ TILE.engine={};
 		insertPlugin:function(name){
 			var self=this;
 			// obj is plugin wrapper
-			// add to array - no mode
-			self.plugins.push(name);
 		
 			// figure out src path
 			var src='plugins/'+name+'/tileplugin.js';
-			var script='<script src="'+src+'" type="text/javascript"></script>';
-			// attach script to header
-			$("head").append(script);
+			self.plugins.push(src);
+			// var script='<script src="'+src+'" type="text/javascript"></script>';
+			// 			// attach script to header
+			// 			$("head").append(script);
 			
 			// call pluginControl to init the tool
 			
@@ -1235,9 +1268,10 @@ TILE.engine={};
 			
 			// figure out src path
 			var src='plugins/'+plugin+'/tileplugin.js';
-			var script='<script src="'+src+'" type="text/javascript"></script>';
-			// attach script to header
-			$("head").append(script);
+			self.plugins.push(src);
+			// var script='<script src="'+src+'" type="text/javascript"></script>';
+			// 		// attach script to header
+			// 		$("head").append(script);
 			
 			// obj.appendPlugin(plugin);
 			// insert into modeplugins array
@@ -1912,10 +1946,12 @@ TILE.engine={};
 		// plugins in set
 		setActive:function(){
 			var self=this;
+			if(__v) console.log('setactive for '+self.name);
 			var styleName=self.name.toLowerCase().replace(/ /g,'');
 			if(!self.setUp){
 				// set up the plugins in array
 				for(var x in self.parr){
+					if(__v) console.log('setactive for mode '+self.name+' '+self);
 					self.parr[x].start(self);
 				}
 				self.setUp=true;

@@ -9,6 +9,27 @@ TILE API
 ----
 A summary of the most-recent TILE API is included below. [API documentation](http://mith.umd.edu/tile/documentation/tile-api/) is also provided on the TILE website and reflects code shipped in the latest release; the API documented below may change with future commits.
 
+### INITIALIZING ENGINE
+
+**insertPlugin**(plugin {String})
+Takes the plugin wrapper obj and passes it off to PluginController, which initiates the plugin into the interface. The plugin will not be attached to any Mode or state of the interface and will therefore be active the entire session. This is useful for plugins that are 'empty' plugins, or only work as backend plugins that save data or react to events.
+
+**insertMode**(name {String})
+Creates a new Mode named name, or set of plugins that are organized in the interface. Each Mode has a unique name, which is represented by a button at the top of the interface. Returns: the Mode object.
+
+#####Difference between a Mode and a Plugin: A *Mode* is a collection of *plugins* that all get activated at the same time.#####
+
+**insertModePlugin**(name {String}, plugin {String})
+Inserts the plugin named *plugin* into the Mode with matching name *name*. Do not use **insertPlugin** to insert your plugin, then follow up by using **insertModePlugin**, this inserts the plugin twice (One inside a Mode and one outside of a Mode) and can cause errors. 
+
+**registerPlugin**(pw {Object})
+*pw* refers to the wrapper of your plugin. Once your script is loaded using the **insertPlugin**, and **insertModePlugin**, and **activate** is called, the TILE.engine will run through its array of plugin *src* values and attach each one to *head*. After this is done, it is up to your plugin to use the **registerPlugin** method call to send its wrapper with the necessary *start()* function to TILE.engine. 
+
+#####Note on providing plugin names: Whatever name you give is used to figure out where in the **plugins/** folder that plugin is located. For example, passing *ImageTagger* will result in *plugins/ImageTagger/tileplugin.js*. It's assumed that there is a **tileplugin.js** file in that folder that contains the necessary functions to register your plugin.#####
+
+**activate**(name {String})
+Starts the TILE engine once all of the desired modes and plugins have been inserted using **insertMode**, **insertPlugin**, and **insertModePlugin**. If *name* is given, finds the matching Mode with that name and activates it first, after loading all of the src files.
+
 ### ADDING HTML
 
 **addToolBarButton**(button {Object})
@@ -17,17 +38,8 @@ Attaches a button to the interface, based on the criteria passed. Returns a butt
 **insertTags**(tags {Object array})
 Adds tags to the Attach Metadata dialog
 
-**insertMode**(name {String})
-Creates a new Mode named name, or set of plugins that are organized in the interface. Each Mode has a unique name, which is represented by a button at the top of the interface. Returns: the Mode object
-
-**insertModePlugin**(name {String}, plugin {Object})
-Inserts the plugin wrapper *plugin* into the Mode with matching name *name*.
-
 **insertModeHTML**(html {String}, section {String}, name {String})
 Takes the string of HTML code html and inserts it into the pre-defined section of the interface section, which is part of the Mode object with name *name*.
-
-**insertPlugin**(obj {Object})
-Takes the plugin wrapper obj and passes it off to PluginController, which initiates the plugin into the interface.
 
 **insertModeButtons**(html {String}, section {String}, name {String})
 Takes the string of HTML code html and inserts it into the pre-defined toolbar section of the interface section, which is part of the Mode object with name *name*.
