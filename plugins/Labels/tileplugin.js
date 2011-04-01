@@ -325,7 +325,7 @@ var LB={
 	
 		
 		// add HTML content to interface
-		TILE.engine.insertModeHTML(html,'active',mode.name);
+		TILE.engine.insertModeHTML(html,'bottomleft',mode.name);
 		
 		// create new label instance
 		self.LBL=new Label({data:[]});

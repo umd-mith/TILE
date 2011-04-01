@@ -61,7 +61,7 @@ class CoreData
         }
         $data['tile']['labels'] = array_values($this -> labels);
         
-        return json_encode($data, $options);
+        return json_encode($data);
     }
     
     public function newContainer($url = "") {

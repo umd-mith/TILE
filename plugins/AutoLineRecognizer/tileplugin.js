@@ -1798,7 +1798,7 @@ var AR={
 			// sidbar - left side
 			TILE.engine.insertModeHTML(this.__AR__.logHTML,'main',self.tileMode.name);
 			// canvas area - right side
-			TILE.engine.insertModeHTML(this.__AR__.canvasHTML,'contentarea',self.tileMode.name);
+			TILE.engine.insertModeHTML(this.__AR__.canvasHTML,'rightarea',self.tileMode.name);
 			// alter some classnames
 			$("#az_log > .az.inner.autolinerecognizer > .toolbar").removeClass("toolbar").addClass("autorec_toolbar");
 			

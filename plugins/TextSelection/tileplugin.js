@@ -443,7 +443,7 @@ var TS={
 		var self=this;
 		self.textsel=new TextSelector();
 		// append button HTML to the interface
-		TILE.engine.insertModeButtons('<div class="menuitem"><ul><li><a id="getHLite" class="btnIconLarge getHLite" title="Activate Highlight Mode">Activate Highlight Mode</a></li></ul></div>','log',mode.name);
+		TILE.engine.insertModeButtons('<div class="menuitem"><ul><li><a id="getHLite" class="btnIconLarge getHLite" title="Activate Highlight Mode">Activate Highlight Mode</a></li></ul></div>','topleft',mode.name);
 		
 		// if no other active buttons, then this one is active
 		if(!$("#tile_toolbar > .menuitem > ul > li > a").hasClass('active')){

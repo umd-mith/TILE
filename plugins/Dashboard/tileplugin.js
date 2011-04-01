@@ -40,7 +40,7 @@ var Dashboard={
 		// engine.insertMode('Dashboard',onActive);
 		self.mode=mode;
 		// create new mode for opensocial
-		TILE.engine.insertModeHTML(self.html,'contentarea',self.mode.name);
+		TILE.engine.insertModeHTML(self.html,'rightarea',self.mode.name);
 		
 		
 		// attempt to load current modes

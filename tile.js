@@ -787,348 +787,7 @@ TILE.engine={};
 	
 	tile.HelpBox=HelpBox;
 	
-	/**
-	Dialog Boxes: Import, New Image, Load Tags
-	**/
-	//ImportDialog 1.0
-	/**
-	Called by openImport CustomEvent
-	**/
-	// Handles receiving JSON data input by the user
-	// sends data to TILE_ENGINE to be loaded as JSON
-	var ImportDialog=function(args){
-		// Constructor
-		// args same as Dialog()
-			var self=this;
-			// Constructor:
-			// 
-			// @param: 
-			// Obj: variables:
-			// 	loc: {String} DOM object to be attached to
-			if((!args.loc)) throw "Not enough arguments passed to Dialog";
-			self.loc=args.loc;
-			//set up JSON html
-			var html='<div id="light" class="white_content"><div id="dialogImport" class="dialog"><div class="header"><h2 class="title">Welcome</h2><div class="clear"></div>'+
-			'</div><div class="body"><div class="selectOptions"><h3>Import Image List from File</h3><form id="importDataFormMulti" action="" method="post"enctype="multipart/form-data">'+
-			'<label for="file">Filename:</label><input id="importDataFormInputMulti" type="text" name="file" id="file" value="" />'+
-			'<span id="ImportDialogHelp1" class="helpIcon">?</span><br/><label>Test Data:</label><br/>'+
-			'<input id="hamLoad" class="form_Choice" type="radio" value="Hamlet"  name="importchoice" /> Hamlet 1611 Quarto<br/>'+
-			'<input id="pemLoad" class="form_Choice" type="radio" name="importchoice" /> Pembroke 25<br/>'+
-			'<input id="swineburne1" class="form_Choice" type="radio"  name="importchoice" /> Swinburne Cleopatra<br/><input id="importDataFormSubmitMulti" title="Submit the Import Path." type="submit" class="button" name="submit" value="Submit" />'+
-			'</form><p class="version">version 0.80</p></div><div class="description"><h3>Introduction to TILE</h3>'+
-			'<p>A collaborative project among the Maryland Institute for Technology in the Humanities (Doug Reside) and the'+
-			' Indiana University Bloomington (Dot Porter, John A. Walsh), the Text-Image Linking Environment (TILE) is a project for developing '+
-			'a new web-based, modular, collaborative image markup tool for both manual and semi-automated linking between encoded text and images'+
-			' of text, and image annotation.</p><p><a href="http://mith.info/tile">Read more &#62;</a></p></div><div class="clear"></div>'+
-			'</div></div></div><div id="fade" class="black_overlay"></div>';
-			$(html).appendTo(self.loc);
-			self.index=($("#dialog").length+self.loc.width());
-
-			self.autoChoices=args.choices;
-			self.autoFill=args.auto;
-			//lightbox content
-			self.light=$("#light");
-			self.fade=$("#fade");
-			self.DOM=$("#dialogImport");
-			self.closeB=$("#importDataClose");
-			self.closeB.click(function(e){
-				$(self).trigger("closeImpD");
-			});
-			// handle Form input for JSON data from user
-			self.multiFileInput=$("#importDataFormInputMulti");
-			self.multiFileInput.val(self.autoFill);
-			self.multiFileFormSubmit=$("#importDataFormSubmitMulti");
-			self.multiFileFormSubmit.bind("click",{obj:self},self.handleMultiForm);
-			// attach helpboxes
-			self.hb1=new HelpBox({"iconId":"ImportDialogHelp1","text":"Enter a path to your data. The default is a sample data set using an XML file. Model your path on the sample, or enter the direct path to a JS or JSON file. See TILE's Help section for more information."});			
-			// this.hb2=new HelpBox({"iconId":"ImportDialogHelp2","text":"Clicking this button..."});
-			$("body").bind("openNewImage",{obj:self},this.close);
-			$("body").bind("closeImpD",{obj:self},this.close);
-			$("body").bind("openLoadTags",{obj:self},this.close);
-			$("body").bind("openExport",{obj:self},this.close);
-			$("body").bind("openImport",{obj:self},this.display);
-
-			// TEMPORARY SELECTION TOOL
-			$("#hamLoad").click(function(e){
-				$("#importDataFormInputMulti").val(self.autoChoices['hamLoad']);
-			});
-			$("#pemLoad").click(function(e){
-				$("#importDataFormInputMulti").val(self.autoChoices['pemLoad']);
-			});
-			$("#swineburne1").click(function(e){
-				$("#importDataFormInputMulti").val(self.autoChoices['jsLoad']);
-			});
-			$("#swineburne").click(function(e){
-				$("#importDataFormInputMulti").val(self.autoChoices['swineburne']);
-			});
-
-		};
-	ImportDialog.prototype={
-		// shows the dialog box - called remotely by openImport Custom Event
-		// e : {Event}
-		display:function(e){
-			var obj=e.data.obj;
-			obj.fade.show();
-			obj.DOM.show();
-			obj.light.show();
-		},
-		// called by openNewImage, closeImpD, openLoadTags, openExport Custom Events
-		// e : {Event}
-		close:function(e){
-			var obj=e.data.obj;
-			obj.light.hide();
-			obj.DOM.hide();
-			obj.fade.hide();
-		},
-		// finds the transcript/image file that the user 
-		// has input and sends it off in a CustomEvent trigger
-		// schemaFileImported
-		handleMultiForm:function(e){
-			e.preventDefault();
-			var obj=e.data.obj;
-
-
-			var file=obj.multiFileInput.val();
-			//var schema=obj.schemaFileInput.attr("value");
-			if(file.length){
-				if(/http:\/\//.test(file)){
-					// show loading 
-					$("#dialogImport > .body > .selectOptions").html("<img src=\"skins/columns/images/tileload.gif\" />");
-
-					//trigger an event that sends both the schema and the list of files to listener
-					obj.DOM.trigger("schemaFileImported",[file]);
-				} 
-			}
-		}
-	};
-
-	// TILE.ImportDialog=ImportDialog;
-
-	// Load Tags Dialog
-	// For loading JSON session data back into the TILE interface
-
-	var LoadTags=function(args){
-		// Constructor: (Same as Dialog)  {loc: {String} id for where to put DOM, html: {String} JSON string representing html for this Dialog}
-			var self=this;
-			// Constructor:
-			// 
-			// @param: 
-			// Obj: variables:
-			// 	loc: {String} DOM object to be attached to
-			if((!args.loc)||(!args.html)) {throw "Not enough arguments passed to Dialog";}
-			self.loc=args.loc;
-			//set up JSON html
-			self.html=args.html;
-			$(self.html).appendTo(self.loc);
-			self.index=($("#dialog").length+self.loc.width());
-			// this.loc.append($.ajax({
-			// 				async:false,
-			// 				url:'lib/Dialog/DialogLoadTags.html',
-			// 				dataType:'html'
-			// 			}).responseText);
-			this.DOM=$("#loadTagsDialog");
-			this.closeB=$("#loadTagsClose");
-			this.closeB.click(function(e){
-				$(this).trigger("closeLoadTags");
-			});
-			this.light=$("#LTlight");
-			this.fade=$("#LTfade");
-			
-			this.submitB=$("#importTagsSubmit");
-			// this.submitB.bind("click",{obj:this},this.submitHandle);	
-			$("body").bind("openNewImage",{obj:this},this.close);
-			$("body").bind("openImport",{obj:this},this.close);
-			$("body").bind("openExport",{obj:this},this.close);
-			$("body").bind("openLoadTags",{obj:this},this.display);
-			$("body").bind("closeLoadTags",{obj:this},this.close);
-		};
-	LoadTags.prototype={
-		// display the load tags dialog - called by openLoadTags trigger
-		// e : {Event}
-		display:function(e){
-			var obj=e.data.obj;
-			obj.light.show();
-			obj.DOM.show();
-			obj.fade.show();
-		},
-		// submitHandle:function(e){
-		// 			e.preventDefault();
-		// 			var self=e.data.obj;
-		// 			
-		// 			// get input file
-		// 			var url=$("#importTagsFileName").val();
-		// 			// make AJAX call
-		// 			$.ajax({
-		// 				url:url,
-		// 				dataType:"text",
-		// 				success:function(json){
-		// 					$("body:first").trigger("prevJSONLoaded",[json]);
-		// 				}
-		// 			});
-		// 		},
-		// hide dialog box - called by closeLoadTags, openImport, openNewImage, openExport
-		// e : {Event}
-		close:function(e){
-			var obj=e.data.obj;
-			obj.light.hide();
-			obj.DOM.hide();
-			obj.fade.hide();
-		}
-	};
-
-	// TILE.LoadTags=LoadTags;
-
-	// ExportDialog
-	// For exporting JSON session data and transforming into an 
-	// XML file/another form of output
-	var ExportDialog=function(args){
-		// Constructor: {loc: {String} id for the location of parent DOM, html: {String} html string for attached HTML}
-		
-		var self=this;
-		// Constructor:
-		// 
-		// @param: 
-		// Obj: variables:
-		// 	loc: {String} DOM object to be attached to
-		if((!args.loc)||(!args.html)) {throw "Not enough arguments passed to Dialog";}
-		self.loc=args.loc;
-		//set up JSON html
-		self.html=args.html;
-		$(self.html).appendTo(self.loc);
-		// self.index=($("#dialog").length+self.loc.width());
-		this.defaultExport=(args.defaultExport)?args.defaultExport:null;
-		
-		this.DOM=$("#exportDialog");
-		this.light=$("#exportLight");
-		this.dark=$("#exportFade");
-		this.closeB=$("#exportDataClose");
-		this.closeB.click(function(e){
-			e.preventDefault();
-			$(this).trigger("closeExport");
-		});
-
-		this.submitB=$("#exportSubmit");
-		this.submitB.bind("click",{obj:this},this._submitButtonHandle);
-		
-		this.fileI=$("#exportFileToUse");
-		if(this.defaultExport) this.fileI.val(this.defaultExport);
-		this.expData=$("#exportData"); //this input is hidden
-		
-		this.srcXML=$("#srcXML");
-		
-		this.exportJSONXML=$("#exportJSONXML");
-		this.exportJSONXML.live('click',function(e){
-			e.preventDefault();
-			self.exportToJSONXML();
-		});
-		
-		// Help Icons
-		this.genHelp=new HelpBox({iconId:"exportHelpGenericXML",text:"Exports an XML file that has no markup library associated with it. This will only output the structure of the TILE JSON in XML format."});
-		this.scriptHelp=new HelpBox({iconId:"exportScriptHelp",text:"Exports an XML file using a script of your making. Some default scripts have been provided."});
-		this.json=null;
-		
-		$("body").bind("openExport",{obj:this},this.display);
-		$("body").bind("openImport",{obj:this},this.close);
-		$("body").bind("openLoadTags",{obj:this},this.close);
-		$("body").bind("closeExport",{obj:this},this.close);
-	};
-	ExportDialog.prototype={
-		// display this dialog - called by openExport trigger
-		// Passed the JSON object to save
-		// e : {Event}
-		// njson : {Object} - new JSON object to save
-		display:function(e,njson){
-			var self=e.data.obj;
-			
-			self.light.show();
-			self.DOM.show();
-			self.dark.show();
-			// new json object
-			self.json=njson;
-		},
-		// hide dialog box - called by openLoadTags, openNewImage, openImport, closeExport
-		// e : {Event}
-		close:function(e){
-			var self=e.data.obj;
-			self.light.hide();
-			self.DOM.hide();
-			self.dark.hide();
-		},
-		// Takes the script input by the user as a string, then
-		// attaches .js script to the page and performs function
-		// e : {Event}
-		_submitButtonHandle:function(e){
-			e.preventDefault();
-			var self=e.data.obj;
-			if(!self.json) return;
-			//get src script from user
-			var srcscript=self.fileI.val();
-			// attach a script element to the page with src
-			// set to the file specified by the user
-			var sel=$("<script type='text/javascript' src='"+srcscript+"'></script>");
-			// attach to header
-			$("head").append(sel);
-			//bind DONE event to the body tag
-			$("body").bind("exportStrDone",{obj:self},self._expStrDoneHandle);
-			
-			self.srcXML.val(self.json.sourceFile.replace(".xml",""));
-			// stringify if not already a string
-			if(typeof self.json != "string") self.json=JSON.stringify(self.json);
-			
-			//perform a set timeout with function from js script
-			setTimeout(function(self,sel){
-				exportToTEI(self.json);
-				sel.remove();
-			},250,self,sel); 
-		},
-		//takes user-defined text data and uses it to 
-		// export current JSON session as XML
-		// e : {Event}
-		// str : {String} - represents JSON data in string format
-		_expStrDoneHandle:function(e,str){
-			var self=e.data.obj;
-			$("body").unbind("exportStrDone",self._expStrDoneHandle);
-			
-			//take file given and use it in ajax call
-			//var file=self.fileI.val();
-			//attach an iframe to the page; this is set
-			//to whatever file is and has POST data sent 
-			//to it
-			// set the action parameter
-			self.expData.val(str);
-			$("#exportDataForm").attr("action","importWidgets/exportXML.php");
-			$("#exportDataForm")[0].submit();
-			// $("iframe").remove();
-			$("#exportDataForm").attr("action","");
-			$("body:first").trigger("closeExport");
-			
-			
-			// iframe.appendTo($("#azglobalmenu"));
-		},
-		exportToJSONXML:function(){
-			var self=this;
-			if(!self.json) return;
-			// get src script from user
-			// var srcscript=self.fileI.val();
-			// attach a script element to the page with src
-			// set to the file specified by the user
-			var sel=$("<script type='text/javascript' src='importWidgets/exportJSONXML.js'></script>");
-			// attach to header
-			$("head").append(sel);
-			// bind DONE event to the body tag
-			$("body").bind("exportStrDone",{obj:self},self._expStrDoneHandle);
-			
-			self.srcXML.val(self.json.sourceFile.replace(".xml",""));
-			// stringify if not already a string
-			if(typeof self.json != "string") self.json=JSON.stringify(self.json);
-			
-			//perform a set timeout with function from js script
-			setTimeout(function(self,sel){
-				exportToTEI(self.json);
-				sel.remove();
-			},250,self,sel);
-		}
-	};
+	
 
 
 
@@ -1181,28 +840,38 @@ TILE.engine={};
 			// which mode of name 'mode' gets 
 			// activated first
 			
+			// start up load screen again
+			showLoad();
+			
 			// go through plugins array and attach the 
 			// src elements
-			var count=0;
-		 	var recLoad=function(){
-				count++;
-				if(count==self.plugins.length){
-					// see if user defined a mode
-					if(mode){
-						// find matching mode and
-						// open that mode up
-						for(var y in pluginModes){
-							if(pluginModes[y].name==mode){
-								pluginModes[y].setActive();
-								break;
+			
+			setTimeout(function(self){
+				var count=0;
+			 	var recLoad=function(){
+					count++;
+					if(count==self.plugins.length){
+						// see if user defined a mode
+						if(mode){
+							// find matching mode and
+							// open that mode up
+							for(var y in pluginModes){
+								if(pluginModes[y].name==mode){
+									pluginModes[y].setActive();
+									break;
+								}
 							}
+							removeLoad();
 						}
+					} else {
+						$.getScript(self.plugins[count],recLoad);
 					}
-				} else {
-					$.getScript(self.plugins[count],recLoad);
-				}
-			};
-			$.getScript(self.plugins[count],recLoad);
+				};
+				$.getScript(self.plugins[count],recLoad);
+				
+				
+			},1,self);
+			
 			
 		
 		},
@@ -1801,7 +1470,7 @@ TILE.engine={};
 			// section defines where on the screen
 			// html goes
 			switch(section){
-				case 'contentarea':
+				case 'rightarea':
 					if(area=='toolbar'){
 						// make sure that the toolbar shell is created
 						if($("#azcontentarea > .az.inner."+styleName).length){
@@ -1833,7 +1502,7 @@ TILE.engine={};
 					}	
 					
 					break;
-				case 'log':
+				case 'topleft':
 					// goes in the log area - things that are logs
 					// can be items that paginate with the core data
 					// like transcript lines or selections or shapes
@@ -1871,7 +1540,7 @@ TILE.engine={};
 						}
 					}
 					break;
-				case 'active':
+				case 'bottomleft':
 					// goes in the active area - i.e. items that persist 
 					// across page items
 					if(area=='toolbar'){
@@ -1951,7 +1620,6 @@ TILE.engine={};
 			if(!self.setUp){
 				// set up the plugins in array
 				for(var x in self.parr){
-					if(__v) console.log('setactive for mode '+self.name+' '+self);
 					self.parr[x].start(self);
 				}
 				self.setUp=true;
@@ -3217,21 +2885,248 @@ TILE.engine={};
 	
 	var SaveDialog=function(){
 		var self=this;
-		self.html='<div id="savedialogwhitespace" class="white_content"><div id="savedialog" class="dialog"><div class="header"></div><div class="body"><div class="option"><input id="save_json" value="Save As JSON" /></div></div></div></div>';
+		self.html='<div id="savedialogwhitespace" class="white_content"><div id="savedialog" class="dialog"><div class="header">'+
+		'<h2>Save Data <a href="#" id="savedialogclose" class="btnIconLarge close"></a></div><div class="body"><div class="option">'+
+		'<label>Pick a format: </label><select id="save_format"><option id="json" class="saveformat">JSON</option></select>'+
+		'<p>Saving as: <span id="saveas"></span></p><input id="save_session" value="Save" type="button" class="button" /></div></div></div></div>';
+		// attach
+		$("body").append(self.html);
+		// make invisible
+		$("#savedialog").show();
+		$("#savedialogwhitespace").hide();
 		
+		// stores all formats and their src destination
+		self.srcArray=[];
+		// changes based on which format is selected
+		self.saveUrl='';
+		
+		// whenever the select changes, so does the url for saving
+		$("#save_format").change(function(e){
+			var val=$("#save_format > option:selected").val();
+			$("#savedialog > .body > .option > p > span").text('saving as '+val);
+			
+		});
+		
+		// close button event handler
+		$("#savedialog > .header > h2 > #savedialogclose").click(function(e){
+			e.preventDefault();
+			$("#savedialogwhitespace").hide();
+			
+		});
+		
+		// set up call to the PHP server
+		$("#savedialog > .body > .option > #save_session").click(function(e){
+			e.preventDefaut();
+			// make AJAX post request
+			$.ajax({
+				type:'post',
+				url:self.saveUrl,
+				data:{},
+				success:function(result){
+					// get results and feed to user
+					
+				}
+			});
+			
+			
+		});
+		
+		// find extra save features
+		
+		// loop through and attach each
+		// feature as an <option> in select
 		
 	};
 	SaveDialog.prototype={
-		appendFeature:function(format,callback){
+		appendFeature:function(format,src){
 			var self=this;
-			if($('#savedialog > .body > #'+format).length){
+			format=format.toLowerCase();
+			// create new option
+			var opt='<option id="'+format+'" class="saveformat">'+format.toUpperCase()+'</option>';
+			// add to the select element
+			$("#save_format").append(opt);
+			// add to array
+			self.srcArray[format]=src;
+		}
+	};
+	
+	// Load  Dialog
+	// For loading JSON session data back into the TILE interface
+
+	var LoadDialog=function(args){
+		// Constructor: (Same as Dialog)  {loc: {String} id for where to put DOM, html: {String} JSON string representing html for this Dialog}
+			var self=this;
+			// Constructor:
+			// 
+			// @param: 
+			// Obj: variables:
+			// 	loc: {String} DOM object to be attached to
+			if((!args.loc)) {throw "Not enough arguments passed to Dialog";}
+			self.loc=args.loc;
+			self.importScript="ImportExportScripts/importDataScript.php";
+			//set up JSON html
+			var html='<div id="LTlight" class="white_content"><div id="loadTagsDialog" class="dialog">'+
+			'<div class="header"><h2 class="title">Load Data</h2><h2>'+
+			'<a href="#" id="loadTagsClose" class="btnIconLarge close">Close</a></h2><div class="clear">'+
+			'</div></div><div class="body"><div class="option"><h3>Load from a file on your local machine:/URL<br/>(See dropdown for supported Filetypes - .json supported by default)</h3>'+
+			'<form id="loadFromFile" action="'+self.importScript+'" method="post" enctype="multipart/form-data">'+
+			'<label for="file">Filename:</label><input id="importTagsFileName" type="file" name="fileTags" size="70" value="" />'+
+			'<br /><label>Select the format for the file from your local machine:</label>'+
+			'<br /><select id="fileformatLocalFile" name="fileformat"><option value="json">JSON</option></select>'+
+			'<br/><input id="submitLocalFile" type="submit" value="Submit" class="button" /></form>'+
+			'<form id="loadGivenPath" action="" method="post" enctype="multipart/form-data">'+
+			'<br/><label>Enter URL Here: </label><input id="filepathDisplay" type="text" class="long" value="" />'+
+			'<br /><select id="fileformatGivenFile" name="fileformat"><option value="json">JSON</option></select>'+
+			'<br/><input id="importTagsSubmit" type="submit" class="button" name="submitTags" value="Submit" />'+
+			'</form><h3>Load a session from a URL (.json, .html, or use a PHP script to interpret an XML file'+
+			' or other format)</h3>'+
+			'<h4>Or pick one of these options: </h4>'+
+			'<input id="faust" type="radio" class="chooseFile" name="groupChoice" '+
+			'value="http://mith.umd.edu/tile/trunk/importWidgets/importExternalFiles.php?file=faust.json">Faust Online Data</input>'+
+			'<input id="montfort" type="radio" class="chooseFile" name="groupChoice" value="http://mith.umd.edu/tile/trunk/importWidgets/importExternalFiles.php?file=http://ginko.uni-graz.at/cgi-bin/tile/montfort.cgi">Montfort Online Data</input>'+
+			'<form id="loadURLForm" action="" method="GET"><label for="importurl">Input from URL:</label><input id="importURL" type="text" name="importurl" class="long" /><br/><input id="submitURL" class="button" type="submit" value="Load URL"/></form>'+
+			
+			'</div><div class="clear"></div></div></div></div><div id="LTfade" class="black_overlay"></div>';
+			$(html).appendTo(self.loc);
+			self.index=($("#dialog").length+self.loc.width());
+			// this.loc.append($.ajax({
+			// 				async:false,
+			// 				url:'lib/Dialog/DialogLoadTags.html',
+			// 				dataType:'html'
+			// 			}).responseText);
+			this.DOM=$("#loadTagsDialog");
+			this.closeB=$("#loadTagsClose");
+			this.closeB.click(function(e){
+				$(this).trigger("closeLoadTags");
+			});
+			this.light=$("#LTlight");
+			this.fade=$("#LTfade");
+			
+			this.submitB=$("#importTagsSubmit");
+			this.submitB.live('click',{obj:this},this.submitUserGivenFile);
+			this.submitURL=$("#loadURLForm > #submitURL");
+			this.submitURL.live('click',{obj:this},this.loadURL);
+			
+			$("#loadTagsDialog > .body > .option > .chooseFile").live('click',function(e){
+				if(__v) console.log($(this).val());
+				// set the URL value to exporting in simple model form
+				$("#importURL").val($(this).val());
+			});
+			
+			// add to the file formats select element
+			// Call the findFileFormats script
+			var formatstr=$.ajax({
+				url:'ImportExportScripts/findFileFormats.php',
+				type:'GET',
+				async:false
+			}).responseText;
+			
+			$("#fileformatLocalFile").append(formatstr);
+			$("#fileformatGivenFile").append(formatstr);
+			this.submitB.bind("click",{obj:this},this.submitHandle);	
+			$("body").bind("openNewImage",{obj:this},this.close);
+			$("body").bind("openImport",{obj:this},this.close);
+			$("body").bind("openExport",{obj:this},this.close);
+			$("body").bind("openLoadTags",{obj:this},this.display);
+			$("body").bind("closeLoadTags",{obj:this},this.close);
+	};
+	LoadDialog.prototype={
+		// display the load tags dialog - called by openLoadTags trigger
+		// e : {Event}
+		display:function(e){
+			var obj=e.data.obj;
+			obj.light.show();
+			obj.DOM.show();
+			obj.fade.show();
+		},
+		// hide dialog box - called by closeLoadTags, openImport, openNewImage, openExport
+		// e : {Event}
+		close:function(e){
+			var obj=e.data.obj;
+			obj.light.hide();
+			obj.DOM.hide();
+			obj.fade.hide();
+		},
+		// takes a string representing a file format and converts it 
+		// into the conventional PHP script name
+		convertFormatToFilename:function(str){
+			
+			return 'ImportExportScripts/importDataScript.php?format='+str;
+			
+		},
+		submitUserGivenFile:function(e){
+			e.preventDefault();
+			var self=e.data.obj;
+			// figure out which file format to use
+			var ff=$("#loadTagsForm > #fileformat > option:selected").val();
+		
+			var file='';
+			if($("#loadTagsForm > #importTagsFilename").val().length>0){
+				file=$("#loadTagsForm > #importTagsFilename").val();
+			} else if($("#loadTagsForm > #filepathDisplay").val().length>0){
+				file=$("#loadTagsForm > #filepathDisplay").val();
+			} else {
 				return;
 			}
 			
-			// create options wrapper
-			var html='<div id="'+format+'" class="options"></div>';
+			var url='';
+			if((!ff)||(ff.length<1)||(/json/i.test(ff))){
+				// not valid XML/other format - make default
+				// as JSON
+				TILE.engine.parseJSON(file);
+				self.light.hide();
+				self.DOM.hide();
+				self.fade.hide();
+				return;
+			}
+			
+			// an XML file or otherwise - process using PHP server-side
+			var url=self.convertFormatToFilename(ff);
+			
+			// handle the submit call to 
+			// PHP
+			$.ajax({
+				url:url,
+				cache:false,
+				data:({filepath:file}),
+				type:'POST',
+				success:function(results){
+					// take results and feed into engine
+					TILE.engine.parseJSON(results);
+					self.light.hide();
+					self.DOM.hide();
+					self.fade.hide();
+				}
+			});
+		},
+		loadURL:function(e){
+			e.preventDefault();
+			var self=e.data.obj;
+			var url=$("#loadURLForm > #importURL").val();
+			
+			if((url.length<1)||(!(/http\:\/\//.test(url)))) return;
+			
+			var txt=$.ajax({
+				url:url,
+				dataType:'json',
+				async:false
+				// success:function(json){
+				// 					
+				// 					if(__v) console.log("reached json");
+				// 					if(!json) return;
+				// 					$("body:first").trigger("LoadedURLJsonReady",[json]);
+				// 					// get rid of Load dialog
+				// 					self.light.hide();
+				// 					self.DOM.hide();
+				// 					self.fade.hide();
+				// 				}
+			}).responseText;
+			if(__v) console.log("json returned: "+txt);
+			$("body:first").trigger("LoadedURLJsonReady",[JSON.parse(txt)]);
+	
 		}
 	};
+	
 	
 	//TileToolBar
 	// Used to handle Tool selection menu, Loading JSON session data, Saving JSON session Data
@@ -3244,7 +3139,8 @@ TILE.engine={};
 			var self=this;
 			self.loc=args.loc;
 			// HTML that's inserted into ID location
-			var html='<div class="menuitem"><a id="save_tags" href="" class="button" title="Save the current session">Save</a></div>';
+			var html='<div class="menuitem"><a id="save_data" href="" class="button" title="Save the current session">Save</a></div>'+
+			'<div class="menuitem"><a id="load_data" href="" class="button" title="Load from a File or URL">Load</a></div>';
 			// +'<div id="ddown"><div class="menuitem ddown"><p>Tools:</p><select class="menu_body"></select></div>';
 			// $("#"+self.loc).append(html);
 			
@@ -3252,22 +3148,50 @@ TILE.engine={};
 			
 			// attach save button to azglobalmenu
 			$("#azglobalmenu > .globalbuttons > .dataitems").append(html);
-			self.SaveB=$("#save_tags");
+			self.SaveB=$("#save_data");
+			self.saveDialog=null;
+			
 			// HANDLES SAVING JSON DATA
 			self.SaveB.click(function(e){
 				e.preventDefault();
 				// hide the metadata box
 				$(".ui-dialog").hide();
-				if(!TILE.engine) return;
-				// get JSON data
-				var json=TILE.engine.getJSON();
-				// insert text version of data into 
-				// upload form text box
-				$("#uploadData").val(JSON.stringify(json));
-				// fire upload form
-				$("#inv_SaveProgress_Form")[0].submit();
-				// erase data
-				$("#uploadData").val('');
+				// create new dialog if not ready
+				if(!self.saveDialog){
+					self.saveDialog=new SaveDialog();
+				}
+				$("#savedialogwhitespace").show();
+				
+				// $(".ui-dialog").hide();
+				// 				if(!TILE.engine) return;
+				// 				// get JSON data
+				// 				var json=TILE.engine.getJSON();
+				// 				// insert text version of data into 
+				// 				// upload form text box
+				// 				$("#uploadData").val(JSON.stringify(json));
+				// 				// fire upload form
+				// 				$("#inv_SaveProgress_Form")[0].submit();
+				// 				// erase data
+				// 				$("#uploadData").val('');
+			});
+			
+			// load dialog
+			self.LoadB=$("#load_data");
+			self.loadDialog=null;
+			
+			self.LoadB.click(function(e){
+				e.preventDefault();
+				// hide the metadata box
+				$(".ui-dialog").hide();
+				// create new dialog if not ready
+				if(!self.loadDialog){
+					self.loadDialog=new LoadDialog({loc:$("body")});
+				}
+				
+				self.loadDialog.light.show();
+				self.loadDialog.DOM.show();
+				self.loadDialog.fade.show();
+				
 			});
 			
 			// listen for when mode buttons become unactive

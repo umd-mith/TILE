@@ -2001,7 +2001,6 @@ var IT={
 	//  (either null or JSON object representing TILE JSON data)
 	start:function(mode){
 		var self=this;
-		if(__v) console.log('image tagger has mode: '+mode);
 		self.activeShape=null;
 		var _shapeDeletedHandle=function(e,data){
 			if(!(data)) return;
@@ -2107,9 +2106,9 @@ var IT={
 			
 			// attach HTML and
 			// create new engine mode
-			TILE.engine.insertModeHTML(this.itagger.htmlContent,'contentarea','Image Annotation');
+			TILE.engine.insertModeHTML(this.itagger.htmlContent,'rightarea','Image Annotation');
 			// add toolbar buttons
-			TILE.engine.insertModeButtons(this.itagger.htmlToolbar,'contentarea','Image Annotation');
+			TILE.engine.insertModeButtons(this.itagger.htmlToolbar,'rightarea','Image Annotation');
 			
 			$("#azcontentarea > .imageannotator > .toolbar").attr('id','_raphshapebar');
 			this.itagger.setHTML();
@@ -2181,7 +2180,6 @@ var IT={
 		}
 		// check to see if any shapes added to activeItems
 		var vd=[];
-		if(__v) console.log('dataadded handle in imagetagger activeitems: '+JSON.stringify(TILE.activeItems));
 		var a=false;
 		for(var prop in TILE.activeItems){
 			if(__v) console.log("activeItem: "+TILE.activeItems[prop]);

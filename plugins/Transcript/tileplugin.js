@@ -560,9 +560,9 @@
 			self.transcript=new Transcript({text:[],loc:'logbar_list'});
 			// insert the HTML into the interface
 			var html='<div id="tile_toolbar" class="toolbar"><div class="menuitem pluginTitle">Transcript Lines</div></div><div id="logbar_list" class="az"></div>';
-			TILE.engine.insertModeHTML(html,'log',mode.name);
+			TILE.engine.insertModeHTML(html,'topleft',mode.name);
 			// insert button
-			TILE.engine.insertModeButtons('<div class="menuitem"><ul><li><a id="L579" class="btnIconLarge getTrans" title="Activate Transcript Mode">Activate Transcript Mode</a></li></ul></div>','log',mode.name);
+			TILE.engine.insertModeButtons('<div class="menuitem"><ul><li><a id="L579" class="btnIconLarge getTrans" title="Activate Transcript Mode">Activate Transcript Mode</a></li></ul></div>','topleft',mode.name);
 			
 			// if no other active buttons, then this one is active
 			if(!$("#tile_toolbar > .menuitem > ul > li > a").hasClass('active')){
