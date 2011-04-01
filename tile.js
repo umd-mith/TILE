@@ -37,7 +37,7 @@ TILE.activeItems=[];
 TILE.url='';
 // ENGINE allows access to global API
 TILE.engine={};
-
+TILE.formats='';
 
 (function($){
 	var tile=this;
@@ -226,10 +226,10 @@ TILE.engine={};
 		
 		//create log - goes towards left area
 		_tileBar=new TileToolBar({loc:"tile_toolbar"});
-	
+		TILE.formats=_tileBar.formatstr;
 		
 		// take away load screen
-		removeLoad();
+		removeLoad(); 
 		
 		if(json){	
 			TILE.engine.parseJSON(json);
@@ -861,6 +861,8 @@ TILE.engine={};
 									break;
 								}
 							}
+							
+							
 							removeLoad();
 						}
 					} else {
@@ -2888,12 +2890,14 @@ TILE.engine={};
 		self.html='<div id="savedialogwhitespace" class="white_content"><div id="savedialog" class="dialog"><div class="header">'+
 		'<h2>Save Data <a href="#" id="savedialogclose" class="btnIconLarge close"></a></div><div class="body"><div class="option">'+
 		'<label>Pick a format: </label><select id="save_format"><option id="json" class="saveformat">JSON</option></select>'+
-		'<p>Saving as: <span id="saveas"></span></p><input id="save_session" value="Save" type="button" class="button" /></div></div></div></div>';
+		'<p>Saving as: <span id="saveas"></span></p><input id="save_session" value="Save" type="button" class="button" /></div></div></div></div><div id="darkForSaveDialog" class="black_overlay"></div>';
 		// attach
 		$("body").append(self.html);
 		// make invisible
 		$("#savedialog").show();
 		$("#savedialogwhitespace").hide();
+		$("#darkForSaveDialog").hide();
+		
 		
 		// stores all formats and their src destination
 		self.srcArray=[];
@@ -2911,7 +2915,7 @@ TILE.engine={};
 		$("#savedialog > .header > h2 > #savedialogclose").click(function(e){
 			e.preventDefault();
 			$("#savedialogwhitespace").hide();
-			
+			$("#darkForSaveDialog").hide();
 		});
 		
 		// set up call to the PHP server
@@ -2931,13 +2935,12 @@ TILE.engine={};
 			
 		});
 		
-		// find extra save features
-		
-		// loop through and attach each
-		// feature as an <option> in select
-		
 	};
 	SaveDialog.prototype={
+		addFormats:function(str){
+			var self=this;
+			$("#save_format").append(str);
+		},
 		appendFeature:function(format,src){
 			var self=this;
 			format=format.toLowerCase();
@@ -2955,82 +2958,82 @@ TILE.engine={};
 
 	var LoadDialog=function(args){
 		// Constructor: (Same as Dialog)  {loc: {String} id for where to put DOM, html: {String} JSON string representing html for this Dialog}
-			var self=this;
-			// Constructor:
-			// 
-			// @param: 
-			// Obj: variables:
-			// 	loc: {String} DOM object to be attached to
-			if((!args.loc)) {throw "Not enough arguments passed to Dialog";}
-			self.loc=args.loc;
-			self.importScript="ImportExportScripts/importDataScript.php";
-			//set up JSON html
-			var html='<div id="LTlight" class="white_content"><div id="loadTagsDialog" class="dialog">'+
-			'<div class="header"><h2 class="title">Load Data</h2><h2>'+
-			'<a href="#" id="loadTagsClose" class="btnIconLarge close">Close</a></h2><div class="clear">'+
-			'</div></div><div class="body"><div class="option"><h3>Load from a file on your local machine:/URL<br/>(See dropdown for supported Filetypes - .json supported by default)</h3>'+
-			'<form id="loadFromFile" action="'+self.importScript+'" method="post" enctype="multipart/form-data">'+
-			'<label for="file">Filename:</label><input id="importTagsFileName" type="file" name="fileTags" size="70" value="" />'+
-			'<br /><label>Select the format for the file from your local machine:</label>'+
-			'<br /><select id="fileformatLocalFile" name="fileformat"><option value="json">JSON</option></select>'+
-			'<br/><input id="submitLocalFile" type="submit" value="Submit" class="button" /></form>'+
-			'<form id="loadGivenPath" action="" method="post" enctype="multipart/form-data">'+
-			'<br/><label>Enter URL Here: </label><input id="filepathDisplay" type="text" class="long" value="" />'+
-			'<br /><select id="fileformatGivenFile" name="fileformat"><option value="json">JSON</option></select>'+
-			'<br/><input id="importTagsSubmit" type="submit" class="button" name="submitTags" value="Submit" />'+
-			'</form><h3>Load a session from a URL (.json, .html, or use a PHP script to interpret an XML file'+
-			' or other format)</h3>'+
-			'<h4>Or pick one of these options: </h4>'+
-			'<input id="faust" type="radio" class="chooseFile" name="groupChoice" '+
-			'value="http://mith.umd.edu/tile/trunk/importWidgets/importExternalFiles.php?file=faust.json">Faust Online Data</input>'+
-			'<input id="montfort" type="radio" class="chooseFile" name="groupChoice" value="http://mith.umd.edu/tile/trunk/importWidgets/importExternalFiles.php?file=http://ginko.uni-graz.at/cgi-bin/tile/montfort.cgi">Montfort Online Data</input>'+
-			'<form id="loadURLForm" action="" method="GET"><label for="importurl">Input from URL:</label><input id="importURL" type="text" name="importurl" class="long" /><br/><input id="submitURL" class="button" type="submit" value="Load URL"/></form>'+
-			
-			'</div><div class="clear"></div></div></div></div><div id="LTfade" class="black_overlay"></div>';
-			$(html).appendTo(self.loc);
-			self.index=($("#dialog").length+self.loc.width());
-			// this.loc.append($.ajax({
-			// 				async:false,
-			// 				url:'lib/Dialog/DialogLoadTags.html',
-			// 				dataType:'html'
-			// 			}).responseText);
-			this.DOM=$("#loadTagsDialog");
-			this.closeB=$("#loadTagsClose");
-			this.closeB.click(function(e){
-				$(this).trigger("closeLoadTags");
-			});
-			this.light=$("#LTlight");
-			this.fade=$("#LTfade");
-			
-			this.submitB=$("#importTagsSubmit");
-			this.submitB.live('click',{obj:this},this.submitUserGivenFile);
-			this.submitURL=$("#loadURLForm > #submitURL");
-			this.submitURL.live('click',{obj:this},this.loadURL);
-			
-			$("#loadTagsDialog > .body > .option > .chooseFile").live('click',function(e){
-				if(__v) console.log($(this).val());
-				// set the URL value to exporting in simple model form
-				$("#importURL").val($(this).val());
-			});
-			
-			// add to the file formats select element
-			// Call the findFileFormats script
-			var formatstr=$.ajax({
-				url:'ImportExportScripts/findFileFormats.php',
-				type:'GET',
-				async:false
-			}).responseText;
-			
-			$("#fileformatLocalFile").append(formatstr);
-			$("#fileformatGivenFile").append(formatstr);
-			this.submitB.bind("click",{obj:this},this.submitHandle);	
-			$("body").bind("openNewImage",{obj:this},this.close);
-			$("body").bind("openImport",{obj:this},this.close);
-			$("body").bind("openExport",{obj:this},this.close);
-			$("body").bind("openLoadTags",{obj:this},this.display);
-			$("body").bind("closeLoadTags",{obj:this},this.close);
+		var self=this;
+		// Constructor:
+		// 
+		// @param: 
+		// Obj: variables:
+		// 	loc: {String} DOM object to be attached to
+		if((!args.loc)) {throw "Not enough arguments passed to Dialog";}
+		self.loc=args.loc;
+		self.importScript="ImportExportScripts/importDataScript.php";
+		//set up JSON html
+		var html='<div id="LTlight" class="white_content"><div id="loadTagsDialog" class="dialog">'+
+		'<div class="header"><h2 class="title">Load Data</h2><h2>'+
+		'<a href="#" id="loadTagsClose" class="btnIconLarge close">Close</a></h2><div class="clear">'+
+		'</div></div><div class="body"><div class="option"><h3>Load from a file on your local machine:/URL<br/>(See dropdown for supported Filetypes - .json supported by default)</h3>'+
+		'<form id="loadFromFile" action="" method="post" enctype="">'+
+		'<label for="file">Filename:</label><input id="localFileUpload" type="file" name="fileTags" size="70" value="" />'+
+		'<br/><label>Enter URL Here: </label><input id="filepathDisplay" type="text" class="long" value="" />'+
+		'<br /><select id="fileFormatFile" name="fileformat"></select>'+
+		'<input id="filePathInvisible" type="text" style="visibility:hidden;" />'+
+		'<br/><input id="loadData" type="submit" class="button" name="submitTags" value="Submit" /></form>'+
+		'</div><div class="clear"></div></div></div></div><div id="LTfade" class="black_overlay"></div>';
+		$(html).appendTo(self.loc);
+		self.index=($("#dialog").length+self.loc.width());
+	
+		this.DOM=$("#loadTagsDialog");
+		this.closeB=$("#loadTagsClose");
+		this.closeB.click(function(e){
+			$(this).trigger("closeLoadTags");
+		});
+		this.light=$("#LTlight");
+		this.fade=$("#LTfade");
+		
+		this.submitB=$("#loadData");
+		this.submitB.live('click',{obj:this},this.submitFileHandle);
+		
+		
+		$("#loadTagsDialog > .body > .option > .chooseFile").live('click',function(e){
+			if(__v) console.log($(this).val());
+			// set the URL value to exporting in simple model form
+			$("#importURL").val($(this).val());
+		});
+		
+		$("#localFileUpload").change(function(e){
+			// the file upload area is changed - update
+			// the other inputs
+			// clear URL input area
+			$("#filepathDisplay").val('');
+			// enter into invisible area
+			$("#filePathInvisible").val($(this).val());
+		});
+		
+		$("#filepathDisplay").change(function(e){
+			// the file upload area is changed - update
+			// the other inputs
+			// clear URL input area
+			$("#localFileUpload").val('');
+			// enter into invisible area
+			$("#filePathInvisible").val($(this).val());
+		});
+		
+		this.submitB.bind("click",{obj:this},this.submitHandle);	
+		$("body").bind("openNewImage",{obj:this},this.close);
+		$("body").bind("openImport",{obj:this},this.close);
+		$("body").bind("openExport",{obj:this},this.close);
+		$("body").bind("openLoadTags",{obj:this},this.display);
+		$("body").bind("closeLoadTags",{obj:this},this.close);
 	};
 	LoadDialog.prototype={
+		// takes and html string and appends to 
+		// the select element
+		addFormats:function(str){
+			var self=this;
+			if(__v) console.log('formats: '+str);
+			$("#fileFormatFile").append(str);
+			
+		},
 		// display the load tags dialog - called by openLoadTags trigger
 		// e : {Event}
 		display:function(e){
@@ -3049,48 +3052,34 @@ TILE.engine={};
 		},
 		// takes a string representing a file format and converts it 
 		// into the conventional PHP script name
-		convertFormatToFilename:function(str){
+		convertFormatToFilename:function(str,file){
 			
-			return 'ImportExportScripts/importDataScript.php?format='+str;
+			return str;
 			
 		},
-		submitUserGivenFile:function(e){
+		submitFileHandle:function(e){
 			e.preventDefault();
 			var self=e.data.obj;
 			// figure out which file format to use
 			var ff=$("#loadTagsForm > #fileformat > option:selected").val();
-		
-			var file='';
-			if($("#loadTagsForm > #importTagsFilename").val().length>0){
-				file=$("#loadTagsForm > #importTagsFilename").val();
-			} else if($("#loadTagsForm > #filepathDisplay").val().length>0){
-				file=$("#loadTagsForm > #filepathDisplay").val();
-			} else {
-				return;
-			}
+			var fname=$("#loadTagsForm > #fileformat > option:selected").text();
+			var file=$("#filePathInvisible").val();
 			
-			var url='';
-			if((!ff)||(ff.length<1)||(/json/i.test(ff))){
-				// not valid XML/other format - make default
-				// as JSON
-				TILE.engine.parseJSON(file);
-				self.light.hide();
-				self.DOM.hide();
-				self.fade.hide();
-				return;
-			}
+			var url=$('filePathInvisible').val();
 			
 			// an XML file or otherwise - process using PHP server-side
-			var url=self.convertFormatToFilename(ff);
 			
 			// handle the submit call to 
 			// PHP
 			$.ajax({
-				url:url,
+				// TODO: CHANGE THIS TO DYNAMIC SETTINGS
+				url:'ImportExportScripts/importDataScript.php',
 				cache:false,
-				data:({filepath:file}),
+				data:({filepath:file,format:fname}),
 				type:'POST',
 				success:function(results){
+					if(__v) console.log("results from coredata: ");
+					if(__v) console.log(results);
 					// take results and feed into engine
 					TILE.engine.parseJSON(results);
 					self.light.hide();
@@ -3098,32 +3087,6 @@ TILE.engine={};
 					self.fade.hide();
 				}
 			});
-		},
-		loadURL:function(e){
-			e.preventDefault();
-			var self=e.data.obj;
-			var url=$("#loadURLForm > #importURL").val();
-			
-			if((url.length<1)||(!(/http\:\/\//.test(url)))) return;
-			
-			var txt=$.ajax({
-				url:url,
-				dataType:'json',
-				async:false
-				// success:function(json){
-				// 					
-				// 					if(__v) console.log("reached json");
-				// 					if(!json) return;
-				// 					$("body:first").trigger("LoadedURLJsonReady",[json]);
-				// 					// get rid of Load dialog
-				// 					self.light.hide();
-				// 					self.DOM.hide();
-				// 					self.fade.hide();
-				// 				}
-			}).responseText;
-			if(__v) console.log("json returned: "+txt);
-			$("body:first").trigger("LoadedURLJsonReady",[JSON.parse(txt)]);
-	
 		}
 	};
 	
@@ -3159,8 +3122,10 @@ TILE.engine={};
 				// create new dialog if not ready
 				if(!self.saveDialog){
 					self.saveDialog=new SaveDialog();
+					self.saveDialog.addFormats(TILE.formats);
 				}
 				$("#savedialogwhitespace").show();
+				$("#darkForSaveDialog").show();
 				
 				// $(".ui-dialog").hide();
 				// 				if(!TILE.engine) return;
@@ -3186,6 +3151,8 @@ TILE.engine={};
 				// create new dialog if not ready
 				if(!self.loadDialog){
 					self.loadDialog=new LoadDialog({loc:$("body")});
+					
+					self.loadDialog.addFormats(TILE.formats);
 				}
 				
 				self.loadDialog.light.show();
@@ -3201,6 +3168,11 @@ TILE.engine={};
 				// set back to default
 				$("#"+self.modeList[0]).addClass("active");
 			});
+			
+			// add to the file formats select element
+			self.formatstr='<option id="json" value="json">JSON</option>';
+			
+			
 			
 		};
 		
