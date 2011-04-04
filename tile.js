@@ -153,6 +153,7 @@ TILE.formats='';
 			dataType:"text",
 			async:false
 		}).responseText;
+		
 		if(file){
 			TILE.engine.parseJSON(file);
 		} else if((window.location.href.search(/\?json\=/i))>=0){
@@ -190,7 +191,7 @@ TILE.formats='';
 					}
 				});
 				
-			}
+			} 
 		
 		
 		
@@ -2972,12 +2973,17 @@ TILE.formats='';
 		'<div class="header"><h2 class="title">Load Data</h2><h2>'+
 		'<a href="#" id="loadTagsClose" class="btnIconLarge close">Close</a></h2><div class="clear">'+
 		'</div></div><div class="body"><div class="option"><h3>Load from a file on your local machine:/URL<br/>(See dropdown for supported Filetypes - .json supported by default)</h3>'+
-		'<form id="loadFromFile" action="" method="post" enctype="">'+
-		'<label for="file">Filename:</label><input id="localFileUpload" type="file" name="fileTags" size="70" value="" />'+
-		'<br/><label>Enter URL Here: </label><input id="filepathDisplay" type="text" class="long" value="" />'+
-		'<br /><select id="fileFormatFile" name="fileformat"></select>'+
-		'<input id="filePathInvisible" type="text" style="visibility:hidden;" />'+
-		'<br/><input id="loadData" type="submit" class="button" name="submitTags" value="Submit" /></form>'+
+		'<input id="selectFileUpload" type="radio" value="file" name="uploadChoice" /><span>Upload from your computer</span>'+
+		'<form id="loadFromFile" action="." method="post" enctype="multipart/form-data">'+
+		'<label for="file">Filename:</label><br/><input id="localFileUpload" type="file" name="fileUploadName" size="70" value="" />'+
+		'<br/><select id="fileFormatFileLocal" name="importformat"></select>'+
+		'<br/><input id="loadFile" value="Submit" type="submit" class="button" /></form><br/>'+
+		'<input id="selectURLUpload" type="radio" name="uploadChoice" value="Upload a file from a URL" /><span>Upload from a URL</span><form id="uploadURL" action="">'+
+		'<br/><label>Enter URL Here: </label><input id="filepathDisplay" type="text" class="long" value="" placeholder="Such as: http://www.example.com/path/to/my/data.xml" />'+
+		'<br /><select id="fileFormatFileURL" name="fileformat"></select>'+
+		'<br/><input id="loadURL" type="submit" class="button" name="submitTags" value="Submit" /></form>'+
+		// '<input id="formatInvisible" name="importformat" value="json" />'+
+		// 		'<input id="filePathInvisible" type="text" style="visibility:hidden;" />'+
 		'</div><div class="clear"></div></div></div></div><div id="LTfade" class="black_overlay"></div>';
 		$(html).appendTo(self.loc);
 		self.index=($("#dialog").length+self.loc.width());
@@ -2990,35 +2996,47 @@ TILE.formats='';
 		this.light=$("#LTlight");
 		this.fade=$("#LTfade");
 		
-		this.submitB=$("#loadData");
+		this.submitB=$("#uploadURL > #loadURL");
 		this.submitB.live('click',{obj:this},this.submitFileHandle);
 		
+		$("#loadTagsDialog > .body > .option > #selectFileUpload").live('click',function(e){
+			$("#uploadURL").hide();
+			$("#loadFromFile").show();
+			if($("#import_i_frame").length) return;
+		
+		});
+		
+		$("#loadTagsDialog > .body > .option > #selectURLUpload").live('click',function(e){
+			$("#uploadURL").show();
+			$("#loadFromFile").hide();
+		});
+		
+		$("#loadTagsDialog > .body > .option > #selectFileUpload").trigger('click');
 		
 		$("#loadTagsDialog > .body > .option > .chooseFile").live('click',function(e){
-			if(__v) console.log($(this).val());
+		
 			// set the URL value to exporting in simple model form
 			$("#importURL").val($(this).val());
 		});
 		
-		$("#localFileUpload").change(function(e){
-			// the file upload area is changed - update
-			// the other inputs
-			// clear URL input area
-			$("#filepathDisplay").val('');
-			// enter into invisible area
-			$("#filePathInvisible").val($(this).val());
-		});
+		// $("#localFileUpload").blur(function(e){
+		// 		// the file upload area is changed - update
+		// 		// the other inputs
+		// 		// clear URL input area
+		// 		$("#filepathDisplay").val('');
+		// 		// enter into invisible area
+		// 		$("#filePathInvisible").val('local');
+		// 	});
 		
-		$("#filepathDisplay").change(function(e){
-			// the file upload area is changed - update
-			// the other inputs
-			// clear URL input area
-			$("#localFileUpload").val('');
-			// enter into invisible area
-			$("#filePathInvisible").val($(this).val());
-		});
+		// $("#filepathDisplay").change(function(e){
+		// 			// the file upload area is changed - update
+		// 			// the other inputs
+		// 			// clear URL input area
+		// 			$("#localFileUpload").val('');
+		// 			// enter into invisible area
+		// 			$("#filePathInvisible").val($(this).val());
+		// 		});
 		
-		this.submitB.bind("click",{obj:this},this.submitHandle);	
 		$("body").bind("openNewImage",{obj:this},this.close);
 		$("body").bind("openImport",{obj:this},this.close);
 		$("body").bind("openExport",{obj:this},this.close);
@@ -3031,8 +3049,8 @@ TILE.formats='';
 		addFormats:function(str){
 			var self=this;
 			if(__v) console.log('formats: '+str);
-			$("#fileFormatFile").append(str);
-			
+			$("#fileFormatFileURL").append(str);
+			$("#fileFormatFileLocal").append(str);
 		},
 		// display the load tags dialog - called by openLoadTags trigger
 		// e : {Event}
@@ -3061,12 +3079,22 @@ TILE.formats='';
 			e.preventDefault();
 			var self=e.data.obj;
 			// figure out which file format to use
-			var ff=$("#loadTagsForm > #fileformat > option:selected").val();
-			var fname=$("#loadTagsForm > #fileformat > option:selected").text();
-			var file=$("#filePathInvisible").val();
-			
-			var url=$('filePathInvisible').val();
-			
+			var ff=$("#fileFormatFileURL > option:selected").val();
+			var fname=$("#fileFormatFileURL > option:selected").text();
+			var file=$("#filepathDisplay").val();
+			if(__v){
+				console.log("format: "+fname);
+				console.log("file: "+file);
+			}
+			// if(/local/.test(file)){
+			// 				
+			// 				// local file - use default submit
+			// 				self.submitB.unbind('click');
+			// 				$("#loadTagsForm > #formatInvisible").val(ff);
+			// 				if(__v) console.log('sending using default');
+			// 				self.submitB.trigger('submit');
+			// 				self.submitB.bind('click',{obj:self},self.submitFileHandle);
+			// 			}
 			// an XML file or otherwise - process using PHP server-side
 			
 			// handle the submit call to 
@@ -3078,10 +3106,12 @@ TILE.formats='';
 				data:({filepath:file,format:fname}),
 				type:'POST',
 				success:function(results){
-					if(__v) console.log("results from coredata: ");
-					if(__v) console.log(results);
+					
+					var data=JSON.parse(results);
+					if(__v) console.log("TILE: ");
+					if(__v) console.log(JSON.stringify(data['tile']));
 					// take results and feed into engine
-					TILE.engine.parseJSON(results);
+					TILE.engine.parseJSON(data);
 					self.light.hide();
 					self.DOM.hide();
 					self.fade.hide();

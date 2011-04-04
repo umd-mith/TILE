@@ -14,6 +14,22 @@ var CoreData={
 			async:false
 		}).responseText;
 		
+		
+		
+	},
+	dataAddedHandle:function(e){
+		var self=e.data.obj;
+	},
+	// args can be an array of objects or 
+	// one object
+	dataCreatedHandle:function(e,args){
+		var self=e.data.obj;
+		
+		
+		
+	},
+	dataLinkedHandle:function(e,obj1,obj2){
+		var self=e.data.obj;
 	}
 	
 	
