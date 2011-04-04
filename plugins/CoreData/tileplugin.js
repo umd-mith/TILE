@@ -14,7 +14,19 @@ var CoreData={
 			async:false
 		}).responseText;
 		
+		self.content=[];
 		
+		$("body").live('contentCreated',function(e,content){
+			
+			self.content=$(content);
+			if(__v){
+				self.content.find('pages').each(function(){
+					console.log('page: '+$(this).attr('id'));
+				});
+				
+			}
+			
+		});
 		
 	},
 	dataAddedHandle:function(e){

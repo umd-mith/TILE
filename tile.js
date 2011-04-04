@@ -472,7 +472,7 @@ TILE.formats='';
 					lbls[x].name=(lbls[x].obj.name)?lbls[x].obj.name:lbls[x].id;	
 				} 
 				if($.inArray(lbls[x].name,self.labelNames)>=0) continue;
-				self.labelNames.push(lbls[x].name);
+				
 				var f=null;
 				for(var l in self._labels){
 					if(l==lbls[x].name){
@@ -489,7 +489,6 @@ TILE.formats='';
 				
 				
 			}
-			
 			// get rid of existing autocompletes
 			
 			$("li > input.tagComplete.ui-autocomplete-input").autocomplete('destroy');
@@ -1025,6 +1024,8 @@ TILE.formats='';
 		// file : {String}
 		parseJSON:function(file){
 			var self=this;
+		
+			
 			if((typeof(file)!='object')&&(/^[http\:\/\/]/.test(file))){
 				//We are just getting the file with images
 				// and the transcripts
@@ -1052,8 +1053,15 @@ TILE.formats='';
 			} else {
 				if(typeof file!='object'){
 					json=JSON.parse(file);
-				} else {
-					json=file;
+				} else if(file['tile']){
+					// Coming from CoreData.php
+					// Object has content and tile parameters
+					json=file['tile'];
+					if(__v) console.log('used tile: ');
+					if(__v) console.log(JSON.stringify(file['tile']));
+					// use the content
+					$("body:first").trigger("contentCreated",[file['content']]);
+					
 				}
 				if(TILE.activeItems||curPage){
 					TILE.activeItems=[];
@@ -1257,9 +1265,7 @@ TILE.formats='';
 		// arr : {Object Array}
 		insertTags:function(arr){
 			var self=this;
-			if(__v) console.log('insertTags: '+JSON.stringify(arr));
 			pluginControl.setTags(arr);
-			
 		},
 		// Called after saveAllSettings Custom Event is fired
 		// e : {Event}
@@ -1916,7 +1922,6 @@ TILE.formats='';
 		// inserts new tags into FloatingDiv
 		setTags:function(arr){
 			var self=this;
-			if(__v) console.log('arr in setTags: '+JSON.stringify(arr));
 			self.floatDiv.insertNewLabels(arr);
 		},
 		// resets the activeItems global variable and activeObj local variable 
