@@ -15,11 +15,31 @@ var AutoLoad={
 			type:'GET',
 			success:function(data){
 				// check if engine has data
-				var json=TILE.engine.getJSON();
-				if(!json){
-					if(__v) console.log("data from autoLoad: "+typeof(data)+'  '+data);
-					TILE.engine.parseJSON(data);
-				}
+				
+				setTimeout(function(data){
+					var json=TILE.engine.getJSON();
+					
+					if(!json){
+						if(/^http/.test(data)){
+								
+								// call URL to get JSON
+								$.ajax({
+									url:data,
+									type:'GET',
+									dataType:'json',
+									success:function(json){
+										TILE.engine.parseJSON(json);
+									}
+								});
+
+
+						} else {
+							TILE.engine.parseJSON(data);
+						}
+					}
+					
+				},1,data);
+				
 			}
 			
 		}); 

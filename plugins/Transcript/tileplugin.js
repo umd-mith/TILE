@@ -33,7 +33,7 @@
 		var self = this;
 		
 		this.lineArray = args.text;//{"text":(args.text||[]),"info":[],"shapes":[]};
-		if(__v) console.log("object loaded in Transcript: "+JSON.stringify(this.lineArray));
+		
 		this.loc = $("#"+args.loc);
 		this.infoBox = $("#"+args.infoBox);
 		this.manifest=[];
@@ -93,17 +93,6 @@
 			
 			
 			self.lineArray=data;
-			
-			// if(typeof(data)=='object'){
-			// 			for(var prop in data){
-			// 				self.manifest[prop]=data[prop];
-			// 			}
-			// 			self.lineArray=self.manifest[$("#srcImageForCanvas").attr('src')];
-			// 			
-			// 		} else {
-			// 			self.manifest=data;
-			// 			self.lineArray=self.manifest[$("#srcImageForCanvas").attr('src')];
-			// 		}
 		},
 		_changeLines:function(url){
 			var self=this;
@@ -112,27 +101,6 @@
 				self.manifest[self.curUrl]=self.lineArray;
 				self.curUrl=url;
 				
-				// if(self.curUrl) self.manifest[self.curUrl]=self.lineArray;
-				// 					//new manifest area being created
-				// 					if(!self.manifest[url]) {
-				// 						self.manifest[url]={
-				// 							"lines":[],
-				// 							"url":url
-				// 						};
-				// 						// check to make sure that new data have ids
-				// 						for(d in data){
-				// 							if(!data[d].id){
-				// 								var id="";
-				// 								id="line_"+Math.floor(Math.random()*560);
-				// 								while($.inArray(id,self.knownIds)>=0){
-				// 									id="line_"+Math.floor(Math.random()*560);
-				// 								}
-				// 								self.knownIds.push(id);
-				// 								data[d].id=id;
-				// 							}
-				// 						}
-				// 						
-				// 					}
 			}
 			// if(!data) return;
 			
@@ -180,12 +148,12 @@
 				// 						
 				// 					}
 			}
-			if(__v) console.log("data in transcript: "+JSON.stringify(data));
+			
 			if((!(data))||(!($.isArray(data)))) return;
 			// parse out the data
 			for(var d in data){
 				if(data[d]){
-					if(__v) console.log("data[d].id = "+data[d].id);
+					
 					// find id in manifest
 					for(var x in self.manifest[self.curUrl]){
 						if(self.manifest[self.curUrl][x].id==data[d].id){
@@ -255,7 +223,7 @@
 				// attach data for index value 
 				$("#"+uid).data("index",n);
 				// attach references 
-				
+			
 				// for(r in self.lineArray[i]){
 				// 				if(!(/\bid\b|\binfo\b|\btext\b/.test(r))){
 				// 					if(self.lineArray[i][r]=="") continue;
@@ -311,7 +279,7 @@
 			} else {
 				self.lineArray[self.curLine][ref.type]=[];
 			}
-			if(__v) console.log("transcript line "+self.lineArray[self.curLine].id+" receiving link: "+ref.type+" "+ref.id);
+		
 			self.lineArray[self.curLine][ref.type].push(ref);
 			// self._addLinkDiv(self.lineArray[self.curLine].id,ref);
 			// $("#TILE_Transcript_"+self.lineArray[self.curLine].id).append($("<div id=\""+ref.id+"\" class=\"button\">"+ref.type+": "+ref.id+"</div><span id=\"delete_"+ref.id+"\" class=\"button\">X</span>"));
@@ -487,8 +455,7 @@
 				// if(self.lineArray[self.curLine].shapes.length>0){
 					// prepare shapes 
 					var shps=[];
-					if(__v) console.log('self.lineArray['+self.curLine+'].shapes: '+$.isArray(self.lineArray[self.curLine].shapes));
-					if(__v) console.log(JSON.stringify(self.lineArray[self.curLine].shapes));
+				
 					for(var s in self.lineArray[self.curLine].shapes){
 						if(!self.lineArray[self.curLine].shapes[s]) continue;
 						shps.push(self.lineArray[self.curLine].shapes[s]);
@@ -579,7 +546,7 @@
 			
 			// trnsClick handler
 			var _trnsClickHandle=function(e,id){
-				var obj={id:id,type:'lines',jsonName:TILEPAGE,display:$("#"+id).text().substring(0,10),obj:{id:id,type:'lines'}};
+				var obj={id:id,type:'lines',jsonName:TILE.url,display:$("#"+id).text().substring(0,10),obj:{id:id,type:'lines'}};
 				TILE.engine.setActiveObj(obj);
 			};
 			
@@ -594,7 +561,7 @@
 				data.parentTool=self.id;
 				
 				// find link in manifest
-				var url=TILEPAGE;
+				var url=TILE.url;
 				for(var x in self.linkManifest[url][data.parentObj]){
 					if(data.id==self.linkManifest[url][data.parentObj][x].id){
 						data.tool=self.linkManifest[url][data.parentObj][x].tool;
@@ -656,7 +623,7 @@
 				}
 				if($("#logbar_list > #"+uid+".line").length){
 					
-					if(__v) console.log("active handle in transcript: #"+uid);
+					
 					// line in DOM;
 					// set line as active 
 					$("#logbar_list > #"+uid+".line").addClass('line_selected');
@@ -665,8 +632,9 @@
 			
 			
 		},
-		newJSONHandle:function(e,o){
+		newJSONHandle:function(e){
 			var self=e.data.obj;
+			if(__v) console.log('NEW JSON IN TRANSCRIPT');
 			// get current page
 			var data=TILE.engine.getJSON(true);
 			var text=[];
@@ -689,6 +657,7 @@
 					$("#"+id+".line").addClass('line_selected');
 				}
 			}
+		
 			
 		},
 		// being passed a copy of the engine
@@ -696,7 +665,7 @@
 			var self=this;
 			// get current page
 			var data=TILE.engine.getJSON(true);
-			if(__v) console.log("new transcript data: "+JSON.stringify(data));
+			
 			var text=[];
 			if(data&&(data.lines)){
 				// parse out data
@@ -772,7 +741,7 @@
 					}
 					self.linkManifest[url][data.obj.id].push(data.ref);
 				}
-				if(__v) console.log("transcript adding new link: "+JSON.stringify(data.ref));
+				
 				self.transcript._addLinkHandle(data.ref,data.obj);
 				return true;
 			} else {
@@ -781,7 +750,7 @@
 		},
 		removeData:function(data,line){
 			var self=this;
-			if(__v) console.log("removeData Transcript data: "+JSON.stringify(data)+", line: "+line);
+			
 			if(data.type=='lines') return;
 			if(line.id) line=line.id;
 			self.transcript._deleteLinkHandle(data,line);

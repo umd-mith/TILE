@@ -322,6 +322,7 @@ var Dashboard={
 		self.data=TILE.engine.getJSON();
 		// erase html
 		$(".dashboard_main").empty();
+		if(__v) console.log('DASHBOARD RECEIVES DATA');
 		// init HTML
 	
 		// self.createLinkCount();

@@ -197,8 +197,8 @@
 						self.CAR.thresholdConversion();
 					}
 				});
-				if(TILEPAGE){
-					var cursrc=TILEPAGE;
+				if(TILE.url){
+					var cursrc=TILE.url;
 					if(!(cursrc in self.url)) self.url.push($("#srcImageForCanvas").attr("src"));
 					//adjust regionBox size
 					var newScale=self.DOM.width()/$("#srcImageForCanvas")[0].width;
@@ -565,7 +565,7 @@
 		// 
 		_outputData:function(data){
 			var self=this;
-			var url=TILEPAGE;
+			var url=TILE.url;
 			if(url){
 				$("#srcImageForCanvas").attr("src",url.substring((url.indexOf('=')+1)));
 			}
@@ -828,7 +828,7 @@
 			var self=this;
 			self.DOM.show();
 			$("body").bind("zoomAR",{obj:self},self.zoomHandle);
-			self.setUpCanvas(TILEPAGE);
+			self.setUpCanvas(TILE.url);
 			
 		},
 		// Re-draws the canvas
@@ -1848,7 +1848,7 @@ var AR={
 					var o={
 						id:shapes[d].id,
 						type:'shapes',
-						jsonName:TILEPAGE,
+						jsonName:TILE.url,
 						obj:shapes[d]
 					};
 					vd.push(o);
@@ -1899,7 +1899,7 @@ var AR={
 				// active, then attach shape
 				for(var prop in lines){
 					// set up line var
-					var line={id:lines[prop].id,type:'lines',jsonName:TILEPAGE,obj:lines[prop]};
+					var line={id:lines[prop].id,type:'lines',jsonName:TILE.url,obj:lines[prop]};
 					// done yet?
 					if(__v) console.log("lines.length: "+lines.length+' prop: '+prop);
 					if((prop)==(lines.length-1)) done=true;

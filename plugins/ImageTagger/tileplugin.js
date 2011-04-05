@@ -286,7 +286,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// 					if(json.shapes[j]) shps.push(json.shapes[j]);
 			// 				}
 			// 			}
-			self.curURL=TILEPAGE;
+			self.curURL=TILE.url;
 			
 			// send off parsed array to the drawing canvas
 			if(self.raphael) self.raphael._restart(json,self.curURL);
@@ -930,7 +930,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				if(self.curUrl!=url) self.curUrl=url;
 				
 				
-				
+				if(__v) console.log("IMAGE TAGGER SET UP");
 				// self._loadPage.remove();
 			}).attr("src",url);	
 		},
@@ -1129,7 +1129,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		// e : {Event} - Custom Event shapeChanged
 		_shapeChangeHandle:function(e,obj){
 			var self=e.data.obj;
-			var url=TILEPAGE;
+			var url=TILE.url;
 			// change in own manifest
 			var vd=self.drawTool.exportShapes();
 			var shpObj=null;
@@ -1154,7 +1154,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		// shape : {Object}
 		_shapeActiveHandle:function(e,shape){
 			var self=e.data.obj;
-			var url=TILEPAGE;
+			var url=TILE.url;
 			
 			var foundID=$(shape.node).attr('id');
 			// find shape reference in manifest
@@ -1222,7 +1222,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		_shapeDrawnHandle:function(e,shpObj){
 			var self=e.data.obj;
 			if(__v) console.log("shape is drawn: "+shpObj.id);
-			var url=TILEPAGE;
+			var url=TILE.url;
 			// if(!self.manifest[url]) self.manifest[url]={shapes:[]};
 			// clear out the selBB element
 			$(".shpButtonHolder").remove();
@@ -1638,7 +1638,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// dump autoLines
 			self.autoLines=[];
 			if((!url)) return;
-			
+			if(__v) console.log("IMAGETAGGER RESTART");
+			if(__v) console.log();
 			$("body").bind("zoom",{obj:self},self.zoomHandle);
 			if(self.drawTool){
 				// erase current canvas
@@ -2025,7 +2026,7 @@ var IT={
 			var w={
 				id:data.id,
 				type:'shapes',
-				jsonName:TILEPAGE,
+				jsonName:TILE.url,
 				obj:data
 			};
 			// delete data from engine
@@ -2038,7 +2039,7 @@ var IT={
 			var data={
 				id:shape.id,
 				type:'shapes',
-				jsonName:TILEPAGE,
+				jsonName:TILE.url,
 				obj:shape
 			};
 			
@@ -2081,7 +2082,7 @@ var IT={
 				obj={
 					id:obj.id,
 					type:'shapes',
-					jsonName:TILEPAGE,
+					jsonName:TILE.url,
 					obj:obj
 				};
 			}
@@ -2146,7 +2147,7 @@ var IT={
 				var data={
 					id:shape.id,
 					type:'shapes',
-					jsonName:TILEPAGE,
+					jsonName:TILE.url,
 					obj:shape
 				};
 				// make active obj
@@ -2161,7 +2162,7 @@ var IT={
 			var j=TILE.engine.getJSON(true);
 			if(j){
 				// data loaded - start up image tagger
-				self.itagger.curUrl=TILEPAGE;
+				self.itagger.curUrl=TILE.url;
 				self.itagger._restart();
 			}
 			
@@ -2171,26 +2172,30 @@ var IT={
 			
 		} 
 	},
-	dataAddedHandle:function(e){
+	dataAddedHandle:function(e,obj){
 	
 		var self=e.data.obj;
-		if(self.itagger.curURL!=TILEPAGE){
-			self.itagger.curURL=TILEPAGE;
+		if(__v) console.log("dataadded reached in shapes  "+JSON.stringify(obj));
+		if(obj.type!='shapes') return;
+		obj=obj.obj;
+		
+		if(self.itagger.curURL!=TILE.url){
+			self.itagger.curURL=TILE.url;
 			self.itagger.setImage();
 		}
 		// check to see if any shapes added to activeItems
-		var vd=[];
+		var vd=[obj];
 		var a=false;
-		for(var prop in TILE.activeItems){
-			if(__v) console.log("activeItem: "+TILE.activeItems[prop]);
-			if(!TILE.activeItems[prop]) continue;
-			if(TILE.activeItems[prop].posInfo){
-				vd.push(TILE.activeItems[prop]);
-				if(TILE.activeItems[prop].id==self.activeShape){
-					a=TILE.activeItems[prop];
-				}
-			}
-		}
+		// 		for(var prop in TILE.activeItems){
+		// 			if(__v) console.log("activeItem: "+TILE.activeItems[prop]);
+		// 			if(!TILE.activeItems[prop]) continue;
+		// 			if(TILE.activeItems[prop].posInfo){
+		// 				vd.push(TILE.activeItems[prop]);
+		// 				if(TILE.activeItems[prop].id==self.activeShape){
+		// 					a=TILE.activeItems[prop];
+		// 				}
+		// 			}
+		// 		}
 		
 		self.itagger.loadNewShapes(vd);
 		// if active shape present, attach metadata dialog
@@ -2199,37 +2204,57 @@ var IT={
 			var shp={
 				id:a.id,
 				type:'shapes',
-				jsonName:TILEPAGE,
+				jsonName:TILE.url,
 				obj:a
 			};
 			TILE.engine.attachMetadataDialog(shp,"#selBB");
 		}
 		
 	},
-	newActiveHandle:function(e){
-		if(__v) console.log("NEW ACTIVE CALLED");
+	newActiveHandle:function(e,obj){
 		var self=e.data.obj;
-		self.itagger.curURL=TILEPAGE;
-		// check to see if any shapes added to activeItems
-		var vd=[];
-		for(var prop in TILE.activeItems){
-			if(!TILE.activeItems[prop]) continue;
-			if(TILE.activeItems[prop].posInfo){
-				vd.push(TILE.activeItems[prop]);
+		// update URL
+		self.itagger.curURL=TILE.url;
+		if(obj.obj.posInfo){
+			// is a shape - handle differently
+			self.itagger.raphael.setActiveShape(obj.obj);
+			
+		} else {
+			var item=obj.obj;
+			var vd=[];
+			for(var prop in item){
+				if(prop.toLowerCase()=='shapes'){
+					// add to vd
+					for(var shape in item[prop]){
+						vd.push(item[prop][shape]);
+					}
+				}
 			}
+			// add new shapes
+			self.itagger.loadNewShapes(vd);
 		}
-		if(__v) console.log('imagetagger newactivehandle '+JSON.stringify(TILE.activeItems));
-	
-		self.itagger.loadNewShapes(vd);
+		
+		// check to see if any shapes added to activeItems
+		// var vd=[];
+		// 	for(var prop in TILE.activeItems){
+		// 		if(!TILE.activeItems[prop]) continue;
+		// 		if(TILE.activeItems[prop].posInfo){
+		// 			vd.push(TILE.activeItems[prop]);
+		// 		}
+		// 	}
+		// 	if(__v) console.log('imagetagger newactivehandle '+JSON.stringify(TILE.activeItems));
+		// 
+		// 	self.itagger.loadNewShapes(vd);
 	
 		// self.itagger._restart(TILE.activeItems);
 	},
 	newJSONHandle:function(e){
 		var self=e.data.obj;
-		if(__v) console.log("NEW JSON CALLED");
-		self.itagger.curUrl=TILEPAGE;
+		if(__v) console.log("NEW JSON CALLED: IMAGE TAGGER");
+		self.itagger.curUrl=TILE.url;
 		self.itagger._restart(TILE.activeItems);
-	
+		
+		
 	},	
 	// Listens for the ObjectChange event call
 	// e: {Object}

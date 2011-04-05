@@ -32,6 +32,7 @@ class CoreData
         foreach($this -> containers as $container) {
             if(!$container -> is_empty()) {
                 $page = array();
+				$page['id'] = $this -> genRandomID(5);
                 $page['url'] = $container -> image_url;
                 $page['lines'] = array();
                 $page['shapes'] = array();
@@ -41,7 +42,10 @@ class CoreData
                     $l['text'] = $line->text;
                     if($line->id != "") {
                         $l['id'] = $line->id;
-                    }
+                    } else if((!isset($line->id))||($line->id == '')){
+						# generate a random ID for this line
+						$l['id'] = $this->genRandomID(9);
+					}
                     $page['lines'][] = $l;
                 }
                 
@@ -49,7 +53,9 @@ class CoreData
                     $s = array();
                     if($shape -> id != "") {
                         $s['id'] = $shape -> id;
-                    }
+                    } else if((!isset($s['id']))||($s['id']=='')){
+						$s['id'] = $this->genRandomID(9);
+					}
                     $s['type'] = $shape -> type;
                     $s['color'] = $shape -> color;
                     $s['_scale'] = $shape -> scale;
@@ -88,6 +94,14 @@ class CoreData
             $this -> labels[$label]['selections'][] = $object -> id;
         }
     }
+	
+	# Used specifically for generating a random ID of length: $length
+	private function genRandomID($length){
+		$string=md5(time());
+		$highest_startpoint = 32-$length;
+		$randomString = substr($string,rand(0,$highest_startpoint),$length);
+	    return $randomString;
+	}
 }
 
 class CoreDataContainer {

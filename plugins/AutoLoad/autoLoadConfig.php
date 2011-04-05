@@ -10,8 +10,9 @@ $prefix=preg_replace('/plugins\/AutoLoad\/autoLoadConfig\.php/','',$host);
 $DEFAULT_SCRIPT="".$prefix."importWidgets/importXML.php?uri=".$prefix."importWidgets/testPemb.xml&rname=text&rnum=0&ipath=http://www.nd.edu/~pemb25/Website-tv/IMT/";
 
 $swinburne="".$prefix."swinburne.json";
+$butterflies="".$prefix."butterflies.json";
 
-echo $DEFAULT_SCRIPT;
+echo $butterflies;
 
 
 

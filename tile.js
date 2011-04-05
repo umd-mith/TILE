@@ -1025,7 +1025,6 @@ TILE.formats='';
 		parseJSON:function(file){
 			var self=this;
 		
-			
 			if((typeof(file)!='object')&&(/^[http\:\/\/]/.test(file))){
 				//We are just getting the file with images
 				// and the transcripts
@@ -1056,7 +1055,8 @@ TILE.formats='';
 				} else if(file['tile']){
 					// Coming from CoreData.php
 					// Object has content and tile parameters
-					json=file['tile'];
+					if(__v) console.log('loading in tile_engine');
+					json=deepcopy(file['tile']);
 					
 					// use the content
 					$("body:first").trigger("contentCreated",[file['content']]);
@@ -1065,6 +1065,7 @@ TILE.formats='';
 				if(TILE.activeItems||curPage){
 					TILE.activeItems=[];
 					curPage=null;
+					TILE.url=null;
 				}
 			}
 			
@@ -1072,25 +1073,24 @@ TILE.formats='';
 			if(!json) return;
 			
 			// set initial global variables
-				
-			for(var key in json.pages){
-				var url=json.pages[key].url;
-				if(!curPage){ 
-					// set local and global variables
-					curPage=url;
-					TILEPAGE=curPage;
-					break;
+			setTimeout(function(){
+				for(var key in json.pages){
+					var url=json.pages[key].url;
+					if(!TILE.url){ 
+						// set local and global variables
+						curPage=url;
+						TILE.url=curPage;
+						break;
+					}
 				}
-			}
+				
+				// notify plugins that there is a JSON
+				// loaded
+				$("body:first").trigger("newJSON");
+			},3);
 			
 			
-			// notify plugins that there is a JSON
-			// loaded
-			$("body:first").trigger("newJSON");
-			
-			
-			
-			// pluginControl.setJSON();
+		
 		},
 		// Put data into the JSON session
 		insertData:function(data){
@@ -1168,7 +1168,7 @@ TILE.formats='';
 					}
 				}
 
-				TILEPAGE=curPage;
+				TILE.url=curPage;
 				pluginControl.newPage();
 
 				// notify plugins of change
@@ -1206,7 +1206,7 @@ TILE.formats='';
 				}
 			
 			
-				TILEPAGE=curPage;
+				TILE.url=curPage;
 				pluginControl.newPage();
 			
 				// notify plugins of change
@@ -1219,7 +1219,6 @@ TILE.formats='';
 		changePage:function(val){
 			var self=this;
 			// show load dialog
-			
 			mouseWait();
 			// use the setTimout method to allow
 			// the loadscreen html to show up
@@ -1230,11 +1229,11 @@ TILE.formats='';
 					if(json.pages.length<=val){
 						for(var p in json.pages){
 							if(p==val){
-								while(json.pages[p].url==TILEPAGE){
+								while(json.pages[p].url==TILE.url){
 									p++;
 								}
 							
-								TILEPAGE=json.pages[p].url;
+								TILE.url=json.pages[p].url;
 								curPage=json.pages[p].url;
 								break;
 							}
@@ -1244,7 +1243,7 @@ TILE.formats='';
 					// URL given - find in pages
 					for(var p in json.pages){
 						if(json.pages[p].url==val){
-							TILEPAGE=json.pages[p].url;
+							TILE.url=json.pages[p].url;
 							curPage=json.pages[p].url;
 							break;
 						}
@@ -1384,7 +1383,7 @@ TILE.formats='';
 			var jsoncopy=false;
 			if(opt){
 				for(var x in json.pages){
-					if(json.pages[x].url==TILEPAGE){
+					if(json.pages[x].url==TILE.url){
 						// copy only the current page
 						jsoncopy=deepcopy(json.pages[x]);
 					}
@@ -1393,8 +1392,6 @@ TILE.formats='';
 				// copy the full json view
 				jsoncopy=deepcopy(json);
 			}
-			
-			
 			return jsoncopy;
 		},
 		// Outputs the JSON data in XML format
@@ -2029,9 +2026,8 @@ TILE.formats='';
 					}
 				}
 			}
-			if(__v) console.log('things now in activeItems: '+JSON.stringify(TILE.activeItems));
 			// notify plugins of new active object
-			$("body:first").trigger("newActive");
+			$("body:first").trigger("newActive",[self.findTileObj(self.activeObj.id,self.activeObj.type)]);
 		},
 		// insert data into the JSON without making it activeObj
 		putData:function(data){
@@ -2255,14 +2251,13 @@ TILE.formats='';
 			self.activeObj=o.link;
 			for(var i in o.refs){
 				if(!o.refs[i]) continue;
-				self.parseLink(self.activeObj,o.refs[i]);
-				
+				var newo=self.parseLink(self.activeObj,o.refs[i]);
+				if(newo) $("body:first").trigger("dataLinked",[newo]);
 			}
 		},
 		// link two objects together without
 		// changing the activeObj
 		linkObjects:function(obj1,obj2){
-			if(__v) console.log('linkObjects found: '+JSON.stringify(obj1)+'  '+JSON.stringify(obj2));
 			if((!obj1)||(!obj2)) return;
 			mouseWait();
 			var self=this;
@@ -2281,29 +2276,31 @@ TILE.formats='';
 				}
 				// create link
 				var newo=self.parseLink(o1,o2);
+				
 				o1=newo[0];
 				o2=newo[1];
 				// o1=self.findObj(o1.id,o1.type);
 				// o2=self.findObj(o2.id,o2.type);
 
 				// update activeItems and notify data change
-				var found=null;
-				for(var v in TILE.activeItems){
-					if(TILE.activeItems[v].id==o2.id){
-						found=true;
-					}
-				}
-				if(!found) TILE.activeItems.push(o2);
-				found=null;
-				for(var v in TILE.activeItems){
-					if(TILE.activeItems[v].id==o1.id){
-						found=true;
-					}
-				}
-				if(!found) TILE.activeItems.push(o1);
-
+				self.updateActiveItems(newo);
+				// var found=null;
+				// 				for(var v in TILE.activeItems){
+				// 					if(TILE.activeItems[v].id==o2.id){
+				// 						found=true;
+				// 					}
+				// 				}
+				// 				if(!found) TILE.activeItems.push(o2);
+				// 				found=null;
+				// 				for(var v in TILE.activeItems){
+				// 					if(TILE.activeItems[v].id==o1.id){
+				// 						found=true;
+				// 					}
+				// 				}
+				// 				if(!found) TILE.activeItems.push(o1);
+				
 				// notify plugins of change
-				$("body:first").trigger("dataAdded");
+				$("body:first").trigger("dataLinked",[newo]);
 				mouseNormal();
 				
 			},10);
@@ -2328,8 +2325,8 @@ TILE.formats='';
 				mouseNormal();
 			}
 			if(__v) console.log("linking with active object: "+JSON.stringify(self.activeObj));
-			self.linkObjects(self.activeObj,obj1);
-			
+			var newo=self.linkObjects(self.activeObj,obj1);
+			$("body:first").trigger("dataLinked",[newo]);
 		},
 		// simplified version of toolOutput and floatDivOutput
 		addDataToJSON:function(data){
@@ -2346,31 +2343,33 @@ TILE.formats='';
 				// replace the data with what is passed
 				// by this call (update/post new data)
 				self.replaceData(data);
-				
+				self.updateActiveItems([obj]);
+				return;
 			}
-			var found=null;
-			var okItems=[];
-			for(var v in TILE.activeItems){
-				if(TILE.activeItems[v].id==obj.id){
-					found=true;
-					okItems.push(TILE.activeItems[v]);
-				} else {
-					// check object - if it's not 
-					// connected to something, then
-					// get rid of it
-					var gut=false;
-					for(var prop in TILE.activeItems[v]){
-						if($.isArray(TILE.activeItems[v][prop])){
-							gut=true;
-						}
-					}
-					if(gut){
-						okItems.push(TILE.activeItems[v]);
-					}
-				}
-			}
-			TILE.activeItems=okItems;
-			if(!found) TILE.activeItems.push(obj);
+			self.updateActiveItems(obj);
+			// var found=null;
+			// 			var okItems=[];
+			// 			for(var v in TILE.activeItems){
+			// 				if(TILE.activeItems[v].id==obj.id){
+			// 					found=true;
+			// 					okItems.push(TILE.activeItems[v]);
+			// 				} else {
+			// 					// check object - if it's not 
+			// 					// connected to something, then
+			// 					// get rid of it
+			// 					var gut=false;
+			// 					for(var prop in TILE.activeItems[v]){
+			// 						if($.isArray(TILE.activeItems[v][prop])){
+			// 							gut=true;
+			// 						}
+			// 					}
+			// 					if(gut){
+			// 						okItems.push(TILE.activeItems[v]);
+			// 					}
+			// 				}
+			// 			}
+			// 			TILE.activeItems=okItems;
+			// 			if(!found) TILE.activeItems.push(obj);
 		
 						// 
 						// if(self.activeObj){
@@ -2379,102 +2378,50 @@ TILE.formats='';
 			
 			if(__v) console.log("items in activeItems: "+JSON.stringify(TILE.activeItems));
 			// notify plugins of change
-			$("body:first").trigger("dataAdded");
+			if(!obj.obj){
+				obj=self.findTileObj(data.id,data.type);
+			}
+			
+			$("body:first").trigger("dataAdded",[obj]);
 			if(__v) console.log("*****ADDDATATOJSONSTARTEND**********");
 			mouseNormal();
 			return;
 			
 			
-			// var found=null;
-			// 			if(self.refArray[self.activeObj.id]){
-			// 				for(var x in self.refArray[self.activeObj.id]){
-			// 					if(data.id==self.refArray[self.activeObj.id][x].id){
-			// 						found=self.refArray[self.activeObj.id][x];
-			// 						break;
-			// 					}
-			// 				}
-			// 			}
-			// 			
-			// 			if(found){
-			// 				// // found the element already parsed and attached
-			// 				// 				// attach floatDiv instead
-			// 				// 				self._attachFloatDiv(data.attachHandle,data,self.refArray[data.id]);
-			// 				return;
-			// 			}
-			// 			
-			// 			// if there is an activeObj, use parseLink
-			// 			if(self.activeObj&&(self.activeObj.id!=data.id)&&(self.activeObj.type!=data.type)){
-			// 				// two different objects we're dealing with, send them to parseLink
-			// 				self.parseLink(data,self.activeObj);
-			// 				
-			// 				
-			// 			} else {
-			// 				// just insert the object into json
-			// 				// 
-			// 				// check for which level to store in 
-			// 				if(data.type==data.jsonName){
-			// 					// being stored at same level as pages
-			// 					if(!json[data.jsonName]){
-			// 						json[data.jsonName]=[];
-			// 					}
-			// 					var copy=deepcopy(data.obj);
-			// 					json[data.jsonName].push(copy);
-			// 				} else {
-			// 					// being stored at page level
-			// 					// find URL
-			// 					for(var page in json.pages){
-			// 						if(json.pages[page].url==data.jsonName){
-			// 							if(!json.pages[page][data.jsonName]){
-			// 								// create new array on stack
-			// 								json.pages[page][data.jsonName]=[];
-			// 							}
-			// 							var copy=deepcopy(data.obj);
-			// 							json.pages[page][data.jsonName].push(copy);
-			// 							break;
-			// 						}
-			// 					}
-			// 				}
-			// 				self.activeObj=data.obj;
-			// 				
-			// 			}
-			// Attach the data handle
-			if(data.attachHandle){
-				// self._attachFloatDiv(data.attachHandle,data,self.refArray[data.id]);
-				// update the activeItems array
-				var refs=[];
-				
-				for(var ref in self.refArray[data.id]){
-					// find object in the json
-					var item=self.refArray[data.id][ref];
+		},
+		// takes into account new items that are 
+		// active or added to data
+		updateActiveItems:function(args){
+			var self=this;
+			
+			// go through array
+			for(var i in args){
+				if(!args[i].id) continue;
+				var f=false;
+				for(var v in TILE.activeItems){
 					
-					if(!item) continue;
-					if(item.jsonName!=item.type){
-						
-						// page level
-						var page=null;
-						for(var p in json.pages){
-							if(json.pages[p].url==item.jsonName){
-								page=json.pages[p];
-							}
-						}
-						if(!page) continue;
-						for(var prop in page[item.type]){
-							if(page[item.type][prop].id==item.id){
-								refs.push(deepcopy(page[item.type][prop]));
-							}
-						}
-						
-					} else if(item.jsonName.toLowerCase()==item.type.toLowerCase()){
-						if(!json[item.jsonName]) continue;
-						for(var prop in json[item.jsonName]){
-							if(json[item.jsonName][prop].id==item.id){
-								refs.push(deepcopy(json[item.jsonName][prop]));
-							}
-						}
- 					}
+					if(TILE.activeItems[v].id==args[i].id){
+						f=true;
+						break;
+					} 
+					// else {
+					// 						// check object - if it's not 
+					// 						// connected to something, then
+					// 						// get rid of it
+					// 						var gut=false;
+					// 						for(var prop in TILE.activeItems[v]){
+					// 							if($.isArray(TILE.activeItems[v][prop])){
+					// 								gut=true;
+					// 							}
+					// 						}
+					// 						if(gut){
+					// 							okItems.push(TILE.activeItems[v]);
+					// 						}
+					// 					}
 				}
-				$.merge(TILE.activeItems,refs);
-				TILE.activeItems.push(data.obj);
+				if(!f){
+					TILE.activeItems.push(args[i]);
+				}
 			}
 			
 		},
@@ -2546,7 +2493,7 @@ TILE.formats='';
 					if($.inArray(obj2.id,json.pages[page][obj1.type][found][obj2.type])){
 						
 						$.merge(json.pages[page][obj1.type][found][obj2.type],[obj2.id]);
-						robj1=deepcopy(json.pages[page][obj1.type][found]);
+						robj1={"id":obj1.id,"type":obj1.type,"jsonName":page,"obj":deepcopy(json.pages[page][obj1.type][found])};
 						
 						if(__v) console.log(obj2.type+" "+obj2.id+" INSERTED IN "+found+'  '+JSON.stringify(json.pages[page][obj1.type][found]));
 					}					
@@ -2587,7 +2534,7 @@ TILE.formats='';
 					if($.inArray(obj2.id,json[obj1.type][found][obj2.type])<0){
 					
 						$.merge(json[obj1.type][found][obj2.type],[obj2.id]);
-						robj1=deepcopy(json[obj1.type][found]);
+						robj1={"id":obj1.id,"type":obj1.type,"jsonName":obj1.type,"obj":deepcopy(json[obj1.type][found])};
 					if(__v) console.log(obj2.type+" "+obj2.id+" INSERTED: "+found+'  '+JSON.stringify(json[obj1.type][found]));
 					}
 				
@@ -2637,7 +2584,7 @@ TILE.formats='';
 					// creating the link between obj1 as object and obj2 as ID reference
 					if($.inArray(obj2.id,json.pages[page][obj2.type][found][obj1.type])){
 						$.merge(json.pages[page][obj2.type][found][obj1.type],[obj1.id]);
-						robj2=deepcopy(json.pages[page][obj2.type][found]);
+						robj2={"id":obj2.id,"type":obj2.type,"jsonName":page,"obj":deepcopy(json.pages[page][obj2.type][found])};
 						if(__v) console.log(obj1.type+" "+obj1.id+" INSERTED IN: "+found+'  '+JSON.stringify(json.pages[page][obj2.type][found]));
 					}	
 				} else {
@@ -2662,7 +2609,8 @@ TILE.formats='';
 					}
 					if($.inArray(obj1.id,json[obj2.type][found][obj1.type])<0){
 						$.merge(json[obj2.type][found][obj1.type],[obj1.id]);
-						robj2=deepcopy(json[obj2.type][found]);
+						robj2={"id":obj2.id,"type":obj2.type,"jsonName":obj2.type,"obj":deepcopy(json[obj2.type][found])};
+						
 						if(__v) console.log(obj1.type+" "+obj1.id+" INSERTED: "+found+'  '+JSON.stringify(json[obj2.type][found]));
 					}
 				}
@@ -3086,20 +3034,6 @@ TILE.formats='';
 			var ff=$("#fileFormatFileURL > option:selected").val();
 			var fname=$("#fileFormatFileURL > option:selected").text();
 			var file=$("#filepathDisplay").val();
-			if(__v){
-				console.log("format: "+fname);
-				console.log("file: "+file);
-			}
-			// if(/local/.test(file)){
-			// 				
-			// 				// local file - use default submit
-			// 				self.submitB.unbind('click');
-			// 				$("#loadTagsForm > #formatInvisible").val(ff);
-			// 				if(__v) console.log('sending using default');
-			// 				self.submitB.trigger('submit');
-			// 				self.submitB.bind('click',{obj:self},self.submitFileHandle);
-			// 			}
-			// an XML file or otherwise - process using PHP server-side
 			
 			// handle the submit call to 
 			// PHP
@@ -3109,16 +3043,19 @@ TILE.formats='';
 				cache:false,
 				data:({filepath:file,format:fname}),
 				type:'POST',
-				success:function(results){
+				dataType:'json',
+				success:function(data){
 					
-					var data=JSON.parse(results);
-					if(__v) console.log("TILE: ");
-					if(__v) console.log(JSON.stringify(data['tile']));
+					
+					if(__v) console.log('submitFILE IN loaddialog');
+					if(__v) console.log(JSON.stringify(data));
+					
 					// take results and feed into engine
 					TILE.engine.parseJSON(data);
 					self.light.hide();
 					self.DOM.hide();
 					self.fade.hide();
+					if(__v) console.log("LOAD DIALOG: COMPLETE");
 				}
 			});
 		}

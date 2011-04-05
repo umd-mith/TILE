@@ -483,7 +483,7 @@ var LB={
 		var vd=[];
 		// find the labels referenced on this page
 		for(var p in data.pages){
-			if(data.pages[p].url==TILEPAGE){
+			if(data.pages[p].url==TILE.url){
 				// current page - find label refs
 				var page=data.pages[p];
 				for(var prop in page){

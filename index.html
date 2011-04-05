@@ -54,8 +54,8 @@
 		<input id="uploadData" name="uploadData" class="submitFormHidden" type="text"/>
 	</form>
 	<!-- -->
-	<!-- Hidden iframe that handles the LoadDialog's Local File submits -->
-	<iframe id="import_iframe" src="ImportExportScripts/importDataScript.php" style="visibility:hidden"></iframe>
+	<!-- Hidden iframe that handles the LoadDialog's Local File submits 
+	<iframe id="import_iframe" src="ImportExportScripts/importDataScript.php" style="visibility:hidden"></iframe> -->
 	<!-- Main area -->
 	<div class="az main twocol">
 		<div id="az_log" class="az log"></div>
@@ -109,10 +109,9 @@
 			engine.insertModePlugin('Image Annotation','TextSelection');
 			// labels
 			engine.insertModePlugin('Image Annotation','Labels');
+			
 			// autoload
 			engine.insertPlugin('AutoLoad');
-			// Export dialog
-			engine.insertPlugin('ExportDialog');
 			// dashboard
 			engine.insertModePlugin('Dashboard','Dashboard');
 			// CoreData plugin
@@ -125,8 +124,8 @@
 			
 			// activate
 			engine.activate('Image Annotation');
-			// Done adding plugins
-			// $("a:contains(Image Annotation)").trigger('click');
+			// Done adding Modes
+			
 			
 		});
 	

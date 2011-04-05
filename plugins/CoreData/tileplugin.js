@@ -16,21 +16,43 @@ var CoreData={
 		
 		self.content=[];
 		
+		
+		$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
+		
 		$("body").bind('contentCreated',function(e,content){
-			
-			self.content=$(content);
-			if(__v){
-				self.content.find('pages').each(function(){
-					console.log('page: '+$(this).attr('id'));
-				});
-				
-			}
-			
+		
+			self.content=$.parseXML(content);
+			self.$xml=$( self.content );
 		});
 		
 	},
-	dataAddedHandle:function(e){
+	dataAddedHandle:function(e,obj){
 		var self=e.data.obj;
+		if(self.content.length==0) return;
+	
+		shape=obj.obj;
+		switch(obj.type.toLowerCase()){
+			case 'lines':
+				
+				break;
+			case 'shapes':
+				var $surface=self.$xml.find('surface');
+				var found=false;
+				$surface.find('zone').each(function(i,o){
+					if($(o).attr('xml:id')==obj.id){
+						found=true;
+					}
+				});
+				if(!found){
+					$surface.append('<zone xml:id="'+shape.id+'" rendition="" ulx="'+shape.posInfo.x+'" uly="'+shape.posInfo.y+'" lrx="'+(shape.posInfo.x+shape.posInfo.width)+'" lry="'+(shape.posInfo.y+shape.posInfo.height)+'"></zone>');
+				}
+				break;
+			case 'selections':
+				break;
+			case 'labels':
+				break;
+		}
+		
 	},
 	// args can be an array of objects or 
 	// one object
