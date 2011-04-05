@@ -413,7 +413,7 @@ var LB={
 		if(newLbls.length){
 			TILE.engine.insertTags(newLbls);
 		}
-		self.createWordle(data);
+		if(__v) console.log("LABELS LOADED IN NEW JSON");
 	},
 	dataAddedHandle:function(e){
 		var self=e.data.obj;

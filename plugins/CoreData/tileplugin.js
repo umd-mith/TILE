@@ -16,7 +16,7 @@ var CoreData={
 		
 		self.content=[];
 		
-		$("body").live('contentCreated',function(e,content){
+		$("body").bind('contentCreated',function(e,content){
 			
 			self.content=$(content);
 			if(__v){

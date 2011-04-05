@@ -1057,8 +1057,7 @@ TILE.formats='';
 					// Coming from CoreData.php
 					// Object has content and tile parameters
 					json=file['tile'];
-					if(__v) console.log('used tile: ');
-					if(__v) console.log(JSON.stringify(file['tile']));
+					
 					// use the content
 					$("body:first").trigger("contentCreated",[file['content']]);
 					
