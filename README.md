@@ -52,6 +52,9 @@ Completely resets the JSON session for TILE and either performs an AJAX operatio
 **insertData**(data {Object})
 Takes data and parses it into the TILE JSON session.
 
+**updateData**(obj {Object})
+Takes the passed parameter, finds it in the coredata JSON session, then replaces any old data with new data.
+
 **getJSON**(page {Boolean})
 Gives a deep copy of the core JSON structure that has all current data.
 
