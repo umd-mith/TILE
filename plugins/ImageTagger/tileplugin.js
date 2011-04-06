@@ -2173,18 +2173,16 @@ var IT={
 		} 
 	},
 	dataAddedHandle:function(e,obj){
-	
 		var self=e.data.obj;
-		if(__v) console.log("dataadded reached in shapes  "+JSON.stringify(obj));
 		if(obj.type!='shapes') return;
-		obj=obj.obj;
+		shape=obj.obj;
 		
 		if(self.itagger.curURL!=TILE.url){
 			self.itagger.curURL=TILE.url;
 			self.itagger.setImage();
 		}
 		// check to see if any shapes added to activeItems
-		var vd=[obj];
+		var vd=[shape];
 		var a=false;
 		// 		for(var prop in TILE.activeItems){
 		// 			if(__v) console.log("activeItem: "+TILE.activeItems[prop]);
@@ -2199,16 +2197,21 @@ var IT={
 		
 		self.itagger.loadNewShapes(vd);
 		// if active shape present, attach metadata dialog
-		if(a){
-			self.itagger.raphael.setActiveShape(a);
-			var shp={
-				id:a.id,
-				type:'shapes',
-				jsonName:TILE.url,
-				obj:a
-			};
-			TILE.engine.attachMetadataDialog(shp,"#selBB");
+		if(shape&&obj){
+			self.itagger.raphael.setActiveShape(shape);
+			// var shp={
+			// 			id:a.id,
+			// 			type:'shapes',
+			// 			jsonName:TILE.url,
+			// 			obj:shape
+			// 		};
+			TILE.engine.attachMetadataDialog(obj,"#selBB");
 		}
+		
+	},
+	dataLinkedHandle:function(e,args){
+		var self=this;
+		
 		
 	},
 	newActiveHandle:function(e,obj){

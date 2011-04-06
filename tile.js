@@ -1404,7 +1404,7 @@ TILE.formats='';
 			// page we're on
 			if(opt){
 				for(var x in json.pages){
-					if(json.pages[x].url==TILEPAGE){
+					if(json.pages[x].url==TILE.url){
 						// copy only the current page
 						jsoncopy=deepcopy(json.pages[x]);
 					}
@@ -2076,7 +2076,7 @@ TILE.formats='';
 				// URL - find in current page
 				var page=null;
 				for(var p in json.pages){
-					if(json.pages[p].url==TILEPAGE){
+					if(json.pages[p].url==TILE.url){
 						// found page
 						page=json.pages[p];
 						break;
@@ -2108,7 +2108,7 @@ TILE.formats='';
 				// URL - find in current page
 				var page=null;
 				for(var p in json.pages){
-					if(json.pages[p].url==TILEPAGE){
+					if(json.pages[p].url==TILE.url){
 						// found page
 						page=json.pages[p];
 						break;
@@ -2140,7 +2140,7 @@ TILE.formats='';
 				// URL - find in current page
 				var page=null;
 				for(var p in json.pages){
-					if(json.pages[p].url==TILEPAGE){
+					if(json.pages[p].url==TILE.url){
 						// found page
 						page=json.pages[p];
 						break;
@@ -2172,7 +2172,7 @@ TILE.formats='';
 				// URL - find in current page
 				var page=null;
 				for(var p in json.pages){
-					if(json.pages[p].url==TILEPAGE){
+					if(json.pages[p].url==TILE.url){
 						// found page
 						page=json.pages[p];
 						break;
@@ -2331,7 +2331,6 @@ TILE.formats='';
 		// simplified version of toolOutput and floatDivOutput
 		addDataToJSON:function(data){
 			var self=this;
-			if(__v) console.log("*****ADDDATATOJSONSTART**********");
 			mouseWait();
 			// update activeItems
 			var obj=self.findObj(data.id,data.type);
@@ -2343,48 +2342,23 @@ TILE.formats='';
 				// replace the data with what is passed
 				// by this call (update/post new data)
 				self.replaceData(data);
+				// update activeItems
 				self.updateActiveItems([obj]);
+				// quit
 				return;
 			}
-			self.updateActiveItems(obj);
-			// var found=null;
-			// 			var okItems=[];
-			// 			for(var v in TILE.activeItems){
-			// 				if(TILE.activeItems[v].id==obj.id){
-			// 					found=true;
-			// 					okItems.push(TILE.activeItems[v]);
-			// 				} else {
-			// 					// check object - if it's not 
-			// 					// connected to something, then
-			// 					// get rid of it
-			// 					var gut=false;
-			// 					for(var prop in TILE.activeItems[v]){
-			// 						if($.isArray(TILE.activeItems[v][prop])){
-			// 							gut=true;
-			// 						}
-			// 					}
-			// 					if(gut){
-			// 						okItems.push(TILE.activeItems[v]);
-			// 					}
-			// 				}
-			// 			}
-			// 			TILE.activeItems=okItems;
-			// 			if(!found) TILE.activeItems.push(obj);
-		
-						// 
-						// if(self.activeObj){
-						// 	self.parseLink(self.activeObj,obj);
-						// }
+			// update the activeItems
+			self.updateActiveItems([obj]);
 			
-			if(__v) console.log("items in activeItems: "+JSON.stringify(TILE.activeItems));
+			if(__v) console.log("addData obj: "+obj);
 			// notify plugins of change
 			if(!obj.obj){
 				obj=self.findTileObj(data.id,data.type);
 			}
 			
 			$("body:first").trigger("dataAdded",[obj]);
-			if(__v) console.log("*****ADDDATATOJSONSTARTEND**********");
 			mouseNormal();
+			// quit
 			return;
 			
 			
@@ -2396,7 +2370,7 @@ TILE.formats='';
 			
 			// go through array
 			for(var i in args){
-				if(!args[i].id) continue;
+				if((!args[i])||(!args[i].id)) continue;
 				var f=false;
 				for(var v in TILE.activeItems){
 					
