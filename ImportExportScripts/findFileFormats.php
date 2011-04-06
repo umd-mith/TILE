@@ -17,6 +17,8 @@ class FileFormatSearch{
 	
 	public function search(){
 		# go through the current directory
+	
+		
 		if($handle=opendir('.')){
 			# put all files in formats array
 			while(($file=readdir($handle))){

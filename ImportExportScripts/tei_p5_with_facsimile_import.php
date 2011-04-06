@@ -18,6 +18,7 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
     private   $zone_xpath;
     
     public function __construct($content) {
+		array_push($this->import_namespaces,'XML set to TEI DTD and utilizing <facsimile>');
         $this -> setMilestoneXPath('//facsimile|//text/body/div');
         $this -> setImageURLXPath('//facsimile/surface/graphic/@url');
         // we want all of the child elements of a top-level div element in the body

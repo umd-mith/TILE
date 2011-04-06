@@ -4,7 +4,9 @@ class CoreData
     private $containers = array();
     private $labels = array();
     public  $current_container;
+	public 	$import_namespaces = array();
     private $content;
+
     
     public function __construct($content) {
         $this -> newContainer();

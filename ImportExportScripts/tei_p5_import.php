@@ -2,7 +2,7 @@
 class TEIP5Import extends XMLStreamImport 
 {
     public function __construct($content) {
-
+		array_push($import_namespaces,'XML set to TEI P5 DTD');
         $this -> setMilestoneXPath('//pb');
         $this -> setDocumentStartXPath('//pb');
         $this -> setImageUrlXPath('//pb/@facs');
