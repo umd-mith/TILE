@@ -110,13 +110,13 @@
 			// labels
 			engine.insertModePlugin('Image Annotation','Labels');
 			
-			// autoload
-			engine.insertPlugin('AutoLoad');
+			
 			// dashboard
 			engine.insertModePlugin('Dashboard','Dashboard');
 			// CoreData plugin
 			engine.insertPlugin('CoreData');
-			
+			// autoload
+			engine.insertPlugin('AutoLoad');
 			if(!(/^http:\/\/localhost/.test(document.URL))){
 				// welcome dialog
 				engine.insertPlugin('WelcomeDialog');

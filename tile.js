@@ -38,6 +38,7 @@ TILE.url='';
 // ENGINE allows access to global API
 TILE.engine={};
 TILE.formats='';
+TILE.preLoad=null;
 
 (function($){
 	var tile=this;
@@ -147,12 +148,29 @@ TILE.formats='';
 		
 		var self=this;
 		var file=null;
-		file=$.ajax({
-			url:TILE.engine.serverStateUrl,
-			accepts: "application/json",
-			dataType:"text",
-			async:false
-		}).responseText;
+		// check to see if something is pre-loaded
+		
+		if(TILE.preLoad){
+			if(typeof(TILE.preLoad) == 'object'){
+				file=TILE.preLoad;
+			} else {
+				file=$.ajax({
+					url:TILE.preLoad,
+					dataType:'json',
+					type:'GET',
+					success:function(json){
+						TILE.engine.parseJSON(json);
+					}
+				});
+			}
+		} else {
+			file=$.ajax({
+				url:TILE.engine.serverStateUrl,
+				accepts: "application/json",
+				dataType:"text",
+				async:false
+			}).responseText;
+		}
 		
 		if(file){
 			TILE.engine.parseJSON(file);
@@ -225,8 +243,8 @@ TILE.formats='';
 		var self=this;
 		
 		
-		//create log - goes towards left area
-		_tileBar=new TileToolBar({loc:"tile_toolbar"});
+		
+		// set initial formats
 		TILE.formats=_tileBar.formatstr;
 		
 		// take away load screen
@@ -823,12 +841,11 @@ TILE.formats='';
 		json=null;
 		self.manifest=null;
 		self.curUrl=null;
+		
+		//create log - goes towards left area
+		_tileBar=new TileToolBar({loc:"tile_toolbar"});
 		// set up plugin controller and listeners for plugin controller
 		pluginControl=new PluginController();
-		
-		
-		// check if there is json data 
-		checkJSON();
 	};
 	TILE_ENGINE.prototype={
 		// activates the engine - called after loading all 
@@ -851,6 +868,9 @@ TILE.formats='';
 			 	var recLoad=function(){
 					count++;
 					if(count==self.plugins.length){
+						// check if there is json data 
+						checkJSON();
+						
 						// see if user defined a mode
 						if(mode){
 							// find matching mode and
@@ -1108,6 +1128,17 @@ TILE.formats='';
 			
 			// pluginControl.setJSON();
 		},
+		// Take the passed obj Object with minimal variables
+		// id and type, and update what is currently in the JSON
+		// coredata
+		updateData:function(obj){
+			if(obj.id&&obj.type){
+				var self=this;
+				
+				pluginControl.updateDataInJSON(obj);
+				
+			}
+		},
 		// Take passed Object reference obj1 and link it
 		// with the current activeObj
 		linkWithActiveObj:function(obj1){
@@ -1128,7 +1159,6 @@ TILE.formats='';
 		},
 		attachMetadataDialog:function(obj,handle){
 			var self=this;
-			if(__v) console.log('attachmetadatadialog tile1.0: '+JSON.stringify(obj)+'  '+ $(handle));
 			pluginControl._attachFloatDiv(obj,handle);
 		},
 		// deletes an item or reference from the JSON session
@@ -2350,7 +2380,6 @@ TILE.formats='';
 			// update the activeItems
 			self.updateActiveItems([obj]);
 			
-			if(__v) console.log("addData obj: "+obj);
 			// notify plugins of change
 			if(!obj.obj){
 				obj=self.findTileObj(data.id,data.type);
@@ -2361,6 +2390,24 @@ TILE.formats='';
 			// quit
 			return;
 			
+			
+		},
+		// Take passed object reference, find it in JSON
+		// If found, update found record
+		updateDataInJSON:function(obj){
+			var self=this;
+			tileObj=self.findRealObj(obj.id,obj.type);
+			
+			for(var x in tileObj){
+				if((obj[x])&&($.isArray(tileObj[x]))){
+					// change the array data
+					tileObj[x]=obj[x];
+				}
+			}
+			// done updating real object, get TILE copy
+			var copy=self.findTileObj(obj.id,obj.type);
+			
+			$("body:first").trigger("dataUpdated",[copy]);
 			
 		},
 		// takes into account new items that are 
@@ -2621,7 +2668,6 @@ TILE.formats='';
 					}
 				}
 				page[obj.type]=ag;
-				if(__v) console.log("removing data from JSON: "+JSON.stringify(page[obj.type]));
 			} else if(json[obj.type]) {
 				// on global level
 				var ag=[];
@@ -2631,10 +2677,10 @@ TILE.formats='';
 					}
 				}
 				json[obj.type]=ag;
-				
-				
 			}
 			
+			// Notify delete
+			$("body:first").trigger("dataDeleted",[obj]);
 			
 			// delete all references
 			for(var item in obj.obj){
@@ -2656,7 +2702,6 @@ TILE.formats='';
 			}
 			TILE.activeItems=ag;
 			
-			if(__v) console.log('finished deleting');
 			
 		},
 		deleteRefFromObj:function(obj,ref){
@@ -2674,8 +2719,6 @@ TILE.formats='';
 					if(json[obj.jsonName][item].id==obj.id){
 						// item found - erase from stack of reference IDs
 						if(json[obj.jsonName][item][ref.type]){
-							if(__v) console.log("removing "+ref.type+" from "+obj.type);
-							if(__v) console.log("obj[ref.type]  "+JSON.stringify(json[obj.jsonName][item][ref.type]));
 							// delete ID from stack
 							var ag=[];
 							for(var a in json[obj.jsonName][item][ref.type]){
@@ -2684,7 +2727,6 @@ TILE.formats='';
 								}
 							}
 							json[obj.jsonName][item][ref.type]=ag;
-							if(__v) console.log("obj[ref.type]  "+JSON.stringify(json[obj.jsonName][item][ref.type]));
 						}
 					}
 				}
@@ -2706,8 +2748,6 @@ TILE.formats='';
 						if(page[obj.type][item][ref.type]){
 							// delete ID
 							var ag=[];
-							if(__v) console.log("removing "+ref.type+" from "+obj.type);
-							if(__v) console.log("obj[ref.type]  "+JSON.stringify(page[obj.type][item][ref.type]));
 							for(var a in page[obj.type][item][ref.type]){
 								if(ref.id!=page[obj.type][item][ref.type][a]){
 									ag.push(page[obj.type][item][ref.type][a]);
@@ -2715,12 +2755,14 @@ TILE.formats='';
 							}
 							page[obj.type][item][ref.type]=ag;
 							
-							if(__v) console.log("obj[ref.type]  "+JSON.stringify(page[obj.type][item][ref.type]));
 						}
 					}
 				}
 			}
-				if(__v) console.log("-----DeleteFromRef-------");
+			obj=self.findTileObj(obj.id,obj.type);
+			$("body:first").trigger('dataUpdated',[obj]);
+			
+			if(__v) console.log("-----DeleteFromRef-------");
 		},
 		// Uses the manifest array and linkArray to generate
 		// the final JSON session data

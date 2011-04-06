@@ -23,18 +23,16 @@ var CoreData={
 		
 			self.content=$.parseXML(content);
 			self.$xml=$( self.content );
+				
 		});
 		
 	},
 	dataAddedHandle:function(e,obj){
 		var self=e.data.obj;
 		if(self.content.length==0) return;
-	
+		
 		shape=obj.obj;
 		switch(obj.type.toLowerCase()){
-			case 'lines':
-				
-				break;
 			case 'shapes':
 				var $surface=self.$xml.find('surface');
 				var found=false;
@@ -54,19 +52,50 @@ var CoreData={
 		}
 		
 	},
-	// args can be an array of objects or 
-	// one object
-	dataCreatedHandle:function(e,args){
+	
+	dataLinkedHandle:function(e,args){
 		var self=e.data.obj;
-		
-		
-		
-	},
-	dataLinkedHandle:function(e,obj1,obj2){
-		var self=e.data.obj;
+		if(self.content.length==0) return;
+		var o1=null;
+		var o2=null;
+		for(var x in args){
+			// see if its a shape
+			if(args[x].type){
+				var obj=args[x];
+				var shape=obj.obj;
+				switch(obj.type.toLowerCase()){
+					case 'shapes':
+						var $surface=self.$xml.find('surface');
+						var found=false;
+						$surface.find('zone').each(function(i,o){
+							if($(o).attr('xml:id')==obj.id){
+								if(o1){ 
+									o2=$(o);
+								} else {
+									o1=$(o);
+								}
+							}
+						});
+						// if(!found){
+						// 							
+						// 							$surface.append('<zone xml:id="'+shape.id+'" rendition="" ulx="'+shape.posInfo.x+'" uly="'+shape.posInfo.y+'" lrx="'+(shape.posInfo.x+shape.posInfo.width)+'" lry="'+(shape.posInfo.y+shape.posInfo.height)+'"></zone>');
+						// 						}
+						break;
+					case 'selections':
+						break;
+					case 'labels':
+						break;
+				}
+			}
+		}
+		if(o1&&o2){
+			// insert references into each other's elements
+			
+		} else {
+			return;
+		}
+	
 	}
-	
-	
 };
 
 TILE.engine.registerPlugin(CoreData);

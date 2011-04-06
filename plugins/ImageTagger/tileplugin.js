@@ -2154,7 +2154,7 @@ var IT={
 				TILE.engine.attachMetadataDialog(data,"#selBB");
 			});
 			// bind ENGINE events
-			$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
+			// $("body").live("dataAdded",{obj:self},self.dataAddedHandle);
 			$("body").live("newActive",{obj:self},self.newActiveHandle);
 			$("body").live("newJSON newPage",{obj:self},self.newJSONHandle);
 			
@@ -2212,7 +2212,9 @@ var IT={
 	dataLinkedHandle:function(e,args){
 		var self=this;
 		
-		
+		if((args[0].type=='shapes')||(args[1].type=='shapes')){
+			
+		}
 	},
 	newActiveHandle:function(e,obj){
 		var self=e.data.obj;
