@@ -65,7 +65,10 @@
 	/**initially invisible**/
 	display:none;
 }
-
+#loadTagsDialog.dialog .body .option form.fade{
+	opacity:0.5;
+	cursor:arrow;
+}
 #loadDialogSplash.dialog{
 	position:absolute;
 	left:38%;

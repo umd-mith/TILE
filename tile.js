@@ -2453,13 +2453,7 @@ TILE.preLoad=null;
 			var self=this;
 			if((obj1!=null)&&(obj2!=null)){
 				var robj1, robj2=null;
-				if(__v) {
-					console.log("********************");
-					console.log("obj1 parseLink obj2");
-					console.log(JSON.stringify(obj1));
-					console.log(JSON.stringify(obj2));
-					
-				}
+				
 				// check to see if each object is on the global or page level
 				// Then insert into the larger JSON session array
 				// GLOBAL: Anything not a URL
@@ -2761,8 +2755,6 @@ TILE.preLoad=null;
 			}
 			obj=self.findTileObj(obj.id,obj.type);
 			$("body:first").trigger('dataUpdated',[obj]);
-			
-			if(__v) console.log("-----DeleteFromRef-------");
 		}
 	};
 	
@@ -2880,15 +2872,18 @@ TILE.preLoad=null;
 		this.submitB.live('click',{obj:this},this.submitFileHandle);
 		
 		$("#loadTagsDialog > .body > .option > #selectFileUpload").live('click',function(e){
-			$("#uploadURL").hide();
-			$("#loadFromFile").show();
-			if($("#import_i_frame").length) return;
+			$("#uploadURL").addClass("fade");
+			$("#loadFromFile").removeClass("fade");
+			$("#loadFromFile > input").attr('disabled','');
+			$("#uploadURL > input").attr('disabled','true');
 		
 		});
 		
 		$("#loadTagsDialog > .body > .option > #selectURLUpload").live('click',function(e){
-			$("#uploadURL").show();
-			$("#loadFromFile").hide();
+			$("#uploadURL").removeClass("fade");
+			$("#loadFromFile").addClass("fade");
+			$("#loadFromFile > input").attr('disabled','true');
+			$("#uploadURL > input").attr('disabled','');
 		});
 		
 		$("#loadTagsDialog > .body > .option > #selectFileUpload").trigger('click');
@@ -2899,23 +2894,7 @@ TILE.preLoad=null;
 			$("#importURL").val($(this).val());
 		});
 		
-		// $("#localFileUpload").blur(function(e){
-		// 		// the file upload area is changed - update
-		// 		// the other inputs
-		// 		// clear URL input area
-		// 		$("#filepathDisplay").val('');
-		// 		// enter into invisible area
-		// 		$("#filePathInvisible").val('local');
-		// 	});
 		
-		// $("#filepathDisplay").change(function(e){
-		// 			// the file upload area is changed - update
-		// 			// the other inputs
-		// 			// clear URL input area
-		// 			$("#localFileUpload").val('');
-		// 			// enter into invisible area
-		// 			$("#filePathInvisible").val($(this).val());
-		// 		});
 		
 		$("body").bind("openNewImage",{obj:this},this.close);
 		$("body").bind("openImport",{obj:this},this.close);
