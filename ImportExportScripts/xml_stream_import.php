@@ -10,6 +10,7 @@ class XMLStreamImport extends CoreData
 	private $text_stack;
 	private $current_line;
 	private $element_stack;
+	private $element_count_stack;
 	private $attributes_stack;
 	private $element_stack_depth;
 	private $document_started = false;
@@ -25,6 +26,7 @@ class XMLStreamImport extends CoreData
 	// This function is called by the CoreData object constructor after setup.
 	public function parse_content($content) {
 		$this -> element_stack = array();
+		$this -> element_count_stack = array(array());
 		$this -> element_stack_depth = 0;
 		$this -> text_stack = array("");
 		$this -> current_line = "";
@@ -102,12 +104,29 @@ class XMLStreamImport extends CoreData
 				$regex = $regex . "/.+/";
 			}
 			else {
-				if($bit == '*') {
-					$regex = $regex . "/[^/]+/";
+				$matches = array();
+				$nom = '';
+				$idx = '';
+				if(preg_match('{^(.*)\[(\d*)\]$}', $bit, $matches)) {
+					$nom = $matches[1];
+					$idx = $matches[2];
 				}
 				else {
-				    $regex = $regex . "/$bit/";
+					$nom = $bit;
 				}
+				if($nom == '*') {
+					$regex = $regex . "/[^/]+";
+				}
+				else {
+				    $regex = $regex . "/$nom";
+				}
+				if($idx != "") {
+					$regex = $regex . "\\[$idx\\]";
+				}
+				else {
+					$regex = $regex . '\[\d*\]';
+				}
+				$regex .= "/";
 			}
 		}
 		$regex = preg_replace('{/+}', '/', $regex);
@@ -117,12 +136,12 @@ class XMLStreamImport extends CoreData
 	
 	// returns a simple XPath expression representing the current element stack
 	public function current_xpath() {
-		return "/" . implode("/", array_slice(
-			$this -> element_stack,
-			0,
-			$this -> element_stack_depth
-			)
-		) . "/";
+		$xpath = "/";
+		for($i = 0; $i < $this -> element_stack_depth; $i++) {
+			$el = $this -> element_stack[$i];
+			$xpath .= $el . '[' . $this -> element_count_stack[$i][$el] . ']/';
+		}
+		return $xpath;
 	}
 	
 	// returns true if the supplied regular expression info matches the current xpath
@@ -165,6 +184,11 @@ class XMLStreamImport extends CoreData
 	public function push_element_stack($name, $attributes) {
 		$this -> element_stack[$this -> element_stack_depth] = $name;
 		$this -> attribute_stack[$this -> element_stack_depth] = $attributes;
+		if(!isset($this -> element_count_stack[$this -> element_stack_depth][$name])) {
+			$this -> element_count_stack[$this -> element_stack_depth][$name] = 0;
+		}
+		$this -> element_count_stack[$this -> element_stack_depth][$name] += 1;
+		$this -> element_count_stack[$this -> element_stack_depth + 1] = array();
 		$this -> text_stack[$this -> element_stack_depth] = "";
 		$this -> element_stack_depth += 1;
 	}
