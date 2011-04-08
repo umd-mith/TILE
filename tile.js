@@ -164,16 +164,22 @@ TILE.preLoad=null;
 				});
 			}
 		} else {
-			file=$.ajax({
+			json=$.ajax({
 				url:TILE.engine.serverStateUrl,
 				accepts: "application/json",
 				dataType:"text",
 				async:false
 			}).responseText;
+			
+			setUp();
+			return;
 		}
 		
 		if(file){
-			TILE.engine.parseJSON(file);
+			json=file;
+			setUp();
+			return;
+			// TILE.engine.parseJSON(file);
 		} else if((window.location.href.search(/\?json\=/i))>=0){
 				// grab the GET parameter only - 
 				// user defines this by putting ?json= followed
@@ -200,7 +206,9 @@ TILE.preLoad=null;
 						}
 					},
 					success:function(txt){
-						TILE.engine.parseJSON(txt);
+						json=txt;
+						setUp();
+						// TILE.engine.parseJSON(txt);
 						// remove the welcome dialog in case it's present
 						if($("#light").length){
 							$("#light").remove();
@@ -214,28 +222,9 @@ TILE.preLoad=null;
 		
 		
 		
-		getBase();
+		
 	};
-	//Calls TILECONSTANTS.json file and gets base, possible json data
-	var getBase=function(){
-		//check JSON file to configure main path
-		var self=this;
-		setUp();
-		// $.ajax({url:'tilevars.php',dataType:'json',success:function(d){
-		// 			//d refers to the JSON data
-		// 			// ENGINE._importDefault=d.pemLoad;
-		// 			// 			ENGINE._exportDefault=d.exportDefault;
-		// 			// 			ENGINE.preLoads=d;
-		// 		
-		// 			// set up HTML and callbacks for main code
-		// 			setUp();
-		// 		},
-		// 		error:function(d,x,e){
-		// 			if(__v) console.log("Failed to load TILECONSTANTS.json "+e);
-		// 			
-		// 		},
-		// 		async:false});
-	};
+	
 	//called after getBase(); creating main TILE interface objects and
 	//setting up the HTML
 	// d : {Object} - contains columns.json data
@@ -896,6 +885,14 @@ TILE.preLoad=null;
 			
 			
 		
+		},
+		// adds a string of HTML to the drop-downs in 
+		// save and load dialogs
+		addImportExportFormats:function(str){
+			var self=this;
+			
+			_tileBar.addFormats(str);
+			
 		},
 		// Called to see if there is a JSON object stored in the PHP session() 
 		// adds a toolbar button to TileToolBar
@@ -2846,7 +2843,7 @@ TILE.preLoad=null;
 		'<a href="#" id="loadTagsClose" class="btnIconLarge close">Close</a></h2><div class="clear">'+
 		'</div></div><div class="body"><div class="option"><h3>Load from a file on your local machine:/URL<br/>(See dropdown for supported Filetypes - .json supported by default)</h3>'+
 		'<input id="selectFileUpload" type="radio" value="file" name="uploadChoice" /><span>Upload from your computer</span>'+
-		'<form id="loadFromFile" action="." method="post" enctype="multipart/form-data">'+
+		'<form id="loadFromFile" action="'+self.importScript+'" method="post" enctype="multipart/form-data">'+
 		'<label for="file">Filename:</label><br/><input id="localFileUpload" type="file" name="fileUploadName" size="70" value="" />'+
 		'<br/><select id="fileFormatFileLocal" name="importformat"></select>'+
 		'<br/><input id="loadFile" value="Submit" type="submit" class="button" /></form><br/>'+
@@ -2886,6 +2883,11 @@ TILE.preLoad=null;
 			$("#uploadURL > input").attr('disabled','');
 		});
 		
+		// change the file upload submit method from default
+		$("#loadTagsDialog > .body > .option > #loadFromFile").bind("onsubmit",function(e){
+			$(this)[0].target='import_iframe';
+		});
+		
 		$("#loadTagsDialog > .body > .option > #selectFileUpload").trigger('click');
 		
 		$("#loadTagsDialog > .body > .option > .chooseFile").live('click',function(e){
@@ -2894,7 +2896,16 @@ TILE.preLoad=null;
 			$("#importURL").val($(this).val());
 		});
 		
-		
+		// check if there is file upload data
+		// pre-loaded in the iframe
+		if($("#import_iframe").length){
+			var pre=$("#import_iframe > textarea").val();
+			if(__v) console.log("loading from iframe: "+pre);
+			if(pre&&(pre.length>1)){
+				// load as preLoad
+				TILE.preLoad=pre;
+			}
+		}
 		
 		$("body").bind("openNewImage",{obj:this},this.close);
 		$("body").bind("openImport",{obj:this},this.close);
@@ -2907,7 +2918,7 @@ TILE.preLoad=null;
 		// the select element
 		addFormats:function(str){
 			var self=this;
-			if(__v) console.log('formats: '+str);
+			if(__v) console.log('file formats loaded: '+str);
 			$("#fileFormatFileURL").append(str);
 			$("#fileFormatFileLocal").append(str);
 		},
@@ -3055,6 +3066,17 @@ TILE.preLoad=null;
 		};
 		
 	TileToolBar.prototype={
+		// Add file formats to the Load and Save
+		// drop-downs
+		addFormats:function(str){
+			var self=this;
+			
+			self.formatstr+=str;
+			// add to Dialogs
+			self.loadDialog.addFormats(str);
+			self.saveDialog.addFormats(str);
+			
+		},
 		// Load in ToolSelect menu
 		// data : JSON object of tools and their objects
 		setChoices:function(data){

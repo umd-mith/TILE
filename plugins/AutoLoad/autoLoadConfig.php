@@ -12,7 +12,7 @@ $DEFAULT_SCRIPT="".$prefix."importWidgets/importXML.php?uri=".$prefix."importWid
 $swinburne="".$prefix."swinburne.json";
 $butterflies="".$prefix."butterflies.json";
 
-echo $butterflies;
+echo $DEFAULT_SCRIPT;
 
 
 

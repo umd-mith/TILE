@@ -8,11 +8,14 @@ var CoreData={
 		// add formats to the known formats
 		// Call the findFileFormats script
 		// store to later add to save and load dialogs
-		TILE.formats+=$.ajax({
+		var str=$.ajax({
 			url:'ImportExportScripts/findFileFormats.php',
 			type:'GET',
 			async:false
 		}).responseText;
+		
+		// send to tile engine
+		TILE.engine.addImportExportFormats(str);
 		
 		self.content=[];
 		
@@ -49,16 +52,16 @@ var CoreData={
 				// 					}
 				// 				});
 				if(!found){
-					// var el=self.xmlDoc.createElement('zone');
-					// 				el.setAttributeNS('xml','id',shape.id);
-					// 				el.setAttribute('rendition','');
-					// 				el.setAttribute('ulx',shape.posInfo.x);
-					// 				el.setAttribute('uly',shape.posInfo.y);
-					// 				el.setAttribute('lrx',(shape.posInfo.x+shape.posInfo.width));
-					// 				el.setAttribute('lry',(shape.posInfo.y+shape.posInfo.height));
-					// 				self.xmlDoc.getElementsByTagName('surface')[0].appendChild(el);
-					
-					$(self.xmlDoc).find('surface').append('<zone xml:id="'+shape.id+'" rendition="" ulx="'+shape.posInfo.x+'" uly="'+shape.posInfo.y+'" lrx="'+(shape.posInfo.x+shape.posInfo.width)+'" lry="'+(shape.posInfo.y+shape.posInfo.height)+'"></zone>');
+					var el=self.xmlDoc.createElement('zone');
+					el.setAttributeNS('http://www.tei-c.org/ns/1.0','xml:id',shape.id);
+					el.setAttribute('rendition','');
+					el.setAttribute('ulx',shape.posInfo.x);
+					el.setAttribute('uly',shape.posInfo.y);
+					el.setAttribute('lrx',(shape.posInfo.x+shape.posInfo.width));
+					el.setAttribute('lry',(shape.posInfo.y+shape.posInfo.height));
+					self.xmlDoc.getElementsByTagName('surface')[0].appendChild(el);
+
+					// $(self.xmlDoc).find('surface').append('<zone xml:id="'+shape.id+'" rendition="" ulx="'+shape.posInfo.x+'" uly="'+shape.posInfo.y+'" lrx="'+(shape.posInfo.x+shape.posInfo.width)+'" lry="'+(shape.posInfo.y+shape.posInfo.height)+'"></zone>');
 					
 					// creates: '<zone xml:id="'+shape.id+'" rendition="" ulx="'+shape.posInfo.x+'" uly="'+shape.posInfo.y+'" lrx="'+(shape.posInfo.x+shape.posInfo.width)+'" lry="'+(shape.posInfo.y+shape.posInfo.height)+'"></zone>'
 					if(__v){

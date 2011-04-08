@@ -9,6 +9,15 @@ TILE API
 ----
 A summary of the most-recent TILE API is included below. [API documentation](http://mith.umd.edu/tile/documentation/tile-api/) is also provided on the TILE website and reflects code shipped in the latest release; the API documented below may change with future commits.
 
+### Global Properties
+
+The base global property is the Object array **TILE**, which contains:
+* TILE.engine {Object} - A copy of the TILE_ENGINE instance.
+* TILE.url {String} - The current URL 
+* TILE.activeItems {Object array} - Array of current objects either visible or part of another Object's references.
+* TILE.preLoad {String/Object} - URL or Object that represents JSON that will be pre-loaded into TILE. Needs to be set before **activate** is called.
+
+
 ### INITIALIZING ENGINE
 
 **insertPlugin**(plugin {String})
@@ -31,6 +40,9 @@ Inserts the plugin named *plugin* into the Mode with matching name *name*. Do no
 Starts the TILE engine once all of the desired modes and plugins have been inserted using **insertMode**, **insertPlugin**, and **insertModePlugin**. If *name* is given, finds the matching Mode with that name and activates it first, after loading all of the src files.
 
 ### ADDING HTML
+
+**addImportExportFormats**(str {String})
+Attaches HTML in string format *str* to the Load and Save dialog drop-downs.
 
 **addToolBarButton**(button {Object})
 Attaches a button to the interface, based on the criteria passed. Returns a button object.
