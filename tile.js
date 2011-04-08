@@ -158,10 +158,14 @@ TILE.preLoad=null;
 					url:TILE.preLoad,
 					dataType:'json',
 					type:'GET',
-					success:function(json){
-						TILE.engine.parseJSON(json);
+					success:function(result){
+						json=result;
+						setUp();
+						
 					}
+					
 				});
+				return;
 			}
 		} else {
 			json=$.ajax({
@@ -3041,7 +3045,7 @@ TILE.preLoad=null;
 				if(!self.loadDialog){
 					self.loadDialog=new LoadDialog({loc:$("body")});
 					
-					self.loadDialog.addFormats(TILE.formats);
+					self.loadDialog.addFormats(self.formatstr);
 				}
 				
 				self.loadDialog.light.show();
@@ -3073,8 +3077,8 @@ TILE.preLoad=null;
 			
 			self.formatstr+=str;
 			// add to Dialogs
-			self.loadDialog.addFormats(str);
-			self.saveDialog.addFormats(str);
+			if(self.loadDialog) self.loadDialog.addFormats(str);
+			if(self.saveDialog) self.saveDialog.addFormats(str);
 			
 		},
 		// Load in ToolSelect menu
