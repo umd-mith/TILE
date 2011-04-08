@@ -54,8 +54,8 @@ if((isset($_FILES['fileUploadName']))){
 		# decode
 		$data=decode_format($txt,$format);
 		// send out by assigning to JScript variable
-		header('Content-type: text/javascript');
-		echo '<textarea>'.$data.'</textarea>';
+		header('Content-type: text/html');
+		echo '<textarea>'.htmlspecialchars($data).'</textarea>';
 		
 	}
 	

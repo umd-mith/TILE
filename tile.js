@@ -2763,8 +2763,12 @@ TILE.preLoad=null;
 		var self=this;
 		self.html='<div id="savedialogwhitespace" class="white_content"><div id="savedialog" class="dialog"><div class="header">'+
 		'<h2>Save Data <a href="#" id="savedialogclose" class="btnIconLarge close"></a></div><div class="body"><div class="option">'+
-		'<label>Pick a format: </label><select id="save_format"><option id="json" class="saveformat">JSON</option></select>'+
-		'<p>Saving as: <span id="saveas"></span></p><input id="save_session" value="Save" type="button" class="button" /></div></div></div></div><div id="darkForSaveDialog" class="black_overlay"></div>';
+		'<label>Pick a format: </label><select id="save_format"></select>'+
+		'<br/><input id="save_filename" type="text" placeholder="myfile.format" style="width:90%" />'+
+		'<p>Saving as: <span id="saveas"></span></p><input id="save_session" value="Save" type="button" class="button" />'+
+		'<input id="cancelSaveDialog" type="button" class="button" value="Cancel"/></div>'+
+		'<form id="hiddenSaveForm" method="post" action="PHP/forceDownload.php"><input type="hidden" id="download" name="uploadData" /></form></div></div></div>'+
+		'<div id="darkForSaveDialog" class="black_overlay"></div>';
 		// attach
 		$("body").append(self.html);
 		// make invisible
@@ -2772,6 +2776,7 @@ TILE.preLoad=null;
 		$("#savedialogwhitespace").hide();
 		$("#darkForSaveDialog").hide();
 		
+		// cancel button
 		
 		// stores all formats and their src destination
 		self.srcArray=[];
@@ -2782,7 +2787,6 @@ TILE.preLoad=null;
 		$("#save_format").change(function(e){
 			var val=$("#save_format > option:selected").val();
 			$("#savedialog > .body > .option > p > span").text('saving as '+val);
-			
 		});
 		
 		// close button event handler
@@ -2792,19 +2796,37 @@ TILE.preLoad=null;
 			$("#darkForSaveDialog").hide();
 		});
 		
+		$("#cancelSaveDialog").click(function(e){
+			e.preventDefault();
+			$("#savedialogwhitespace").hide();
+			$("#darkForSaveDialog").hide();
+		});
+		
 		// set up call to the PHP server
 		$("#savedialog > .body > .option > #save_session").click(function(e){
-			e.preventDefaut();
-			// make AJAX post request
-			$.ajax({
-				type:'post',
-				url:self.saveUrl,
-				data:{},
-				success:function(result){
-					// get results and feed to user
-					
-				}
-			});
+			e.preventDefault();
+			
+			// figure out chosen output method
+			var outMethod=$("#save_format > option:selected").text();
+			if(/json/i.test(outMethod)){
+				// use hidden form fields
+				$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
+				$("#inv_SaveProgress_Form > #uploadData").val($("#save_filename").val());
+				$("#inv_SaveProgress_Form").submit();
+				// $.ajax({
+				// 					type:'post',
+				// 					url:'PHP/forceJSON.php',
+				// 					data:{uploadData:deepcopy(json)},
+				// 					success:function(result){
+				// 						// get results and feed to user
+				// 
+				// 					}
+				// 				});
+			} else {
+				
+			}
+			
+			
 			
 			
 		});
@@ -2888,28 +2910,30 @@ TILE.preLoad=null;
 		});
 		
 		// change the file upload submit method from default
-		$("#loadTagsDialog > .body > .option > #loadFromFile").bind("onsubmit",function(e){
+		$("#loadTagsDialog > .body > .option > #loadFromFile").submit(function(e){
+			
 			$(this)[0].target='import_iframe';
+			
+		});
+		
+		// attach onload function to the iframe
+		$("#import_iframe").load(function(e){
+			// if(__v) console.log("IFRAME LOADED");
+			// if(__v) console.log("TEE HEE HEE: "+frames['import_iframe'].document.getElementsByTagName('body')[0].getElementsByTagName('textarea')[0].innerHTML);
+			// get JSON text
+			var str=frames['import_iframe'].document.getElementsByTagName('body')[0].getElementsByTagName('textarea')[0].innerHTML;
+			TILE.engine.parseJSON(JSON.parse(str));
+			$("#LTlight").hide();
+			$("#LTfade").hide();
+			
 		});
 		
 		$("#loadTagsDialog > .body > .option > #selectFileUpload").trigger('click');
 		
 		$("#loadTagsDialog > .body > .option > .chooseFile").live('click',function(e){
-		
 			// set the URL value to exporting in simple model form
 			$("#importURL").val($(this).val());
 		});
-		
-		// check if there is file upload data
-		// pre-loaded in the iframe
-		if($("#import_iframe").length){
-			var pre=$("#import_iframe > textarea").val();
-			if(__v) console.log("loading from iframe: "+pre);
-			if(pre&&(pre.length>1)){
-				// load as preLoad
-				TILE.preLoad=pre;
-			}
-		}
 		
 		$("body").bind("openNewImage",{obj:this},this.close);
 		$("body").bind("openImport",{obj:this},this.close);

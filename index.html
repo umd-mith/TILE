@@ -52,10 +52,11 @@
 	<!-- Submit Form for save progress-->
 	<form id="inv_SaveProgress_Form" class="submitFormHidden" method="POST" action="PHP/forceJSON.php">
 		<input id="uploadData" name="uploadData" class="submitFormHidden" type="text"/>
+		<input id="uploadFileName" name="uploadFileName" class="submitFormHidden" type="text" />
 	</form>
 	
 	<!-- Hidden iframe that handles the LoadDialog's Local File submits -->
-	<iframe id="import_iframe" src="ImportExportScripts/importDataScript.php" style="visibility:hidden"></iframe> 
+	<iframe id="import_iframe" name="import_iframe" src="ImportExportScripts/importDataScript.php" style="visibility:hidden"></iframe> 
 	<!-- Main area -->
 	<div class="az main twocol">
 		<div id="az_log" class="az log"></div>

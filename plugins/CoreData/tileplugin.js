@@ -1,5 +1,7 @@
 // Creates a link between Coredata.php and fellow libraries for importing and exporting into TILE
 
+// Data needs to be saved in containers
+
 var CoreData={
 	name:"CoreData",
 	start:function(mode){
@@ -17,17 +19,18 @@ var CoreData={
 		// send to tile engine
 		TILE.engine.addImportExportFormats(str);
 		
-		self.content=[];
-		
-		// handler for data creation (dataAdded)
-		$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
-		// catches the additional 'content' variable from Coredata.php
-		$("body").bind('contentCreated',function(e,content){
-		
-			self.xmlDoc=$.parseXML(content);
+		if(TILE.content){
+			self.xmlDoc=$.parseXML(TILE.content);
 			self.$xml=$( self.xmlDoc );
+		}
+		// handler for data creation (dataAdded)
+		// $("body").live("dataAdded",{obj:self},self.dataAddedHandle);
+		// catches the additional 'content' variable from Coredata.php
+		// $("body").bind('contentCreated',function(e,content){
+		
+		
 				
-		});
+		// });
 		// handlers for dataDeleted and dataUpdated
 		
 	},
