@@ -49,18 +49,22 @@ var CoreData={
 				// 					}
 				// 				});
 				if(!found){
-					var el=self.xmlDoc.createElement('zone');
-					el.setAttributeNS('xml','id',shape.id);
-					el.setAttribute('rendition','');
-					el.setAttribute('ulx',shape.posInfo.x);
-					el.setAttribute('uly',shape.posInfo.y);
-					el.setAttribute('lrx',(shape.posInfo.x+shape.posInfo.width));
-					el.setAttribute('lry',(shape.posInfo.y+shape.posInfo.height));
-					self.xmlDoc.getElementsByTagName('surface')[0].appendChild(el);
+					// var el=self.xmlDoc.createElement('zone');
+					// 				el.setAttributeNS('xml','id',shape.id);
+					// 				el.setAttribute('rendition','');
+					// 				el.setAttribute('ulx',shape.posInfo.x);
+					// 				el.setAttribute('uly',shape.posInfo.y);
+					// 				el.setAttribute('lrx',(shape.posInfo.x+shape.posInfo.width));
+					// 				el.setAttribute('lry',(shape.posInfo.y+shape.posInfo.height));
+					// 				self.xmlDoc.getElementsByTagName('surface')[0].appendChild(el);
+					
+					$(self.xmlDoc).find('surface').append('<zone xml:id="'+shape.id+'" rendition="" ulx="'+shape.posInfo.x+'" uly="'+shape.posInfo.y+'" lrx="'+(shape.posInfo.x+shape.posInfo.width)+'" lry="'+(shape.posInfo.y+shape.posInfo.height)+'"></zone>');
+					
 					// creates: '<zone xml:id="'+shape.id+'" rendition="" ulx="'+shape.posInfo.x+'" uly="'+shape.posInfo.y+'" lrx="'+(shape.posInfo.x+shape.posInfo.width)+'" lry="'+(shape.posInfo.y+shape.posInfo.height)+'"></zone>'
 					if(__v){
 						console.log("Resulting XML");
-						console.log(self.xmlDoc);
+						var n=new XMLSerializer();
+						console.log(n.serializeToString(self.xmlDoc));
 					}
 				}
 				break;
@@ -84,18 +88,26 @@ var CoreData={
 				var shape=obj.obj;
 				switch(obj.type.toLowerCase()){
 					case 'shapes':
-						var surface=self.xmlDoc.getElementsByTagName('surface')[0];
+						var zones=self.xmlDoc.getElementsByTagName('surface')[0].childNodes;
 						var found=false;
-						
-						$(surface).find('zone').each(function(i,o){
-							if($(o).attr('xml:id')==obj.id){
+						for(var x=0;x<zones.length;x++){
+							if(zones[x].getAttributeNS('http://www.tei-c.org/ns/1.0','xml:id')==shape.id){
 								if(o1){ 
-									o2=$(o);
+									o2=$(zones[x]);
 								} else {
-									o1=$(o);
+									o1=$(zones[x]);
 								}
 							}
-						});
+						}
+						// $(surface).find('zone').each(function(i,o){
+						// 							if($(o).attr('xml:id')==obj.id){
+						// 								if(o1){ 
+						// 									o2=$(o);
+						// 								} else {
+						// 									o1=$(o);
+						// 								}
+						// 							}
+						// 						});
 						// if(!found){
 						// 							
 						// 							$surface.append('<zone xml:id="'+shape.id+'" rendition="" ulx="'+shape.posInfo.x+'" uly="'+shape.posInfo.y+'" lrx="'+(shape.posInfo.x+shape.posInfo.width)+'" lry="'+(shape.posInfo.y+shape.posInfo.height)+'"></zone>');
