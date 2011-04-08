@@ -1144,7 +1144,7 @@ TILE.preLoad=null;
 		// with the current activeObj
 		linkWithActiveObj:function(obj1){
 			var self=this;
-			pluginControl.linkWithActiveObj(obj1);
+			return pluginControl.linkWithActiveObj(obj1);
 			
 		},
 		// Specifically link two particular objects together
@@ -2237,13 +2237,13 @@ TILE.preLoad=null;
 			// find the data reference
 			if(!data.id||!data.jsonName) return;
 			var ref=null;
-			
 			// handle represents element to attach to
 			data=self.findTileObj(data.id,data.type);
 			if(!data) return;
 			
 			if(!handle) handle="body";
 			var pos=$(handle).offset();
+			
 			if(!pos) return;
 			var left=(pos.left+$(handle).width()+10);
 			var top=(pos.top+$(handle).height()+10);
@@ -2273,6 +2273,7 @@ TILE.preLoad=null;
 			}
 			
 			self.floatDiv.setInputObject(data,refs);
+			$(".ui-dialog").show();
 		},
 		// Takes output from FloatingDiv and parses it out.
 		// Attaches refs to appropriate tool
@@ -2339,8 +2340,8 @@ TILE.preLoad=null;
 		linkWithActiveObj:function(obj1){
 			var self=this;
 			
-			if(!self.activeObj) return; // no activeObj, cancel
-			if(obj1.id==self.activeObj.id) return;
+			if(!self.activeObj) return false; // no activeObj, cancel
+			if(obj1.id==self.activeObj.id) return false;
 			
 			var o=self.findTileObj(obj1.id,obj1.type);
 			if(!o){
@@ -2358,6 +2359,7 @@ TILE.preLoad=null;
 			if(__v) console.log("linking with active object: "+JSON.stringify(self.activeObj));
 			var newo=self.linkObjects(self.activeObj,obj1);
 			$("body:first").trigger("dataLinked",[newo]);
+			return true;
 		},
 		// simplified version of toolOutput and floatDivOutput
 		addDataToJSON:function(data){

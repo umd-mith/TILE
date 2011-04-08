@@ -2049,7 +2049,14 @@ var IT={
 			TILE.engine.insertData(data);
 		
 			// link with activeObj, if any
-			TILE.engine.linkWithActiveObj(data);
+			if(TILE.engine.linkWithActiveObj(data)){
+			
+			} else {	
+				
+				self.itagger.raphael.setActiveShape(shape);
+				// set up active window
+				TILE.engine.attachMetadataDialog(data,'#selBB');
+			}
 			
 			// put on dashboard
 			$("body:first").trigger('displayOnDashboard',[{mode:'Image Annotation',html:''}]);
