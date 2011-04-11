@@ -70,15 +70,24 @@
 		}
 	};
 	
+	var streamXMLData=function(args){
+		var self=new CoreData(args);
+		
+	};
+	
 	// Used as base class for saving XML during client session
-	var streamXMLData=$.extend({
+	streamXMLData.prototype=$.extend({
 		
 		
 	},CoreData); 
 	
+	var teiWriter=function(args){
+		var self=new streamXMLData(args);
+		
+	};	
 	
 	// Uses base XML class to read TEI documents
-	var teiWriter=$.extend({
+	teiWriter.prototype=$.extend({
 		
 	},streamXMLData);
 
@@ -108,7 +117,7 @@ var CoreData={
 		if(TILE.content){
 			if(/xmlns\=\"http\:\/\/www\.tei\-c\.org/i.test(TILE.content)){
 				// handler for TEI XML
-				self.parser=new teiWriter({content:});
+				self.parser=new teiWriter({content:TILE.content});
 			}
 		}
 		
