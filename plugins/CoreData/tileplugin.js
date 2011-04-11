@@ -1,6 +1,90 @@
 // Creates a link between Coredata.php and fellow libraries for importing and exporting into TILE
 
-// Data needs to be saved in containers
+(function(){
+	var root=this;
+	
+	// COREDATA
+	// Base class that has methods
+	// for creating and editing base 
+	// containers of data
+	var CoreData=function(args){
+		if(!args.content) return;
+		
+		var self=this;
+		self.content=args.content;
+		self.containers=[];
+		
+	};
+	CoreData.prototype={
+		// step through content and tease out the
+		// containers
+		parseContent:function(){
+			// to be overwritten by child classes
+		},
+		// main function for saving data into. Decides
+		// which function to use
+		saveData:function(obj){
+			var self=this;
+			
+			switch(obj.type.toLowerCase()){
+				case 'shapes':
+					self.saveShape(obj);
+					break;
+				case 'lines':
+					self.saveLines(obj);
+					break;
+				case 'selections':
+					self.saveSelection(obj);
+					break;
+				case 'labels':
+					self.saveLabel(obj);
+					break;
+				default:
+					return;
+					break;
+			};
+		},
+		saveShape:function(obj){
+			
+		},
+		saveLine:function(obj){
+			
+		},
+		saveSelection:function(obj){
+			
+		},
+		saveLabel:function(obj){
+			
+		},
+		// Takes containers and outputs 
+		// JSON object 
+		to_json:function(){
+			var self=this;
+			
+			var json=TILE.engine.getJSON();
+			var data={'content':self.content,'tile':json};
+			
+			// output
+			return data;
+			
+		}
+	};
+	
+	// Used as base class for saving XML during client session
+	var streamXMLData=$.extend({
+		
+		
+	},CoreData); 
+	
+	
+	// Uses base XML class to read TEI documents
+	var teiWriter=$.extend({
+		
+	},streamXMLData);
+
+	
+});
+
 
 var CoreData={
 	name:"CoreData",
@@ -19,10 +103,16 @@ var CoreData={
 		// send to tile engine
 		TILE.engine.addImportExportFormats(str);
 		
+		// create appropriate parser
+		self.parser=null;
 		if(TILE.content){
-			self.xmlDoc=$.parseXML(TILE.content);
-			self.$xml=$( self.xmlDoc );
+			if(/xmlns\=\"http\:\/\/www\.tei\-c\.org/i.test(TILE.content)){
+				// handler for TEI XML
+				self.parser=new teiWriter({content:});
+			}
 		}
+		
+	
 		// handler for data creation (dataAdded)
 		// $("body").live("dataAdded",{obj:self},self.dataAddedHandle);
 		// catches the additional 'content' variable from Coredata.php

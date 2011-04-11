@@ -1079,8 +1079,9 @@ TILE.preLoad=null;
 					if(__v) console.log('loading in tile_engine');
 					json=deepcopy(file['tile']);
 					
-					// use the content
-					$("body:first").trigger("contentCreated",[file['content']]);
+					// use the content in global variable 
+					TILE.content=deepcopy(file['content']);
+					// $("body:first").trigger("contentCreated",[file['content']]);
 					
 				}
 				if(TILE.activeItems||curPage){
@@ -2810,6 +2811,7 @@ TILE.preLoad=null;
 			
 			// figure out chosen output method
 			var outMethod=$("#save_format > option:selected").text();
+			var outValue=$("#save_format > option:selected").val();
 			if(/json/i.test(outMethod)){
 				// use hidden form fields
 				$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
@@ -2824,7 +2826,7 @@ TILE.preLoad=null;
 				// 
 				// 					}
 				// 				});
-			} else {
+			} else if(outValue){
 				
 			}
 			
