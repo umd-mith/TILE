@@ -39,6 +39,7 @@ TILE.url='';
 TILE.engine={};
 TILE.formats='';
 TILE.preLoad=null;
+TILE.scale=1;
 
 (function($){
 	var tile=this;
@@ -1470,7 +1471,7 @@ TILE.preLoad=null;
 		self.content=[];
 		
 		// set optional callback functions
-		self.activeCall=active;
+		self.activeCall=self.name+'IsActive';
 		self.unActiveCall=unactive;
 		
 		// array of plugins
@@ -1500,7 +1501,6 @@ TILE.preLoad=null;
 			var self=this;
 			// change name to fit style
 			var styleName=self.name.toLowerCase().replace(/ /g,'');
-			if(__v) console.log("styleName: "+styleName+'  section: '+section+' area: '+area);
 			// area defines if its a toolbar addon or 
 			//  a content area add-on
 			
@@ -1652,7 +1652,6 @@ TILE.preLoad=null;
 		// plugins in set
 		setActive:function(){
 			var self=this;
-			if(__v) console.log('setactive for '+self.name);
 			var styleName=self.name.toLowerCase().replace(/ /g,'');
 			if(!self.setUp){
 				// set up the plugins in array
@@ -1674,9 +1673,8 @@ TILE.preLoad=null;
 			$(".az.globalmenu > .globalbuttons > .modeitems > div a").removeClass('active');
 			// show button as active
 			$(".az.globalmenu > .globalbuttons > .modeitems > div > a:contains("+self.name+")").addClass("active");
-			if(self.activeCall){
-				self.activeCall();
-			}
+			// alert attached plugins 
+			$("body:first").trigger(self.activeCall);
 		},
 		// special function 
 		setUnActive:function(){
@@ -2767,7 +2765,7 @@ TILE.preLoad=null;
 		self.html='<div id="savedialogwhitespace" class="white_content"><div id="savedialog" class="dialog"><div class="header">'+
 		'<h2>Save Data <a href="#" id="savedialogclose" class="btnIconLarge close"></a></div><div class="body"><div class="option">'+
 		'<label>Pick a format: </label><select id="save_format"></select>'+
-		'<br/><input id="save_filename" type="text" placeholder="myfile.format" style="width:90%" />'+
+		'<br/><input id="save_filename" name="uploadFileName" type="text" placeholder="myfile.format" style="width:90%" />'+
 		'<p>Saving as: <span id="saveas"></span></p><input id="save_session" value="Save" type="button" class="button" />'+
 		'<input id="cancelSaveDialog" type="button" class="button" value="Cancel"/></div>'+
 		'<form id="hiddenSaveForm" method="post" action="PHP/forceDownload.php"><input type="hidden" id="download" name="uploadData" /></form></div></div></div>'+

@@ -59,7 +59,7 @@
 			"<a id=\"selectAll\" class=\"textlink\">Select All</a> | <a id=\"selectNone\" class=\"textlink\">Select None</a></div><div class=\"buttondiv\">"+
 			"<a id=\"autorec_recognize\" class=\"button\">Perform Line Recognition</a></div></div></div>";
 			self.canvasArea=$("#azcontentarea").parent(); //use this later to put in CanvasImage object
-			self.canvasHTML='<div id="canvasHTML" class="workspace"><canvas id="canvas"/></div>';
+			self.canvasHTML='<div id="canvasHTML" class="workspace"><canvas id="canvas"/><img id="hiddenCanvasSource" src="" style="visibility:hidden;width="";height="";"/></div>';
 			self.REST='http://localhost:8888/tile/linerecognizer/LineRecognizer.php?ct=j';
 			self.transcript=(args.transcript)?args.transcript:null;
 			// if(!self.loc) throw "Error in construction for AutoRecognizer";
@@ -135,8 +135,10 @@
 			
 			//swap out other canvas/image area data for CanvasImage
 			self.swapCanvas();
+			// load in the transcript
 			self._loadTranscript();
-			
+			// set up the image in the canvas 
+			self.CANVAS.setUpCanvas();
 			
 			
 			// show the region box automatically
@@ -167,7 +169,7 @@
 				self.CAR = new CanvasAutoRecognizer({
 					canvas:self.CANVAS.canvas,
 			        canvasImage:self.srcImage,
-					imageEl: "srcImageForCanvas",
+					imageEl: "hiddenCanvasSource",
 		            regionID: "regionBox"
 		        });
 				
@@ -197,12 +199,12 @@
 						self.CAR.thresholdConversion();
 					}
 				});
-				if(TILE.url){
-					var cursrc=TILE.url;
-					if(!(cursrc in self.url)) self.url.push($("#srcImageForCanvas").attr("src"));
-					//adjust regionBox size
-					var newScale=self.DOM.width()/$("#srcImageForCanvas")[0].width;
-				}
+				// if(TILE.url){
+				// 					var cursrc=TILE.url;
+				// 					if(!(cursrc in self.url)) self.url.push($("#hiddenCanvasSource").attr("src"));
+				// 					//adjust regionBox size
+				// 					var newScale=self.DOM.width()/$("#hiddenCanvasSource")[0].width;
+				// 				}
 				//change the toolbar
 				$("#listView").parent().unbind("click");
 				$("#pgNext").unbind("click");
@@ -271,7 +273,6 @@
 			var out="";
 			// reset line manifest
 			self.lineManifest=[];
-			if(__v) console.log("Loading auto rec transcript");
 			if(self.transcript){
 				self.transcriptArea.empty();
 				for(var t in self.transcript.lines){
@@ -356,7 +357,7 @@
 		        "width": dims.width,
 		        "height": dims.height,
 		        "rgb": rgb,
-				"uri":$("#srcImageForCanvas").attr('src')
+				"uri":$("#hiddenCanvasSource").attr('src')
 		    };
 		
 			self.transcriptArea.children(".selected").each(function(i,o){
@@ -378,7 +379,7 @@
 			var rx=$("#regionBox").position().left;
 			var ry=$("#regionBox").position().top;
 			// url comes from hidden img 
-			var url=$("#srcImageForCanvas").attr('src');
+			var url=$("#hiddenCanvasSource").attr('src');
 			
 			// get the correct dimensions at scale 1
 			if(TILEIMGSCALE<1){
@@ -469,18 +470,18 @@
 			if(!self.regionBox) return;
 			if(self.regionBox.DOM.css("display")=='none') return;
 			self._capture();
-			var url=$("#srcImageForCanvas").attr('src');
+			var url=$("#hiddenCanvasSource").attr('src');
 			if(self.regionList) {
 				//add to this region's images
-			//	self.regionList[self.curRegion].images.push($("#srcImageForCanvas").attr('src'));
+			//	self.regionList[self.curRegion].images.push($("#hiddenCanvasSource").attr('src'));
 				numOfLines = self.activeLines.length;
 			    bucket = self.CAR.createLineBreaks(numOfLines);
 				bucket.sort(function(a,b){return(a-b);});
 				curLinesArray = [];
 				
 				// figure out the current image scale
-				var w=$("#srcImageForCanvas")[0].width;
-				var h=$("#srcImageForCanvas")[0].height;
+				var w=$("#hiddenCanvasSource")[0].width;
+				var h=$("#hiddenCanvasSource")[0].height;
 				var scalecorrectx= 1;//parseFloat(1/$("#canvas")[0].width);
 				var scalecorrecty=1;//parseFloat(1/$("#canvas")[0].height);
 				//get the current region 
@@ -567,7 +568,7 @@
 			var self=this;
 			var url=TILE.url;
 			if(url){
-				$("#srcImageForCanvas").attr("src",url.substring((url.indexOf('=')+1)));
+				$("#hiddenCanvasSource").attr("src",url.substring((url.indexOf('=')+1)));
 			}
 			// output all data found
 			if(data) {
@@ -627,7 +628,7 @@
 				if(args.height) this.DOM.height(args.height);
 			}
 			//grab source image 
-	 		this.srcImage = $("#srcImageForCanvas");
+	 		this.srcImage = $("#hiddenCanvasSource");
 			// attach html
 	 		// this.loc.append($());
 			
@@ -642,8 +643,9 @@
 			});
 	
 	 		this.DOM = $("#canvasHTML");
-			this.DOM.width(this.DOM.closest(".az.content").width());
-			this.DOM.height(this.DOM.closest(".az.content").height()-this.DOM.closest(".toolbar").height()).css("overflow","auto");
+			
+			this.DOM.width($("#azcontentarea").width());
+			this.DOM.height(this.DOM.closest(".az.content").height()-this.DOM.closest(".toolbar").height());
 			
 			// set up listeners for zoom buttons
 			$(alrcontainer+" > .toolbar > ul > li > a#zoomIn").live('click',function(e){
@@ -682,7 +684,7 @@
 			});
 			// $("body").bind("SecurityError1000",function(e){
 			// 				e.stopPropagation();
-			// 				self.setUpCanvas($("#srcImageForCanvas").attr('src'));
+			// 				self.setUpCanvas($("#hiddenCanvasSource").attr('src'));
 			// 				return;
 			// 			});
 		};
@@ -725,10 +727,10 @@
 				$("#regionBox").css("top",t+'px');
 			}
 			
-			var nw=$("#srcImageForCanvas")[0].width*self._scale;
-			var nh=$("#srcImageForCanvas")[0].height*self._scale;
-			$("#srcImageForCanvas").width(nw);
-			self.context.drawImage(self.imageEl, 0, 0, ($("#srcImageForCanvas")[0].width*self._scale), ($("#srcImageForCanvas")[0].height*self._scale));
+			var nw=$("#hiddenCanvasSource")[0].width*self._scale;
+			var nh=$("#hiddenCanvasSource")[0].height*self._scale;
+			$("#hiddenCanvasSource").width(nw);
+			self.context.drawImage(self.imageEl, 0, 0, ($("#hiddenCanvasSource")[0].width*self._scale), ($("#hiddenCanvasSource")[0].height*self._scale));
 			
 			
 			
@@ -742,38 +744,42 @@
 		// ------------------------------------------------------
 		setUpCanvas: function(url){
 			var self = this;
-			// $("#srcImageForCanvas").hide();
+			// $("#hiddenCanvasSource").hide();
 			self.canvas[0].width=0;
 			// self._loadPage.appendTo(self.DOM);
-		
+			if(TILE.url=='') return;
 			
-			$("#srcImageForCanvas").load(function(e){
+			$("#hiddenCanvasSource").load(function(e){
+				
 				// make sure the image really loaded
-				if($(this).attr('src').length==0) {
-					$(this).attr('src',url);
-					return;
-				}
+				// if($(this).attr('src').length==0) {
+				// 					$(this).attr('src',TILE.url);
+				// 					return;
+				// 				}
 				// self._loadPage.remove();
-				// $("#srcImageForCanvas").show();
-				var ow=$("#srcImageForCanvas")[0].width*TILEIMGSCALE;
-				var oh=$("#srcImageForCanvas")[0].height*TILEIMGSCALE;
-				if(__v) console.log("autorec reads that img is size: "+ow+" "+oh);
+				// $("#hiddenCanvasSource").show();
+				var ow=$("#hiddenCanvasSource")[0].width*TILEIMGSCALE;
+				var oh=$("#hiddenCanvasSource")[0].height*TILEIMGSCALE;
+				
 				// if the current width/height too big for the window, size down
 				if((ow>$("#canvasHTML").width())||($("#canvasHTML").height()<oh)){
 					
-					while((ow>$("#canvasHTML").width())||($("#canvasHTML").height()<oh)){
-						ow*=0.75;
-						oh*=0.75;
-						TILEIMGSCALE*=0.75;
-					}
+					$("#canvasHTML").width(ow*2);
+					$("#canvasHTML").height(oh*2);
+					
+					// while((ow>$("#canvasHTML").width())||($("#canvasHTML").height()<oh)){
+					// 					ow*=0.75;
+					// 					oh*=0.75;
+					// 					TILEIMGSCALE*=0.75;
+					// 				}
 				}
 				
 				
-				$("#srcImageForCanvas").css("width","");
-				var real_width=$("#srcImageForCanvas")[0].width;
-				var real_height=$("#srcImageForCanvas")[0].height;
+				$("#hiddenCanvasSource").css("width","");
+				var real_width=$("#hiddenCanvasSource")[0].width;
+				var real_height=$("#hiddenCanvasSource")[0].height;
 				
-				self.curUrl=$("#srcImageForCanvas").attr("src");
+				self.curUrl=$("#hiddenCanvasSource").attr("src");
 				
 				
 				self.canvas[0].width = real_width;
@@ -788,32 +794,40 @@
 				self.canvas.attr("height",self.canvas[0].height);
 			
 				self.context=self.canvasEl.getContext('2d');
-				self.context.drawImage($("#srcImageForCanvas")[0], 0, 0, self.canvas[0].width, self.canvas[0].height);
+				self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
 				$("#"+self.uid).width($("#azcontentarea").width());
 				$("#"+self.uid).height($("#azcontentarea").height()-$("#azcontentarea > .az.inner > .toolbar").innerHeight());
 				$(this).unbind("load");
-				self._scale=TILEIMGSCALE;
-				if(self._scale!=1){
-					var w=self.canvas.width()*self._scale;
-					var h=self.canvas.height()*self._scale;
-					self.canvas[0].width=w;
-					self.canvas[0].height=h;
-					var nw=$("#srcImageForCanvas")[0].width*self._scale;
-					var nh=$("#srcImageForCanvas")[0].height*self._scale;
-					$("#srcImageForCanvas").width(nw);
-					self.context.drawImage(self.imageEl, 0, 0, ($("#srcImageForCanvas")[0].width*self._scale), ($("#srcImageForCanvas")[0].height*self._scale));
-				}
+				// self._scale=TILEIMGSCALE;
+				// 				if(self._scale!=1){
+				// 					var w=self.canvas.width()*self._scale;
+				// 					var h=self.canvas.height()*self._scale;
+				// 					self.canvas[0].width=w;
+				// 					self.canvas[0].height=h;
+				// 					var nw=$("#hiddenCanvasSource")[0].width*self._scale;
+				// 					var nh=$("#hiddenCanvasSource")[0].height*self._scale;
+				// 					$("#hiddenCanvasSource").width(nw);
+				// 					self.context.drawImage(self.imageEl, 0, 0, ow, oh);
+				// 				}
+				
+				$("#regionBox").width((ow-20));
+				$("#regionBox").height((oh-20));
+				
 				// show the region box after the image has loaded
 				$("#regionBox").show();
 				
 			});
+			var cleanURL='';
 			// test for remote image and that the url isn't already inserted with the 'PHP'
-			if((/file::/.test(url)==false)&&(/PHP\//.test(url)==false)){
+			if((/file::/.test(TILE.url)==false)&&(/PHP\//.test(TILE.url)==false)){
 				var rootUri = window.location.href;
 				rootUri=rootUri.substring(0,rootUri.lastIndexOf("/"));
-				url=rootUri+"/"+TILE.engine.serverRemoteImgUrl+"?uimg="+url;
+				cleanURL=rootUri+"/"+TILE.engine.serverRemoteImgUrl+"?uimg="+TILE.url;
+			} else {
+				cleanURL=TILE.url;
 			}
-			$("#srcImageForCanvas")[0].src=url;
+			
+			$("#hiddenCanvasSource").attr('src',cleanURL);
 		},
 		//Close Out for CanvasImage
 		// hides the container DOM
@@ -834,7 +848,7 @@
 		// Re-draws the canvas
 		_resetCanvasImage:function(){
 			var self=this;
-			self.context.drawImage($("#srcImageForCanvas")[0], 0, 0, ($("#srcImageForCanvas")[0].width*self._scale), ($("#srcImageForCanvas")[0].height*self._scale));			
+			self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ($("#hiddenCanvasSource")[0].width*TILEIMGSCALE), ($("#hiddenCanvasSource")[0].height*TILEIMGSCALE));			
 		},
 		//get percentage/proportional value of canvas container to canvas
 		_getPerc:function(){
@@ -1412,7 +1426,7 @@
 							//create a blank slate - somehow 'createImageData' doesn't work in this case
 							//var zoomData=this.canvasImage.getZoomLevel();
 						
-							this.context.drawImage(this.imageEl[0], 0, 0, this.imageEl.width(),this.imageEl.height());
+							this.context.drawImage(this.imageEl[0], 0, 0, ($("#hiddenCanvasSource")[0].width*TILEIMGSCALE),($("#hiddenCanvasSource")[0].height*TILEIMGSCALE));
 							//find new regionData from same or different coordinates (if user set new coordinates with 'convertBW' button)
 							try{
 								this.regionData=this.context.getImageData(rl, rt, rw, rh); 
@@ -1424,7 +1438,7 @@
 								  // in black and white, but the user can still click 'Go' and get data
 								
 								this.regionData=null;
-								this.context.drawImage(this.imageEl[0], 0, 0, (this.canvas.width()),(this.canvas.height()));
+								this.context.drawImage(this.imageEl[0], 0, 0, ($("#hiddenCanvasSource")[0].width*TILEIMGSCALE),($("#hiddenCanvasSource")[0].height*TILEIMGSCALE));
 								return;
 								// this.thresholdConversion(threshold);
 								// $("body:first").trigger("SecurityError1000");
@@ -1780,18 +1794,10 @@ var AR={
 		// self.engine=engine;
 		// If AR object not yet set, create new one
 		if(!self.__AR__){
-			var json=TILE.engine.getJSON();
+			var json=TILE.engine.getJSON(true);
 			this.__AR__=new TileOCR({loc:"az_log",transcript:json});
 			// create a new mode with a callback function
-			var onActive=function(){
-				// get data
-				var data=TILE.engine.getJSON(true);
-				
-				
-				self.__AR__._restart(data);
-				$("#autoreclog").css("z-index","5");
-			};
-			if(__v) console.log('start function for '+mode);
+			
 			self.tileMode=mode;
 			
 			// attach html to the interface
@@ -1804,6 +1810,7 @@ var AR={
 			
 			// construct auto Rec
 			this.__AR__._setUp();
+		
 			
 			// un-hide elements
 			$("#az_activeBox").show();
@@ -1912,6 +1919,8 @@ var AR={
 				}
 				
 			});
+			
+		
 		} 
 	},
 	constructed:false,
@@ -1930,11 +1939,11 @@ var AR={
 		$(".toolbar > ul > li > #pointer").hide();
 		$(".toolbar > ul > li > a > #listView").parent().hide();
 		$(".toolbar > ul > li > #rect").parent().parent().hide();
-		$("#srcImageForCanvas").hide();
+		$("#hiddenCanvasSource").hide();
 		// make sure we have correct arjson data
 		if (!arjson.lines) {
 		
-			arjson = arjson[$("#srcImageForCanvas").attr("src")];
+			arjson = arjson[$("#hiddenCanvasSource").attr("src")];
 		};
 		
 		//already constructed, initiate main engine restart function
