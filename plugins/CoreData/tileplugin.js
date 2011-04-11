@@ -76,10 +76,12 @@
 	};
 	
 	// Used as base class for saving XML during client session
-	streamXMLData.prototype=$.extend({
+	streamXMLData.prototype=$.extend(CoreData.prototype,{
+		parseContent:function(){
+			
+		}
 		
-		
-	},CoreData); 
+	}); 
 	
 	var teiWriter=function(args){
 		var self=new streamXMLData(args);
@@ -87,9 +89,9 @@
 	};	
 	
 	// Uses base XML class to read TEI documents
-	teiWriter.prototype=$.extend({
+	teiWriter.prototype=$.extend(streamXMLData.prototype,{
 		
-	},streamXMLData);
+	});
 
 	
 });
