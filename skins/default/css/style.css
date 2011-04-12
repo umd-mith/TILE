@@ -284,6 +284,7 @@ a.btnIconLarge:hover {
 }
 #canvasHTML.workspace{
 	position:absolute;
+	overflow:none;
 }
 .vd-container{
 	z-index:1032;

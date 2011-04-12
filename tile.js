@@ -1121,15 +1121,11 @@ TILE.scale=1;
 			// if an array, use separate method
 			if($.isArray(data)){
 				for(var x in data){
-					
 					pluginControl.addDataToJSON(data[x]);
 				}
 			} else {
-			
 				pluginControl.addDataToJSON(data);
 			}
-			
-			// pluginControl.setJSON();
 		},
 		// Take the passed obj Object with minimal variables
 		// id and type, and update what is currently in the JSON
@@ -1471,7 +1467,7 @@ TILE.scale=1;
 		self.content=[];
 		
 		// set optional callback functions
-		self.activeCall=self.name+'IsActive';
+		self.activeCall=self.name.substring(0,3)+'IsActive';
 		self.unActiveCall=unactive;
 		
 		// array of plugins
@@ -1656,9 +1652,9 @@ TILE.scale=1;
 			if(!self.setUp){
 				// set up the plugins in array
 				for(var x in self.parr){
-					self.parr[x].start(self);
+					self.parr[x].start(this);
 				}
-				self.setUp=true;
+				
 			}
 			// hide dialog(s)
 			$(".ui-dialog").hide();
@@ -1673,8 +1669,14 @@ TILE.scale=1;
 			$(".az.globalmenu > .globalbuttons > .modeitems > div a").removeClass('active');
 			// show button as active
 			$(".az.globalmenu > .globalbuttons > .modeitems > div > a:contains("+self.name+")").addClass("active");
+			if(__v) console.log('alerting set activecall: '+self.activeCall);
 			// alert attached plugins 
-			$("body:first").trigger(self.activeCall);
+			if(!self.setUp){
+				self.setUp=true;
+			} else {
+				// restart all listening elements
+				$("body > div").trigger(self.activeCall);
+			}
 		},
 		// special function 
 		setUnActive:function(){
@@ -1982,21 +1984,19 @@ TILE.scale=1;
 					if(json.pages[prop].url==_newActiveObj.jsonName){
 						// found page
 						var page=json.pages[prop];
-						if(!json.pages[prop][_newActiveObj.type]){
+						if(!page[_newActiveObj.type]){
 							// array doesn't exist yet - insert data 
 							// and use the object as activeObj
-							json.pages[prop][_newActiveObj.type]=[_newActiveObj.obj];
+							page[_newActiveObj.type]=[_newActiveObj.obj];
 							self.activeObj=_newActiveObj;
-							if(__v) console.log("obj inserted setActiveObj: "+JSON.stringify(self.activeObj));
 							TILE.activeItems.push(self.activeObj.obj);
 						} else {
 							// already an array in session - check to see
 							// if there is a matching ID
-							
-							for(var item in json.pages[prop][_newActiveObj.type]){
-								if(_newActiveObj.id==json.pages[prop][_newActiveObj.type][item].id){
+							for(var item in page[_newActiveObj.type]){
+								if(_newActiveObj.id==page[_newActiveObj.type][item].id){
 									// copy into object
-									_newActiveObj.obj=deepcopy(json.pages[prop][_newActiveObj.type][item]);
+									_newActiveObj.obj=deepcopy(page[_newActiveObj.type][item]);
 									
 									self.activeObj=_newActiveObj;
 									if(__v) console.log("obj found on page: "+JSON.stringify(self.activeObj));
@@ -2006,7 +2006,7 @@ TILE.scale=1;
 							}
 							if(!self.activeObj){
 								// insert into array
-								json.pages[prop][_newActiveObj.type].push(_newActiveObj.obj);
+								page[_newActiveObj.type].push(_newActiveObj.obj);
 								self.activeObj=_newActiveObj;
 								TILE.activeItems.push(self.activeObj.obj);
 							} 
@@ -2080,8 +2080,6 @@ TILE.scale=1;
 					page[data.type]=[];
 				}
 				page[data.type].push(data.obj);
-				if(__v) console.log("putData performed put: ");
-				if(__v) console.log(data.type+'  '+JSON.stringify(page[data.type]));
 				
 			} else {
 				if(!json[data.type]){
@@ -2099,7 +2097,6 @@ TILE.scale=1;
 			var self=this;
 			if(!data) return;
 			if(!data.jsonName) data.jsonName=data.type;
-			if(__v) console.log("replacing "+JSON.stringify(data));
 			// find Object and replace it
 			// get reference to old version
 			if(!json[data.type]){
@@ -2208,7 +2205,6 @@ TILE.scale=1;
 						break;
 					}
 				}
-				if(__v) console.log('findTileObj found on page '+JSON.stringify(page));
 				if((!page)||(!page[type])) return null;
 				for(var item in page[type]){
 					if(id==page[type][item].id){
@@ -2351,7 +2347,6 @@ TILE.scale=1;
 				// get object
 				self.putData(obj1);
 				o=self.findRealObj(obj1.id,obj1.type);
-				if(__v) console.log('inserted new data and got: '+JSON.stringify(o));
 				obj1.obj=o;
 				mouseNormal();
 			}
@@ -2387,7 +2382,7 @@ TILE.scale=1;
 				obj=self.findTileObj(data.id,data.type);
 			}
 			
-			$("body:first").trigger("dataAdded",[obj]);
+			$("body:first").trigger("dataAdded",[deepcopy(obj)]);
 			mouseNormal();
 			// quit
 			return;
@@ -2512,7 +2507,6 @@ TILE.scale=1;
 						$.merge(json.pages[page][obj1.type][found][obj2.type],[obj2.id]);
 						robj1={"id":obj1.id,"type":obj1.type,"jsonName":page,"obj":deepcopy(json.pages[page][obj1.type][found])};
 						
-						if(__v) console.log(obj2.type+" "+obj2.id+" INSERTED IN "+found+'  '+JSON.stringify(json.pages[page][obj1.type][found]));
 					}					
 					
 				} else {
@@ -2552,7 +2546,6 @@ TILE.scale=1;
 					
 						$.merge(json[obj1.type][found][obj2.type],[obj2.id]);
 						robj1={"id":obj1.id,"type":obj1.type,"jsonName":obj1.type,"obj":deepcopy(json[obj1.type][found])};
-					if(__v) console.log(obj2.type+" "+obj2.id+" INSERTED: "+found+'  '+JSON.stringify(json[obj1.type][found]));
 					}
 				
 				}
@@ -2602,7 +2595,6 @@ TILE.scale=1;
 					if($.inArray(obj2.id,json.pages[page][obj2.type][found][obj1.type])){
 						$.merge(json.pages[page][obj2.type][found][obj1.type],[obj1.id]);
 						robj2={"id":obj2.id,"type":obj2.type,"jsonName":page,"obj":deepcopy(json.pages[page][obj2.type][found])};
-						if(__v) console.log(obj1.type+" "+obj1.id+" INSERTED IN: "+found+'  '+JSON.stringify(json.pages[page][obj2.type][found]));
 					}	
 				} else {
 					var found=-1;
@@ -2627,8 +2619,6 @@ TILE.scale=1;
 					if($.inArray(obj1.id,json[obj2.type][found][obj1.type])<0){
 						$.merge(json[obj2.type][found][obj1.type],[obj1.id]);
 						robj2={"id":obj2.id,"type":obj2.type,"jsonName":obj2.type,"obj":deepcopy(json[obj2.type][found])};
-						
-						if(__v) console.log(obj1.type+" "+obj1.id+" INSERTED: "+found+'  '+JSON.stringify(json[obj2.type][found]));
 					}
 				}
 				return [robj1,robj2];

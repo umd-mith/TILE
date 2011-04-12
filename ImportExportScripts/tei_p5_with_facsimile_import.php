@@ -17,7 +17,7 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
     protected $containers_by_id = array();
     private   $zone_xpath;
     
-    public function __construct($content) {
+    public function __construct($content,$imgpath) {
 		array_push($this->import_namespaces,'XML set to TEI DTD and utilizing <facsimile>');
         $this -> setMilestoneXPath('//facsimile|//text/body/div');
         $this -> setImageURLXPath('//facsimile/surface/graphic/@url');

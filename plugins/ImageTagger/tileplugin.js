@@ -246,6 +246,16 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// only outputs - doesn't provide link metadata
 			return false;
 		},
+		addNewShapesToStack:function(shape){
+			var self=this;
+			if(__v) console.log('addNewShapesToStack: '+JSON.stringify(shape));
+			if(self.raphael){
+				if($.inArray(shape.id,self.raphael.shapeIds)<0){
+					self.raphael.shapeIds.push(shape.id);
+					self.raphael.manifest.push(shape);
+				} 
+			}
+		},
 		loadNewShapes:function(shapes){
 			var self=this;
 			
@@ -942,10 +952,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			self.drawTool.clearShapes();
 			// clear buttons
 			$(".shpButtonHolder").remove();
-			if(__v){
-				console.log("Shapes reached in loadShapes");
-				console.log(JSON.stringify(shapes));
-			}
+			
 			if(!shapes.length) return;
 			var vd=[];
 			// collate shapes array with 
@@ -954,7 +961,14 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				if(!shapes[prop]){
 					continue;
 				}
+				
 				var shape=shapes[prop];
+				if(!shape.posInfo){
+					// just an id, need to find object
+					shape=self.findShapeFromId(shape);
+					if(!shape) return;
+				}
+				
 				if($.inArray(shape.id,self.shapeIds)<0){
 					self.manifest.push(shape);
 					self.shapeIds.push(shape.id);
@@ -973,6 +987,18 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			self.drawTool.importShapes(vd);
 			// self.drawTool.selectShape(vd[0]);
 			// 		$("body:first").trigger("shapeIsActive",[vd[0]]);
+		},
+		findShapeFromId:function(id){
+			var self=this;
+			var sh=null;
+			// step through manifest
+			for(var s in self.manifest){
+				if(self.manifest[s].id==id){
+					sh=self.manifest[s];
+					break;
+				}
+			}
+			return sh;
 		},
 		//creates the VectorDrawer tool and sets up necessary 
 		// listeners
@@ -1227,11 +1253,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// clear out the selBB element
 			$(".shpButtonHolder").remove();
 			
-			// just export all the shapes out and load into transcript line
-			// var vd=self.drawTool.exportShapes();
-			// 		for(i in vd){
-			// 			vd[i]=vd[i].id;
-			// 		}
+		
 			if(!self.manifest) self.manifest=[];
 			// take shape and pass it into the internal manifest file
 			if(!self.manifest.push){
@@ -2050,7 +2072,7 @@ var IT={
 		
 			// link with activeObj, if any
 			if(TILE.engine.linkWithActiveObj(data)){
-			
+				
 			} else {	
 				
 				self.itagger.raphael.setActiveShape(shape);
@@ -2161,7 +2183,7 @@ var IT={
 				TILE.engine.attachMetadataDialog(data,"#selBB");
 			});
 			// bind ENGINE events
-			// $("body").live("dataAdded",{obj:self},self.dataAddedHandle);
+			$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
 			$("body").live("newActive",{obj:self},self.newActiveHandle);
 			$("body").live("newJSON newPage",{obj:self},self.newJSONHandle);
 			
@@ -2182,6 +2204,10 @@ var IT={
 	dataAddedHandle:function(e,obj){
 		var self=e.data.obj;
 		if(obj.type!='shapes') return;
+		// if already in manifest, return
+		if($.inArray(obj.id,self.itagger.raphael.shapeIds)>=0){
+			return;
+		}
 		shape=obj.obj;
 		
 		if(self.itagger.curURL!=TILE.url){
@@ -2202,19 +2228,7 @@ var IT={
 		// 			}
 		// 		}
 		
-		self.itagger.loadNewShapes(vd);
-		// if active shape present, attach metadata dialog
-		if(shape&&obj){
-			self.itagger.raphael.setActiveShape(shape);
-			// var shp={
-			// 			id:a.id,
-			// 			type:'shapes',
-			// 			jsonName:TILE.url,
-			// 			obj:shape
-			// 		};
-			TILE.engine.attachMetadataDialog(obj,"#selBB");
-		}
-		
+		self.itagger.addNewShapesToStack(shape);
 	},
 	dataLinkedHandle:function(e,args){
 		var self=this;

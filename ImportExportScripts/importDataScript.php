@@ -19,6 +19,8 @@ function decode_format($txt,$format){
 		include_once('xml_stream_import.php');
 		include_once('tei_p5_with_facsimile_import.php');
 		
+		
+		
 		$parser=new TEIP5WithFacsimileImport($txt);
 		
 		$data=$parser->to_json();
@@ -44,6 +46,8 @@ if((isset($_FILES['fileUploadName']))){
 	
 	
 	$format=$_POST['importformat'];
+	$imgpath=preg_replace("/\/[A-Za-z0-9]*\.[A-Za-z0-9]*/","/",$_FILES['fileUploadName']['name']);
+
 
 	# read the file 
 	if($handle=fopen($file,'r+')){

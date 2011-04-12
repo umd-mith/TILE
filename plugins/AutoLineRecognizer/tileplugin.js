@@ -764,8 +764,8 @@
 				// if the current width/height too big for the window, size down
 				if((ow>$("#canvasHTML").width())||($("#canvasHTML").height()<oh)){
 					
-					$("#canvasHTML").width(ow*2);
-					$("#canvasHTML").height(oh*2);
+					$("#canvasHTML").width($("#hiddenCanvasSource")[0].width);
+					$("#canvasHTML").height($("#hiddenCanvasSource")[0].height);
 					
 					// while((ow>$("#canvasHTML").width())||($("#canvasHTML").height()<oh)){
 					// 					ow*=0.75;
@@ -1808,9 +1808,17 @@ var AR={
 			// alter some classnames
 			$("#az_log > .az.inner.autolinerecognizer > .toolbar").removeClass("toolbar").addClass("autorec_toolbar");
 			
+			
+			$("body").bind(self.tileMode.activeCall,function(e){
+				
+				var json=TILE.engine.getJSON(true);
+				self.__AR__._restart(json);
+			});
+			
 			// construct auto Rec
 			this.__AR__._setUp();
-		
+			
+			
 			
 			// un-hide elements
 			$("#az_activeBox").show();
@@ -1888,10 +1896,6 @@ var AR={
 				
 				// CAUSES MASSIVE LAG TIME IN MOST BROWSERS
 				function addLine(line,shape){
-					// if(__v) console.log("autoline line: "+JSON.stringify(line));
-					
-					// engine.setActiveObj(line);
-					// 				if(__v) console.log("autorec vd[prop]: "+JSON.stringify(vd[prop]));
 					TILE.engine.insertData(shape);
 					TILE.engine.linkObjects(line,shape);
 				};
@@ -1908,7 +1912,6 @@ var AR={
 					// set up line var
 					var line={id:lines[prop].id,type:'lines',jsonName:TILE.url,obj:lines[prop]};
 					// done yet?
-					if(__v) console.log("lines.length: "+lines.length+' prop: '+prop);
 					if((prop)==(lines.length-1)) done=true;
 					setTimeout(function(line,shape,d){
 						addLine(line,shape);
