@@ -489,7 +489,7 @@
 				
 				var left = _REG.left;
 		        
-		 		var tbarcorrect=($(alrcontainer+" > .toolbar").height()+$(alrcontainer+" > .workspace").position().top+$(alrcontainer).scrollTop());
+		 		var tbarcorrect=($(".az.inner.imageannotation > .toolbar").height()/2);
 				// correct the bounding box top value
 				_REG.top-=tbarcorrect;
 				
@@ -497,9 +497,7 @@
 				var alphaTop=_REG.top;
 				
 				var lastTop=alphaTop;
-				if(__v) console.log("**********!!ALR!!************");
-				if(__v) console.log("reg dims: "+JSON.stringify(_REG));
-				if(__v) console.log('correcting y value: '+tbarcorrect);
+			
 				$(".selLine").removeClass("selLine").addClass("recLine");
 				//find proportion of canvas image
 				var imgdims=self.CANVAS._getPerc(); 
@@ -549,8 +547,6 @@
 						// if(!self.transcript.shapes) self.transcript.shapes=[];
 						//add data to the session's JSON object
 						ldata.push({"id":id+"_shape","type":"rect","_scale":TILEIMGSCALE,"color":"#000000","posInfo":{"x":(left),"y":(top),"width":(_REG.width),"height":(height)}});
-						// self.transcript.lines[i].shapes.push("D_"+id+"_shape");
-						// self.transcript.shapes.push({"id":"D_"+id+"_shape","type":"rect","_scale":1,"color":"#FFFFFF","posInfo":{"x":(left*scalecorrectx),"y":((top*scalecorrecty)),"width":(_REG.width*scalecorrectx),"height":(height)*scalecorrecty}});
 					}
 		        }
 				self.regionBox.DOM.hide(); //hide regionBox
@@ -558,7 +554,6 @@
 				
 				//output data and close autoRecognizer
 				self._outputData(ldata);
-				if(__v) console.log("*************AAA*A*A***********"); 
 			}
 		},
 		// Takes the parsed JSON data from recognize() and 
