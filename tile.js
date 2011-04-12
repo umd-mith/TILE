@@ -1046,7 +1046,7 @@ TILE.scale=1;
 		// file : {String}
 		parseJSON:function(file){
 			var self=this;
-		
+			if(__v) console.log('reached parseJSON: '+file);
 			if((typeof(file)!='object')&&(/^[http\:\/\/]/.test(file))){
 				//We are just getting the file with images
 				// and the transcripts
@@ -1081,7 +1081,7 @@ TILE.scale=1;
 					json=deepcopy(file['tile']);
 					
 					// use the content in global variable 
-					TILE.content=deepcopy(file['content']);
+					TILE.content=file['content'];
 					// $("body:first").trigger("contentCreated",[file['content']]);
 					
 				}
@@ -2756,7 +2756,7 @@ TILE.scale=1;
 		'<h2>Save Data <a href="#" id="savedialogclose" class="btnIconLarge close"></a></div><div class="body"><div class="option">'+
 		'<label>Pick a format: </label><select id="save_format"></select>'+
 		'<br/><input id="save_filename" name="uploadFileName" type="text" placeholder="myfile.format" style="width:90%" />'+
-		'<p>Saving as: <span id="saveas"></span></p><input id="save_session" value="Save" type="button" class="button" />'+
+		'<input id="save_session" value="Save" type="button" class="button" />'+
 		'<input id="cancelSaveDialog" type="button" class="button" value="Cancel"/></div>'+
 		'<form id="hiddenSaveForm" method="post" action="PHP/forceDownload.php"><input type="hidden" id="download" name="uploadData" /></form></div></div></div>'+
 		'<div id="darkForSaveDialog" class="black_overlay"></div>';
@@ -2803,8 +2803,10 @@ TILE.scale=1;
 			if(/json/i.test(outMethod)){
 				// use hidden form fields
 				$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
-				$("#inv_SaveProgress_Form > #uploadData").val($("#save_filename").val());
+				
+				$("#inv_SaveProgress_Form > #uploadFileName").val($("#savedialog > .body > .option > #save_filename").val());
 				$("#inv_SaveProgress_Form").submit();
+				
 				// $.ajax({
 				// 					type:'post',
 				// 					url:'PHP/forceJSON.php',
@@ -2817,8 +2819,9 @@ TILE.scale=1;
 			} else if(outValue){
 				
 			}
-			
-			
+			// hide dialog
+			$("#savedialogwhitespace").hide();
+			$("#darkForSaveDialog").hide();
 			
 			
 		});

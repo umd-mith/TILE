@@ -11,9 +11,9 @@ function decode_format($txt,$format){
 	# figure out what the format is
 	if((preg_match('/(json)/i',$format))||(preg_match('/^{&}$/i',$txt))){
 		# is a json file - use coredata methods
-		$parser=new CoreData($txt);
-		$data=$parser->to_json();
-		return $data;
+		// $parser=new CoreData($txt);
+		// 		$data=$parser->to_json();
+		return $txt;
 		
 	} else if(preg_match('/(facsimile)/i',$format)){
 		include_once('xml_stream_import.php');

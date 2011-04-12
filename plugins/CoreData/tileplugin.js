@@ -72,13 +72,20 @@
 	
 	var streamXMLData=function(args){
 		var self=new CoreData(args);
-		
+		self.xml=null;
 	};
 	
 	// Used as base class for saving XML during client session
 	streamXMLData.prototype=$.extend(CoreData.prototype,{
+		// creates a DOMDocument out of the content
 		parseContent:function(){
-			
+			var self=this;
+			if(self.content){
+				// create XMLDocument
+				self.xml=$.parseXML(self.content);
+				// separate into lines, shapes, labels
+				
+			}
 		}
 		
 	}); 
@@ -92,9 +99,11 @@
 	teiWriter.prototype=$.extend(streamXMLData.prototype,{
 		
 	});
-
 	
-});
+	// register public properties/methods
+	root.teiWriter=teiWriter;
+	
+})();
 
 
 var CoreData={
@@ -117,13 +126,17 @@ var CoreData={
 		// create appropriate parser
 		self.parser=null;
 		if(TILE.content){
-			if(/xmlns\=\"http\:\/\/www\.tei\-c\.org/i.test(TILE.content)){
+			
+			if(/xmlns\=(\"|\')http\:\/\/www\.tei\-c\.org/.test(TILE.content)){
 				// handler for TEI XML
 				self.parser=new teiWriter({content:TILE.content});
 			}
 		}
 		
 	
+		// handler for when a new session is loaded
+		$("body").bind("newJSON",{obj:self},self.newJSONHandle);
+		
 		// handler for data creation (dataAdded)
 		// $("body").live("dataAdded",{obj:self},self.dataAddedHandle);
 		// catches the additional 'content' variable from Coredata.php
@@ -133,6 +146,19 @@ var CoreData={
 				
 		// });
 		// handlers for dataDeleted and dataUpdated
+		
+	},
+	newJSONHandle:function(e){
+		var self=e.data.obj;
+		
+		// create appropriate parser
+		self.parser=null;
+		if(TILE.content){
+			if(/xmlns\=(\"|\')http\:\/\/www\.tei\-c\.org/.test(TILE.content)){
+				// handler for TEI XML
+				self.parser=new teiWriter({content:TILE.content});
+			}
+		}
 		
 	},
 	dataAddedHandle:function(e,obj){
