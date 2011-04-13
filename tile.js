@@ -2757,7 +2757,7 @@ TILE.scale=1;
 		'<h2>Save Data <a href="#" id="savedialogclose" class="btnIconLarge close"></a></div><div class="body"><div class="option">'+
 		'<label>Save File As:</label>'+
 		'<br/><input id="save_filename" name="uploadFileName" type="text" placeholder="myfile.format" style="width:90%" />'+
-		'<label>Pick a format by selecting one of the options below: </label>'+
+		'<label>Pick a format by selecting one of the options below: </label><br/>'+
 		'<input id="save_session_json" value="Save As JSON" type="button" class="button" />'+
 		'<input id="save_session_format" value="Save As Original Format" type="button" class="button"/>'+
 		'<input id="cancelSaveDialog" type="button" class="button" value="Cancel"/></div>'+
