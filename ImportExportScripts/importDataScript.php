@@ -13,7 +13,7 @@ function decode_format($txt,$format){
 		# is a json file - use coredata methods
 		// $parser=new CoreData($txt);
 		// 		$data=$parser->to_json();
-		return $txt;
+		return stripslashes($txt);
 		
 	} else if(preg_match('/(facsimile)/i',$format)){
 		include_once('xml_stream_import.php');
@@ -59,7 +59,7 @@ if((isset($_FILES['fileUploadName']))){
 		$data=decode_format($txt,$format);
 		// send out by assigning to JScript variable
 		header('Content-type: text/html');
-		echo '<textarea>'.stripslashes($data).'</textarea>';
+		echo '<textarea>'.$data.'</textarea>';
 		
 	}
 	

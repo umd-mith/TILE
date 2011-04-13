@@ -46,7 +46,7 @@ class CoreData
                         $l['id'] = $line->id;
                     } else if((!isset($line->id))||($line->id == '')){
 						# generate a random ID for this line
-						$l['id'] = $this->genRandomID(9);
+						$l['id'] = 'line'.count($page['lines']);
 					}
                     $page['lines'][] = $l;
                 }
@@ -56,7 +56,7 @@ class CoreData
                     if($shape -> id != "") {
                         $s['id'] = $shape -> id;
                     } else if((!isset($s['id']))||($s['id']=='')){
-						$s['id'] = $this->genRandomID(9);
+						$s['id'] = 'shape'.count($page['shapes']);
 					}
                     $s['type'] = $shape -> type;
                     $s['color'] = $shape -> color;
