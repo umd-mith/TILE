@@ -15,7 +15,7 @@ if(isset($_POST['uploadData'])){
 	$path=preg_replace('/lib\/SaveProgress/',"",$path);
 	$cwd = "loadJSON.php"; //path for loading this data back into TILE
 	
-	$JSON=htmlspecialchars($_POST['uploadData']);
+	$JSON=$_POST['uploadData'];
 	//$JSON=addslashes($JSON);
 	//format the JSON text elements
 	//$dJSON=json_decode($JSON); //decode string

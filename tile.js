@@ -1072,9 +1072,7 @@ TILE.scale=1;
 				json=JSON.parse(file);
 				
 			} else {
-				if(typeof file!='object'){
-					json=JSON.parse(file);
-				} else if(file['tile']){
+				if(file['tile']){
 					// Coming from CoreData.php
 					// Object has content and tile parameters
 					if(__v) console.log('loading in tile_engine');
@@ -1084,6 +1082,10 @@ TILE.scale=1;
 					TILE.content=file['content'];
 					// $("body:first").trigger("contentCreated",[file['content']]);
 					
+				} else {
+					// simple - just a JSON object that we
+					// use
+					json=deepcopy(file);
 				}
 				if(TILE.activeItems||curPage){
 					TILE.activeItems=[];
@@ -2913,8 +2915,7 @@ TILE.scale=1;
 		
 		// attach onload function to the iframe
 		$("#import_iframe").load(function(e){
-			// if(__v) console.log("IFRAME LOADED");
-			// if(__v) console.log("TEE HEE HEE: "+frames['import_iframe'].document.getElementsByTagName('body')[0].getElementsByTagName('textarea')[0].innerHTML);
+			
 			// get JSON text
 			var str=frames['import_iframe'].document.getElementsByTagName('body')[0].getElementsByTagName('textarea')[0].innerHTML;
 			TILE.engine.parseJSON(JSON.parse(str));
