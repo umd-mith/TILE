@@ -100,7 +100,8 @@
 			self.transcriptArea=$("#"+self.DOM.attr('id')+" > #content > .step > #transcript");
 		
 			//get buttons
-			self.closeB=$("#"+self.DOM.attr("id")+" > .toolbar > div.menuitem > span.btnIconLarge.close").click(function(e){
+			self.closeB=$("#"+self.DOM.attr("id")+" > .toolbar > div.menuitem > span").click(function(e){
+				e.preventDefault();
 				self._outputData();
 			});
 				self.nextB=$("#"+self.DOM.attr('id')+" > #content > div.step > div.buttondiv > #nextButton").click(function(e){
@@ -1786,7 +1787,6 @@ var AR={
 	// layout {String} : HTML layout in string format
 	start:function(mode){
 		var self=this;
-		// self.engine=engine;
 		// If AR object not yet set, create new one
 		if(!self.__AR__){
 			var json=TILE.engine.getJSON(true);
@@ -1921,59 +1921,7 @@ var AR={
 		
 		} 
 	},
-	constructed:false,
-	name:"AutoLineRecognizer",
-	done:"closeOutAutoRec",
-	outputCall:"outputAutoRecData",
-	
-	// Called by TILE_ENGINE once start() has already been called and 
-	// constructed set to true
-	// arjson {Object} : JSON object with transcript lines
-	// args {Object} : array of optional parameters to pass to constructor
-	
-	restart:function(arjson,args){
-		$(".toolbar > ul > li > #pgPrev").hide();
-		$(".toolbar > ul > li > #pgNext").hide();
-		$(".toolbar > ul > li > #pointer").hide();
-		$(".toolbar > ul > li > a > #listView").parent().hide();
-		$(".toolbar > ul > li > #rect").parent().parent().hide();
-		$("#hiddenCanvasSource").hide();
-		// make sure we have correct arjson data
-		if (!arjson.lines) {
-		
-			arjson = arjson[$("#hiddenCanvasSource").attr("src")];
-		};
-		
-		//already constructed, initiate main engine restart function
-		this.__AR__._restart(arjson,args);
-	},
-	// Optional function to call that will trigger the _close 
-	// custom event
-	// close:function(){
-	// 		var self=this;
-	// 		self.__AR__._outputData();
-	// 		self.__AR__.regionBox.DOM.hide();
-	// 		
-	// 		
-	// 		// $("body:first").trigger(self._close);
-	// 	},
-	
-	removeData:function(data){
-		
-	},
-	getLink:function(){
-		return false;
-	},
-	// optional function that takes a JSON Object {j} and returns 
-	// this object with additional data retrieved  by the plugin - if
-	// any
-	bundleData:function(j){
-		//empty
-		return j;
-	},
-	// Name for the optional Custom Event for when the plugin has 
-	// fully closed down
-	_close:"closeOutAutoRec"
+	name:"AutoLineRecognizer"
 };
 
 
