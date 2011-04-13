@@ -72,8 +72,8 @@ if((isset($_FILES['fileUploadName']))){
 if(isset($_POST['format'])&&isset($_POST['filepath'])){
 	
 	#check to see if filename is malicious
-	$name=$_POST['filepath'];
-	if(preg_match('/(\<)|(\>)|\m',$name)){
+	$name=$_POST['filepath']; 
+	if(preg_match('/<|>/',$name)){
 		die("ERROR READING FILE");
 	}
 	$txt='';

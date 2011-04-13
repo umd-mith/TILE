@@ -276,6 +276,72 @@ class XMLStreamImport extends CoreData
 			$this -> current_line = "";
 	    }
 	}
+	
+	# Taken from importWidgets/exportJSONXML.js
+	# Function for converting a bit of PHP array into XML
+	# May want to add this into one conversion function 
+	private function to_xml($v,$name,$ind){
+		$xml = "";
+		if (is_array($v)) {
+			$n=count($v);
+			for($i=0; $i<$n; $i++){
+				$xml .= $ind . $this->to_xml($v[$i], $name, $ind."\t") . "\n";
+			}
+		}
+		elseif (is_object($v)) {
+			$hasChild = false;
+			$xml .= $ind . "<" . $name;
+			foreach($v as $m=>$item) {
+				if(substr($m,0,1) == "@"){
+					$xml .= " " . substr($m,1) . "=\"" . (string)$v[$m] . "\"";
+				}
+				else{
+					$hasChild = true;
+				}
+			}
+			# replacing bitwise operators from JScript - see below
+			if($hasChild){
+				$xml.=">";
+			} else {
+				$xml.="/>";
+			}
+			// $xml .= $hasChild ? ">" : "/>";
+			if ($hasChild) {
+				foreach($v as $m=>$item) {
+					if ($m == "#text"){
+						$xml .= $v[$m];
+					}
+					elseif ($m == "#cdata"){
+						$xml .= "<![CDATA[" . $v[$m] . "]]>";
+					}
+				} 
+			} elseif(substr($m,0,1) != "@"){
+				$xml .= $this->to_xml($v[$m], $m, $ind."\t");
+			
+			}
+			# replacing bitwise operator
+			if(substr($xml,(strlen($xml)-1))=="\n"){
+				# ends in new line
+				$xml.=$ind."</".$name.">";
+			} else {
+				$xml.="</".$name.">";
+			}
+			// $xml .= (substr($xml,(strlen($xml)-1))=="\n"?$ind:"") . "</" . $name . ">";
+		} else {
+			$xml .= $ind . "<" . $name . ">" . (string)$v .  "</" . $name . ">";
+		}
+		return $xml;
+	}
+	
+	# Takes the tile container data and parses it into XML
+	public function convertTileToXML(){
+		$xml='';
+		foreach($o as $m=>$item){
+			$xml .= $this->to_xml($item, $m, "");
+		}
+		
+		return preg_replace('/\t|\n/','',$xml);
+	}
 }
 
 ?>

@@ -1046,7 +1046,6 @@ TILE.scale=1;
 		// file : {String}
 		parseJSON:function(file){
 			var self=this;
-			if(__v) console.log('reached parseJSON: '+file);
 			if((typeof(file)!='object')&&(/^[http\:\/\/]/.test(file))){
 				//We are just getting the file with images
 				// and the transcripts
@@ -1075,9 +1074,9 @@ TILE.scale=1;
 				if(file['tile']){
 					// Coming from CoreData.php
 					// Object has content and tile parameters
-					if(__v) console.log('loading in tile_engine');
 					json=deepcopy(file['tile']);
-					
+					if(__v) console.log("TILE JSON:");
+					if(__v) console.log(JSON.stringify(json));
 					// use the content in global variable 
 					TILE.content=file['content'];
 					// $("body:first").trigger("contentCreated",[file['content']]);
@@ -2756,9 +2755,11 @@ TILE.scale=1;
 		var self=this;
 		self.html='<div id="savedialogwhitespace" class="white_content"><div id="savedialog" class="dialog"><div class="header">'+
 		'<h2>Save Data <a href="#" id="savedialogclose" class="btnIconLarge close"></a></div><div class="body"><div class="option">'+
-		'<label>Pick a format: </label><select id="save_format"></select>'+
+		'<label>Save File As:</label>'+
 		'<br/><input id="save_filename" name="uploadFileName" type="text" placeholder="myfile.format" style="width:90%" />'+
-		'<input id="save_session" value="Save" type="button" class="button" />'+
+		'<label>Pick a format by selecting one of the options below: </label>'+
+		'<input id="save_session_json" value="Save As JSON" type="button" class="button" />'+
+		'<input id="save_session_format" value="Save As Original Format" type="button" class="button"/>'+
 		'<input id="cancelSaveDialog" type="button" class="button" value="Cancel"/></div>'+
 		'<form id="hiddenSaveForm" method="post" action="PHP/forceDownload.php"><input type="hidden" id="download" name="uploadData" /></form></div></div></div>'+
 		'<div id="darkForSaveDialog" class="black_overlay"></div>';
@@ -2776,11 +2777,7 @@ TILE.scale=1;
 		// changes based on which format is selected
 		self.saveUrl='';
 		
-		// whenever the select changes, so does the url for saving
-		$("#save_format").change(function(e){
-			var val=$("#save_format > option:selected").val();
-			$("#savedialog > .body > .option > p > span").text('saving as '+val);
-		});
+		
 		
 		// close button event handler
 		$("#savedialog > .header > h2 > #savedialogclose").click(function(e){
@@ -2796,19 +2793,18 @@ TILE.scale=1;
 		});
 		
 		// set up call to the PHP server
-		$("#savedialog > .body > .option > #save_session").click(function(e){
+		$("#savedialog > .body > .option > #save_session_json").click(function(e){
 			e.preventDefault();
 			
 			// figure out chosen output method
-			var outMethod=$("#save_format > option:selected").text();
-			var outValue=$("#save_format > option:selected").val();
-			if(/json/i.test(outMethod)){
-				// use hidden form fields
-				$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
-				
-				$("#inv_SaveProgress_Form > #uploadFileName").val($("#savedialog > .body > .option > #save_filename").val());
-				$("#inv_SaveProgress_Form").submit();
-				
+			
+		
+			// use hidden form fields
+			$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
+			
+			$("#inv_SaveProgress_Form > #uploadFileName").val($("#savedialog > .body > .option > #save_filename").val());
+			$("#inv_SaveProgress_Form").submit();
+			
 				// $.ajax({
 				// 					type:'post',
 				// 					url:'PHP/forceJSON.php',
@@ -2818,9 +2814,7 @@ TILE.scale=1;
 				// 
 				// 					}
 				// 				});
-			} else if(outValue){
-				
-			}
+			
 			// hide dialog
 			$("#savedialogwhitespace").hide();
 			$("#darkForSaveDialog").hide();
@@ -2977,8 +2971,7 @@ TILE.scale=1;
 			var fname=$("#fileFormatFileURL > option:selected").text();
 			var file=$("#filepathDisplay").val();
 			
-			// handle the submit call to 
-			// PHP
+			// handle the submit call to PHP
 			$.ajax({
 				// TODO: CHANGE THIS TO DYNAMIC SETTINGS
 				url:'ImportExportScripts/importDataScript.php',
@@ -2986,18 +2979,12 @@ TILE.scale=1;
 				data:({filepath:file,format:fname}),
 				type:'POST',
 				dataType:'json',
-				success:function(data){
-					
-					
-					if(__v) console.log('submitFILE IN loaddialog');
-					if(__v) console.log(JSON.stringify(data));
-					
+				success:function(data){			
 					// take results and feed into engine
 					TILE.engine.parseJSON(data);
 					self.light.hide();
 					self.DOM.hide();
 					self.fade.hide();
-					if(__v) console.log("LOAD DIALOG: COMPLETE");
 				}
 			});
 		}
