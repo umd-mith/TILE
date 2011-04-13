@@ -2692,7 +2692,6 @@ TILE.scale=1;
 			
 		},
 		deleteRefFromObj:function(obj,ref){
-			if(__v) console.log("-----DeleteFromRef-------");
 			var self=this;
 			if((!obj)||(!obj.type)||(!obj.id)||(!ref)||(!ref.type)||(!ref.id)) return;
 			// get TILE standard versions of objects
@@ -2761,7 +2760,7 @@ TILE.scale=1;
 		'<input id="save_session_json" value="Save As JSON" type="button" class="button" />'+
 		'<input id="save_session_format" value="Save As Original Format" type="button" class="button"/>'+
 		'<input id="cancelSaveDialog" type="button" class="button" value="Cancel"/></div>'+
-		'<form id="hiddenSaveForm" method="post" action="PHP/forceDownload.php"><input type="hidden" id="download" name="uploadData" /></form></div></div></div>'+
+		'</div></div></div>'+
 		'<div id="darkForSaveDialog" class="black_overlay"></div>';
 		// attach
 		$("body").append(self.html);
@@ -2822,6 +2821,23 @@ TILE.scale=1;
 			
 		});
 		
+		// set up listener for saving to original file format
+		$("#savedialog > .body > .option > #save_session_format").click(function(e){
+			e.preventDefault();
+			
+			// send to import script
+			$.ajax({
+				url:self.importScript,
+				type:'post',
+				dataType:'xml',
+				success:function(xml){
+					// force download to user
+				}
+				
+			});
+			
+		});
+		
 	};
 	SaveDialog.prototype={
 		addFormats:function(str){
@@ -2853,7 +2869,7 @@ TILE.scale=1;
 		// 	loc: {String} DOM object to be attached to
 		if((!args.loc)) {throw "Not enough arguments passed to Dialog";}
 		self.loc=args.loc;
-		self.importScript="ImportExportScripts/importDataScript.php";
+		self.importScript="plugins/CoreData/importDataScript.php";
 		//set up JSON html
 		var html='<div id="LTlight" class="white_content"><div id="loadTagsDialog" class="dialog">'+
 		'<div class="header"><h2 class="title">Load Data</h2><h2>'+
@@ -2974,7 +2990,7 @@ TILE.scale=1;
 			// handle the submit call to PHP
 			$.ajax({
 				// TODO: CHANGE THIS TO DYNAMIC SETTINGS
-				url:'ImportExportScripts/importDataScript.php',
+				url:'plugins/CoreData/importDataScript.php',
 				cache:false,
 				data:({filepath:file,format:fname}),
 				type:'POST',

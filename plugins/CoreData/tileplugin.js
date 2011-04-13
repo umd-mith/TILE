@@ -115,7 +115,7 @@ var CoreData={
 		// Call the findFileFormats script
 		// store to later add to save and load dialogs
 		var str=$.ajax({
-			url:'ImportExportScripts/findFileFormats.php',
+			url:'plugins/CoreData/findFileFormats.php',
 			type:'GET',
 			async:false
 		}).responseText;
