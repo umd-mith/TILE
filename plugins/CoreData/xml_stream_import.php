@@ -17,6 +17,12 @@ class XMLStreamImport extends CoreData
 	public  $break_lines_on_newline = false;
 	
 	public function __construct($content) {
+		
+		if(isset($content['tile'])){
+			$this->tile=$content['tile'];
+			$content=(string)$content['content'];
+
+		}
 		$this -> setup_parser();
 		parent::__construct($content);
 	}
@@ -34,7 +40,7 @@ class XMLStreamImport extends CoreData
 		if($this -> document_start_xpath == "") {
 			$this -> document_started = true;
 		}
-				
+	
 		xml_parse( $this -> parser, $content );
 	}
 	
@@ -335,12 +341,16 @@ class XMLStreamImport extends CoreData
 	
 	# Takes the tile container data and parses it into XML
 	public function convertTileToXML(){
-		$xml='';
-		foreach($o as $m=>$item){
-			$xml .= $this->to_xml($item, $m, "");
-		}
+		if($this->tile){
+			echo $this->tile;
+			$json=json_decode($this->tile);
+			$xml='';
+			foreach($this->tile as $m=>$item){
+				$xml .= $this->to_xml($item, $m, "");
+			}
 		
-		return preg_replace('/\t|\n/','',$xml);
+			return preg_replace('/\t|\n/','',$xml);
+		}
 	}
 }
 

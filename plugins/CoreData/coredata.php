@@ -9,6 +9,7 @@ class CoreData
 
     
     public function __construct($content) {
+		
         $this -> newContainer();
         $this -> content = $content;
         $this -> parse_content($content);
