@@ -2775,7 +2775,7 @@ TILE.scale=1;
 		self.srcArray=[];
 		// changes based on which format is selected
 		self.saveUrl='';
-		
+		self.exportScript='plugins/CoreData/exportDataScript.php';
 		
 		
 		// close button event handler
@@ -2794,11 +2794,7 @@ TILE.scale=1;
 		// set up call to the PHP server
 		$("#savedialog > .body > .option > #save_session_json").click(function(e){
 			e.preventDefault();
-			
-			// figure out chosen output method
-			
-		
-			// use hidden form fields
+				// use hidden form fields
 			$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
 			
 			$("#inv_SaveProgress_Form > #uploadFileName").val($("#savedialog > .body > .option > #save_filename").val());
@@ -2824,14 +2820,17 @@ TILE.scale=1;
 		// set up listener for saving to original file format
 		$("#savedialog > .body > .option > #save_session_format").click(function(e){
 			e.preventDefault();
-			
+			if(!TILE.content) return;
+			var jsonstring=JSON.stringify(TILE.engine.getJSON());
 			// send to import script
 			$.ajax({
-				url:self.importScript,
+				url:self.exportScript,
 				type:'post',
 				dataType:'xml',
+				data:{'tile':jsonstring,'content':TILE.content},
 				success:function(xml){
 					// force download to user
+					
 				}
 				
 			});

@@ -15,14 +15,20 @@ class XMLStreamImport extends CoreData
 	private $element_stack_depth;
 	private $document_started = false;
 	public  $break_lines_on_newline = false;
+	# added data for exporting
+	private $json;
+	private $nsPrefix='PYtileUi';
 	
-	public function __construct($content) {
-		
-		if(isset($content['tile'])){
-			$this->tile=$content['tile'];
-			$content=(string)$content['content'];
-
+	
+	# JIM: added $tile in here to test out using 
+	# conversion functions on tile variable - not sure how else to include
+	# it?
+	public function __construct($content,$tile) {
+		$this->json = json_decode($tile); 
+		if($this->json){
+			
 		}
+		
 		$this -> setup_parser();
 		parent::__construct($content);
 	}
@@ -283,74 +289,92 @@ class XMLStreamImport extends CoreData
 	    }
 	}
 	
-	# Taken from importWidgets/exportJSONXML.js
-	# Function for converting a bit of PHP array into XML
-	# May want to add this into one conversion function 
-	private function to_xml($v,$name,$ind){
-		$xml = "";
-		if (is_array($v)) {
-			$n=count($v);
-			for($i=0; $i<$n; $i++){
-				$xml .= $ind . $this->to_xml($v[$i], $name, $ind."\t") . "\n";
-			}
-		}
-		elseif (is_object($v)) {
-			$hasChild = false;
-			$xml .= $ind . "<" . $name;
-			foreach($v as $m=>$item) {
-				if(substr($m,0,1) == "@"){
-					$xml .= " " . substr($m,1) . "=\"" . (string)$v[$m] . "\"";
+	# pass in array arr with possible arrays inside
+	# it (recursive)
+	# namespace optional - adds as prefix to elements
+	private function convertArrayToXML($arr,$el){
+		$xml='';
+		// echo "NOW WORKING ON : ".$el->tagName;
+		// echo "<br/>";
+		
+		foreach($arr as $key=>$item){
+			# generate item parent
+			$parent=$this->xml->createElement(preg_replace('/s$/','',$el->tagName));
+			// echo "INNER: NOW WORKING ON : ".$parent->tagName;
+			// echo "<br/>";
+			if(is_array($item)||is_object($item)){
+				# recursive (better way to do this?)
+				# generate name
+				$name='';
+				if(strlen($key)>1){
+					$name=preg_replace('/\n/','',$key);
+				} else {
+					$name=preg_replace('/s$/','',$el->tagName);
 				}
-				else{
-					$hasChild = true;
-				}
-			}
-			# replacing bitwise operators from JScript - see below
-			if($hasChild){
-				$xml.=">";
+				# create child of parent
+				// $child=$this->xml->createElement($this->nsPrefix.':'.$name);				
+				# go through children
+				$this->convertArrayToXML($item,$parent);
+				# attach result to parent
+				$el->appendChild($parent);
 			} else {
-				$xml.="/>";
-			}
-			// $xml .= $hasChild ? ">" : "/>";
-			if ($hasChild) {
-				foreach($v as $m=>$item) {
-					if ($m == "#text"){
-						$xml .= $v[$m];
-					}
-					elseif ($m == "#cdata"){
-						$xml .= "<![CDATA[" . $v[$m] . "]]>";
-					}
-				} 
-			} elseif(substr($m,0,1) != "@"){
-				$xml .= $this->to_xml($v[$m], $m, $ind."\t");
+				# generate name
+				$name='';
+				if(strlen($key)>1){
+					$name=preg_replace('/\n/','',$key);
+				} else {
+					$name=preg_replace('/s$/','',$el->tagName);
+				}
+				# create child node and append
+				$child=$this->xml->createElement($this->nsPrefix.':'.$name,$item);
+				$el->appendChild($child);
+				// $xml.='<'.$namespace.$name.'>'.$item.'</'.$namespace.$name.'>'."\n";
 			
 			}
-			# replacing bitwise operator
-			if(substr($xml,(strlen($xml)-1))=="\n"){
-				# ends in new line
-				$xml.=$ind."</".$name.">";
-			} else {
-				$xml.="</".$name.">";
-			}
-			// $xml .= (substr($xml,(strlen($xml)-1))=="\n"?$ind:"") . "</" . $name . ">";
-		} else {
-			$xml .= $ind . "<" . $name . ">" . (string)$v .  "</" . $name . ">";
+			$el->appendChild($parent);
 		}
-		return $xml;
+		
+		return $el;
 	}
+	
+	
 	
 	# Takes the tile container data and parses it into XML
 	public function convertTileToXML(){
-		if($this->tile){
-			echo $this->tile;
-			$json=json_decode($this->tile);
-			$xml='';
-			foreach($this->tile as $m=>$item){
-				$xml .= $this->to_xml($item, $m, "");
-			}
+		# create initial XML header
+		# need to include source XML from content in here?
+		// $xml='<TILE>'."\n";
+		$this->xml=new DOMDocument('1.0');
+		/* $this->xml->loadXML('<?xml version="1.0"?><'.$this->nsPrefix.':tile xmlns:tile=\'http://www.w3.org/2005/Atom\'></'.$this->nsPrefix.':tile>'); */
 		
-			return preg_replace('/\t|\n/','',$xml);
+
+		# step through JSON array
+		foreach($this->json as $m=>$item){
+			# major item element
+			if(is_array($item)){
+				#display major item, then display inner items
+				# set up parent name
+				$name=preg_replace('/\t|\n|[0-9]*/','',$m);
+				$el=$this->xml->createElement($this->nsPrefix.':'.$name);
+				# go through children
+				$result=$this->convertArrayToXML($item,$el);
+				$this->xml->appendChild($result);
+			} elseif($item!='') {
+				# set up parent name
+				$name=preg_replace('/\t|\n|[0-9]*/','',$m);
+				# create node and append
+				$el=$this->xml->createElement($this->nsPrefix.':'.$name,$item);
+				$this->xml->appendChild($el);
+				// $this->xml.='<'.$this->nsPrefix.$name.'>'."\n".$item.'</'.$this->nsPrefix.$name.'>'."\n";
+			}
 		}
+	
+	}
+	
+	# outputs the generic XML format for TILE
+	public function outputTILEXML(){
+		# output
+		echo $this->xml->saveXML();
 	}
 }
 

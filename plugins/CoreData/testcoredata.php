@@ -24,8 +24,8 @@ class XMLExport{
 	
 	# creates a random string variable to use as prefix
 	private function genPrefix($length){
-		$string=md5(time());
-		$highest_startpoint = 32-$length;
+		$string='CursedbygypsiestoneverstopactinglesthebecondemnedtoalkGpXrkhARrifetimeofFunkyBunchcasinogigsMarkWahlbergcontinuestoattachhimselftoprojectswithfeverishdesperationeachcontractanotherpaperthinwallbetweenhimselSdpeZOdeTkfandlearningthelyricstoSuperCoolMackDaddyagainThelisteCyButNMwZoffilmsWahlbergiscurrentlysaidtobeeitherproducingorstarringinincludes';
+		$highest_startpoint=strlen($string)-$length;
 		$randomString = substr($string,rand(0,$highest_startpoint),$length);
 	    return $randomString;
 	}
@@ -35,43 +35,44 @@ class XMLExport{
 	# namespace optional - adds as prefix to elements
 	private function convertArrayToXML($arr,$el){
 		$xml='';
-		$parent=$this->xml->createElementNS($this->namespace,preg_replace('/$s/','',$el->tagName));
+	
 		
 		foreach($arr as $key=>$item){
+			# generate item parent
+			$parent=$this->xml->createElement(preg_replace('/s$/','',$el->tagName));
+				
 			if(is_array($item)||is_object($item)){
 				# recursive (better way to do this?)
 				# generate name
 				$name='';
 				if(strlen($key)>1){
-					
 					$name=preg_replace('/\n/','',$key);
 				} else {
-					$name=preg_replace('/$s/','',$el->tagName);
+					$name=preg_replace('/s$/','',$el->tagName);
 				}
 				# create child of parent
-				$child=$parent->createElementNS($this->namespace,$this->nsPrefix.$name);				
+				$child=$this->xml->createElement($this->nsPrefix.':'.$name);				
 				# go through children
-				$xml.=$this->convertArrayToXML($item,$child);
+				$this->convertArrayToXML($item,$child);
 				# attach result to parent
 				$parent->appendChild($child);
 			} else {
 				# generate name
 				$name='';
 				if(strlen($key)>1){
-					
 					$name=preg_replace('/\n/','',$key);
 				} else {
-					$name=preg_replace('/$s/','',$el->tagName);
+					$name=preg_replace('/s$/','',$el->tagName);
 				}
 				# create child node and append
-				$child=$parent->createElementNS($this->namespace,$this->nsPrefix.$name,$item);
+				$child=$this->xml->createElement($this->nsPrefix.':'.$name,$item);
 				$parent->appendChild($child);
 				// $xml.='<'.$namespace.$name.'>'.$item.'</'.$namespace.$name.'>'."\n";
 			
 			}
-		
+			$el->appendChild($parent);
 		}
-		$el->appendChild($parent);
+		
 		return $el;
 	}
 
@@ -81,8 +82,10 @@ class XMLExport{
 		# create initial XML header
 		# need to include source XML from content in here?
 		// $xml='<TILE>'."\n";
-		$this->xml=new DOMDocument('1.0','UTF-8');
-	
+		$this->xml=new DOMDocument('1.0');
+		/* $this->xml->loadXML('<?xml version="1.0"?><'.$this->nsPrefix.':tile xmlns:tile=\'http://www.w3.org/2005/Atom\'></'.$this->nsPrefix.':tile>'); */
+		
+
 		# step through JSON array
 		foreach($this->json as $m=>$item){
 			# major item element
@@ -90,7 +93,7 @@ class XMLExport{
 				#display major item, then display inner items
 				# set up parent name
 				$name=preg_replace('/\t|\n|[0-9]*/','',$m);
-				$el=$this->xml->createElementNS($this->namespace,$this->nsPrefix.$name);
+				$el=$this->xml->createElement($this->nsPrefix.':'.$name);
 				# go through children
 				$result=$this->convertArrayToXML($item,$el);
 				$this->xml->appendChild($result);
@@ -98,7 +101,7 @@ class XMLExport{
 				# set up parent name
 				$name=preg_replace('/\t|\n|[0-9]*/','',$m);
 				# create node and append
-				$el=$this->xml->createElementNS($this->namespace,$this->nsPrefix.$name,$item);
+				$el=$this->xml->createElement($this->nsPrefix.':'.$name,$item);
 				$this->xml->appendChild($el);
 				// $this->xml.='<'.$this->nsPrefix.$name.'>'."\n".$item.'</'.$this->nsPrefix.$name.'>'."\n";
 			}
@@ -107,11 +110,12 @@ class XMLExport{
 	}
 	
 	public function outputXML(){
+	
 		if(is_null($this->xml)) return;
 		
 		# make this->xml root element the child element of 
 		# source doc
-		$this->xml->saveXML();
+		echo $this->xml->saveXML();
 		return '';
 	}
 	
