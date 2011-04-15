@@ -11,55 +11,77 @@ class XMLExport{
 	private $json=array();
 	private $content='';
 	private $tilexml='';
+	private $nsPrefix='';
+	private $namespace='';
+	public $xml=null;
 	
 	public function __construct($arr){
 		$this->json=$arr->tile;
 		$this->content=$arr->content;
-		
+		$this->nsPrefix=$this->genPrefix(9);
+		$this->namespace='http://www.w3.org/2005/Atom';
+	}
+	
+	# creates a random string variable to use as prefix
+	private function genPrefix($length){
+		$string=md5(time());
+		$highest_startpoint = 32-$length;
+		$randomString = substr($string,rand(0,$highest_startpoint),$length);
+	    return $randomString;
 	}
 	
 	# pass in array arr with possible arrays inside
 	# it (recursive)
 	# namespace optional - adds as prefix to elements
-	private function convertArrayToXML($arr,$namespace=''){
+	private function convertArrayToXML($arr,$el){
 		$xml='';
+		$parent=$this->xml->createElementNS($this->namespace,preg_replace('/$s/','',$el->tagName));
+		
 		foreach($arr as $key=>$item){
 			if(is_array($item)||is_object($item)){
 				# recursive (better way to do this?)
 				# generate name
-			
+				$name='';
 				if(strlen($key)>1){
-				
+					
 					$name=preg_replace('/\n/','',$key);
-				
-			
-					$xml.='<'.$namespace.$name.'>'."\n";
+				} else {
+					$name=preg_replace('/$s/','',$el->tagName);
 				}
+				# create child of parent
+				$child=$parent->createElementNS($this->namespace,$this->nsPrefix.$name);				
 				# go through children
-				$xml.=$this->convertArrayToXML($item,$namespace);
-				if(strlen($key)>1)	$xml.='</'.$namespace.$name.'>'."\n";
+				$xml.=$this->convertArrayToXML($item,$child);
+				# attach result to parent
+				$parent->appendChild($child);
 			} else {
 				# generate name
+				$name='';
 				if(strlen($key)>1){
-					$name=preg_replace('/\t|\n|[0-9]*/','',$key);
-			
-					$xml.='<'.$namespace.$name.'>'.$item.'</'.$namespace.$name.'>'."\n";
+					
+					$name=preg_replace('/\n/','',$key);
 				} else {
-					$xml.='<![CDATA['.$item.']]>';
+					$name=preg_replace('/$s/','',$el->tagName);
 				}
+				# create child node and append
+				$child=$parent->createElementNS($this->namespace,$this->nsPrefix.$name,$item);
+				$parent->appendChild($child);
+				// $xml.='<'.$namespace.$name.'>'.$item.'</'.$namespace.$name.'>'."\n";
+			
 			}
 		
 		}
-		return $xml;
+		$el->appendChild($parent);
+		return $el;
 	}
 
 	# Takes the tile container data and parses it into XML
 	public function convertTileToXML(){
+		
 		# create initial XML header
 		# need to include source XML from content in here?
-		$xml='<TILE>'."\n";
-		#generate namespace
-		$namespace='tile:';
+		// $xml='<TILE>'."\n";
+		$this->xml=new DOMDocument('1.0','UTF-8');
 	
 		# step through JSON array
 		foreach($this->json as $m=>$item){
@@ -68,30 +90,29 @@ class XMLExport{
 				#display major item, then display inner items
 				# set up parent name
 				$name=preg_replace('/\t|\n|[0-9]*/','',$m);
-				$xml.='<'.$namespace.$name.'>'."\n";
+				$el=$this->xml->createElementNS($this->namespace,$this->nsPrefix.$name);
 				# go through children
-				$xml.=$this->convertArrayToXML($item,$namespace);
-				# end
-				$xml.='</'.$namespace.$name.'>'."\n";
+				$result=$this->convertArrayToXML($item,$el);
+				$this->xml->appendChild($result);
 			} elseif($item!='') {
 				# set up parent name
 				$name=preg_replace('/\t|\n|[0-9]*/','',$m);
-				$xml.='<'.$namespace.$name.'>'."\n".$item.'</'.$namespace.$name.'>'."\n";
+				# create node and append
+				$el=$this->xml->createElementNS($this->namespace,$this->nsPrefix.$name,$item);
+				$this->xml->appendChild($el);
+				// $this->xml.='<'.$this->nsPrefix.$name.'>'."\n".$item.'</'.$this->nsPrefix.$name.'>'."\n";
 			}
-		
 		}
-		$xml.='</TILE>';
-		$this->tilexml=$xml;
+		
 	}
 	
 	public function outputXML(){
-		# find the area in XML document to include
-		# our generic XML
-		$off=strripos($this->content,'<');
-		#insert
-		$xmlout=substr($this->content,0,$off).$this->tilexml.substr($this->content,$off);
+		if(is_null($this->xml)) return;
 		
-		return $xmlout;
+		# make this->xml root element the child element of 
+		# source doc
+		$this->xml->saveXML();
+		return '';
 	}
 	
 }

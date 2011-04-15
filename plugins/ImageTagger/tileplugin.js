@@ -1046,7 +1046,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// global bind for when user interacts with the colorPicker [TILEShapeToolBar]
 			// $("body").bind("NEWSHAPECOLOR",{obj:this},this._newColorHandle);
 			// global bind for when a shape is dragged/resized
-			$("body").bind("shapeChanged",{obj:this},this._shapeChangeHandle);
+			$("body").bind("shapeChanged",{obj:self},this._shapeChangeHandle);
 			// global bind for when a shape is selected
 			$("body").bind("shapeActive",{obj:this},this._shapeActiveHandle);
 			
@@ -1157,21 +1157,18 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			var self=e.data.obj;
 			var url=TILE.url;
 			// change in own manifest
-			var vd=self.drawTool.exportShapes();
-			var shpObj=null;
-			// only need to change posInfo
-			for(var v in vd){
-				var id=vd[v].id;
-				for(var sh in self.manifest[sh]){
-					if(self.manifest[sh].id==id){
-						
-						self.manifest[sh].posInfo=vd[v].posInfo;
-						shpObj=vd[v];
-						break;
-					}
+			for(var sh=0;sh<self.manifest.length; sh++){
+				if(__v) console.log('shape manifest[sh]: '+self.manifest[sh].id);
+				if(self.manifest[sh].id==obj.id){
+					if(__v) console.log("shapeChangeHandle itagger :: "+JSON.stringify(obj.posInfo));
+					self.manifest[sh].posInfo=obj.posInfo;
+					if(__v) console.log("shapeChangeHandle itagger handled :: "+JSON.stringify(self.manifest[sh]));
+					shpObj=obj;
+					break;
 				}
-				
 			}
+			
+		
 			$("body:first").trigger("imageShapeUpdate",[obj]);
 		},
 		// Called whenever a user clicks on an object while VectorDrawer
@@ -1190,8 +1187,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					break;
 				}
 			}
-			
-			if(__v) console.log(foundID+" shape active handle for: "+shape);
 			// fire shapeactive trigger
 			$("body:first").trigger("shapeIsActive",[shape]);
 			// draw selBB and make active
@@ -1629,18 +1624,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					TILEIMGSCALE*=0.9;
 					
 				}
-			// if(__v) console.log("w: "+w+" h: "+h);
-			// 				$("#srcImageForCanvas").css("width",w+'px');
-			// 				//$("#srcImageForCanvas").height(1.25*parseFloat($("#srcImageForCanvas").height()));
-			// 				$(".vd-container").width(w);
-			// 				$(".vd-container").height(h);
-			// 				//zooming out
-			// 				self.drawTool.scale(self._imgScale);
-			// 				if($(".shpButtonHolder").length){
-			// 					// also change positon of .shpButtonHolder
-			// 					$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*self._imgScale)+'px');
-			// 					$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*self._imgScale)+'px');
-			// 				}
+		
 			
 			} else {
 				$("body").unbind("zoom",self.zoomHandle);
@@ -1871,141 +1855,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		}
 	};
 	
-	// AutoRecLine
-	// Expands Shape class
-	// For lines that are fed back from the auto-recognizer
-	// contains properties to automatically scale the set of lines
-	// up or down
-	var AutoRecLine=function(args){
-			this.coords=[];
-			this.index=args.index;
-			this.Top=args.initialTop;
-			this.Right=0;
-			this.Left=args.initialLeft;
-			this.Bottom=0;
-			this.hMid = 0; // horizontal midpoint
-			this.vMid = 0; // vertical midpoint
-			this.foundOnRow = (typeof args.foundOnRow=="string")?parseInt(args.foundOnRow.substring(1),10):args.foundOnRow;
-			
-			this.uid=args.data.id;
-			this._obj=args.data;
-			this.DOM=$("#lineBox_"+this.uid);
-			this.DOM.remove().appendTo("#raphael");
-			this.DOM.bind("mousedown",{obj:this},this.clickHandle);
-		
-			// if(this._obj.imgScale){
-			// 				this.resizeData(this._obj.imgScale);
-			// 			}
-			$("body").bind("zoom",{obj:this},this.zoomHandle);
-			
-		};
-		
-	AutoRecLine.prototype={
-		// Add an xy value, which is processed into the Shape object's 
-		// coords array
-		// xy : {Object} - array of x and y pair
-		add: function(xy){
-			//add new xy value to coords array
-			this.coords.push(xy);
-			var x =parseInt(xy.x.substring(1),10); 
-			var y =parseInt(xy.y.substring(1),10); 
-			//check to make sure greatest left,top,right,bottom points
-			//are updated
-			if (x < this.Left) {
-				this.Left = x;
-			}
-			if (x > this.Right) {
-				this.Right = x;
-			}
-			if (y > this.Bottom) {
-				this.Bottom = y;
-			}
-			if (y < this.Top) {
-				this.Top = y;
-			}
-
-
-		},
-
-		// @param
-		// 	shape: Another Shape object to compare this one to
-		// returns true of false
-		compare:function(shape,criteria){
-			return (this[criteria]<shape[criteria]);
-		},
-		resizeData:function(newScale){
-			var self=this;
-			var wx=($("#srcImageForCanvas")[0].width*newScale)/($("#srcImageForCanvas")[0].width*self._obj._scale);
-			var wy=($("#srcImageForCanvas")[0].height*newScale)/($("#srcImageForCanvas")[0].height*self._obj._scale);
-			self.DOM.css({"left":(parseFloat(self.DOM.css("left"))*wx)+'px',"top":(parseFloat(self.DOM.css("top"))*wy)+'px'});
-			self.DOM.width(self.DOM.width()*wx);
-			self.DOM.height(self.DOM.height()*wy);
-			self._obj._scale=newScale;
-			// attach new scale to the DOM element - needed for re-organizing elements
-			$.data(self.DOM,"_scale",newScale);
-		},
-		// When user clicks the DOM object, fires event and
-		// sets up DOM to be resizeable and draggable
-		// e : {Event}
-		clickHandle:function(e){
-			var self=e.data.obj;
-			self.DOM.trigger("autoLineClick",[self.uid]);
-			
-			self.DOM.draggable();
-			self.DOM.resizeable({
-				handles:'all'
-			});
-			$(document).click(function(e){
-				var x=e.pageX;
-				var y=e.pageY;
-				if((x<(self.DOM.position().x-5))||(x>(self.DOM.position().x+self.DOM.width()+5))||
-				(y<(self.DOM.position().y-5))||(y>(self.DOM.position().y+self.DOM.height()+5))){
-					self.DOM.draggable("destroy");
-					self.DOM.resizeable("destroy");
-				}
-				
-			});
-		},
-		// e : {Event}
-		// n : {Integer} value of -1 or 1
-		zoomHandle:function(e,n){
-			var self=e.data.obj;
-			if(n<0){
-				self.DOM.width(self.DOM.width()*0.75);
-				self.DOM.height(self.DOM.height()*0.75);
-				var left=parseInt(self.DOM.css('left'),10)*0.75;
-				var top=parseInt(self.DOM.css('top'),10)*0.75;
-				self.DOM.css({'left':left+'px','top':top+'px'});
-				self._obj._scale*=0.75;
-			} else if(n>0){
-				self.DOM.width(self.DOM.width()*1.25);
-				self.DOM.height(self.DOM.height()*1.25);
-				var left=parseInt(self.DOM.css('left'),10)*1.25;
-				var top=parseInt(self.DOM.css('top'),10)*1.25;
-				self.DOM.css({'left':left+'px','top':top+'px'});
-				self._obj._scale*=1.25;
-			}
-		},
-		// Convert the DOM data into a JSON shape object
-		convertToJSON:function(){
-			var self=this;
-			var left=parseInt(self.DOM.css('left'),10)-$("#azcontentarea > .az.inner").scrollLeft();
-			var top=parseInt(self.DOM.css('top'),10)-($("#azcontentarea > .az.inner").scrollTop()+$("#azcontentarea > .az.inner > .toolbar").innerHeight());
-			var posInfo={'x':left,'y':top,'width':self.DOM.width(),'height':self.DOM.height()};
-			
-			var json={'id':self.uid,'type':'rect','_scale':self._obj._scale,'color':"#000",'posInfo':posInfo};
-			return json;
-			
-			
-		},
-		// Convert to NULL
-		destroy:function(){
-			var self=this;
-			self.DOM.remove();
-			self.uid=null;
-		}
-	};
-	
 	
 })(jQuery);
 
@@ -2115,8 +1964,8 @@ var IT={
 					obj:obj
 				};
 			}
-			// post to TILE
-			TILE.engine.insertData(obj);
+			// update in TILE
+			TILE.engine.updateData(obj);
 		};
 		
 		// handles when a link in imagelist is clicked
@@ -2186,6 +2035,7 @@ var IT={
 			$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
 			$("body").live("newActive",{obj:self},self.newActiveHandle);
 			$("body").live("newJSON newPage",{obj:self},self.newJSONHandle);
+			$("body").live("dataUpdated",{obj:self},self.dataUpdatedHandle);
 			
 			// check to see if data has been loaded
 			var j=TILE.engine.getJSON(true);
@@ -2282,6 +2132,13 @@ var IT={
 		
 		
 	},	
+	// updates the shape when it's moved
+	dataUpdatedHandle:function(e){
+		var self=e.data.obj;
+		
+		
+		
+	},
 	// Listens for the ObjectChange event call
 	// e: {Object}
 	// data :{Object} 
@@ -2294,27 +2151,6 @@ var IT={
 		}
 	
 	},
-	// remove the referenced data from 
-	// the referenced shape's array
-	removeData:function(ref,shape){
-		var self=this;
-		if(__v) console.log("removing ref from shape "+shape);
-		var url=$("#srcImageForCanvas").attr('src');
-		if(!self.linkManifest[url]) {
-			self.linkManifest[url]=[];
-			return;
-		}
-		for(var x in self.linkManifest[url][shape]){
-			var ac=[];
-			if(self.linkManifest[url][shape][x].id!=ref.id){
-				ac.push(self.linkManifest[url][shape][x]);
-			}
-			
-		}
-		self.linkManifest[url][shape]=ac;
-		self.itagger.raphael._deleteLinkHandle(ref,shape);
-		
-	},
 	deleteSelf:function(data){
 		var self=this;
 		if(data.type=="shapes"){
@@ -2325,29 +2161,7 @@ var IT={
 		}
 		$("#selBB").remove();
 	},
-	//return JSON of all plugin data for this session
-	bundleData:function(j){
-		// will return the manifest of url => shapes
-		// from RaphaelCanvas
-		var itagData=this.itagger.bundleData();
-		// deep copy the json file
-		var jcopy=$.extend(true,{},j);
-		// sort through url => shapes pairs
-		for(o in jcopy){
-			if(!itagData[o]) continue;
-			// if url => [] in passed manifest from TILEENGINE
-			if(itagData[o]){
-				for(var i in itagData[o]){
-					jcopy[o].shapes.push(itagData[o][i]);
-				}
-			}
-		}
-		j=jcopy;
-		
-		return j;
-	},
-	// Boolean that is set to true once the tool is created
-	constructed:false,
+	
 	// string that represents the trigger event that is called
 	// once close is complete
 	done:"closeOutITag",
