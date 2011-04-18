@@ -11,7 +11,11 @@ if(isset($_POST['uploadData'])&&(isset($_POST['extraData']))){
 	
 	$filename='test.xml';
 	if(isset($_POST['uploadFileName'])&&strlen($_POST['uploadFileName'])>1){
-		$filename=$_POST['uploadFileName'].".xml";
+		if(preg_match('/\.xml/',$_POST['uploadFileName'])){
+			$filename=$_POST['uploadFileName'];
+		} else {
+			$filename=$_POST['uploadFileName'].".xml";
+		}
 	}
 	
 	$parser=new XMLStreamImport('',stripslashes($_POST['uploadData']));
