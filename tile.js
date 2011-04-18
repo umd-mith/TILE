@@ -2800,16 +2800,6 @@ TILE.scale=1;
 			$("#inv_SaveProgress_Form > #uploadFileName").val($("#savedialog > .body > .option > #save_filename").val());
 			$("#inv_SaveProgress_Form").submit();
 			
-				// $.ajax({
-				// 					type:'post',
-				// 					url:'PHP/forceJSON.php',
-				// 					data:{uploadData:deepcopy(json)},
-				// 					success:function(result){
-				// 						// get results and feed to user
-				// 
-				// 					}
-				// 				});
-			
 			// hide dialog
 			$("#savedialogwhitespace").hide();
 			$("#darkForSaveDialog").hide();
@@ -2822,19 +2812,20 @@ TILE.scale=1;
 			e.preventDefault();
 			if(!TILE.content) return;
 			var jsonstring=JSON.stringify(TILE.engine.getJSON());
+			var filename=$("#savedialog > .body > .option > #save_filename").val();
 			// send to import script
-			$.ajax({
-				url:self.exportScript,
-				type:'post',
-				dataType:'xml',
-				data:{'tile':jsonstring,'content':TILE.content},
-				success:function(xml){
-					// force download to user
-					
-				}
-				
-			});
-			
+			// change the hidden save form 
+			var frmr=$("#inv_SaveProgress_Form").attr('action');
+			// change
+			$("#inv_SaveProgress_Form").attr("action",self.exportScript);
+			// update
+			$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
+			$("#inv_SaveProgress_Form > #uploadData2").val(TILE.content);
+			$("#inv_SaveProgress_Form > #uploadFileName").val($("#savedialog > .body > .option > #save_filename").val());
+			// submit
+			$("#inv_SaveProgress_Form").submit();
+			// change back
+			$("#inv_SaveProgress_Form").attr("action",frmr);
 		});
 		
 	};
