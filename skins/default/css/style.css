@@ -717,17 +717,17 @@ a.btnIconLarge:hover {
 	padding:0;
 	margin-top:47px;
 }
-#labelList {
+#labelList,#labelListFloat {
 	margin-top:0;
 	border:1px solid #e0d1ac;
 	background-color:#FFFAEF;
 	overflow:auto;
 }
-.az #labelList .labelItem, #labelList .labelItem {
+.az #labelList .labelItem, #labelList .labelItem, #labelListFloat .labelItem {
 	padding:0.5em;
 	border-bottom: 1px solid #f0f2d2;
 }
-.az #labelList .labelItem:hover, #labelList .labelItem:hover {
+.az #labelList .labelItem:hover, #labelListFloat .labelItem:hover {
 	padding:0.5em;
 	background-color:#f0f2d2;
 }

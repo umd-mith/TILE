@@ -518,7 +518,7 @@ var TS={
 		// object active
 		var selectHighlight=function(id){
 			var self=this;
-			var url=TILEPAGE;
+			var url=TILE.url;
 			var h=null;
 			for(var i in self.manifest[url]){
 				if(self.manifest[url][i].id==id){
@@ -530,7 +530,7 @@ var TS={
 			var handle="span."+h.id+":eq("+($("span."+h.id).length-1)+")";
 			var disp=$("span."+h.id+":eq(0)").text().substring(0,10);
 			
-			TILE.engine.insertData({id:h.id,type:'selections',display:disp,attachHandle:handle,obj:{id:id,type:'selections',jsonName:url}});
+			TILE.engine.updateData({id:h.id,type:'selections',display:disp,attachHandle:handle,obj:{id:id,type:'selections',jsonName:url}});
 			// $("body:first").trigger(self.outputCall,[{id:h.id,type:'selections',display:disp,attachHandle:handle,obj:{id:id,type:'selections',jsonName:url}}]);
 		};
 		
@@ -538,7 +538,7 @@ var TS={
 			var self=e.data.obj;
 			self.clearHighlights();
 			var sel=self.createHighlight();
-			if(__v) console.log("TExt selection retrieved by createHighlight: "+JSON.stringify(sel));
+			if(!sel.jsonName) sel.jsonName=TILE.url;
 			TILE.engine.insertData(sel);
 			var handle="span."+sel.id+":eq("+($("span."+sel.id).length-1)+")";
 			TILE.engine.attachMetadataDialog(sel,handle);
@@ -610,7 +610,7 @@ var TS={
 			});
 			if(!data||(data.length==0)) return;
 
-			var url=TILEPAGE;
+			var url=TILE.url;
 			var vd=[];
 			for(x in self.manifest[url]){
 				// if(__v) console.log("self.manifest[url]["+x+"]="+self.manifest[url][x].id);
@@ -761,7 +761,7 @@ var TS={
 	},
 	// creates a TILE standard object and returns it
 	createHighlight:function(){
-		var url=TILEPAGE;
+		var url=TILE.url;
 		var self=this;
 		// de-select all transcript lines
 		$(".line_selected").removeClass("line_selected");
@@ -800,7 +800,7 @@ var TS={
 		// attach any current divs for references
 		// self._attachLinkDiv(self.curLink);
 		if(__v) console.log("attachHandle in textSel: "+$("."+sel.id+":eq(0)")+"  "+$("."+sel.id).length);
-		var o={jsonName:TILEPAGE,id:sel.id,type:"selections",display:"..."+$(sel.StartParent).text().substring(0,10)+"...",obj:sel};
+		var o={jsonName:TILE.url,id:sel.id,type:"selections",display:"..."+$(sel.StartParent).text().substring(0,10)+"...",obj:sel};
 		// add to manifest
 		self.manifest.push(o);
 		return o;

@@ -25,8 +25,6 @@
 // 
 
 // GLOBAL VARIABLES
-// Keep track of URL
-var TILEPAGE=null;
 // Keep track of Image scale
 var TILEIMGSCALE=1;
 // Large, global variable that 
@@ -342,7 +340,7 @@ TILE.scale=1;
 			'<br />'+
 			'<fieldset><ol class="label_formOL">'+
 			'<li class="label_formLI">'+
-			'<span class="label_formLabel">Data already attached: </span><br/><div id="labelList" class="az"></div>'+
+			'<span class="label_formLabel">Data already attached: </span><br/><div id="labelListFloat" class="az"></div>'+
 			'</ol></fieldset>';
 				
 			$('<form></form>')
@@ -462,8 +460,8 @@ TILE.scale=1;
 				$(".ui-dialog").hide();
 			});
 			// get list for metadata and adjust size from default CSS
-			this._attachDataList=$("#"+myID+"_floatingDiv > fieldset > ol > li > #labelList");
-			this._attachDataList.css({"position":"relative","height":"100px"});
+			// this._attachDataList=$("#"+myID+"_floatingDiv > fieldset > ol > li > #labelList");
+			$("#labelListFloat").css({"position":"relative","height":"100px"});
 			self.addColorSelector(myID,self.defaultColor);
 		},	
 		// insert new labels/tags and restart 
@@ -574,7 +572,7 @@ TILE.scale=1;
 			// linked object for this dialog
 			self._curLink=o;
 			// reset the attachDataList
-			self._attachDataList.empty();
+			$("#labelListFloat").empty();
 			var html="";
 			// store refs in here
 			var lbls=[];
@@ -617,10 +615,11 @@ TILE.scale=1;
 				}
 				if(__v) console.log("adding "+JSON.stringify(lbls[prop])+" to html");
 				html+="<div id=\""+lbls[prop].id+"\" class=\"labelItem\">"+name+"<span id=\"del_"+lbls[prop].id+"\" class=\"button shape delete formLink\">X</span></div>";
+				
 			}
+			// attach to the float div list
+			$("#labelListFloat").append(html);
 		
-			self._attachDataList.append(html);
-			
 			// reset autocomplete
 			self.addAutoComplete();
 		
@@ -647,6 +646,7 @@ TILE.scale=1;
 			var html="";
 			for(var x in lbls){
 				if((!lbls[x])||(lbls[x]=='undefined')) continue;
+				
 				var el=null;
 				if($.inArray(lbls[x],self.labelNames)<0){
 					// User typed in something that is not in the array
@@ -673,12 +673,16 @@ TILE.scale=1;
 				if(!el) continue;
 				// create HTML to be added to the list of labels attached to curLink
 				html+="<div id=\""+el.id+"\" class=\"labelItem\">"+el.name+"<span id=\"del_"+el.id+"\" class=\"button shape delete formLink\">X</span></div>";
-				
+				// attach to global page list only if there isn't already label there
+				if($("#labelList > #"+el.id).length==0){
+					// 	none attach - attach this element
+					$("#labelList").append("<div id=\""+el.id+"\" class=\"labelItem\">"+el.name+"<span id=\"del_"+el.id+"\" class=\"button shape delete formLink\">X</span></div>");
+				}
 				// push onto stack to be sent to ENGINE
 				refs.push(el);
 			}
 			// attach references to the attachList
-			self._attachDataList.append(html);
+			$("#labelListFloat").append(html);
 			
 			for(var r in refs){
 				if(!refs[r]) continue;
@@ -716,7 +720,7 @@ TILE.scale=1;
 				}
 			}
 			if(lb===null) return;
-			$("#labelList > #"+lb.id).remove();
+			$("#labelListFloat > #"+lb.id).remove();
 			// var n=$.inArray(self._curLink.id,lb.refs);
 			// 			if(n===0){
 			// 				lb.refs=[];
