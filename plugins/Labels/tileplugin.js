@@ -36,6 +36,21 @@ var Label=function(args){
 		if(__v) console.log("focusout");
 		self._textLoseFocusHandle();
 	});
+	
+	// global listener for all labelitems in .az .labelList
+	$(".az > #labelList > .labelItem").live("click",function(e){
+		e.preventDefault();
+		
+		$(".az > #labelList > .labelItem").removeClass("active");
+		$(this).addClass("active");
+		// get id for label
+		var id=$(this).attr('id').replace("lbl_","");
+		// $("body:first").trigger("labelSelected",[{type:"labels",id:id}]);
+		$("body:first").trigger("labelClick",[{name:$(this).text(),id:id}]);
+		
+	
+	});
+	
 	// essential global listeners
 	// $("body").bind("addLink",{obj:self},self._addLinkHandle);
 	$("body").bind("labelClick",{obj:self},self.lblSelected);
@@ -57,26 +72,24 @@ Label.prototype={
 		for(d in data){
 			if(!data[d]) continue;
 			// get rid of duplicates
-			if($("#lbl_"+data[d].id).length){
-				
-				continue;
-			}
-			var lbl=data[d].obj;
+			if($("#"+data[d].id).length==0){
+				var lbl=data[d].obj;
 			
-			$("<div id=\"lbl_"+lbl.id+"\" class=\"labelItem\">"+lbl.name+"</div>").appendTo("#az_activeBox > div > div#labelList");
-			$("div#lbl_"+lbl.id).bind("click",function(e){
-				if(__v) console.log("hey you clicked on a label "+$(this).attr('id'));
-				if($(this).hasClass("active")) {
-					$(this).removeClass("active");
-					return;
-				}
-				$(".labelItem").removeClass("active");
-				$(this).addClass("active");
-				// get id for label
-				var id=$(this).attr('id').replace("lbl_","");
-				// $("body:first").trigger("labelSelected",[{type:"labels",id:id}]);
-				$("body:first").trigger("labelClick",[{name:$(this).text(),id:id}]);
-			});
+				$("<div id=\""+lbl.id+"\" class=\"labelItem\">"+lbl.name+"</div>").appendTo("#az_activeBox > div > div#labelList");
+				// $("div#lbl_"+lbl.id).bind("click",function(e){
+				// 					if(__v) console.log("hey you clicked on a label "+$(this).attr('id'));
+				// 					if($(this).hasClass("active")) {
+				// 						$(this).removeClass("active");
+				// 						return;
+				// 					}
+				// 					$("#labelList > .labelItem").removeClass("active");
+				// 					$(this).addClass("active");
+				// 					// get id for label
+				// 					var id=$(this).attr('id').replace("lbl_","");
+				// 					// $("body:first").trigger("labelSelected",[{type:"labels",id:id}]);
+				// 					$("body:first").trigger("labelClick",[{name:$(this).text(),id:id}]);
+				// 				});
+			}
 			self.manifest.push(data[d]);
 			self.checkIds.push(data[d].id);
 		}
@@ -413,7 +426,6 @@ var LB={
 		if(newLbls.length){
 			TILE.engine.insertTags(newLbls);
 		}
-		if(__v) console.log("LABELS LOADED IN NEW JSON");
 	},
 	dataAddedHandle:function(e){
 		var self=e.data.obj;
@@ -450,7 +462,7 @@ var LB={
 		var data=TILE.engine.getJSON();
 		
 		// deactivate labels
-		$(".labelItem").removeClass('active');
+		$("#labelList > .labelItem").removeClass('active');
 		// check if any labels were added
 		var vd=[];
 		var newLbls=[];

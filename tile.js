@@ -2004,7 +2004,6 @@ TILE.scale=1;
 									_newActiveObj.obj=deepcopy(page[_newActiveObj.type][item]);
 									
 									self.activeObj=_newActiveObj;
-									if(__v) console.log("obj found on page: "+JSON.stringify(self.activeObj));
 									TILE.activeItems.push(self.activeObj.obj);
 									break;
 								}
@@ -2814,7 +2813,19 @@ TILE.scale=1;
 		// set up listener for saving to original file format
 		$("#savedialog > .body > .option > #save_session_format").click(function(e){
 			e.preventDefault();
-			if(!TILE.content) return;
+			if(!TILE.content) {
+				// save as json
+					// use hidden form fields
+				$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
+
+				$("#inv_SaveProgress_Form > #uploadFileName").val($("#savedialog > .body > .option > #save_filename").val());
+				$("#inv_SaveProgress_Form").submit();
+
+				// hide dialog
+				$("#savedialogwhitespace").hide();
+				$("#darkForSaveDialog").hide();
+				return;
+			}
 			var jsonstring=JSON.stringify(TILE.engine.getJSON());
 			var filename=$("#savedialog > .body > .option > #save_filename").val();
 			// send to import script
@@ -2830,6 +2841,8 @@ TILE.scale=1;
 			$("#inv_SaveProgress_Form").submit();
 			// change back
 			$("#inv_SaveProgress_Form").attr("action",frmr);
+			$("#savedialogwhitespace").hide();
+			$("#darkForSaveDialog").hide();
 		});
 		
 	};

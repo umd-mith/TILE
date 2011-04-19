@@ -702,7 +702,6 @@ var TS={
 		}
 	},
 	dataAddedHandle:function(e,o){
-		if(__v) console.log("textself datadded");
 		var self=e.data.obj;
 		var data=[];
 		$("span[class^='anno']").each(function(e){
@@ -726,11 +725,9 @@ var TS={
 		}
 		// nothing found - stop here
 		if(data.length==0) return;
-		if(__v) console.log("datadded in textsel: "+JSON.stringify(data));
 		self._loadItemsHandle(data);
 	},
 	newActiveHandle:function(e,o){
-		if(__v) console.log("newactive textsel");
 		var self=e.data.obj;
 		var data=[];
 		$("span[class^='anno']").each(function(e){
@@ -754,7 +751,7 @@ var TS={
 			}
 		}
 		
-		// nothing found - stop here
+		// if nothing found - stop here
 		if(data.length==0) return;
 	
 		if(data.length>0) self._loadItemsHandle(data);
