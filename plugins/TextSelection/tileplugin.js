@@ -568,7 +568,6 @@ var TS={
 		// listener for clicking on a highlight
 		$("span[class^='anno']").live('mouseup',function(e){
 			e.stopPropagation();
-			if(__v) console.log('clicked on highlight '+$(this).attr('class'));
 			// is user just turning this one off?
 			if($(this).hasClass('selected')){
 				// if(__v) console.log('highlight already selected');
@@ -582,7 +581,6 @@ var TS={
 
 			// select the highlight
 			var o=self.selectHighlight(id);
-			if(__v) console.log("highlight selected: "+o[0]+'  '+o[1]);
 			// use data to attach metadata box
 			if(o) TILE.engine.attachMetadataDialog(o[0],o[1]);
 			

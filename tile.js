@@ -2779,6 +2779,8 @@ TILE.scale=1;
 		// changes based on which format is selected
 		self.saveUrl='';
 		self.exportScript='plugins/CoreData/exportDataScript.php';
+		// set invisible form to this
+		$("#inv_SaveProgress_Form").attr("action",self.exportScript);
 		
 		
 		// close button event handler
@@ -2801,6 +2803,7 @@ TILE.scale=1;
 			$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
 			
 			$("#inv_SaveProgress_Form > #uploadFileName").val($("#savedialog > .body > .option > #save_filename").val());
+			$("#inv_SaveProgress_Form > #uploadData2").val('');
 			$("#inv_SaveProgress_Form").submit();
 			
 			// hide dialog
@@ -2819,6 +2822,7 @@ TILE.scale=1;
 				$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
 
 				$("#inv_SaveProgress_Form > #uploadFileName").val($("#savedialog > .body > .option > #save_filename").val());
+				$("#inv_SaveProgress_Form > #uploadData2").val('');
 				$("#inv_SaveProgress_Form").submit();
 
 				// hide dialog
@@ -2829,18 +2833,13 @@ TILE.scale=1;
 			var jsonstring=JSON.stringify(TILE.engine.getJSON());
 			var filename=$("#savedialog > .body > .option > #save_filename").val();
 			// send to import script
-			// change the hidden save form 
-			var frmr=$("#inv_SaveProgress_Form").attr('action');
-			// change
-			$("#inv_SaveProgress_Form").attr("action",self.exportScript);
 			// update
 			$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
 			$("#inv_SaveProgress_Form > #uploadData2").val(TILE.content);
 			$("#inv_SaveProgress_Form > #uploadFileName").val($("#savedialog > .body > .option > #save_filename").val());
 			// submit
 			$("#inv_SaveProgress_Form").submit();
-			// change back
-			$("#inv_SaveProgress_Form").attr("action",frmr);
+			
 			$("#savedialogwhitespace").hide();
 			$("#darkForSaveDialog").hide();
 		});
