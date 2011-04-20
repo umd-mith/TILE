@@ -18,9 +18,6 @@ if(isset($_POST['uploadData'])&&(isset($_POST['extraData']))&&(strlen($_POST['ex
 		}
 	}
 	
-	
-	
-	
 	$parser=new XMLStreamImport('',stripslashes($_POST['uploadData']));
 	$parser->convertTileToXML();
 	$xmlstring=$parser->outputTILEXML();

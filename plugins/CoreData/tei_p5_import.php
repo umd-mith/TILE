@@ -1,8 +1,9 @@
 <?php
 class TEIP5Import extends XMLStreamImport 
 {
+
     public function __construct($content) {
-		array_push($import_namespaces,'XML set to TEI P5 DTD');
+		
         $this -> setMilestoneXPath('//pb');
         $this -> setDocumentStartXPath('//pb');
         $this -> setImageUrlXPath('//pb/@facs');
@@ -12,4 +13,8 @@ class TEIP5Import extends XMLStreamImport
         parent::__construct($content);
     }
 }
+
+# declare namespace
+array_push(CoreData::$import_namespaces,'TEI :: P5 DTD');
+
 ?>

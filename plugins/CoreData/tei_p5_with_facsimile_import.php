@@ -17,8 +17,9 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
     protected $containers_by_id = array();
     private   $zone_xpath;
     
+
     public function __construct($content,$imgpath) {
-		array_push($this->import_namespaces,'XML set to TEI DTD and utilizing <facsimile>');
+		
         $this -> setMilestoneXPath('//facsimile|//text/body/div');
         $this -> setImageURLXPath('//facsimile/surface/graphic/@url');
         // we want all of the child elements of a top-level div element in the body
@@ -29,6 +30,8 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
         parent::__construct($content);
     }
     
+	
+
     // We have to manage milestones a little different.  The <facsimile/> element comes first, so we
     // set up the containers and store them by the id since we need to retrieve them by id later.
     // Then, when we get into the document, we have <div/> elements with the same id whose content
@@ -65,4 +68,8 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
         }
     }
 }
+
+# declare namespace
+array_push(CoreData::$import_namespaces,'TEI :: P5 :: Facsimile Tags');
+
 ?>

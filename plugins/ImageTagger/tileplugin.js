@@ -261,6 +261,14 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			
 			if(self.raphael) self.raphael.loadShapes(shapes);
 		},
+		eraseAllShapes:function(){
+			var self=this;
+			
+			if(self.raphael){
+				self.raphael.shapeIds=[];
+				self.raphael.manifest=[];
+			}
+		},
 		setImage:function(){
 			var self=this;
 			self.raphael.setUpCanvas(self.curURL);
@@ -1035,6 +1043,10 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				self.drawTool.clearShapes();
 				
 			});
+			$("body").live("noShapesSelected",function(e){
+				$(".shpButtonHolder").remove();
+				$(".ui-dialog").hide();
+			});
 			// global bind for when a new shape is drawn in VectorDrawer [VectorDrawer.js]
 			$("body").bind("shapeDrawn",{obj:this},this._shapeDrawnHandle);
 			// global bind for when [Transcript.js] is sending shape ids to imageTagger
@@ -1197,7 +1209,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			var self=this;
 			// remove current selection area
 			$(".shpButtonHolder").remove();
-			if(__v) console.log("setting active shape: "+JSON.stringify(shpObj));
 			// select shape, which will draw selBB area
 			self.drawTool.selectShape(shpObj.id);
 			// change the draw toolbar options
@@ -1208,7 +1219,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			$("#pointer").addClass("active");
 			// attach buttons to selBB area
 			$("<div class=\"shpButtonHolder\"><div id=\""+shpObj.id+"\" class=\"button shape\">Delete</div></div>").insertBefore($("svg"));
-			if(__v) console.log("selBB: "+$("#selBB"));
+		
 			var left=$("#selBB").position().left;
 			var top=$("#selBB").position().top-$(".shpButtonHolder").height();
 			if((left+$(".shpButtonHolder").width())>$(document).width()){
@@ -1644,8 +1655,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// dump autoLines
 			self.autoLines=[];
 			if((!url)) return;
-			if(__v) console.log("IMAGETAGGER RESTART");
-			if(__v) console.log();
 			$("body").bind("zoom",{obj:self},self.zoomHandle);
 			if(self.drawTool){
 				// erase current canvas
@@ -1654,19 +1663,24 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				var vd=[];
 				// check to see if shapes in passed data array
 				// match up with any in the manifest
-				if(__v) console.log('json in _restart: '+JSON.stringify(json));
 				for(var j in json){
-					for(var p in self.manifest){
-						if(!json[j]) continue;
-						if(json[j].id==self.manifest[p].id){
-							// update item
-							self.manifest[p]=json[j];
-							vd.push(self.manifest[p]);
+					if($.inArray(json[j].id,self.shapeIds)<0){
+						// add to manifest and array of ids
+						self.shapeIds.push(json[j].id);
+						self.manifest.push(json[j]);
+						vd.push(json[j]);
+					} else {
+					
+						for(var p in self.manifest){
+							if(!json[j]) continue;
+							if(json[j].id==self.manifest[p].id){
+								// update item
+								self.manifest[p]=json[j];
+								vd.push(self.manifest[p]);
+							}
 						}
 					}
 				}
-				if(__v) console.log("found shapes going to drawTool: ");
-				if(__v) console.log(JSON.stringify(vd));
 				
 				// wipe out other shapes
 				self.setUpCanvas(url,vd);
@@ -2034,7 +2048,8 @@ var IT={
 			// bind ENGINE events
 			$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
 			$("body").live("newActive",{obj:self},self.newActiveHandle);
-			$("body").live("newJSON newPage",{obj:self},self.newJSONHandle);
+			$("body").live("newJSON",{obj:self},self.newJSONHandle);
+			$("body").live("newPage",{obj:self},self.newPageHandle);
 			$("body").live("dataUpdated",{obj:self},self.dataUpdatedHandle);
 			
 			// check to see if data has been loaded
@@ -2126,12 +2141,41 @@ var IT={
 	},
 	newJSONHandle:function(e){
 		var self=e.data.obj;
-		if(__v) console.log("NEW JSON CALLED: IMAGE TAGGER");
 		self.itagger.curUrl=TILE.url;
-		self.itagger._restart(TILE.activeItems);
+		self.itagger.eraseAllShapes();
+		var shapes=self.findShapesInJSON(TILE.engine.getJSON());
+		
+		self.itagger._restart(shapes);
 		
 		
 	},	
+	findShapesInJSON:function(json){
+		var self=this;
+		
+		if(!json.pages) return;
+		
+		var arr=[];
+		for(var p in json.pages){
+			if(json.pages[p].shapes&&($.isArray(json.pages[p].shapes))){
+				for(var sh in json.pages[p].shapes){
+					var shape=json.pages[p].shapes[sh];
+					if((!shape)||(!shape.id)){
+						continue;
+					} else {
+						arr.push(shape);
+					}
+				}
+				
+			}
+		}
+		return arr;
+	},
+	newPageHandle:function(e){
+		var self=e.data.obj;
+		self.itagger.curUrl=TILE.url;
+		self.itagger._restart(TILE.activeItems);
+		
+	},
 	// updates the shape when it's moved
 	dataUpdatedHandle:function(e){
 		var self=e.data.obj;

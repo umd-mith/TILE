@@ -33,7 +33,6 @@ var Label=function(args){
 		
 	});
 	$("#az_LabelBox > .toolbar > .menuitem > ul").bind("blur",function(e){
-		if(__v) console.log("focusout");
 		self._textLoseFocusHandle();
 	});
 	

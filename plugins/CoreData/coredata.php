@@ -4,7 +4,7 @@ class CoreData
     private $containers = array();
     private $labels = array();
     public  $current_container;
-	public 	$import_namespaces = array();
+	static	$import_namespaces = array();
     private $content;
 
     
@@ -15,6 +15,20 @@ class CoreData
         $this -> parse_content($content);
     }
     
+	// This is a function to return html for choosing
+	// which import feature to use in the wide library 
+	// of classes
+	public function parse_namespaces(){
+		
+		$html='';
+		foreach(self::$import_namespaces as $key=>$item){
+		
+			// create a select tag for each element in the array
+			$html.='<option id="import_'.$key.'">'.$item.'</option>';
+		}
+		return $html;
+	}
+
     // this function should be overridden to parse the content and create a set of collections with lines
     //   and possibly links
     public function parse_content($content) {
