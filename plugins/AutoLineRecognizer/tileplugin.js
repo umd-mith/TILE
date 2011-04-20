@@ -59,10 +59,9 @@
 			"<a id=\"selectAll\" class=\"textlink\">Select All</a> | <a id=\"selectNone\" class=\"textlink\">Select None</a></div><div class=\"buttondiv\">"+
 			"<a id=\"autorec_recognize\" class=\"button\">Perform Line Recognition</a></div></div></div>";
 			self.canvasArea=$("#azcontentarea").parent(); //use this later to put in CanvasImage object
-			self.canvasHTML='<div id="canvasHTML" class="workspace"><canvas id="canvas"/><img id="hiddenCanvasSource" src="" style="visibility:hidden;width="";height="";"/></div>';
+			self.canvasHTML='<div id="canvasHTML" class="workspace"><canvas id="canvas"/><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
 			self.REST='http://localhost:8888/tile/linerecognizer/LineRecognizer.php?ct=j';
 			self.transcript=(args.transcript)?args.transcript:null;
-			// if(!self.loc) throw "Error in construction for AutoRecognizer";
 			self.lineManifest=[];
 			self.activeLines=[];
 			self.curRegion=0;

@@ -17,7 +17,6 @@ class XMLStreamImport extends CoreData
 	public  $break_lines_on_newline = false;
 	# added data for exporting
 	private $json;
-	private $nsPrefix='PYtileUi';
 	
 	
 	# JIM: added $tile in here to test out using 
@@ -25,9 +24,6 @@ class XMLStreamImport extends CoreData
 	# it?
 	public function __construct($content,$tile) {
 		$this->json = json_decode($tile); 
-		if($this->json){
-			
-		}
 		
 		$this -> setup_parser();
 		parent::__construct($content);
@@ -336,7 +332,7 @@ class XMLStreamImport extends CoreData
 					// an item
 					if(preg_match('/s$/',$key)){
 						// check if it matches el or not
-						
+					
 						# item array
 						$parent=$this->xml->createElement($key);
 						// echo $parent->tagName."<br/>";
@@ -357,18 +353,22 @@ class XMLStreamImport extends CoreData
 				# generate name
 				$name='';
 				if(strlen($key)>1){
+					
 					$name=preg_replace('/\n/','',$key);
+					
+				
 				} elseif(preg_match('/[A-Za-z]/',$key)){
 					$name=preg_replace('/s$/','',$el->tagName);
 				}
-			
 				
-				# create child node and append
-				$child=$this->xml->createElement($this->nsPrefix.':'.$name,$item);
-				// echo $child->tagName."<br/>";
-				$el->appendChild($child);
-				// $xml.='<'.$namespace.$name.'>'.$item.'</'.$namespace.$name.'>'."\n";
+				if(strlen($name)>1){
 			
+					# create child node and append
+					$child=$this->xml->createElement($name,$item);
+					// echo $child->tagName."<br/>";
+					$el->appendChild($child);
+					// $xml.='<'.$namespace.$name.'>'.$item.'</'.$namespace.$name.'>'."\n";
+				}
 			}
 			
 		}
@@ -385,9 +385,9 @@ class XMLStreamImport extends CoreData
 		
 		$this->xml=new DOMDocument('1.0');
 		// create root element with xmlns data
-		$this->xml->loadXML('<'.$this->nsPrefix.':tile xmlns:'.$this->nsPrefix.'="http://mith.umd.edu/tile/namespace"></'.$this->nsPrefix.':tile>');
+		$this->xml->loadXML('<tile xmlns="http://mith.umd.edu/tile/namespace"></tile>');
 		$root=$this->xml->getElementsByTagName('tile')->item(0);
-		// echo $root->tagName."<br/>";
+		
 		# step through JSON array
 		foreach($this->json as $m=>$item){
 			# major item element
@@ -395,7 +395,7 @@ class XMLStreamImport extends CoreData
 				#display major item, then display inner items
 				# set up parent name
 				$name=preg_replace('/\t|\n|[0-9]*/','',$m);
-				$el=$this->xml->createElement($this->nsPrefix.':'.$name);
+				$el=$this->xml->createElement($name);
 				# go through children
 				$result=$this->convertArrayToXML($item,$el);
 				if(!is_null($result))
@@ -404,9 +404,8 @@ class XMLStreamImport extends CoreData
 				# set up parent name
 				$name=preg_replace('/\t|\n|[0-9]*/','',$m);
 				# create node and append
-				$el=$this->xml->createElement($this->nsPrefix.':'.$name,$item);
+				$el=$this->xml->createElement($name,$item);
 				$root->appendChild($el);
-				// $this->xml.='<'.$this->nsPrefix.$name.'>'."\n".$item.'</'.$this->nsPrefix.$name.'>'."\n";
 			}
 		}
 	
