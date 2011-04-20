@@ -770,7 +770,6 @@
 				}
 				
 				
-				$("#hiddenCanvasSource").css("width","");
 				var real_width=$("#hiddenCanvasSource")[0].width;
 				var real_height=$("#hiddenCanvasSource")[0].height;
 				
