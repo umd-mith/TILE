@@ -22,7 +22,7 @@
 	display:none;
 	z-index:1005;
 }
-#ALRLOADDIALOG.dialog{
+#ALRLOADDIALOG.dialog,#ALRLOADIMGDIALOG.dialog{
 	position:absolute;
 	left:50%;
 	top:50%;

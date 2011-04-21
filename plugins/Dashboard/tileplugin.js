@@ -68,15 +68,12 @@ var Dashboard={
 			}
 		});
 		
-		
 		// set up close handler
 		$(".dashboard_table > a#close").live('click',function(e){
 			e.preventDefault();
 			
 			$(this).parent().remove();
 		});
-		
-		
 		
 		$("a#seelabels").live('click',function(e){
 			e.preventDefault();
@@ -122,9 +119,6 @@ var Dashboard={
 		self.createPagesTable();
 		self.createLinkCount();
 		self.createLinesTable();
-		// h=self.createGlobalItemsHTML();
-		// 		$(".dashboard_main").append(h);	
-		
 	},
 	displayLabels:function(){
 		var self=this;
@@ -225,7 +219,6 @@ var Dashboard={
 		
 			for(var s in self.data.pages[p].shapes){
 				if(self.data.pages[p].shapes[s].id==id){
-					if(__v) console.log('shape found: '+self.data.pages[p].shapes[s]);
 					shape=self.data.pages[p].shapes[s];
 					break;
 				}
@@ -322,20 +315,15 @@ var Dashboard={
 		self.data=TILE.engine.getJSON();
 		// erase html
 		$(".dashboard_main").empty();
-		if(__v) console.log('DASHBOARD RECEIVES DATA');
-		// init HTML
-	
-		// self.createLinkCount();
-		// 
-		// 	self.createPagesTable();
-		// 	self.createPagesGraph();
-		// 	self.createLinesTable();
-		// h=self.createGlobalItemsHTML();
-		// 	$(".dashboard_main").append(h);	
+		// activate
+		if($(".globalbuttons > .modeitems > .menuitem > a:contains('Dashboard')").hasClass('active')){
+			self.createPagesTable();
+			self.createPagesGraph();
+			self.createLinesTable();
+			self.createLinkCount();
+		}
 		
 	},
-	
-	
 	displayMode:function(mode){
 		var self=this;
 		

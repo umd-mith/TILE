@@ -73,7 +73,6 @@ TILE.scale=1;
 			$("#loadlight").hide();
 			$("#loadDialogSplash").hide();
 		});
-		if(__v) console.log("removing load");
 	
 		
 	};

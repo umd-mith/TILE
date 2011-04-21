@@ -23,6 +23,28 @@
 (function(){
 	var AutoR=this;
 	var alrcontainer="#azcontentarea > .az.inner.autolinerecognizer";
+	
+	// LOAD SCREEN
+	// take away the load screen
+	var removeImgScreen=function(e){
+		$("#ALR_IMG_LOAD").remove();
+		$("#ALR_IMG_BACK").remove();
+		
+		// $("body").unbind("closeALRLoad",removeScreen);
+	};
+	
+	// create load screen to block users clicking on
+	// DOM elements while data loads
+	var loadImgScreen=function(){
+		// attach HTML
+		$('<div id="ALR_IMG_LOAD" class="white_content"><div id="ALRLOADIMGDIALOG" class="dialog"><div class="header">Loading Image Canvas</div><div class="body"><p>Loading the image into the canvas, please be patient.</p></div></div></div><div id="ALRBACK" class="black_overlay"></div>').appendTo("body");
+		// default CSS is 'display: none' - have to show elements
+		$("#ALR_IMG_LOAD").show();
+		$("#ALR_IMG_BACK").show();
+		$("#ALRLOADIMGDIALOG").show();
+	};
+	
+	
 	/**
 		TileOCR - creates the setup and tools 
 		to use the autoRecognizer
@@ -152,11 +174,7 @@
 				//hide stuff in canvasArea - except for toolbar
 				self.canvasArea.hide();
 				var container=self.canvasArea.parent();
-				// container.animate({opacity:0.25,"background":'red'},400,function(e){
-				// 					container.animate({opacity:1,"background":'red'},400,function(e){
-				// 						container.css({background:'white'});
-				// 					});
-				// 				});
+			
 				//make canvas
 				self.CANVAS=new CanvasImage({
 					loc:container
@@ -743,7 +761,7 @@
 			self.canvas[0].width=0;
 			// self._loadPage.appendTo(self.DOM);
 			if(TILE.url=='') return;
-			
+			loadImgScreen();
 			$("#hiddenCanvasSource").load(function(e){
 				
 				// make sure the image really loaded
@@ -809,7 +827,7 @@
 				
 				// show the region box after the image has loaded
 				$("#regionBox").show();
-				
+				removeImgScreen();
 			});
 			var cleanURL='';
 			// test for remote image and that the url isn't already inserted with the 'PHP'
@@ -1827,24 +1845,7 @@ var AR={
 				$("#az_log > .az.inner").hide();
 				self.tileMode.setUnActive();
 				$("#autoreclog").css("z-index","0");
-				// restart function
-				// $("#az_log > .az.inner:eq(0)").show();
-				// 				$("#az_log").removeClass('tool').addClass('log');
-				// 				// switch out the canvas area
-				// 				$("#azcontentarea > .az.inner").hide();
-				// 				$("#azcontentarea > .az.inner:eq(0)").show();
-				// 				
-				// 				// activate shape toolbar
-				// 				// $(".toolbar > ul > li > #pgPrev").show();
-				// 				// 				$(".toolbar > ul > li > #pgNext").show();
-				// 				// 				$(".toolbar > ul > li > #pointer").show();
-				// 				// 				$(".toolbar > ul > li > a > #listView").parent().show();
-				// 				// 				$(".toolbar > ul > li > #rect").parent().parent().show();
-				// 				
-				// 				$("#az_transcript_area").show();
-				// 				$("#az_activeBox").show();
-				// 				$("#raphworkspace_").width($("#azcontentarea").width());
-				// 				$("#raphworkspace_").height($("#azcontentarea").height());
+				
 				// INSERT DATA
 				if(!data) return;
 				// send to engine
@@ -1865,7 +1866,6 @@ var AR={
 				// LOAD SCREEN
 				// take away the load screen
 				function removeScreen(e){
-					if(__v) console.log("loadscreen alr removed");
 					$("#ALR_LOAD").remove();
 					$("#ALRBACK").remove();
 					
