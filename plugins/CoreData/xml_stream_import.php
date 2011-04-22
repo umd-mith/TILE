@@ -17,7 +17,9 @@ class XMLStreamImport extends CoreData
 	public  $break_lines_on_newline = false;
 	# added data for exporting
 	private $json;
-	
+	# for defining which tagname tile data needs to be attached to
+	protected $insertNode;
+	protected $xml;
 	
 	# JIM: added $tile in here to test out using 
 	# conversion functions on tile variable - not sure how else to include
@@ -285,18 +287,6 @@ class XMLStreamImport extends CoreData
 	    }
 	}
 	
-	# takes an object array and converts it into a 
-	# XML element
-	private function convertObjectToXML($obj){
-		# similar to convertArrayToXML but
-		# focuses on parts of a element array (pages, lines, labels, etc)
-		
-		foreach($obj as $key=>$item){
-			
-		}
-		
-	}
-	
 	# pass in array arr with possible arrays inside
 	# it (recursive)
 	# namespace optional - adds as prefix to elements
@@ -385,7 +375,7 @@ class XMLStreamImport extends CoreData
 		
 		$this->xml=new DOMDocument('1.0');
 		// create root element with xmlns data
-		$this->xml->loadXML('<tile xmlns="http://mith.umd.edu/tile/namespace"></tile>');
+		$this->xml->loadXML('<tile xmlns="http://mith.umd.edu/namespaces/tile"></tile>');
 		$root=$this->xml->getElementsByTagName('tile')->item(0);
 		
 		# step through JSON array
@@ -413,9 +403,29 @@ class XMLStreamImport extends CoreData
 	
 	# outputs the generic XML format for TILE
 	public function outputTILEXML(){
-		# output
-		$this->xml->formatOutput=true;
-		return $this->xml->saveXML();
+		if(!isset($this->insertNode)){
+			# output
+			$this->xml->formatOutput=true;
+			return $this->xml->saveXML();
+		} else {
+			// Outputting XML of original file +
+			// contents of TILE JSON
+			$this->xml->formatOutput=true;
+			# insert into node in content
+			$cxml=new DOMDocument();
+			$cxml->loadXML($this->getContentData());
+			
+			$teiHeader=$cxml->getElementsByTagName('teiHeader')->item(0);
+
+			$root=$this->xml->getElementsByTagName('tile')->item(0);
+			# import the node
+			$addToHeader=$cxml->importNode($root,true);
+			$teiHeader->appendChild($addToHeader);
+			# format
+			$cxml->formatOutput=true;
+			return $cxml->saveXML();
+			
+		}
 	}
 }
 

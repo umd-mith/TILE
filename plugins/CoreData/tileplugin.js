@@ -125,13 +125,10 @@ var CoreData={
 		
 		// create appropriate parser
 		self.parser=null;
-		if(TILE.content){
-			
-			if(/xmlns\=(\"|\')http\:\/\/www\.tei\-c\.org/.test(TILE.content)){
-				// handler for TEI XML
-				self.parser=new teiWriter({content:TILE.content});
-			}
-		}
+		// if(TILE.content){
+		// 			
+		// 			TILE.content=$.parseXML(TILE.content);
+		// 		}
 		
 	
 		// handler for when a new session is loaded

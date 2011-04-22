@@ -232,9 +232,6 @@ TILE.scale=1;
 	// d : {Object} - contains columns.json data
 	var setUp=function(){
 		var self=this;
-		
-		
-		
 		// set initial formats
 		TILE.formats=_tileBar.formatstr;
 		
@@ -246,39 +243,6 @@ TILE.scale=1;
 		}
 		
 	};
-	
-	
-	
-	/**Get Schema**/
-	//taken from setMultiFileImport Custom Event call from ImportDialog
-	// users supply a filename in ImportDialog that is then used here 
-	// as @file
-	// file : {String}
-	// var getSchema=function(file){
-	// 	// var obj=this;
-	// 	//We are just getting the file with images
-	// 	// and the transcripts
-	// 	
-	// 	while(/\&/.test(file)){
-	// 		file=file.replace('\&','_AND_');
-	// 	}
-	// 	
-	// 	// set JSON and run parsing
-	// 	var d=$.ajax({
-	// 		url:"PHP/parseRemoteJSON.php?file="+file,
-	// 		dataType:'text',
-	// 		async:false,
-	// 		error:function(d,x,e){
-	// 			if(__v) console.log("Failed to perform Ajax call  "+e);
-	// 		}
-	// 	}).responseText;
-	// 	
-	// 	
-	// 	// parse if it's a string
-	// 	json=(typeof d=='object')?d:eval("("+d+")");
-	// 	ENGINE._parseOutJSON();
-	// 	pluginControl.setJSON();
-	// };
 	
 	/**
 	Floating Dialog Box
@@ -2829,13 +2793,19 @@ TILE.scale=1;
 				$("#darkForSaveDialog").hide();
 				return;
 			}
+			
 			var jsonstring=JSON.stringify(TILE.engine.getJSON());
 			var filename=$("#savedialog > .body > .option > #save_filename").val();
+			
 			// send to import script
 			// update
 			$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
-			$("#inv_SaveProgress_Form > #uploadData2").val(TILE.content);
+			$("#inv_SaveProgress_Form > #uploadData2").val(TILE.content );
 			$("#inv_SaveProgress_Form > #uploadFileName").val($("#savedialog > .body > .option > #save_filename").val());
+		if(__v) console.log("saving....");
+		if(__v) console.log($("#inv_SaveProgress_Form > #uploadData").val());
+		if(__v) console.log($("#inv_SaveProgress_Form > #uploadData2").val());
+		if(__v) console.log("donnnne savin'");
 			// submit
 			$("#inv_SaveProgress_Form").submit();
 			
@@ -2932,7 +2902,8 @@ TILE.scale=1;
 		$("#import_iframe").load(function(e){
 			
 			// get JSON text
-			var str=frames['import_iframe'].document.getElementsByTagName('body')[0].getElementsByTagName('textarea')[0].innerHTML;
+			var str=frames['import_iframe'].document.getElementsByTagName('head')[0].getElementsByTagName('script')[0].innerHTML;
+		
 			TILE.engine.parseJSON(JSON.parse(str));
 			$("#LTlight").hide();
 			$("#LTfade").hide();

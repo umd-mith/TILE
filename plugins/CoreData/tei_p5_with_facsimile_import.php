@@ -16,9 +16,9 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
 
     protected $containers_by_id = array();
     private   $zone_xpath;
-    
 
-    public function __construct($content,$imgpath) {
+    public function __construct($content,$tile) {
+		
 		
         $this -> setMilestoneXPath('//facsimile|//text/body/div');
         $this -> setImageURLXPath('//facsimile/surface/graphic/@url');
@@ -27,7 +27,10 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
         // we don't want to 
         $this -> setDocumentStartXPath('//facsimile');
         $this -> zone_xpath = $this -> build_xpath_regex('//facsimile/surface/zone');
-        parent::__construct($content);
+        parent::__construct($content,$tile);
+		# set the insertNode to determine this will be placed in the 
+		# content
+		$this->insertNode='teiHeader';
     }
     
 	
@@ -67,6 +70,8 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
             $this -> addLabel($label, $shape);
         }
     }
+
+	
 }
 
 # declare namespace

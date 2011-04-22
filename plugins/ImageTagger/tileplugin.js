@@ -2146,8 +2146,6 @@ var IT={
 		var shapes=self.findShapesInJSON(TILE.engine.getJSON());
 		
 		self.itagger._restart(shapes);
-		
-		
 	},	
 	findShapesInJSON:function(json){
 		var self=this;

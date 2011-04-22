@@ -42,7 +42,7 @@ class CoreData
     public function to_json($options = 0) {
         // outputs a JSON representation of the containers and lines
         $data = array();
-        $data['content'] = $this -> content;
+        $data['content'] = html_entity_decode($this -> content);
         $data['tile'] = array();
         $data['tile']['pages'] = array();
         
@@ -111,6 +111,13 @@ class CoreData
             $this -> labels[$label]['selections'][] = $object -> id;
         }
     }
+	
+	// JIM: creating this protected function to fetch the content data
+	// may want to erase because of bad OOP? just testing this out
+	protected function getContentData(){
+	
+		return stripslashes($this->content);
+	}
 	
 	# Used specifically for generating a random ID of length: $length
 	private function genRandomID($length){
