@@ -17,7 +17,7 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
     protected $containers_by_id = array();
     private   $zone_xpath;
 
-    public function __construct($content,$tile) {
+    public function __construct($content,$tile=null) {
 		
 		
         $this -> setMilestoneXPath('//facsimile|//text/body/div');

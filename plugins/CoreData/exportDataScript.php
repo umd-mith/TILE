@@ -23,10 +23,10 @@ if(isset($_POST['uploadData'])&&(isset($_POST['extraData']))&&(strlen($_POST['ex
 	$xmlstring='';
 	if(preg_match('/TEI/i',$text)){
 		# TEI - use normal or facsimile
-		if(preg_match('/\<facsimile/i',$text)){
+		if(preg_match('/facsimile/i',$text)){
 			# facsimile usage 
 			include_once('tei_p5_with_facsimile_import.php');
-			echo $text."<br/>";
+			
 			$parser=new TEIP5WithFacsimileImport($text,$tileData);
 			
 			# convert the tile into XML 
@@ -37,7 +37,6 @@ if(isset($_POST['uploadData'])&&(isset($_POST['extraData']))&&(strlen($_POST['ex
 		} else {
 			# non-facsimile
 			include_once('tei_p5_import.php');
-		
 			$parser=new TEIP5Import($text,$tileData);
 			# convert the tile into XML 
 			$parser->convertTileToXML();
@@ -52,8 +51,8 @@ if(isset($_POST['uploadData'])&&(isset($_POST['extraData']))&&(strlen($_POST['ex
 	$xmlstring=$parser->outputTILEXML();
 	*/
 
-	header('Content-type: text/xml');
-	header('Content-Disposition: attachment; filename='.$filename);
+	// header('Content-type: text/xml');
+	// 	header('Content-Disposition: attachment; filename='.$filename);
 	echo $xmlstring;
 } elseif(isset($_POST['uploadData'])){
 	# outputting as json

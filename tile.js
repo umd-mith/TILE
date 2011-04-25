@@ -2802,10 +2802,7 @@ TILE.scale=1;
 			$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
 			$("#inv_SaveProgress_Form > #uploadData2").val(TILE.content );
 			$("#inv_SaveProgress_Form > #uploadFileName").val($("#savedialog > .body > .option > #save_filename").val());
-		if(__v) console.log("saving....");
-		if(__v) console.log($("#inv_SaveProgress_Form > #uploadData").val());
-		if(__v) console.log($("#inv_SaveProgress_Form > #uploadData2").val());
-		if(__v) console.log("donnnne savin'");
+		
 			// submit
 			$("#inv_SaveProgress_Form").submit();
 			
@@ -2899,22 +2896,43 @@ TILE.scale=1;
 		});
 		
 		// attach onload function to the iframe
-		$("#import_iframe").load(function(e){
-			
-			// get JSON text
-			var str=frames['import_iframe'].document.getElementsByTagName('head')[0].getElementsByTagName('script')[0].innerHTML;
-		
-			TILE.engine.parseJSON(JSON.parse(str));
-			$("#LTlight").hide();
-			$("#LTfade").hide();
-			
-		});
+		// $("#import_iframe").load(function(e){
+		// 			
+		// 			// get JSON text
+		// 			var str=frames['import_iframe'].document.getElementsByTagName("body")[0].getElementsByTagName("textarea")[0].innerHTML;
+		// 			if(__v) console.log('str loaded into import iframe: '+str);
+		// 			TILE.engine.parseJSON(JSON.parse(str));
+		// 			$("#LTlight").hide();
+		// 			$("#LTfade").hide();
+		// 			
+		// 		});
 		
 		$("#loadTagsDialog > .body > .option > #selectFileUpload").trigger('click');
 		
 		$("#loadTagsDialog > .body > .option > .chooseFile").live('click',function(e){
 			// set the URL value to exporting in simple model form
 			$("#importURL").val($(this).val());
+		});
+		
+		// convert form
+		$("#loadFromFile").fileUploadUI({
+			url:self.importScript,
+			onLoad:function(e,file,ind,xhr,handler){
+				// onload function for when upload is finished
+				var str=file[0];
+				if(__v) console.log('str loaded into import iframe: '+xhr.responseText);
+				TILE.engine.parseJSON(JSON.parse(xhr.responseText));
+				$("#LTlight").hide();
+				$("#LTfade").hide();
+			},
+			beforeSend:function(e,file,ind,xhr,handler,callback){
+				
+				// going to stop program from automatically submitting on zone drop
+				$("#loadFile").click(function(e){
+					callback();
+					return false;
+				});
+			}
 		});
 		
 		$("body").bind("openNewImage",{obj:this},this.close);

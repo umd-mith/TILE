@@ -25,7 +25,11 @@ class XMLStreamImport extends CoreData
 	# conversion functions on tile variable - not sure how else to include
 	# it?
 	public function __construct($content,$tile) {
-		$this->json = json_decode($tile); 
+		
+		// if passed tile element, then parse
+		if(isset($tile)&&(!is_null($tile))){
+			$this->json = json_decode($tile); 
+		}
 		
 		$this -> setup_parser();
 		parent::__construct($content);
@@ -370,6 +374,8 @@ class XMLStreamImport extends CoreData
 	
 	# Takes the tile container data and parses it into XML
 	public function convertTileToXML(){
+		if(!isset($this->json)) return;
+		
 		# create initial XML header
 		# need to include source XML from content in here?
 		
@@ -403,6 +409,8 @@ class XMLStreamImport extends CoreData
 	
 	# outputs the generic XML format for TILE
 	public function outputTILEXML(){
+		if(!isset($this->json)) return;
+		
 		if(!isset($this->insertNode)){
 			# output
 			$this->xml->formatOutput=true;

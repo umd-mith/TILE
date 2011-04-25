@@ -48,7 +48,6 @@ if((isset($_FILES['fileUploadName']))){
 	$format=$_POST['importformat'];
 	$imgpath=preg_replace("/\/[A-Za-z0-9]*\.[A-Za-z0-9]*/","/",$_FILES['fileUploadName']['name']);
 
-
 	# read the file 
 	if($handle=fopen($file,'r+')){
 		$txt='';
@@ -58,9 +57,8 @@ if((isset($_FILES['fileUploadName']))){
 		# decode
 		$data=decode_format($txt,$format);
 		// send out by assigning to JScript variable
-		header('Content-type: text/html');
-		echo '<script>'.$data.'</script>';
-		
+		header('Content-type: text/javascript');
+		echo $data;
 	}
 	
 } else 
