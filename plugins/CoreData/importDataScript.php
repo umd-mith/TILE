@@ -18,11 +18,8 @@ function decode_format($txt,$format){
 	} else if(preg_match('/(facsimile)/i',$format)){
 		include_once('xml_stream_import.php');
 		include_once('tei_p5_with_facsimile_import.php');
-		
-		
-		
 		$parser=new TEIP5WithFacsimileImport($txt);
-		
+	
 		$data=$parser->to_json();
 		return $data;
 	} else if(preg_match('/(tei)/i',$format)){
@@ -36,6 +33,14 @@ function decode_format($txt,$format){
 	
 }
 
+function html_template($data){
+	
+	
+	// $content=preg_replace('/&amp;|&gt;|&lt;/','NO',$content);
+	$html='<html><head><title>untitled</title></head><body><textarea>'.htmlspecialchars($data).'</textarea></body></html>';
+	return $html;
+	
+}
 
 # have to use this method since FF3+ don't allow 
 # for paths to be recorded otherwise
@@ -57,6 +62,8 @@ if((isset($_FILES['fileUploadName']))){
 		# decode
 		$data=decode_format($txt,$format);
 		// send out by assigning to JScript variable
+		// header('Content-type: text/html');
+		// 	$page=html_template($data);
 		header('Content-type: text/javascript');
 		echo $data;
 	}

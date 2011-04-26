@@ -1030,7 +1030,6 @@ TILE.scale=1;
 						if(__v) console.log("Failed to perform Ajax call  "+e);
 					}
 				}).responseText;
-				if(__v) console.log(d);
 				// parse if it's a string
 				json=(typeof d=='object')?d:JSON.parse(d);
 			} else if((typeof(file)!='object')){
@@ -1042,8 +1041,7 @@ TILE.scale=1;
 					// Coming from CoreData.php
 					// Object has content and tile parameters
 					json=deepcopy(file['tile']);
-					if(__v) console.log("TILE JSON:");
-					if(__v) console.log(JSON.stringify(json));
+					
 					// use the content in global variable 
 					TILE.content=file['content'];
 					// $("body:first").trigger("contentCreated",[file['content']]);
@@ -1060,7 +1058,8 @@ TILE.scale=1;
 				}
 			}
 			
-			
+			if(__v) console.log("TILE JSON:");
+			if(__v) console.log(JSON.stringify(json));
 			if(!json) return;
 			
 			// set initial global variables
@@ -1074,7 +1073,7 @@ TILE.scale=1;
 						break;
 					}
 				}
-				
+				if(__v) console.log('finished parsing json');
 				// notify plugins that there is a JSON
 				// loaded
 				$("body:first").trigger("newJSON");
@@ -2849,7 +2848,7 @@ TILE.scale=1;
 		'</div></div><div class="body"><div class="option"><h3>Load from a file on your local machine:/URL<br/>(See dropdown for supported Filetypes - .json supported by default)</h3>'+
 		'<input id="selectFileUpload" type="radio" value="file" name="uploadChoice" /><span>Upload from your computer</span>'+
 		'<form id="loadFromFile" action="'+self.importScript+'" method="post" enctype="multipart/form-data">'+
-		'<label for="file">Filename:</label><br/><input id="localFileUpload" type="file" name="fileUploadName" size="70" value="" />'+
+		'<label for="file">Filename:</label><br/><input id="localFileUpload" type="file" placeholder="Use the browse button to enter a file from your computer ->" name="fileUploadName" size="70" value="" />'+
 		'<br/><select id="fileFormatFileLocal" name="importformat"></select>'+
 		'<br/><input id="loadFile" value="Submit" type="submit" class="button" /></form><br/>'+
 		'<input id="selectURLUpload" type="radio" name="uploadChoice" value="Upload a file from a URL" /><span>Upload from a URL</span><form id="uploadURL" action="">'+
@@ -2889,51 +2888,69 @@ TILE.scale=1;
 		});
 		
 		// change the file upload submit method from default
-		$("#loadTagsDialog > .body > .option > #loadFromFile").submit(function(e){
-			
-			$(this)[0].target='import_iframe';
-			
-		});
-		
-		// attach onload function to the iframe
-		// $("#import_iframe").load(function(e){
-		// 			
-		// 			// get JSON text
-		// 			var str=frames['import_iframe'].document.getElementsByTagName("body")[0].getElementsByTagName("textarea")[0].innerHTML;
-		// 			if(__v) console.log('str loaded into import iframe: '+str);
-		// 			TILE.engine.parseJSON(JSON.parse(str));
-		// 			$("#LTlight").hide();
-		// 			$("#LTfade").hide();
-		// 			
-		// 		});
+		// $("#loadTagsDialog > .body > .option > #loadFromFile").submit(function(e){
+		// 		
+		// 		$(this)[0].target='import_iframe';
+		// 		
+		// 	});
+		// 	
+		// 	// attach onload function to the iframe
+		// 	$("#import_iframe").load(function(e){
+		// 		// get JSON text
+		// 		var str=frames['import_iframe'].document.getElementsByTagName("body")[0].getElementsByTagName("pre")[0].innerHTML;
+		// 		if(__v) console.log('str loaded into import iframe: '+str);
+		// 		TILE.engine.parseJSON(JSON.parse(str));
+		// 		$("#LTlight").hide();
+		// 		$("#LTfade").hide();
+		// 		
+		// 	});
 		
 		$("#loadTagsDialog > .body > .option > #selectFileUpload").trigger('click');
 		
-		$("#loadTagsDialog > .body > .option > .chooseFile").live('click',function(e){
-			// set the URL value to exporting in simple model form
-			$("#importURL").val($(this).val());
-		});
-		
-		// convert form
-		$("#loadFromFile").fileUploadUI({
-			url:self.importScript,
-			onLoad:function(e,file,ind,xhr,handler){
-				// onload function for when upload is finished
-				var str=file[0];
-				if(__v) console.log('str loaded into import iframe: '+xhr.responseText);
-				TILE.engine.parseJSON(JSON.parse(xhr.responseText));
-				$("#LTlight").hide();
-				$("#LTfade").hide();
-			},
-			beforeSend:function(e,file,ind,xhr,handler,callback){
-				
-				// going to stop program from automatically submitting on zone drop
-				$("#loadFile").click(function(e){
-					callback();
-					return false;
+		// $("#loadTagsDialog > .body > .option > .chooseFile").live('click',function(e){
+		// 			// set the URL value to exporting in simple model form
+		// 			$("#importURL").val($(this).val());
+		// 		});
+		// 		
+		// 		// convert form into the fileUpload jQuery plugin
+		// 		  
+		$("#loadFromFile").submit(function(e){
+					e.preventDefault();
+					$(this).ajaxSubmit({
+						dataType:'text',
+						success:function(data){
+							if(__v) console.log('returned: '+data);
+							// take the returned JSON and load it into TILE
+							
+							TILE.engine.parseJSON(JSON.parse(data));
+							// hide dialog
+							$("#LTlight").hide();
+							$("#LTfade").hide();
+						}
+					});
 				});
-			}
-		});
+		
+		
+		// $("#loadFromFile").fileUploadUI({
+		// 			url:self.importScript,
+		// 			requestHeaders:[{name:'Accept',value:'application/json,text/javascript'}],
+		// 			onLoad:function(e,file,ind,xhr,handler){
+		// 				// onload function for when upload is finished
+		// 				var str=xhr.responseText;
+		// 				if(__v) console.log('str loaded into import iframe: '+str);
+		// 				TILE.engine.parseJSON(JSON.parse(xhr.responseText));
+		// 				$("#LTlight").hide();
+		// 				$("#LTfade").hide();
+		// 			},
+		// 			beforeSend:function(e,file,ind,xhr,handler,callback){
+		// 				
+		// 				// going to stop program from automatically submitting on zone drop
+		// 				$("#loadFile").click(function(e){
+		// 					callback();
+		// 					return false;
+		// 				});
+		// 			}
+		// 		});
 		
 		$("body").bind("openNewImage",{obj:this},this.close);
 		$("body").bind("openImport",{obj:this},this.close);
