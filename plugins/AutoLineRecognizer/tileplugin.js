@@ -1820,13 +1820,19 @@ var AR={
 			$("#az_log > .az.inner.autolinerecognizer > .toolbar").removeClass("toolbar").addClass("autorec_toolbar");
 			
 			
-			$("body").bind(self.tileMode.activeCall,function(e){
+			$("body").bind("modeActive",function(e,name){
+				if(/recognizer/i.test(name)){
+					var json=TILE.engine.getJSON(true);
+					$("#autoreclog").css("z-index","5");
+					self.__AR__._restart(json);
+				} else {
+					$("#autoreclog").css("z-index","0");
+				}
 				
-				var json=TILE.engine.getJSON(true);
-				$("#autoreclog").css("z-index","5");
-				self.__AR__._restart(json);
 			});
-			
+			$("body").bind(self.tileMode.unActiveCall,function(e){
+				
+			});
 			// construct auto Rec
 			this.__AR__._setUp();
 			

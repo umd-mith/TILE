@@ -1436,7 +1436,7 @@ TILE.scale=1;
 		
 		// set optional callback functions
 		self.activeCall=self.name.substring(0,3)+'IsActive';
-		self.unActiveCall=unactive;
+		self.unActiveCall=self.name.substring(0,3)+'IsUnActive';
 		
 		// array of plugins
 		self.parr=[];
@@ -1453,6 +1453,7 @@ TILE.scale=1;
 		self.button.elem.live('click',function(e){
 			e.preventDefault();
 			self.setActive();
+			$("body:first").trigger("modeActive",[self.name]);
 		});
 		
 		// listener for when new page is set
@@ -1656,6 +1657,7 @@ TILE.scale=1;
 			// trigger last in mode series to activate
 			$(".globalbuttons > .modeitems > .menuitem > a:last").trigger('click');
 			
+			$("body:first").trigger(self.unActiveCall);
 		},
 		// reset values/HTML if there is a new page
 		newPageHandle:function(e){
