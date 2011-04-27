@@ -133,6 +133,11 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// 			}
 			
 		},
+		// takes passed variable and passes to raphael canvas
+		updateData:function(obj){
+			var self=this;
+			self.raphael.updateShape(obj.obj);
+		},
 		// sets the JSONlist to data
 		addImages:function(data){
 			var self=this;
@@ -995,6 +1000,24 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			self.drawTool.importShapes(vd);
 			// self.drawTool.selectShape(vd[0]);
 			// 		$("body:first").trigger("shapeIsActive",[vd[0]]);
+		},
+		updateShape:function(obj){
+			var self=this;
+			
+			var shape=self.findShapeFromId(obj.id);
+			// replace
+			shape=obj;
+			
+			var vd=self.drawTool.exportShapes();
+			for(var x=0;x<vd.length;x++){
+				if(vd[x]&&(vd[x].id==obj.id)){
+					vd[x]=obj;
+				}
+			}
+			
+			self.drawTool.importShapes(vd);
+			
+			
 		},
 		findShapeFromId:function(id){
 			var self=this;
@@ -2175,17 +2198,22 @@ var IT={
 		
 	},
 	// updates the shape when it's moved
-	dataUpdatedHandle:function(e){
+	dataUpdatedHandle:function(e,obj){
 		var self=e.data.obj;
-		
-		
-		
+		if(__v) console.log('data updated in imagetagger');
+		if(obj.type=='shapes'){
+			self.itagger.updateData(obj);
+			
+		}
 	},
 	// Listens for the ObjectChange event call
 	// e: {Object}
 	// data :{Object} 
 	_objChangeHandle:function(e,data){
+		
 		if(data.obj.type!="shapes") return;
+		var self=e.data.obj;
+		
 		// right now, can only change the color
 		if(data.type=='color'){
 			if(data.value==null) return;

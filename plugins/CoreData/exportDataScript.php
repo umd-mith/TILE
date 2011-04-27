@@ -72,9 +72,14 @@ if(isset($_POST['uploadData'])&&(isset($_POST['extraData']))&&(strlen($_POST['ex
 	// 	<form name=\"aData\" method=\"POST\" action=\"".$cwd."\">
 	// 	<input type=\"hidden\" name=\"jsonData\" value=\"".$JSON."\"/></form></BODY></HTML>";
 	//force-download the doc-string to the user to save
-	header('Content-Type: text/javascript');
+	header('Content-Description: File Transfer');
+	header('Content-Type: application/octet-stream');
 	header('Content-Disposition: attachment; filename='.$filename);
 	header('Content-Transfer-Encoding: binary');
+	header('Expires: 0');
+	header('Cache-Control: must-revalidate, post-check=0,pre-check=0');
+	header('Pragma: public');
+	
 	echo $JSON;
 }
 

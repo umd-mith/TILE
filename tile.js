@@ -512,6 +512,7 @@ TILE.scale=1;
 			
 			$('#floatingPenColor').ColorPicker({			
 				color: currColor,
+				livePreview:true,
 				onShow: function (colpkr) {
 					$(colpkr).fadeIn(500);
 					return false;
@@ -1709,6 +1710,8 @@ TILE.scale=1;
 			if(link){
 				// get the object from JSON
 				var obj=self.findRealObj(link.id,link.type);
+				if(__v) console.log('found obj for colorchange: '+obj);
+				
 				// change its color
 				obj.color=color;
 				// add/change to activeItems
@@ -1722,12 +1725,8 @@ TILE.scale=1;
 				}
 				
 				if(!x) TILE.activeItems.push(obj);
-				// set dataadded
-				$("body:first").trigger('dataAdded');
-				
+				$("body:first").trigger("dataUpdated",[{type:"color",value:color,obj:{"id":obj.id,"type":link.type,"obj":obj}}]);
 			}
-			
-			// $("body:first").trigger("ObjectChange",[{type:"color",value:color,obj:link}]);
 		});
 	}; 
 	PluginController.prototype={
@@ -2850,7 +2849,7 @@ TILE.scale=1;
 		'<form id="loadFromFile" action="'+self.importScript+'" method="post" enctype="multipart/form-data">'+
 		'<label for="file">Filename:</label><br/><input id="localFileUpload" type="file" placeholder="Use the browse button to enter a file from your computer ->" name="fileUploadName" size="70" value="" />'+
 		'<br/><select id="fileFormatFileLocal" name="importformat"></select>'+
-		'<br/><input id="loadFile" value="Submit" type="submit" class="button" /></form><br/>'+
+		'<br/><input id="loadFile" value="Submit" type="submit" class="button" /></form><div id="hiddenFormField" style="visibility:hidden"></div><br/>'+
 		'<input id="selectURLUpload" type="radio" name="uploadChoice" value="Upload a file from a URL" /><span>Upload from a URL</span><form id="uploadURL" action="">'+
 		'<br/><label>Enter URL Here: </label><input id="filepathDisplay" type="text" class="long" value="" placeholder="Such as: http://www.example.com/path/to/my/data.xml" />'+
 		'<br /><select id="fileFormatFileURL" name="fileformat"></select>'+
@@ -2916,12 +2915,11 @@ TILE.scale=1;
 		// 		  
 		$("#loadFromFile").submit(function(e){
 			e.preventDefault();
+		
 			$(this).ajaxSubmit({
 				dataType:'json',
 				success:function(data){
-					if(__v) console.log('returned: '+data);
 					// take the returned JSON and load it into TILE
-					
 					TILE.engine.parseJSON(data);
 					// hide dialog
 					$("#LTlight").hide();
