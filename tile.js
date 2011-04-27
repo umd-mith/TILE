@@ -2915,20 +2915,20 @@ TILE.scale=1;
 		// 		// convert form into the fileUpload jQuery plugin
 		// 		  
 		$("#loadFromFile").submit(function(e){
-					e.preventDefault();
-					$(this).ajaxSubmit({
-						dataType:'text',
-						success:function(data){
-							if(__v) console.log('returned: '+data);
-							// take the returned JSON and load it into TILE
-							
-							TILE.engine.parseJSON(JSON.parse(data));
-							// hide dialog
-							$("#LTlight").hide();
-							$("#LTfade").hide();
-						}
-					});
-				});
+			e.preventDefault();
+			$(this).ajaxSubmit({
+				dataType:'json',
+				success:function(data){
+					if(__v) console.log('returned: '+data);
+					// take the returned JSON and load it into TILE
+					
+					TILE.engine.parseJSON(data);
+					// hide dialog
+					$("#LTlight").hide();
+					$("#LTfade").hide();
+				}
+			});
+		});
 		
 		
 		// $("#loadFromFile").fileUploadUI({
