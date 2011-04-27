@@ -1725,7 +1725,7 @@ TILE.scale=1;
 				}
 				
 				if(!x) TILE.activeItems.push(obj);
-				$("body:first").trigger("dataUpdated",[{type:"color",value:color,obj:{"id":obj.id,"type":link.type,"obj":obj}}]);
+				$("body:first").trigger("dataUpdated",[{"id":obj.id,"type":link.type,"obj":obj}]);
 			}
 		});
 	}; 

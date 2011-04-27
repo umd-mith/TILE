@@ -2200,7 +2200,7 @@ var IT={
 	// updates the shape when it's moved
 	dataUpdatedHandle:function(e,obj){
 		var self=e.data.obj;
-		if(__v) console.log('data updated in imagetagger');
+		if(__v) console.log('data updated in imagetagger  '+JSON.stringify(obj));
 		if(obj.type=='shapes'){
 			self.itagger.updateData(obj);
 			
