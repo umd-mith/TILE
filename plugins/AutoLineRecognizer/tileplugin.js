@@ -1823,13 +1823,12 @@ var AR={
 			$("body").bind(self.tileMode.activeCall,function(e){
 				
 				var json=TILE.engine.getJSON(true);
+				$("#autoreclog").css("z-index","5");
 				self.__AR__._restart(json);
 			});
 			
 			// construct auto Rec
 			this.__AR__._setUp();
-			
-			
 			
 			// un-hide elements
 			$("#az_activeBox").show();
