@@ -20,13 +20,13 @@ if(isset($_POST['uploadData'])&&(isset($_POST['extraData']))&&(strlen($_POST['ex
 	#determine documen ttype
 	$text=stripslashes($_POST['extraData']);
 	$tileData=stripslashes($_POST['uploadData']);
+	
 	$xmlstring='';
 	if(preg_match('/TEI/i',$text)){
 		# TEI - use normal or facsimile
 		if(preg_match('/facsimile/i',$text)){
 			# facsimile usage 
 			include_once('tei_p5_with_facsimile_import.php');
-			
 			$parser=new TEIP5WithFacsimileImport($text,$tileData);
 			
 			# convert the tile into XML 
@@ -45,14 +45,14 @@ if(isset($_POST['uploadData'])&&(isset($_POST['extraData']))&&(strlen($_POST['ex
 		}
 		
 	}
-	/*
-	$parser=new XMLStreamImport('',stripslashes($_POST['uploadData']));
-	$parser->convertTileToXML();
-	$xmlstring=$parser->outputTILEXML();
-	*/
-
-	// header('Content-type: text/xml');
-	// 	header('Content-Disposition: attachment; filename='.$filename);
+	
+	header('Content-Description: File Transfer');
+	header('Content-Type: application/octet-stream');
+	header('Content-Disposition: attachment; filename='.$filename);
+	header('Content-Transfer-Encoding: binary');
+	header('Expires: 0');
+	header('Cache-Control: must-revalidate, post-check=0,pre-check=0');
+	header('Pragma: public');
 	echo $xmlstring;
 } elseif(isset($_POST['uploadData'])){
 	# outputting as json
