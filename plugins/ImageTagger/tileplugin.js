@@ -151,7 +151,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		//activated by VDCanvasDONE event call
 		// e : {Event}
 		createShapeToolBar:function(e){
-			if(__v) console.log("VDCANVASDONE");
 			var obj=e.data.obj; //@this
 			$("body").unbind("VDCanvasDONE",obj.createShapeToolBar); //remove the bind - done only once
 
@@ -263,7 +262,14 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		},
 		loadNewShapes:function(shapes){
 			var self=this;
-			
+			if(self.ShapeToolBar){
+				if((shapes.length==0)){
+					// activate rectangle
+					$("ul > li > #rect").click();
+				} else if(shapes.length>0) {
+					$("ul > li > #pointer").click();
+				}
+			}
 			if(self.raphael) self.raphael.loadShapes(shapes);
 		},
 		eraseAllShapes:function(){
@@ -1276,7 +1282,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		// shpObj : {Object} - array of shape values
 		_shapeDrawnHandle:function(e,shpObj){
 			var self=e.data.obj;
-			if(__v) console.log("shape is drawn: "+shpObj.id);
 			var url=TILE.url;
 			// if(!self.manifest[url]) self.manifest[url]={shapes:[]};
 			// clear out the selBB element
@@ -1598,22 +1603,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				// true height
 				var w=$("#srcImageForCanvas")[0].height;
 				
-				var scale=1;
 				if(n>0){
 					// test to see if reached maximum
-					// if(self.zoomTimes==(5)) return; 
-					// 					// set counter
-					// 					self.zoomTimes+=1;
-					// 					for(var i=Math.abs(self.zoomTimes);i>0;i--){
-					// 						// iterate through the zoomtimes
-					// 						// and multiply by factor of 1.08
-					// 						w*=1.08;
-					// 						h*=1.08;
-					// 						scale*=1.08;
-					// 					}
-					
-					
-					
 					
 					$("#srcImageForCanvas").css("width",(1.1*parseFloat($("#srcImageForCanvas").width()))+'px');
 					//$("#srcImageForCanvas").height(1.25*parseFloat($("#srcImageForCanvas").height()));
@@ -1629,6 +1620,13 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					// set scales
 					self._imgScale*=1.1;
 					TILEIMGSCALE*=1.1;
+					
+					for(var x=0;x<self.manifest.length;x++){
+						var shape=self.manifest[x];
+						for(var u in shape.posInfo){
+							shape.posInfo[u]*=1.1;
+						}
+					}
 				} else if(n<0){
 					$("#srcImageForCanvas").css("width",(0.9*parseFloat($("#srcImageForCanvas").width()))+'px');
 					//$("#srcImageForCanvas").height(0.75*parseFloat($("#srcImageForCanvas").height()));
@@ -1636,11 +1634,17 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					$(".vd-container").height(0.9*parseFloat($(".vd-container").height()));
 					//zooming out
 					self.drawTool.scale(0.9); 
-						// also change positon of .shpButtonHolder
-						if($(".shpButtonHolder").length){
-							$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*0.9)+'px');
-							$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*0.9)+'px');
+					// also change positon of .shpButtonHolder
+					if($(".shpButtonHolder").length){
+						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*0.9)+'px');
+						$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*0.9)+'px');
+					}
+					for(var x=0;x<self.manifest.length;x++){
+						var shape=self.manifest[x];
+						for(var u in shape.posInfo){
+							shape.posInfo[u]*=0.9;
 						}
+					}	
 					// test to see if reached maximum
 					// if(self.zoomTimes==(-5)) return; 
 					// 					// set counter
@@ -2144,6 +2148,8 @@ var IT={
 					}
 				}
 			}
+			
+			
 			// add new shapes
 			self.itagger.loadNewShapes(vd);
 		}
