@@ -321,17 +321,6 @@ TILE.scale=1;
 				return false;
 			});
 						
-			// set up label array
-			// if(labels){
-			// 				for(var l in labels){
-			// 				
-			// 					this._labels[labels[l].name]=labels[l];
-			// 					// make sure it has refs array
-			// 					if(!this._labels[labels[l].name].refs){
-			// 						this._labels[labels[l].name].refs=[];
-			// 					}
-			// 				}
-			// 			}
 			$("#liformField1 input.tagComplete").autocomplete({
 				source:self.labelNames
 			});
@@ -390,9 +379,7 @@ TILE.scale=1;
 			// set up listener for deleting items in attachDataList
 			$(".button.shape.delete.formLink").live("click",function(e){
 				var id=$(this).parent().attr('id');
-				
 				self.deleteLinkHandle(id);
-				
 			});
 		},
 		// Attaches HTML to DOM
@@ -1783,60 +1770,6 @@ TILE.scale=1;
 			
 			recLoad(0);
 		},
-		// SWITCHTOOL AND SETUPTOOL DEPRECATED
-		// switchTool:function(name,json){
-		// 			
-		// 			var self=this;
-		// 			$("body").bind(self.toolSet[self.startTool]._close,function(){
-		// 
-		// 				$("body").unbind(self.toolSet[self.startTool]._close);
-		// 				$(".ui-dialog").hide();
-		// 				self.setUpTool(name,json);
-		// 			});
-		// 
-		// 			self.toolSet[self.startTool].close();
-		// 		},
-		// 		// sets up the initial tool that is stored in the toolSet array
-		// 		// toolname : {String} - index for tool represented by the name of that tool
-		// 		// data : {Object} (optional) - array of arguments to pass to a tool's constructor
-		// 		setUpTool:function(toolname,json){
-		// 			
-		// 			var self=this;
-		// 			toolname=toolname.toLowerCase();
-		// 			// console.log('calling setuptool with: '+toolname+"  and "+obj.curTool);
-		// 			if(self.curTool&&(self.curTool.name==toolname)) return;
-		// 			
-		// 			var nextTool=null;
-		// 			for(tool in self.toolSet){
-		// 				if(!self.toolSet[tool].name) continue;
-		// 				if(self.toolSet[tool].name.toLowerCase()==toolname){
-		// 					nextTool=self.toolSet[tool];
-		// 				}
-		// 			}
-		// 			if(!nextTool) throw "Error setting up tool "+toolname;
-		// 			if(!self.curTool){
-		// 				// no previous tool selected
-		// 				self.curTool=nextTool;
-		// 			}
-		// 			// update the json
-		// 			json=self.getPluginData(json);
-		// 		
-		// 			// wait for when current tool calls final close function
-		// 			// close function doesn't pass data
-		// 			$("body").bind(self.curTool._close,{obj:self},function(e,toolData){
-		// 				$("body").unbind(self.curTool._close);
-		// 				$("body:first").trigger("switchBarMode",[self.toolSet[self.defaultTool].name]);
-		// 				self.curTool=null;
-		// 				var n=$("#srcImageForCanvas").attr("src").indexOf('=');
-		// 				var url=$("#srcImageForCanvas").attr("src").substring((n+1));
-		// 				var m=(json)?json[url]:toolData;
-		// 				
-		// 				self.toolSet[self.startTool].restart(toolData);
-		// 			});
-		// 			var m=(json)?json[$("#srcImageForCanvas").attr("src")]:null;
-		// 			
-		// 			self.curTool.restart(m);
-		// 		},
 		// Takes the plugin wrapper obj and 
 		// sets its start() method
 		initTool:function(obj){
@@ -1933,13 +1866,6 @@ TILE.scale=1;
 			var self=this;
 			$(".ui-dialog").hide();
 			
-			// for(i in self.toolSet){
-			// 				if((self.toolSet[i].id)&&(self.toolSet[i].id==id)){
-			// 					self.activeTool=self.toolSet[i];
-			// 				} else {
-			// 					if(self.toolSet[i].unActive) self.toolSet[i].unActive();
-			// 				}
-			// 			}
 			var refs=[];
 			if(self.activeObj&&(self.activeObj.id==_newActiveObj.id)) return;
 			self.activeObj=null;
@@ -2713,7 +2639,7 @@ TILE.scale=1;
 				}
 			}
 			obj=self.findTileObj(obj.id,obj.type);
-			$("body:first").trigger('dataUpdated',[obj]);
+			$("body:first").trigger('dataDeleted',[obj]);
 		}
 	};
 	

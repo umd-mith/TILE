@@ -20,7 +20,6 @@ var Label=function(args){
 	self.manifest=[];
 	self.checkIds=[];
 	self.clearTextArea.click(function(e){
-		
 		self.addLabelText.val("");		
 		self._textTypeHandle();
 	
@@ -46,8 +45,6 @@ var Label=function(args){
 		var id=$(this).attr('id').replace("lbl_","");
 		// $("body:first").trigger("labelSelected",[{type:"labels",id:id}]);
 		$("body:first").trigger("labelClick",[{name:$(this).text(),id:id}]);
-		
-	
 	});
 	
 	// essential global listeners
@@ -64,7 +61,7 @@ Label.prototype={
 	// New labels are added in bundleData() and sortOutput()
 	loadLabels:function(data){
 		var self=this;
-		
+		$("#labelList").empty();
 		// each label receives an li tag that has a click
 		// event attached
 		// Click event fires off sendLblData custom event
@@ -75,19 +72,7 @@ Label.prototype={
 				var lbl=data[d].obj;
 				
 				$("<div id=\""+lbl.id+"\" class=\"labelItem\">"+lbl.name+"</div>").appendTo("#az_activeBox > div > div#labelList");
-				// $("div#lbl_"+lbl.id).bind("click",function(e){
-				// 					if(__v) console.log("hey you clicked on a label "+$(this).attr('id'));
-				// 					if($(this).hasClass("active")) {
-				// 						$(this).removeClass("active");
-				// 						return;
-				// 					}
-				// 					$("#labelList > .labelItem").removeClass("active");
-				// 					$(this).addClass("active");
-				// 					// get id for label
-				// 					var id=$(this).attr('id').replace("lbl_","");
-				// 					// $("body:first").trigger("labelSelected",[{type:"labels",id:id}]);
-				// 					$("body:first").trigger("labelClick",[{name:$(this).text(),id:id}]);
-				// 				});
+			
 			}
 			self.manifest.push(data[d]);
 			self.checkIds.push(data[d].id);
@@ -115,9 +100,6 @@ Label.prototype={
 				break;
 			}
 		}
-		
-		
-		
 	},
 	_textTypeHandle:function(){
 		var self=this;
@@ -335,7 +317,6 @@ var LB={
 		// manipulate DOM space
 		var html='<div class="toolbar" id="addLabelToolbar"><div class="menuitem pluginTitle">Labels</div><div class="menuitem"><ul><li><input id="filterLabelText" class="" type="text" value="" /></li></ul></div></div><div id="labelList" class="az"></div>';
 	
-		
 		// add HTML content to interface
 		TILE.engine.insertModeHTML(html,'bottomleft',mode.name);
 		
@@ -367,11 +348,11 @@ var LB={
 		$("body").live("newJSON newPage",{obj:self},self.newJSONHandle);
 		$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
 		$("body").live("newActive",{obj:self},self.activeObjHandle);
+		$("body").live("dataDeleted",{obj:self},self.dataDeletedHandle);
 		
 		// check to see if json data is already loaded
 		var data=TILE.engine.getJSON(true);
-		if(data)
-		{
+		if(data){
 			// data loaded - start labels
 			if(!data.labels) return;
 			var vd=[];
@@ -454,6 +435,25 @@ var LB={
 		}
 		
 		self.createWordle(data);
+	},
+	dataDeletedHandle:function(e,obj){
+		var self=e.data.obj;
+		if(obj.type.toLowerCase()=='labels'){
+			var data=[];
+			
+			for(var x in self.lbls){
+				if(x!=obj.id){
+					data[x]=self.lbls[x];
+				} 
+			}
+			
+			self.lbls=data;
+			var data=TILE.engine.getJSON();
+			var vd=self.findLabelsOnPage(data);
+			if(__v) console.log('Labels left on the page: '+JSON.stringify(vd));
+			self.LBL.loadLabels(vd);
+		}
+		
 	},
 	activeObjHandle:function(e){
 		var self=e.data.obj;
