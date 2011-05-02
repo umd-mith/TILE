@@ -18,13 +18,14 @@ if(isset($_POST['uploadData'])&&(isset($_POST['extraData']))&&(strlen($_POST['ex
 		}
 	}
 	#determine documen ttype
-	$text=stripslashes($_POST['extraData']);
+	$text=base64_decode($_POST['extraData']);
 	$tileData=stripslashes($_POST['uploadData']);
 	
 	$xmlstring='';
 	if(preg_match('/TEI/i',$text)){
 		# TEI - use normal or facsimile
 		if(preg_match('/facsimile/i',$text)){
+			
 			# facsimile usage 
 			include_once('tei_p5_with_facsimile_import.php');
 			$parser=new TEIP5WithFacsimileImport($text,$tileData);
@@ -35,6 +36,7 @@ if(isset($_POST['uploadData'])&&(isset($_POST['extraData']))&&(strlen($_POST['ex
 			$xmlstring=$parser->outputTILEXML();
 			
 		} else {
+		
 			# non-facsimile
 			include_once('tei_p5_import.php');
 			$parser=new TEIP5Import($text,$tileData);

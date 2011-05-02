@@ -73,7 +73,7 @@ Label.prototype={
 			// get rid of duplicates
 			if($("#"+data[d].id).length==0){
 				var lbl=data[d].obj;
-			
+				
 				$("<div id=\""+lbl.id+"\" class=\"labelItem\">"+lbl.name+"</div>").appendTo("#az_activeBox > div > div#labelList");
 				// $("div#lbl_"+lbl.id).bind("click",function(e){
 				// 					if(__v) console.log("hey you clicked on a label "+$(this).attr('id'));

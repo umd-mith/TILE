@@ -17,7 +17,7 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
     protected $containers_by_id = array();
     private   $zone_xpath;
 
-    public function __construct($content,$tile) {
+    public function __construct($content,$tile=null) {
         $this -> setMilestoneXPath('//facsimile|//text/body/div');
         $this -> setImageURLXPath('//facsimile/surface/graphic/@url');
         // we want all of the child elements of a top-level div element in the body
@@ -25,10 +25,14 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
         // we don't want to 
         $this -> setDocumentStartXPath('//facsimile');
         $this -> zone_xpath = $this -> build_xpath_regex('//facsimile/surface/zone');
-        parent::__construct($content,$tile);
+		if(isset($tile)){
+			parent::__construct($content,$tile);
+		} else {
+			parent::__construct($content);
+		}
 		# set the insertNode to determine this will be placed in the 
 		# content
-		// $this->insertNode='teiHeader';
+		$this->insertNode='teiHeader';
     }
     
 	

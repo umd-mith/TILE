@@ -42,7 +42,12 @@ class CoreData
     public function to_json($options = 0) {
         // outputs a JSON representation of the containers and lines
         $data = array();
-        $data['content'] = html_entity_decode($this -> content);
+		/*
+		NOTE: encoding the content in order to preserve original data format and special
+		chars. Browser automatically resolves special chars. For now, encoding this in 
+		order to use it later in export. 
+		*/
+        $data['content'] = base64_encode($this -> content);
         $data['tile'] = array();
         $data['tile']['pages'] = array();
         

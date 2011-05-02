@@ -82,6 +82,7 @@
 			"<a id=\"autorec_recognize\" class=\"button\">Perform Line Recognition</a></div></div></div>";
 			self.canvasArea=$("#azcontentarea").parent(); //use this later to put in CanvasImage object
 			self.canvasHTML='<div id="canvasHTML" class="workspace"><canvas id="canvas"/><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
+			// Link to Doug Reside's project to convert OCR script into a REST-like service
 			self.REST='http://localhost:8888/tile/linerecognizer/LineRecognizer.php?ct=j';
 			self.transcript=(args.transcript)?args.transcript:null;
 			self.lineManifest=[];
@@ -590,24 +591,6 @@
 			} else {
 				$("body:first").trigger("outputLines");
 			}
-			
-			// var n='-='+$(".az.main > .az.tool").width();
-			// 			$(".lineBox").remove();
-			
-			// self.DOM.parent().hide();
-			// 			self.regionBox.DOM.remove();
-			// 			
-			// 			$(".az.main > .az.tool").removeClass("tool").addClass("log");
-			// 			// self.CANVAS._closeOut();
-			// 			$("body").unbind('zoom',self.zoomHandle);
-			// 			
-			// 			$("#azcontentarea > .az.inner:eq(1)").hide();
-			// 			$("#azcontentarea > .az.inner:eq(0)").show();
-			// 			$("#regionBox").hide();
-			// 			// self.canvasArea.show();
-			// 		
-			// 			$("#az_activeBox").show();
-			// $("body:first").trigger("closeOutAutoRec",[{scale:self.CANVAS._scale,data:self.transcript}]);
 		}
 	};
 	
@@ -1858,6 +1841,7 @@ var AR={
 				var vd=[];
 				var shapes=data.data;
 				var lines=data.lines;
+				if(__v) console.log("shapes from outputlines: "+JSON.stringify(shapes));
 				for(var d in shapes){
 					var o={
 						id:shapes[d].id,
@@ -1894,8 +1878,10 @@ var AR={
 				
 				// CAUSES MASSIVE LAG TIME IN MOST BROWSERS
 				function addLine(line,shape){
-					TILE.engine.insertData(shape);
-					TILE.engine.linkObjects(line,shape);
+					if(line&&shape){
+						TILE.engine.insertData(shape);
+						TILE.engine.linkObjects(line,shape);
+					}
 				};
 				
 				// start loadScreen

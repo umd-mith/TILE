@@ -640,7 +640,7 @@ TILE.scale=1;
 				// attach to global page list only if there isn't already label there
 				if($("#labelList > #"+el.id).length==0){
 					// 	none attach - attach this element
-					$("#labelList").append("<div id=\""+el.id+"\" class=\"labelItem\">"+el.name+"<span id=\"del_"+el.id+"\" class=\"button shape delete formLink\">X</span></div>");
+					$("#labelList").append("<div id=\""+el.id+"\" class=\"labelItem\">"+el.name+"</div>");
 				}
 				// push onto stack to be sent to ENGINE
 				refs.push(el);
@@ -2324,6 +2324,7 @@ TILE.scale=1;
 		},
 		// simplified version of toolOutput and floatDivOutput
 		addDataToJSON:function(data){
+			if((!data)||(data=='')) return;
 			var self=this;
 			mouseWait();
 			// update activeItems

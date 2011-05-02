@@ -8,8 +8,9 @@ $txt='<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" hre
 $parser=new TEIP5WithFacsimileImport($txt);
 
 $data=$parser->to_json();
-header('Content-type: text/html');
-echo '<textarea>'.$data.'</textarea>';
+header('Content-type: text/javascript');
+
+echo $data;
 
 
 

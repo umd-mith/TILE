@@ -24,11 +24,14 @@ class XMLStreamImport extends CoreData
 	# JIM: added $tile in here to test out using 
 	# conversion functions on tile variable - not sure how else to include
 	# it?
-	public function __construct($content,$tile) {
+	public function __construct($content,$tile=null) {
 		
 		// if passed tile element, then parse
 		if(isset($tile)&&(!is_null($tile))){
 			$this->json = json_decode($tile); 
+			# NOTE : De-coding content due to work-around
+			# for browser HTML resolving special chars
+			// $content=base64_decode($content);
 		}
 		
 		$this -> setup_parser();
@@ -422,7 +425,7 @@ class XMLStreamImport extends CoreData
 			# insert into node in content
 			$cxml=new DOMDocument();
 			$cxml->loadXML($this->getContentData());
-			
+		
 			$teiHeader=$cxml->getElementsByTagName('teiHeader')->item(0);
 
 			$root=$this->xml->getElementsByTagName('tile')->item(0);
