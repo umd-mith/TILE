@@ -1011,6 +1011,7 @@ a.btnIconLarge:hover {
 	background:#F0F2D2;
 	border-right:1px dashed #AFBF37;
 	margin-top:47px;
+	overflow:auto;
 }
 .content .textImageList .list ul {
 	list-style: none;

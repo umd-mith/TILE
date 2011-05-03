@@ -352,22 +352,22 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 	*/
 	var ImageList=function(args){
 		//constructor
-			var self=this;
-			self.loc=args.loc;
-			$("<div class=\"az inner textImageList\"><div class=\"toolbar\"><ul class=\"menuitem\">"+
-			"<li><a href=\"#\" id=\"pointer\" class=\"btnIconLarge inactive\"></a></li></ul>"+
-			"<ul class=\"menuitem\"><li><a href=\"#\" id=\"rect\" class=\"btnIconLarge inactive\"></a></li>"+
-			"<li><a href=\"#\" id=\"poly\" class=\"btnIconLarge inactive\"></a></li><li>"+
-			"<a href=\"#\" id=\"elli\" class=\"btnIconLarge inactive\"></a></li><li id=\"customWidget\">"+
-			"<div id=\"colorSelector2\" class=\"btnIconLarge inactive\"><div id=\"colorSelectorBkgd\" style=\"background-color: #ff0000\"></div>"+
-			"</div><div id=\"colorpickerHolder2\"></div></li></ul><ul class=\"menuitem\"><li>"+
-			"<a href=\"#\" id=\"zoomIn\" class=\"btnIconLarge inactive\"></a></li><li><a href=\"#\" id=\"zoomOut\" class=\"btnIconLarge inactive\"></a>"+
-			"</li></ul><ul class=\"menuitem\"><li><a href=\"#\" id=\"pgPrev\" class=\"button inactive\">Prev</a></li>"+
-			"<li><a href=\"#\" id=\"pgNext\" class=\"button inactive\">Next</a></li><li><a href=\"#\" class=\"button\" title=\"Go Back to the Image Tagger Canvas\">"+
-			"<span class=\"imgView\">Img view</span></a></li></ul></div><div class=\"list az\"><ul></ul></div><div class=\"image\"><img src=\"\"></div>").appendTo("#azcontentarea");
-			
-			$(".az.inner.textImageList").hide();
-		};
+		var self=this;
+		self.loc=args.loc;
+		$("<div class=\"az inner textImageList\"><div class=\"toolbar\"><ul class=\"menuitem\">"+
+		"<li><a href=\"#\" id=\"pointer\" class=\"btnIconLarge inactive\"></a></li></ul>"+
+		"<ul class=\"menuitem\"><li><a href=\"#\" id=\"rect\" class=\"btnIconLarge inactive\"></a></li>"+
+		"<li><a href=\"#\" id=\"poly\" class=\"btnIconLarge inactive\"></a></li><li>"+
+		"<a href=\"#\" id=\"elli\" class=\"btnIconLarge inactive\"></a></li><li id=\"customWidget\">"+
+		"<div id=\"colorSelector2\" class=\"btnIconLarge inactive\"><div id=\"colorSelectorBkgd\" style=\"background-color: #ff0000\"></div>"+
+		"</div><div id=\"colorpickerHolder2\"></div></li></ul><ul class=\"menuitem\"><li>"+
+		"<a href=\"#\" id=\"zoomIn\" class=\"btnIconLarge inactive\"></a></li><li><a href=\"#\" id=\"zoomOut\" class=\"btnIconLarge inactive\"></a>"+
+		"</li></ul><ul class=\"menuitem\"><li><a href=\"#\" id=\"pgPrev\" class=\"button inactive\">Prev</a></li>"+
+		"<li><a href=\"#\" id=\"pgNext\" class=\"button inactive\">Next</a></li><li><a href=\"#\" class=\"button\" title=\"Go Back to the Image Tagger Canvas\">"+
+		"<span class=\"imgView\">Img view</span></a></li></ul></div><div class=\"list az\"><ul></ul></div><div class=\"image\"><img src=\"\"></div>").appendTo("#azcontentarea");
+		
+		$(".az.inner.textImageList").hide();
+	};
 	ImageList.prototype={
 		//Displays the imagelist - loads HTML if not already loaded
 		//@data: {Object} with uris and info on image(s)
@@ -385,13 +385,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// For each page item in the JSON data, create a separate
 			// title listing for that item
 			for (var i=0;i<data.length;i++){
-				
-				// var title=(data[i].title)?data[i].title:null;
-				// 			if(!title){
-				// 				//create a title from the url
-				// 				var p=data[i].url.split('/');
-				// 				title=p[(p.length-1)];
-				// 			}
 				 $("<li><a href='"+data[i]+"'>"+data[i]+"<\/a></li>").appendTo(".az.inner.textImageList > .list > ul");	
 			}
 			//Mouseover: Show Image to the right of list of titles
@@ -419,7 +412,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				$(".ui-dialog").hide();
 				// show the imagetagger area
 				$("#azcontentarea > div.az.inner:eq(0)").show();
-				
 			});
 		}
 	};
@@ -566,80 +558,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			this.activateShapeBar();
 		};
 	TILEShapeToolBar.prototype={
-		//creates ColorPicker from plugin code
-		// setUpColorPicker:function(){
-		// 		//html elements
-		// 
-		// 		this.colorWidgetB=$("#customWidget");
-		// 		//NEW: attaching to SVG element
-		// 		this.colorSelect=$("#colorSelector2");
-		// 		//change main css of colorpicker so that it shows up above the canvas
-		// 		this.colorPicker=$("#colorpickerHolder2").css("z-index","1001");
-		// 
-		// 		//this.colorPicker=$("<div id=\"colorpickerHolder2\"></div>").insertBefore($("svg"));
-		// 
-		// 
-		// 		this.CP=this.colorPicker.ColorPicker({
-		// 			flat: true,
-		// 			color: '#000000',
-		// 			onSubmit: this.onCPSubmit
-		// 		});
-		// 		$('#colorSelectorBkgd').css('background-color', '#000000');
-		// 		$("body:first").trigger("NEWSHAPECOLOR",['000000']);
-		// 		this.clickColorSubmit=$(".colorpicker_submit");
-		// 		this.clickColorSubmit.bind("click",{obj:this},this.closeWidgetClick);
-		// 
-		// 		//listeners
-		// 		this.widt=false;//toggles on/off mode of colorpicker
-		// 		//widt=false=closed
-		// 		//widt=true=open
-		// 		this.colorWidgetB.bind("click",{obj:this},this.customWidgetClick);
-		// 
-		// 		this.colorWidgetB.trigger("sideBarDone");
-		// 
-		// 	},
-		// 	//used for opening and closing the ColorPicker plugin
-		// 	// e : {Event}
-		// 	customWidgetClick:function(e){
-		// 		var obj=e.data.obj;
-		// 		if(!obj.widt&&(!obj.colorSelect.hasClass("inactive"))){
-		// 			$('#colorpickerHolder2').stop().animate({height: obj.widt ? 0 : 173}, 500);
-		// 			obj.widt = !obj.widt;
-		// 			$(this).trigger("closeDownVD",[obj.widt]);
-		// 		} else {
-		// 			$('#colorpickerHolder2').stop().animate({height: obj.widt ? 0 : 173}, 500);
-		// 			obj.widt = !obj.widt;
-		// 			$(this).trigger("closeDownVD",[obj.widt]);
-		// 		}
-		// 	},
-		// 	// Handles the events for closing the plugin-ColorPicker widget
-		// 	// e : {Event}
-		// 	closeWidgetClick:function(e){
-		// 		e.stopPropagation();
-		// 		var obj=e.data.obj;
-		// 		$('#colorpickerHolder2').stop().animate({height:0}, 500);
-		// 		obj.widt=false;
-		// 		obj.DOM.trigger("closeDownVD",[obj.widt]);
-		// 		//reset canvas drawer
-		// 		obj.DOM.trigger("changeShapeType",[obj.shapeType]);
-		// 		// if(!obj.rect.hasClass("inactive")){
-		// 		// 		obj.colorPicker.trigger("changeShapeType",['rect']);
-		// 		// 	} else if(!obj.poly.hasClass("inactive")){
-		// 		// 		obj.colorPicker.trigger("changeShapeType",['poly']);
-		// 		// 	} else if(!obj.elli.hasClass("inactive")){
-		// 		// 		obj.colorPicker.trigger("changeShapeType",['elli']);
-		// 		// 	}
-		// 	},
-		// 	// After user selects a color, this is activated and fires "NEWSHAPECOLOR"
-		// 	// event which passes new hexidecimal color value to other objects
-		// 	// hsb : {String}
-		// 	// hex : {Integer} - value we're interested in
-		// 	// rgb : {String} - (r,g,b) representation of color
-		// 	onCPSubmit:function(hsb,hex,rgb){
-		// 		$('#colorSelectorBkgd').css('background-color', '#' + hex);
-		// 		$('body').trigger("NEWSHAPECOLOR",[hex]);
-		// 		$('#colorpickerHolder2').stop().animate({height:0}, 500);
-		// 	},
 		// called either remotely ("ActivateShapeBar" event) or locally
 		// sets all shape choices to inactive, then checks what the current shape
 		// type is and activates that shape choice changes DOM styles
@@ -2089,8 +2007,6 @@ var IT={
 			
 			// Add title to the azcontenarea
 			$("#azcontentarea > .az.inner:eq(0) > .toolbar > .menuitem.pluginTitle").text("Image Tagger");
-			
-			
 		} 
 	},
 	dataAddedHandle:function(e,obj){
@@ -2109,17 +2025,6 @@ var IT={
 		// check to see if any shapes added to activeItems
 		var vd=[shape];
 		var a=false;
-		// 		for(var prop in TILE.activeItems){
-		// 			if(__v) console.log("activeItem: "+TILE.activeItems[prop]);
-		// 			if(!TILE.activeItems[prop]) continue;
-		// 			if(TILE.activeItems[prop].posInfo){
-		// 				vd.push(TILE.activeItems[prop]);
-		// 				if(TILE.activeItems[prop].id==self.activeShape){
-		// 					a=TILE.activeItems[prop];
-		// 				}
-		// 			}
-		// 		}
-		
 		self.itagger.addNewShapesToStack(shape);
 	},
 	dataLinkedHandle:function(e,args){
@@ -2131,6 +2036,7 @@ var IT={
 	},
 	newActiveHandle:function(e,obj){
 		var self=e.data.obj;
+		
 		// update URL
 		self.itagger.curURL=TILE.url;
 		if(obj.obj.posInfo){
@@ -2139,6 +2045,7 @@ var IT={
 			
 		} else {
 			var item=obj.obj;
+			if(__v) console.log('item received in newActive for imagetagger:  '+JSON.stringify(item));
 			var vd=[];
 			for(var prop in item){
 				if(prop.toLowerCase()=='shapes'){
@@ -2147,26 +2054,11 @@ var IT={
 						vd.push(item[prop][shape]);
 					}
 				}
-			}
-			
+			}	
 			
 			// add new shapes
 			self.itagger.loadNewShapes(vd);
 		}
-		
-		// check to see if any shapes added to activeItems
-		// var vd=[];
-		// 	for(var prop in TILE.activeItems){
-		// 		if(!TILE.activeItems[prop]) continue;
-		// 		if(TILE.activeItems[prop].posInfo){
-		// 			vd.push(TILE.activeItems[prop]);
-		// 		}
-		// 	}
-		// 	if(__v) console.log('imagetagger newactivehandle '+JSON.stringify(TILE.activeItems));
-		// 
-		// 	self.itagger.loadNewShapes(vd);
-	
-		// self.itagger._restart(TILE.activeItems);
 	},
 	newJSONHandle:function(e){
 		var self=e.data.obj;

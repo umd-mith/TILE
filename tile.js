@@ -1933,7 +1933,7 @@ TILE.scale=1;
 				}
 				
 			}
-			
+			if(__v) console.log('activeObj: '+JSON.stringify(self.activeObj));
 			if(!self.activeObj) return;
 			
 			// set activeItems
@@ -2661,9 +2661,7 @@ TILE.scale=1;
 		$("#savedialog").show();
 		$("#savedialogwhitespace").hide();
 		$("#darkForSaveDialog").hide();
-		
 		// cancel button
-		
 		// stores all formats and their src destination
 		self.srcArray=[];
 		// changes based on which format is selected

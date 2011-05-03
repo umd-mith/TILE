@@ -61,8 +61,6 @@
 						self.manifest[url][l].id=id;
 					}
 				}
-				// if(__v) console.log("self.manifest["+url+"]  "+JSON.stringify(self.manifest[url]));
-				
 			}
 			self.lineArray=self.manifest[$("#srcImageForCanvas").attr('src')];
 			
@@ -186,19 +184,14 @@
 				if(typeof this.lineArray[i].id=='string'){
 					uid = this.lineArray[i].id.replace(/\.|\:/g,'');
 				}
-				//this.lineArray[i]=eval("("+this.lineArray[i]+")");
 				if (!(this.lineArray[i].shapes)){
 					this.lineArray[i].shapes=[];
 				}
 				if(!(this.lineArray[i].info)){
 					this.lineArray[i].info=[];
 				}
-			
 				$("<div id='" + uid + "' class='line'>" + this.lineArray[i].text + "</div>").appendTo($("#logbar_list")).mouseover(function(e){
-			
 					$(this).addClass("trans_line_hover");
-					// var index = parseInt($(this).attr("id").substring($(this).attr("id").lastIndexOf("_")+1),10); 
-					
 				}).mouseout(function(e){
 					$(this).removeClass("trans_line_hover");
 				}).mousedown(function(e){
@@ -222,14 +215,6 @@
 				var n=i;
 				// attach data for index value 
 				$("#"+uid).data("index",n);
-				// attach references 
-			
-				// for(r in self.lineArray[i]){
-				// 				if(!(/\bid\b|\binfo\b|\btext\b/.test(r))){
-				// 					if(self.lineArray[i][r]=="") continue;
-				// 					self._addLinkDiv(self.lineArray[i].id,{id:self.lineArray[i][r],type:r});
-				// 				}
-				// 			}
 			}
 			// check if the page has no transcript lines associated with it
 			if($("#"+self.loc.attr('id')+" > .line").length==0){
@@ -634,13 +619,13 @@
 		},
 		newJSONHandle:function(e){
 			var self=e.data.obj;
-			if(__v) console.log('NEW JSON IN TRANSCRIPT');
 			// get current page
 			var data=TILE.engine.getJSON(true);
 			var text=[];
 			if(data&&(data.lines)){
 				// parse out data
 				for(var line in data.lines){
+					if(__v) console.log('data.lines '+line+'  '+JSON.stringify(data.lines[line]));
 					if((!(data.lines[line]))||(typeof(data.lines[line])=='undefined')) continue;
 					text.push(data.lines[line]);
 				}
@@ -657,8 +642,6 @@
 					$("#"+id+".line").addClass('line_selected');
 				}
 			}
-		
-			
 		},
 		// being passed a copy of the engine
 		loadJSON:function(engine,activeItems){

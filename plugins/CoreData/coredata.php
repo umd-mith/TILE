@@ -60,6 +60,7 @@ class CoreData
                 $page['shapes'] = array();
                 
                 foreach($container -> lines as $line) {
+					echo $line->text.'<br/>';
                     $l = array();
                     $l['text'] = $line->text;
                     if($line->id != "") {

@@ -49,7 +49,7 @@ var Label=function(args){
 	
 	// essential global listeners
 	// $("body").bind("addLink",{obj:self},self._addLinkHandle);
-	$("body").bind("labelClick",{obj:self},self.lblSelected);
+	// $("body").bind("labelClick",{obj:self},self.lblSelected);
 	
 	// self.labelData=(args.data)?args.data.labels:null;
 	// 	if(self.labelData){self.loadLabels(self.labelData);}
@@ -162,7 +162,7 @@ Label.prototype={
 				var id=$(this).attr('id').replace("lbl_","");
 				// $("body:first").trigger("labelSelected",[{type:"labels",id:id}]);
 				if(__v) console.log(id+'  sending out data: ');
-				$("body:first").trigger("labelClick",[{name:$(this).text(),id:id}]);
+				$("body:first").trigger("labelSelected",[{name:$(this).text(),id:id}]);
 			});
 			self.manifest.push(rec);
 			
@@ -325,7 +325,8 @@ var LB={
 		
 		$("body").bind("labelSelected",function(e,obj){
 			// send obj to the engine
-			var lbl={id:obj.id,type:'labels',jsonName:'labels',obj:obj};
+			var lbl={id:obj.id,type:'labels',jsonName:'labels'};
+			
 			TILE.engine.setActiveObj(lbl);
 		});
 		
@@ -455,8 +456,12 @@ var LB={
 		}
 		
 	},
-	activeObjHandle:function(e){
+	activeObjHandle:function(e,obj){
 		var self=e.data.obj;
+		
+		if(obj.type!='labels'){
+			return;
+		}
 		
 		var data=TILE.engine.getJSON();
 		

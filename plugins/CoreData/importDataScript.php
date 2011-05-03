@@ -69,7 +69,6 @@ if((isset($_FILES['fileUploadName']))){
 	}
 	
 } else 
-
 # if not an imported filepath, then use regular POST values
 if(isset($_POST['format'])&&isset($_POST['filepath'])){
 	
