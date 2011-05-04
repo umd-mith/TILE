@@ -893,7 +893,6 @@ TILE.scale=1;
 			var mode=new Mode(name,active,unactive);
 			pluginModes.push(mode);
 			return mode;
-			
 		},
 		// add a plugin to a specific mode - 
 		// waits until the mode is called to run

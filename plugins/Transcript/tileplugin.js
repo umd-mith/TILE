@@ -607,8 +607,6 @@
 					uid=TILE.activeItems[prop].id.replace(/\.\:/,'');
 				}
 				if($("#logbar_list > #"+uid+".line").length){
-					
-					
 					// line in DOM;
 					// set line as active 
 					$("#logbar_list > #"+uid+".line").addClass('line_selected');
@@ -633,7 +631,6 @@
 			$("#az_log > #az_transcript_area > #logbar_list").empty();
 			// insert new page into Transcript
 			self.transcript._insertLines(text);
-
 			self.transcript._drawText();
 
 			for(var a in TILE.activeItems){

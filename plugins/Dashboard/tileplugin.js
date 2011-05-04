@@ -117,6 +117,7 @@ var Dashboard={
 		$(".dashboard_main").empty();
 		// init HTML
 		self.createPagesTable();
+		self.createPagesGraph();
 		self.createLinkCount();
 		self.createLinesTable();
 	},

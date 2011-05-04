@@ -64,15 +64,12 @@ Label.prototype={
 		$("#labelList").empty();
 		// each label receives an li tag that has a click
 		// event attached
-		if(__v) console.log("data in outer loop: "+JSON.stringify(data));
 		for(d in data){
 			if(!data[d]) continue;
 			// get rid of duplicates
 			if($("#labelList > #"+data[d].id).length==0){
 				var lbl=data[d].obj;
-				if(__v) console.log("inner loop labels.js loadLabesl "+JSON.stringify(lbl));
 				$("<div id=\""+lbl.id+"\" class=\"labelItem\">"+lbl.name+"</div>").appendTo("#labelList");
-			
 			}
 			self.manifest.push(data[d]);
 			self.checkIds.push(data[d].id);
