@@ -64,14 +64,14 @@ Label.prototype={
 		$("#labelList").empty();
 		// each label receives an li tag that has a click
 		// event attached
-		// Click event fires off sendLblData custom event
+		if(__v) console.log("data in outer loop: "+JSON.stringify(data));
 		for(d in data){
 			if(!data[d]) continue;
 			// get rid of duplicates
-			if($("#"+data[d].id).length==0){
+			if($("#labelList > #"+data[d].id).length==0){
 				var lbl=data[d].obj;
-				
-				$("<div id=\""+lbl.id+"\" class=\"labelItem\">"+lbl.name+"</div>").appendTo("#az_activeBox > div > div#labelList");
+				if(__v) console.log("inner loop labels.js loadLabesl "+JSON.stringify(lbl));
+				$("<div id=\""+lbl.id+"\" class=\"labelItem\">"+lbl.name+"</div>").appendTo("#labelList");
 			
 			}
 			self.manifest.push(data[d]);
@@ -346,7 +346,7 @@ var LB={
 		// attach global listeners
 		$("body").live("newJSON newPage",{obj:self},self.newJSONHandle);
 		$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
-		// $("body").live("newActive",{obj:self},self.activeObjHandle);
+		$("body").live("newActive",{obj:self},self.activeObjHandle);
 		$("body").live("dataDeleted",{obj:self},self.dataDeletedHandle);
 		
 		// check to see if json data is already loaded
@@ -425,7 +425,7 @@ var LB={
 			}
 		}
 		vd=self.findLabelsOnPage(data);
-		
+		if(__v) console.log('found lavels on page for datadded in labels.js: '+JSON.stringify(vd));
 		self.LBL.loadLabels(vd);
 		
 		
@@ -458,37 +458,18 @@ var LB={
 		var self=e.data.obj;
 		
 		if(obj.type!='labels'){
+			$("#labelList > .labelItem").removeClass("active");
 			return;
 		}
 		
-		var data=TILE.engine.getJSON();
 		
 		// deactivate labels
 		$("#labelList > .labelItem").removeClass('active');
-		// check if any labels were added
-		var vd=[];
-		var newLbls=[];
-		// parse labels
-		for(var d in data.labels){
-			// add any labels added to JSON that don't exist in manifest
-			if(!self.lbls[data.labels[d].id]){
-				self.lbls[data.labels[d].id]={id:data.labels[d].id,type:'labels',jsonName:'labels',obj:data.labels[d]};
-				newLbls.push({id:data.labels[d].id,type:'labels',jsonName:'labels',obj:data.labels[d]});
-			}
+		if($("#labelList > #"+obj.id).length){
+			$("#labelList > #"+obj.id).addClass("active");
 		}
 		
-		vd=self.findLabelsOnPage(data);
 		
-		for(var item in TILE.activeItems){
-			if(self.lbls[TILE.activeItems[item].id]){
-				$("#lbl_"+TILE.activeItems[item].id).addClass('active');
-			}
-		}
-		
-		self.LBL.loadLabels(vd);
-		if(newLbls.length){
-			TILE.engine.insertTags(self.lbls);
-		}
 	},
 	// finds labels referenced in engine JSON
 	// returns array of active labels
