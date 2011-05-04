@@ -36,7 +36,7 @@ var Label=function(args){
 	});
 	
 	// global listener for all labelitems in .az .labelList
-	$(".az > #labelList > .labelItem").live("click",function(e){
+	$("#labelList > .labelItem").live("click",function(e){
 		e.preventDefault();
 		
 		$(".az > #labelList > .labelItem").removeClass("active");
@@ -44,7 +44,7 @@ var Label=function(args){
 		// get id for label
 		var id=$(this).attr('id').replace("lbl_","");
 		// $("body:first").trigger("labelSelected",[{type:"labels",id:id}]);
-		$("body:first").trigger("labelClick",[{name:$(this).text(),id:id}]);
+		$("body:first").trigger("labelSelected",[{name:$(this).text(),id:id}]);
 	});
 	
 	// essential global listeners
@@ -312,8 +312,6 @@ var LB={
 	start:function(mode){
 		var self=this;
 		self.lbls=[];
-		
-		
 		// manipulate DOM space
 		var html='<div class="toolbar" id="addLabelToolbar"><div class="menuitem pluginTitle">Labels</div><div class="menuitem"><ul><li><input id="filterLabelText" class="" type="text" value="" /></li></ul></div></div><div id="labelList" class="az"></div>';
 	
@@ -326,7 +324,7 @@ var LB={
 		$("body").bind("labelSelected",function(e,obj){
 			// send obj to the engine
 			var lbl={id:obj.id,type:'labels',jsonName:'labels'};
-			
+			if(__v) console.log('labelSelected picked up  '+JSON.stringify(lbl));
 			TILE.engine.setActiveObj(lbl);
 		});
 		
@@ -348,7 +346,7 @@ var LB={
 		// attach global listeners
 		$("body").live("newJSON newPage",{obj:self},self.newJSONHandle);
 		$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
-		$("body").live("newActive",{obj:self},self.activeObjHandle);
+		// $("body").live("newActive",{obj:self},self.activeObjHandle);
 		$("body").live("dataDeleted",{obj:self},self.dataDeletedHandle);
 		
 		// check to see if json data is already loaded
