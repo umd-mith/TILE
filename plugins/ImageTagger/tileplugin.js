@@ -852,6 +852,12 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					ow*=0.75;
 					oh*=0.75;
 					TILEIMGSCALE*=0.75;
+					for(var x=0;x<self.manifest.length;x++){
+						var shape=self.manifest[x];
+						for(var u in shape.posInfo){
+							shape.posInfo[u]*=0.75;
+						}
+					}
 				}
 				
 				
@@ -1951,8 +1957,6 @@ var IT={
 			$("#azcontentarea > .imageannotator > .toolbar").attr('id','_raphshapebar');
 			this.itagger.setHTML();
 			
-			
-			
 			// global bind for receiving shape objects
 			$("body").bind("shapeDeleted",{obj:self},_shapeDeletedHandle);
 			$("body").bind("ObjectChange",{obj:self},self._objChangeHandle);
@@ -2045,7 +2049,6 @@ var IT={
 			
 		} else {
 			var item=obj.obj;
-			if(__v) console.log('item received in newActive for imagetagger:  '+JSON.stringify(item));
 			var vd=[];
 			for(var prop in item){
 				if(prop.toLowerCase()=='shapes'){
