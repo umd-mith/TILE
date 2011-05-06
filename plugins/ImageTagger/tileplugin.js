@@ -808,7 +808,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				self.DOM.css({"z-index":0});
 			});
 		},
-		
 		// finds the real width and height of the given URL and
 		// sets the canvas area and other surrounding divs to this
 		// proportion
@@ -860,12 +859,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					}
 				}
 				
-				
 				self._imgScale =TILEIMGSCALE;
 				self.drawTool._scale=TILEIMGSCALE;
-				
-				
-				
 				if(self._imgScale!=1){
 					// set correct scale
 					$("#srcImageForCanvas").css("width",(TILEIMGSCALE*parseFloat($("#srcImageForCanvas").width()))+'px');

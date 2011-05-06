@@ -2780,8 +2780,6 @@ TILE.scale=1;
 		'<br/><label>Enter URL Here: </label><input id="filepathDisplay" type="text" class="long" value="" placeholder="Such as: http://www.example.com/path/to/my/data.xml" />'+
 		'<br /><select id="fileFormatFileURL" name="fileformat"></select>'+
 		'<br/><input id="loadURL" type="submit" class="button" name="submitTags" value="Submit" /></form>'+
-		// '<input id="formatInvisible" name="importformat" value="json" />'+
-		// 		'<input id="filePathInvisible" type="text" style="visibility:hidden;" />'+
 		'</div><div class="clear"></div></div></div></div><div id="LTfade" class="black_overlay"></div>';
 		$(html).appendTo(self.loc);
 		self.index=($("#dialog").length+self.loc.width());
@@ -2839,6 +2837,7 @@ TILE.scale=1;
 		// 		
 		// 		// convert form into the fileUpload jQuery plugin
 		// 		  
+		
 		$("#loadFromFile").submit(function(e){
 			e.preventDefault();
 		
