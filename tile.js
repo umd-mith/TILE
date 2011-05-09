@@ -2129,7 +2129,16 @@ TILE.scale=1;
 			if(!data) return;
 			
 			if(!handle) handle="body";
-			var pos=$(handle).offset();
+			var pos='';
+			// Safari Webkit measures things differently
+			if($.browser.safari){
+				var x=parseInt($(handle).css('marginLeft'),10);
+				var y=parseInt($(handle).css('marginTop'),10);
+				pos={'left':x,'top':y};
+			} else {
+				pos=$(handle).offset();
+			}
+			
 			
 			if(!pos) return;
 			var left=(pos.left+$(handle).width()+10);

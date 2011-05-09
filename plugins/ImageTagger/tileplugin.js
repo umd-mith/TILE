@@ -824,9 +824,12 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			if(url.indexOf('http')) url=url.substring(url.indexOf('http'));
 			if(self.drawTool) self.drawTool.clearShapes();
 			if(/\.js|\.html|\.JSP|\.jsp|\.JS|\.PHP|\.php|\.HTML|\.HTM|\.htm/.test(url)) return;
-			$("#srcImageForCanvas").bind('load',function(e){
+			// get image element
+			var img=$("#srcImageForCanvas")[0];
+			// attach load event
+			$(img).load(function(e){
 				$(this).show();
-				$("#srcImageForCanvas").unbind("load");
+				$(img).unbind("load");
 				if(!self.drawTool){
 					//set up drawing canvas
 					self.setUpDrawTool();
@@ -836,17 +839,17 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					self.drawTool.clearShapes();
 				}
 				if(loadShapes) self.drawTool.importShapes(loadShapes);
-				$(".vd-container:first").width($("#srcImageForCanvas")[0].width);
-				$(".vd-container:first").height($("#srcImageForCanvas")[0].height);
+				// $(".vd-container:first").width(this.width);
+				// $(".vd-container:first").height(this.height);
 				if(self.manifest[url]){
-					self.manifest[url].origWidth=$("#srcImageForCanvas")[0].width;
-					self.manifest[url].origHeight=$("#srcImageForCanvas")[0].height;
+					self.manifest[url].origWidth=this.width;
+					self.manifest[url].origHeight=this.height;
 					if(!self.manifest[url].shapes) self.manifest[url].shapes=[];
 				}
 				
 				// size to fit window
-				var ow=$("#srcImageForCanvas")[0].width*TILEIMGSCALE;
-				var oh=$("#srcImageForCanvas")[0].height*TILEIMGSCALE;
+				var ow=this.width*TILEIMGSCALE;
+				var oh=this.height*TILEIMGSCALE;
 				while(($("#raphworkspace_").width()<ow)||($("#raphworkspace_").height()<oh)){
 					ow*=0.75;
 					oh*=0.75;
@@ -865,10 +868,15 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					// set correct scale
 					$("#srcImageForCanvas").css("width",(TILEIMGSCALE*parseFloat($("#srcImageForCanvas").width()))+'px');
 					//$("#srcImageForCanvas").height(1.25*parseFloat($("#srcImageForCanvas").height()));
-					$(".vd-container").width(TILEIMGSCALE*parseFloat($(".vd-container").width()));
-					$(".vd-container").height(TILEIMGSCALE*parseFloat($(".vd-container").height()));
+					
+					$(".vd-container")[0].width=(TILEIMGSCALE*parseFloat($(".vd-container").width()));
+					$(".vd-container")[0].height=(TILEIMGSCALE*parseFloat($(".vd-container").height()));
+					// $(".vd-container").width(TILEIMGSCALE*parseFloat($(".vd-container").width()));
+					// $(".vd-container").height(TILEIMGSCALE*parseFloat($(".vd-container").height()));
+				
 					//zooming in
-					self.drawTool.scale(TILEIMGSCALE); 
+					self.drawTool.scale(TILEIMGSCALE);
+					
 					if($(".shpButtonHolder").length){
 						// also change positon of .shpButtonHolder
 						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*TILEIMGSCALE)+'px');
@@ -876,9 +884,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					}
 				}
 				if(self.curUrl!=url) self.curUrl=url;
-				
-				
-				if(__v) console.log("IMAGE TAGGER SET UP");
 				// self._loadPage.remove();
 			}).attr("src",url);	
 		},
