@@ -866,11 +866,11 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				self.drawTool._scale=TILEIMGSCALE;
 				if(self._imgScale!=1){
 					// set correct scale
-					$("#srcImageForCanvas").css("width",(TILEIMGSCALE*parseFloat($("#srcImageForCanvas").width()))+'px');
+					$("#srcImageForCanvas").css("width",(TILEIMGSCALE*parseFloat(this.width))+'px');
 					//$("#srcImageForCanvas").height(1.25*parseFloat($("#srcImageForCanvas").height()));
 					
-					$(".vd-container")[0].width=(TILEIMGSCALE*parseFloat($(".vd-container").width()));
-					$(".vd-container")[0].height=(TILEIMGSCALE*parseFloat($(".vd-container").height()));
+					$(".vd-container")[0].style.width=(TILEIMGSCALE*parseFloat(this.width));
+					$(".vd-container")[0].style.height=(TILEIMGSCALE*parseFloat(this.height));
 					// $(".vd-container").width(TILEIMGSCALE*parseFloat($(".vd-container").width()));
 					// $(".vd-container").height(TILEIMGSCALE*parseFloat($(".vd-container").height()));
 				

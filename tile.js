@@ -291,8 +291,8 @@ TILE.scale=1;
 			'<li class="label_formLI cloneMe" id="formField1">' +
 				'<span class="label_formLabel">Label:</span>' +
 				'<input id="formLabel1" name="Label1" type="text" class="tagComplete" />' +
-				' &nbsp; <img src="skins/columns/floatingDivIcons/add.png" title="Add up to 5 Labels" name="Add up to 5 Labels" id="btnAddLabel">' +
-				'<img style="margin-left: 1px; visibility: hidden;" src="skins/columns/floatingDivIcons/delete.png" title="Delete last label" name="Delete last label" id="btnDeleteLabel">' +
+				' &nbsp; <img src="skins/default/floatingDivIcons/add.png" title="Add up to 5 Labels" name="Add up to 5 Labels" id="btnAddLabel">' +
+				'<img style="margin-left: 1px; visibility: hidden;" src="skins/default/floatingDivIcons/delete.png" title="Delete last label" name="Delete last label" id="btnDeleteLabel">' +
 				'&nbsp; <span style="" class="addRemove">(Add/Remove Label Fields)</span><br />' +
 			'</li>' +
 			'</ol>' +
