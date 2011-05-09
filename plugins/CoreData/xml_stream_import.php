@@ -53,6 +53,9 @@ class XMLStreamImport extends CoreData
 		}
 	
 		xml_parse( $this -> parser, $content );
+		if(!isset($this->line_end_xpath)) {
+			$this -> saveCurrentLine();
+		}
 	}
 	
 	// Sets the XPath for Milestones, which divide the XML document into containers of lines.
