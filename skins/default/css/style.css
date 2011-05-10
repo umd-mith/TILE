@@ -1121,11 +1121,29 @@ a.btnIconLarge:hover {
 } 
 
 /*** Dashboard styles ***/
-
-#dashboard_body{
-	padding:20px;
-	height:100%;
+.az.inner.dashboard{
+	margin:3px 3px 5px 3px;
+	border:1px solid #d5db97;
+	height:auto;
+	background:#fff;
 	overflow:auto;
+}
+.az.inner.dashboard h1{
+	padding:10px;
+}
+.az.inner.dashboard h2{
+	padding:5px;
+	border-bottom:dotted 1px black;
+	margin:5px;
+}
+.az.inner.dashboard h3{
+	padding:5px;
+	right:0px;
+	margin:5px;
+}
+#dashboard_body{
+	
+	height:100%;
 }
 #dashboard_body .dashboard_main{
 	

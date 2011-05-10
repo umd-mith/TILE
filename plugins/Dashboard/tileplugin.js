@@ -265,7 +265,6 @@ var Dashboard={
 				if((!(/id|info|url/.test(prop)))&&($.isArray(self.data.pages[o][prop]))){
 					// is a link array
 					// count the items
-					if(__v) console.log(prop+' has '+self.data.pages[o][prop].length);
 					linktotal+=self.data.pages[o][prop].length;
 					if(/lines/.test(prop)){
 						// add to lines count
@@ -300,7 +299,7 @@ var Dashboard={
 		// display HTML
 		var html='<div id="linktotal"><h1><p>TOTAL LINKS MADE:</p></h1><h1>'+linktotal+'</h1></div>';
 		// text-object links
-		html+='<div id="textlinks"><h2>LINKS TO LINES:</h2><h3>'+textlinks+'</h3></div>';
+		html+='<div id="textlinks"><h2>LINKS FROM IMAGES TO LINES:<h3>'+textlinks+'</h3></h2></div>';
 		// labels-text
 		html+='<div id="textlabels"><h2>LINES LINKED WITH -'+textlabels+'- LABELS</h2></div>';
 		// shapes-text

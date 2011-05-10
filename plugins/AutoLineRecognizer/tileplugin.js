@@ -1376,40 +1376,24 @@
 				     	var selblue=parseInt(data[2],10);	
 				     	threshold=(selred+selgreen+selblue)/3;
 						
-						var rl = parseInt(this.Region.css('left'),10);
-						var rt = parseInt(this.Region.css('top'),10);
+						var rl = parseInt(this.Region.position().left,10);
+						var rt = parseInt(this.Region.position().top,10);
 						
 						var rw = parseInt(this.Region.css('width'),10);
 						var rh = parseInt(this.Region.css('height'),10);
-						if(__v) console.log("azcontentarea is: "+$("#azcontentarea").offset().left+" "+$("#azcontentarea").offset().top);
-						if(__v) console.log("this.Region has: "+rl+", "+rt+", "+rw+", "+rh+"  element.style: "+$("#regionBox"));
+						
 						// test to make sure region is within the bounds
 				
 				
 						if((rl<0)||(rt<0)||(rw<0)||(rh<0)) return;
-						// var pl=$(".workspace:first").position().left;
-						// 						var pt=$(".workspace:first").position().top;
-						// 						if((pl>rl)||(pt>rt)){
-						// 							rl=pl;
-						// 							rt=pt;
-						// 						}
-						// 						if(((pt+$(".workspace:first").height())<(rt+rh))||((pl+$(".workspace:first").width())<(rl+rw))){
-						// 							var pldiff=(rl+rw)-(pl+$(".workspace:first").width());
-						// 							var ptdiff=(rt+rw)-(pt+$(".workspace:first").height());
-						// 							rw-=pldiff;
-						// 							rh-=ptdiff;
-						// 						}
-			
+						
 						//get canvas imageData
 						if(!this.regionData){
 							if(__v) console.log("no region data");
 							try{
 								if(__v) console.log("context is: "+this.context);
 								this.regionData=this.context.getImageData(rl, rt, rw, rh); 
-						
-							
 							} catch(e) {
-								
 								if(__v) console.log("error reached in threshconversion: "+e);
 								// problem with getting data - handle by upgrading our security clearance
 								// netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
