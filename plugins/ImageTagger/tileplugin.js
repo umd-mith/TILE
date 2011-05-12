@@ -695,6 +695,12 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		//this.DOM.width(this.DOM.parent().width()).height(this.DOM.parent().height());
 		this.srcImage=$("#srcImageForCanvas");
 		this.canvasAreaId=args.canvasAreaId;
+		
+		// zoom decrease factor
+		this.zoomDF=0.9;
+		// zoom increase factor
+		this.zoomIF=1.1;
+		
 		//master array
 		this.manifest=[];
 		this.curUrl=null;
@@ -828,7 +834,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			var img=$("#srcImageForCanvas")[0];
 			// attach load event
 			$(img).load(function(e){
-				$(this).show();
+				$(img).show();
 				$(img).unbind("load");
 				if(!self.drawTool){
 					//set up drawing canvas
@@ -850,24 +856,26 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				// size to fit window
 				var ow=this.width*TILEIMGSCALE;
 				var oh=this.height*TILEIMGSCALE;
-				while(($("#raphworkspace_").width()<ow)||($("#raphworkspace_").height()<oh)){
-					ow*=0.75;
-					oh*=0.75;
-					TILEIMGSCALE*=0.75;
+				while((parseInt($("#raphworkspace_").css("width"),10)<ow)||(parseInt($("#raphworkspace_").css("height"),10)<oh)){
+					ow*=self.zoomDF;
+					oh*=self.zoomDF;
+					TILEIMGSCALE*=self.zoomDF;
 					for(var x=0;x<self.manifest.length;x++){
 						var shape=self.manifest[x];
-						for(var u in shape.posInfo){
-							shape.posInfo[u]*=0.75;
-						}
+						if(shape._scale!=TILEIMGSCALE){
+							for(var u in shape.posInfo){
+								shape.posInfo[u]*=self.zoomDF;
+							}
+							shape._scale=TILEIMGSCALE;
+						} 
 					}
 				}
 				
-				self._imgScale =TILEIMGSCALE;
+				self._imgScale=TILEIMGSCALE;
 				self.drawTool._scale=TILEIMGSCALE;
 				if(self._imgScale!=1){
 					// set correct scale
 					$("#srcImageForCanvas").css("width",(TILEIMGSCALE*parseFloat(this.width))+'px');
-					//$("#srcImageForCanvas").height(1.25*parseFloat($("#srcImageForCanvas").height()));
 					
 					$(".vd-container").css('width',ow+'px');
 					$(".vd-container").css('height',oh+'px');
@@ -893,6 +901,9 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			if(!self.drawTool) return;
 			// clear canvas
 			self.drawTool.clearShapes();
+			// set to scale
+			self.drawTool._scale=TILEIMGSCALE;
+			
 			// clear buttons
 			$(".shpButtonHolder").remove();
 			
@@ -925,6 +936,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					}
 					vd.push(shape);
 				}
+				
+				
 			}
 			
 			self.drawTool.importShapes(vd);
@@ -1348,7 +1361,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		// e : {Event}
 		// json : {Object} JSON object with shape data
 		_loadShapesHandle:function(e,json){
-			
 			var self=e.data.obj;
 			// JSON data is full of ids - must match these up with ids
 			// in manifest
@@ -1358,7 +1370,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			self.drawTool.clearShapes();
 			// also remove shpButtonHolder
 			$(".shpButtonHolder").remove();
-			if(__v) console.log("loadShapes receives json: "+json);
 			for(j in json){
 				var shid=(json[j].id)?json[j].id:json[j];
 				for(sh in self.manifest[url]){
@@ -1530,60 +1541,58 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				if(n>0){
 					// test to see if reached maximum
 					
-					$("#srcImageForCanvas").css("width",(1.1*parseFloat($("#srcImageForCanvas").width()))+'px');
+					$("#srcImageForCanvas").css("width",(self.zoomIF*parseFloat($("#srcImageForCanvas").width()))+'px');
 					//$("#srcImageForCanvas").height(1.25*parseFloat($("#srcImageForCanvas").height()));
-					$(".vd-container").width(1.1*parseFloat($(".vd-container").width()));
-					$(".vd-container").height(1.1*parseFloat($(".vd-container").height()));
+					$(".vd-container").width(self.zoomIF*parseFloat($(".vd-container").width()));
+					$(".vd-container").height(self.zoomIF*parseFloat($(".vd-container").height()));
 					//zooming in
-					self.drawTool.scale(1.1); 
+					self.drawTool.scale(self.zoomIF); 
 					if($(".shpButtonHolder").length){
 						// also change positon of .shpButtonHolder
-						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*1.1)+'px');
-						$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*1.1)+'px');
+						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*self.zoomIF)+'px');
+						$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*self.zoomIF)+'px');
 					}
 					// set scales
-					self._imgScale*=1.1;
-					TILEIMGSCALE*=1.1;
+					self._imgScale*=self.zoomIF;
+					TILEIMGSCALE*=self.zoomIF;
 					
 					for(var x=0;x<self.manifest.length;x++){
 						var shape=self.manifest[x];
-						for(var u in shape.posInfo){
-							shape.posInfo[u]*=1.1;
+						if(shape._scale!=self._imgScale){
+							for(var u in shape.posInfo){
+								shape.posInfo[u]*=self.zoomIF;
+							}
+							shape._scale=self._imgScale;
+							$("body:first").trigger('imageShapeUpdate',[shape]);
 						}
+						
 					}
 				} else if(n<0){
-					$("#srcImageForCanvas").css("width",(0.9*parseFloat($("#srcImageForCanvas").width()))+'px');
+					$("#srcImageForCanvas").css("width",(self.zoomDF*parseFloat($("#srcImageForCanvas").width()))+'px');
 					//$("#srcImageForCanvas").height(0.75*parseFloat($("#srcImageForCanvas").height()));
-					$(".vd-container").width(0.9*parseFloat($(".vd-container").width()));
-					$(".vd-container").height(0.9*parseFloat($(".vd-container").height()));
+					$(".vd-container").width(self.zoomDF*parseFloat($(".vd-container").width()));
+					$(".vd-container").height(self.zoomDF*parseFloat($(".vd-container").height()));
 					//zooming out
-					self.drawTool.scale(0.9); 
+					self.drawTool.scale(self.zoomDF); 
 					// also change positon of .shpButtonHolder
 					if($(".shpButtonHolder").length){
-						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*0.9)+'px');
-						$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*0.9)+'px');
+						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*self.zoomDF)+'px');
+						$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*self.zoomDF)+'px');
 					}
 					for(var x=0;x<self.manifest.length;x++){
 						var shape=self.manifest[x];
-						for(var u in shape.posInfo){
-							shape.posInfo[u]*=0.9;
+						if(shape._scale!=TILEIMGSCALE){
+							for(var u in shape.posInfo){
+								shape.posInfo[u]*=self.zoomDF;
+							}
+							shape._scale=self._imgScale;
+							$("body:first").trigger('imageShapeUpdate',[shape]);
 						}
 					}	
-					// test to see if reached maximum
-					// if(self.zoomTimes==(-5)) return; 
-					// 					// set counter
-					// 					self.zoomTimes-=1;
-					// 					
-					// 					for(var i=Math.abs(self.zoomTimes);i>0;i--){
-					// 						// iterate through the zoomtimes
-					// 						w*=0.8;
-					// 						h*=0.8;
-					// 						scale*=0.8;
-					// 					}
 					
 					// set scales
-					self._imgScale*=0.9;
-					TILEIMGSCALE*=0.9;
+					self._imgScale*=self.zoomDF;
+					TILEIMGSCALE*=self.zoomDF;
 					
 				}
 		
@@ -1999,7 +2008,7 @@ var IT={
 			$("body").live("newActive",{obj:self},self.newActiveHandle);
 			$("body").live("newJSON",{obj:self},self.newJSONHandle);
 			$("body").live("newPage",{obj:self},self.newPageHandle);
-			$("body").live("dataUpdated",{obj:self},self.dataUpdatedHandle);
+			// $("body").live("dataUpdated",{obj:self},self.dataUpdatedHandle);
 			
 			// check to see if data has been loaded
 			var j=TILE.engine.getJSON(true);
@@ -2084,6 +2093,17 @@ var IT={
 					if((!shape)||(!shape.id)){
 						continue;
 					} else {
+						// correctify the posInfo
+						if(shape._scale!=TILEIMGSCALE){
+							for(var prop in shape.posInfo){
+								if(/(c)(r)x|(c)(r)y|width|height/.test(prop)){
+									var diff=(TILEIMGSCALE*shape.posInfo[prop])/shape._scale;
+									shape.posInfo[prop]=diff;
+								}
+							}
+							shape._scale=TILEIMGSCALE;
+						}
+						
 						arr.push(shape);
 					}
 				}

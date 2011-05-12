@@ -13,7 +13,7 @@
 // TILE_ENGINE
 // PluginController
 
-//TILE_ENGINE: {Object} main engine for running the LogBar and Layout of TILE interface
+// TILE_ENGINE: {Object} main engine for running the LogBar and Layout of TILE interface
 // Usage:
 // 
 // new TILE_ENGINE({toolSet:[Array],defaultTool:String});
@@ -29,7 +29,6 @@
 var TILEIMGSCALE=1;
 // Large, global variable that 
 // stores data for other plugins 
-
 var TILE=[];
 TILE.activeItems=[];
 TILE.url='';
@@ -72,9 +71,7 @@ TILE.scale=1;
 			$("#loadblack").hide();
 			$("#loadlight").hide();
 			$("#loadDialogSplash").hide();
-		});
-	
-		
+		});	
 	};
 	
 	var mouseWait=function(){
@@ -221,12 +218,7 @@ TILE.scale=1;
 				
 			} 
 		
-		
-		
-		
-		
 	};
-	
 	//called after getBase(); creating main TILE interface objects and
 	//setting up the HTML
 	// d : {Object} - contains columns.json data
@@ -234,7 +226,6 @@ TILE.scale=1;
 		var self=this;
 		// set initial formats
 		TILE.formats=_tileBar.formatstr;
-		
 		// take away load screen
 		removeLoad(); 
 		
@@ -2651,6 +2642,7 @@ TILE.scale=1;
 		}
 	};
 	
+	
 	var SaveDialog=function(){
 		var self=this;
 		self.html='<div id="savedialogwhitespace" class="white_content"><div id="savedialog" class="dialog"><div class="header">'+
@@ -2705,8 +2697,6 @@ TILE.scale=1;
 			// hide dialog
 			$("#savedialogwhitespace").hide();
 			$("#darkForSaveDialog").hide();
-			
-			
 		});
 		
 		// set up listener for saving to original file format

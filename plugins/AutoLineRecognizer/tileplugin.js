@@ -747,7 +747,7 @@
 			loadImgScreen();
 			$("#hiddenCanvasSource").load(function(e){
 				
-				// make sure the image really loaded
+				// make sure the image really loaded 
 				// if($(this).attr('src').length==0) {
 				// 					$(this).attr('src',TILE.url);
 				// 					return;
@@ -1825,7 +1825,6 @@ var AR={
 				var vd=[];
 				var shapes=data.data;
 				var lines=data.lines;
-				if(__v) console.log("shapes from outputlines: "+JSON.stringify(shapes));
 				for(var d in shapes){
 					var o={
 						id:shapes[d].id,
