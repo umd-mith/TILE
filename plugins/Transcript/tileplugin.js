@@ -623,7 +623,7 @@
 			if(data&&(data.lines)){
 				// parse out data
 				for(var line in data.lines){
-					if(__v) console.log('data.lines '+line+'  '+JSON.stringify(data.lines[line]));
+					
 					if((!(data.lines[line]))||(typeof(data.lines[line])=='undefined')) continue;
 					text.push(data.lines[line]);
 				}

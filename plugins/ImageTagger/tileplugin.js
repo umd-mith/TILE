@@ -857,28 +857,33 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				
 				// size to fit window
-				var ow=this.width*TILEIMGSCALE;
-				var oh=this.height*TILEIMGSCALE;
+			
+				var ow=(TILEIMGSCALE!=self._imgScale)?(this.width*TILEIMGSCALE):this.width;
+				var oh=(TILEIMGSCALE!=self._imgScale)?(this.height*TILEIMGSCALE):this.height;
+		
 				var contw=0;
 				var conth=0;
 				if($.browser.webkit){
-					contw=document.getElementById("raphworkspace_").style.width;
-					conth=document.getElementById("raphworkspace_").style.height;
+					contw=parseInt(document.getElementById("raphworkspace_").style.width,10);
+					conth=parseInt(document.getElementById("raphworkspace_").style.height,10);
+				
 				} else {
 					contw=parseInt($("#raphworkspace_").css("width"),10);
 					conth=parseInt($("#raphworkspace_").css("height"),10);
+					
 				}
-				if(__v) console.log("IMAGE OW OH"+ow+' '+oh+'  '+contw+'  '+conth);
+				if(__v) console.log('start: contw: '+contw+', conth: '+conth+', ow: '+ow+', oh: '+oh);
 				if((contw<ow)||(conth<oh)){
 					while((contw<ow)||(conth<oh)){
+						if(__v) console.log('contw: '+contw+', conth: '+conth+', ow: '+ow+', oh: '+oh);
 						ow*=self.zoomDF;
 						oh*=self.zoomDF;
 						TILEIMGSCALE*=self.zoomDF;
-					
+						
 					}
 					for(var x=0;x<self.manifest.length;x++){
 						var shape=self.manifest[x];
-						if(shape._scale>TILEIMGSCALE){
+						if(shape._scale!=TILEIMGSCALE){
 							for(var u in shape.posInfo){
 								var dx=(shape.posInfo[u]*TILEIMGSCALE)*shape._scale;
 								shape.posInfo[u]=dx;
