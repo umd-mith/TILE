@@ -823,7 +823,9 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			var self=this;
 			// remove CSS from zoom
 			$("#srcImageForCanvas").css("width","");
-			$("#srcImageForCanvas").hide();
+			if(!$.browser.webkit){
+				$("#srcImageForCanvas").hide();
+			}
 			// make sure to get rid of all shpButtonHolders
 			$(".shpButtonHolder").remove();
 			// self._loadPage.appendTo($("#raphael"));
@@ -834,7 +836,9 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			var img=$("#srcImageForCanvas")[0];
 			// attach load event
 			$(img).load(function(e){
-				$(img).show();
+				if(!$.browser.webkit){
+					$(img).show();
+				}
 				$(img).unbind("load");
 				if(!self.drawTool){
 					//set up drawing canvas
@@ -845,8 +849,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					self.drawTool.clearShapes();
 				}
 				if(loadShapes) self.drawTool.importShapes(loadShapes);
-				// $(".vd-container:first").width(this.width);
-				// $(".vd-container:first").height(this.height);
+				
 				if(self.manifest[url]){
 					self.manifest[url].origWidth=this.width;
 					self.manifest[url].origHeight=this.height;
@@ -856,27 +859,45 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				// size to fit window
 				var ow=this.width*TILEIMGSCALE;
 				var oh=this.height*TILEIMGSCALE;
-				while((parseInt($("#raphworkspace_").css("width"),10)<ow)||(parseInt($("#raphworkspace_").css("height"),10)<oh)){
-					ow*=self.zoomDF;
-					oh*=self.zoomDF;
-					TILEIMGSCALE*=self.zoomDF;
+				var contw=0;
+				var conth=0;
+				if($.browser.webkit){
+					contw=document.getElementById("raphworkspace_").style.width;
+					conth=document.getElementById("raphworkspace_").style.height;
+				} else {
+					contw=parseInt($("#raphworkspace_").css("width"),10);
+					conth=parseInt($("#raphworkspace_").css("height"),10);
+				}
+				if(__v) console.log("IMAGE OW OH"+ow+' '+oh+'  '+contw+'  '+conth);
+				if((contw<ow)||(conth<oh)){
+					while((contw<ow)||(conth<oh)){
+						ow*=self.zoomDF;
+						oh*=self.zoomDF;
+						TILEIMGSCALE*=self.zoomDF;
+					
+					}
 					for(var x=0;x<self.manifest.length;x++){
 						var shape=self.manifest[x];
-						if(shape._scale!=TILEIMGSCALE){
+						if(shape._scale>TILEIMGSCALE){
 							for(var u in shape.posInfo){
-								shape.posInfo[u]*=self.zoomDF;
+								var dx=(shape.posInfo[u]*TILEIMGSCALE)*shape._scale;
+								shape.posInfo[u]=dx;
 							}
 							shape._scale=TILEIMGSCALE;
 						} 
 					}
 				}
 				
+				
 				self._imgScale=TILEIMGSCALE;
 				self.drawTool._scale=TILEIMGSCALE;
 				if(self._imgScale!=1){
 					// set correct scale
-					$("#srcImageForCanvas").css("width",(TILEIMGSCALE*parseFloat(this.width))+'px');
-					
+					if($.browser.webkit){
+						document.getElementById('srcImageForCanvas').width=ow;
+					} else {
+						$("#srcImageForCanvas").width(ow);
+					}
 					$(".vd-container").css('width',ow+'px');
 					$(".vd-container").css('height',oh+'px');
 					// $(".vd-container").width(TILEIMGSCALE*parseFloat($(".vd-container").width()));
@@ -1560,7 +1581,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 						var shape=self.manifest[x];
 						if(shape._scale!=self._imgScale){
 							for(var u in shape.posInfo){
-								shape.posInfo[u]*=self.zoomIF;
+								shape.posInfo[u]=(shape.posInfo[u]*self._imgScale)/shape._scale;
 							}
 							shape._scale=self._imgScale;
 							$("body:first").trigger('imageShapeUpdate',[shape]);
@@ -1583,7 +1604,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 						var shape=self.manifest[x];
 						if(shape._scale!=TILEIMGSCALE){
 							for(var u in shape.posInfo){
-								shape.posInfo[u]*=self.zoomDF;
+								shape.posInfo[u]=(shape.posInfo[u]*self._imgScale)/shape._scale;
 							}
 							shape._scale=self._imgScale;
 							$("body:first").trigger('imageShapeUpdate',[shape]);
