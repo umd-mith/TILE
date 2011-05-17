@@ -30,8 +30,8 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
 		} else {
 			parent::__construct($content);
 		}
-		# set the insertNode to determine this will be placed in the 
-		# content
+		// set the insertNode to determine this will be placed in the 
+		// content
 		$this->insertNode='teiHeader';
     }
     
@@ -76,7 +76,7 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
 	
 }
 
-# declare namespace
+// declare namespace
 array_push(CoreData::$import_namespaces,'TEI :: P5 :: Facsimile Tags');
 
 ?>

@@ -66,7 +66,7 @@ class CoreData
                     if($line->id != "") {
                         $l['id'] = $line->id;
                     } else if((!isset($line->id))||($line->id == '')){
-						# generate a random ID for this line
+						// generate a random ID for this line
 						$l['id'] = 'line'.count($page['lines']);
 					}
                     $page['lines'][] = $l;
@@ -125,7 +125,7 @@ class CoreData
 		return stripslashes($this->content);
 	}
 	
-	# Used specifically for generating a random ID of length: $length
+	// Used specifically for generating a random ID of length: $length
 	private function genRandomID($length){
 		$string=md5(time());
 		$highest_startpoint = 32-$length;

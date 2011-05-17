@@ -1,16 +1,16 @@
 <?php
 
-# author: Grant Dickie
+// author: Grant Dickie
 
-# Handles methods from coredata and xml_stream_import that will import data from XML into JSON
+// Handles methods from coredata and xml_stream_import that will import data from XML into JSON
 
 
 function decode_format($txt,$format){
 	include_once('coredata.php');
 	
-	# figure out what the format is
+	// figure out what the format is
 	if((preg_match('/(json)/i',$format))||(preg_match('/^{&}$/i',$txt))){
-		# is a json file - use coredata methods
+		// is a json file - use coredata methods
 		// $parser=new CoreData($txt);
 		// 		$data=$parser->to_json();
 		return stripslashes($txt);
@@ -42,10 +42,10 @@ function html_template($data){
 	
 }
 
-# have to use this method since FF3+ don't allow 
-# for paths to be recorded otherwise
+// have to use this method since FF3+ don't allow 
+// for paths to be recorded otherwise
 if((isset($_FILES['fileUploadName']))){
-	# hard-coded - need to go back and fix this issue
+	// hard-coded - need to go back and fix this issue
 	
 	$file=$_FILES['fileUploadName']['tmp_name'];
 	
@@ -53,13 +53,13 @@ if((isset($_FILES['fileUploadName']))){
 	$format=$_POST['importformat'];
 	$imgpath=preg_replace("/\/[A-Za-z0-9]*\.[A-Za-z0-9]*/","/",$_FILES['fileUploadName']['name']);
 
-	# read the file 
+	// read the file 
 	if($handle=fopen($file,'r+')){
 		$txt='';
 		while(!feof($handle)){
 			$txt.=fread($handle,1024);
 		}
-		# decode
+		// decode
 		$data=decode_format($txt,$format);
 		// send out by assigning to JScript variable
 		// header('Content-type: text/html');
@@ -69,7 +69,7 @@ if((isset($_FILES['fileUploadName']))){
 	}
 	
 } else 
-# if not an imported filepath, then use regular POST values
+// if not an imported filepath, then use regular POST values
 if(isset($_POST['format'])&&isset($_POST['filepath'])){
 	
 	#check to see if filename is malicious
@@ -79,11 +79,11 @@ if(isset($_POST['format'])&&isset($_POST['filepath'])){
 	}
 	$txt='';
 	
-	# use for HTTP
+	// use for HTTP
 	$txt=file_get_contents($name);
-	# send to decode format
+	// send to decode format
 	$data=decode_format($txt,$_POST['format']);
-	# send out using JScript
+	// send out using JScript
 	header('Content-type: text/javascript');
 	echo $data;	
 	

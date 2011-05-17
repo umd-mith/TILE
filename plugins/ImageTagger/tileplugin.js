@@ -701,6 +701,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		// zoom increase factor
 		this.zoomIF=1.1;
 		
+		this.defaultImg='skins/default/images/tile.gif';
+		
 		//master array
 		this.manifest=[];
 		this.curUrl=null;
@@ -757,7 +759,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			self.manifest=manifest;
 			self.url=[];
 			for(key in self.manifest){
-				
 				self.url.push(self.manifest[key]);
 				 
 			}
@@ -872,10 +873,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					conth=parseInt($("#raphworkspace_").css("height"),10);
 					
 				}
-				if(__v) console.log('start: contw: '+contw+', conth: '+conth+', ow: '+ow+', oh: '+oh);
 				if((contw<ow)||(conth<oh)){
 					while((contw<ow)||(conth<oh)){
-						if(__v) console.log('contw: '+contw+', conth: '+conth+', ow: '+ow+', oh: '+oh);
 						ow*=self.zoomDF;
 						oh*=self.zoomDF;
 						TILEIMGSCALE*=self.zoomDF;

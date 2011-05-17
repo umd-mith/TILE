@@ -15,22 +15,22 @@ class XMLStreamImport extends CoreData
 	private $element_stack_depth;
 	private $document_started = false;
 	public  $break_lines_on_newline = false;
-	# added data for exporting
+	// added data for exporting
 	private $json;
-	# for defining which tagname tile data needs to be attached to
+	// for defining which tagname tile data needs to be attached to
 	protected $insertNode;
 	protected $xml;
 	
-	# JIM: added $tile in here to test out using 
-	# conversion functions on tile variable - not sure how else to include
-	# it?
+	// JIM: added $tile in here to test out using 
+	// conversion functions on tile variable - not sure how else to include
+	// it?
 	public function __construct($content,$tile=null) {
 		
 		// if passed tile element, then parse
 		if(isset($tile)&&(!is_null($tile))){
 			$this->json = json_decode($tile); 
-			# NOTE : De-coding content due to work-around
-			# for browser HTML resolving special chars
+			// NOTE : De-coding content due to work-around
+			// for browser HTML resolving special chars
 			// $content=base64_decode($content);
 		}
 		
@@ -297,30 +297,30 @@ class XMLStreamImport extends CoreData
 	    }
 	}
 	
-	# pass in array arr with possible arrays inside
-	# it (recursive)
-	# namespace optional - adds as prefix to elements
+	// pass in array arr with possible arrays inside
+	// it (recursive)
+	// namespace optional - adds as prefix to elements
 	private function convertArrayToXML($arr,$el){
 		$xml='';
 	
 		foreach($arr as $key=>$item){
 			if(is_array($item)||is_object($item)){
-				# generate name
+				// generate name
 			// echo $key." ";
-				# generate item parent
-				# or use previous parent (el)
+				// generate item parent
+				// or use previous parent (el)
 				if((preg_match('/[0-9]/',$key))||(strlen($key)<=1)){
 					if((is_array($item))||(preg_match('/s$/',$el->tagName))){
 						// echo "is an array with no keyname<br/>";
-						# array is lengthy - continue drilling down recursively
-						# also attach new element
+						// array is lengthy - continue drilling down recursively
+						// also attach new element
 						$itemEl=$this->xml->createElement(preg_replace('/s$/','',$el->tagName));
 						// echo $itemEl->tagName."<br/>";
 						$this->convertArrayToXML($item,$itemEl);
 						$el->appendChild($itemEl);
 						
 					} else {
-						# just an object wrapper for an element - add to $el
+						// just an object wrapper for an element - add to $el
 					// echo "is an object wrapper with no keyname<br/>";
 						
 						$this->convertArrayToXML($item,$el);
@@ -333,12 +333,12 @@ class XMLStreamImport extends CoreData
 					if(preg_match('/s$/',$key)){
 						// check if it matches el or not
 					
-						# item array
+						// item array
 						$parent=$this->xml->createElement($key);
 						// echo $parent->tagName."<br/>";
-						# go through children
+						// go through children
 						$this->convertArrayToXML($item,$parent);
-						# attach result to parent
+						// attach result to parent
 						$el->appendChild($parent);
 					
 					} elseif(strlen($key)<=1) {
@@ -350,7 +350,7 @@ class XMLStreamImport extends CoreData
 				}
 			
 			} else {
-				# generate name
+				// generate name
 				$name='';
 				if(strlen($key)>1){
 					
@@ -363,7 +363,7 @@ class XMLStreamImport extends CoreData
 				
 				if(strlen($name)>1){
 			
-					# create child node and append
+					// create child node and append
 					$child=$this->xml->createElement($name,$item);
 					// echo $child->tagName."<br/>";
 					$el->appendChild($child);
@@ -378,34 +378,34 @@ class XMLStreamImport extends CoreData
 	
 	
 	
-	# Takes the tile container data and parses it into XML
+	// Takes the tile container data and parses it into XML
 	public function convertTileToXML(){
 		if(!isset($this->json)) return;
 		
-		# create initial XML header
-		# need to include source XML from content in here?
+		// create initial XML header
+		// need to include source XML from content in here?
 		
 		$this->xml=new DOMDocument('1.0');
 		// create root element with xmlns data
 		$this->xml->loadXML('<tile xmlns="http://mith.umd.edu/namespaces/tile"></tile>');
 		$root=$this->xml->getElementsByTagName('tile')->item(0);
 		
-		# step through JSON array
+		// step through JSON array
 		foreach($this->json as $m=>$item){
-			# major item element
+			// major item element
 			if(is_array($item)||is_object($item)){
 				#display major item, then display inner items
-				# set up parent name
+				// set up parent name
 				$name=preg_replace('/\t|\n|[0-9]*/','',$m);
 				$el=$this->xml->createElement($name);
-				# go through children
+				// go through children
 				$result=$this->convertArrayToXML($item,$el);
 				if(!is_null($result))
 					$root->appendChild($result);
 			} elseif($item!='') {
-				# set up parent name
+				// set up parent name
 				$name=preg_replace('/\t|\n|[0-9]*/','',$m);
-				# create node and append
+				// create node and append
 				$el=$this->xml->createElement($name,$item);
 				$root->appendChild($el);
 			}
@@ -413,29 +413,29 @@ class XMLStreamImport extends CoreData
 	
 	}
 	
-	# outputs the generic XML format for TILE
+	// outputs the generic XML format for TILE
 	public function outputTILEXML(){
 		if(!isset($this->json)) return;
 		
 		if(!isset($this->insertNode)){
-			# output
+			// output
 			$this->xml->formatOutput=true;
 			return $this->xml->saveXML();
 		} else {
 			// Outputting XML of original file +
 			// contents of TILE JSON
 			$this->xml->formatOutput=true;
-			# insert into node in content
+			// insert into node in content
 			$cxml=new DOMDocument();
 			$cxml->loadXML($this->getContentData());
 		
 			$teiHeader=$cxml->getElementsByTagName('teiHeader')->item(0);
 
 			$root=$this->xml->getElementsByTagName('tile')->item(0);
-			# import the node
+			// import the node
 			$addToHeader=$cxml->importNode($root,true);
 			$teiHeader->appendChild($addToHeader);
-			# format
+			// format
 			$cxml->formatOutput=true;
 			return $cxml->saveXML();
 			

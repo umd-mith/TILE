@@ -5,7 +5,7 @@ just back into JSON
 */
 
 if(isset($_POST['uploadData'])&&(isset($_POST['extraData']))&&(strlen($_POST['extraData'])>1)){
-	# set up export using xml_stream_import
+	//set up export using xml_stream_import
 	include_once('coredata.php');
 	include_once('xml_stream_import.php');
 	
@@ -17,30 +17,30 @@ if(isset($_POST['uploadData'])&&(isset($_POST['extraData']))&&(strlen($_POST['ex
 			$filename=$_POST['uploadFileName'].".xml";
 		}
 	}
-	#determine documen ttype
+	//determine documen ttype
 	$text=base64_decode($_POST['extraData']);
 	$tileData=stripslashes($_POST['uploadData']);
 	
 	$xmlstring='';
 	if(preg_match('/TEI/i',$text)){
-		# TEI - use normal or facsimile
+		//TEI - use normal or facsimile
 		if(preg_match('/facsimile/i',$text)){
 			
-			# facsimile usage 
+			//facsimile usage 
 			include_once('tei_p5_with_facsimile_import.php');
 			$parser=new TEIP5WithFacsimileImport($text,$tileData);
 			
-			# convert the tile into XML 
+			//convert the tile into XML 
 			$parser->convertTileToXML();
 		
 			$xmlstring=$parser->outputTILEXML();
 			
 		} else {
 		
-			# non-facsimile
+			//non-facsimile
 			include_once('tei_p5_import.php');
 			$parser=new TEIP5Import($text,$tileData);
-			# convert the tile into XML 
+			//convert the tile into XML 
 			$parser->convertTileToXML();
 		
 			$xmlstring= $parser->outputTILEXML();
@@ -57,7 +57,7 @@ if(isset($_POST['uploadData'])&&(isset($_POST['extraData']))&&(strlen($_POST['ex
 	header('Pragma: public');
 	echo $xmlstring;
 } elseif(isset($_POST['uploadData'])){
-	# outputting as json
+	//outputting as json
 	$JSON=$_POST['uploadData'];
 	//$JSON=addslashes($JSON);
 	//format the JSON text elements
