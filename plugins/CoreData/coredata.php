@@ -120,7 +120,7 @@ class CoreData
 	
 	// JIM: creating this protected function to fetch the content data
 	// may want to erase because of bad OOP? just testing this out
-	protected function getContentData(){
+	public function getContentData(){
 	
 		return stripslashes($this->content);
 	}
@@ -132,6 +132,9 @@ class CoreData
 		$randomString = substr($string,rand(0,$highest_startpoint),$length);
 	    return $randomString;
 	}
+	
+	
+	
 }
 
 class CoreDataContainer {

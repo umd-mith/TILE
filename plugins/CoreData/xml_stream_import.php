@@ -13,6 +13,7 @@ class XMLStreamImport extends CoreData
 	private $element_count_stack;
 	private $attributes_stack;
 	private $element_stack_depth;
+	private $tile_element_start;
 	private $document_started = false;
 	public  $break_lines_on_newline = false;
 	// added data for exporting
@@ -86,6 +87,12 @@ class XMLStreamImport extends CoreData
 	
 	public function setDocumentStartXPath($path) {
 		$this -> document_start_xpath = $this -> build_xpath_regex($path);
+	}
+	
+	// Sets XPath for the beginning of the TILE saved data: <tile>
+	// If none given, doesn't look for path
+	public function setTileStartPath($path){
+		$this -> tile_element_start = $this->build_xpath_regex($path);
 	}
 	
 	// Converts the non-attribute portion of an XPath into a regular expression that
@@ -295,6 +302,12 @@ class XMLStreamImport extends CoreData
             }
 			$this -> current_line = "";
 	    }
+	}
+	
+	// Takes the TILE XML data that's inserted by jsonToXML
+	// and adds it to the imported content container
+	public function retrieveTILEXMLData(){
+		// overwritten by child classes
 	}
 	
 	// pass in array arr with possible arrays inside

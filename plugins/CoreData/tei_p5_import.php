@@ -15,8 +15,15 @@
 			// content
 			$this->insertNode='teiHeader';
 	    }
+	
+		public function retrieveTILEXMLData(){
+			
+		}
+	
 	}
 
 	// declare namespace
 	array_push(CoreData::$import_namespaces,'TEI :: P5 DTD');
 ?>
+
+ 
