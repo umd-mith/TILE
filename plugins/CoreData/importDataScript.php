@@ -8,13 +8,37 @@
 function decode_format($txt,$format){
 	include_once('coredata.php');
 	
+	if(preg_match('/auto/i',$format)){
+		// auto-select - try to detect by file affix
+		// JSON has {} at beginning and end
+		if(preg_match('/^{/i',$txt)){
+			
+			return stripslashes($txt);
+		} else if(preg_match('/<TEI/',$txt)&&(preg_match('/<facsimile/i',$txt))){
+				include_once('xml_stream_import.php');
+				include_once('tei_p5_with_facsimile_import.php');
+				$parser=new TEIP5WithFacsimileImport($txt);
+				
+				$data=$parser->to_json();
+				return $data;
+		} else if(preg_match('/<TEI/',$txt)){
+			include_once('xml_stream_import.php');
+			include_once('tei_p5_import.php');
+
+			$parser=new TEIP5Import($txt);
+			$data=$parser->to_json();
+			return $data;
+		} else {
+			echo "ERROR";
+			die();
+		}
+	}
+	
 	// figure out what the format is
-	if((preg_match('/(json)/i',$format))||(preg_match('/^{&}$/i',$txt))){
-		// is a json file - use coredata methods
-		// $parser=new CoreData($txt);
-		// 		$data=$parser->to_json();
-		return stripslashes($txt);
+	if((preg_match('/(json)/i',$format))&&(preg_match('/^{/',$txt))){
 		
+		// is a json file - use coredata methods
+		return stripslashes($txt);
 	} else if(preg_match('/(facsimile)/i',$format)){
 		include_once('xml_stream_import.php');
 		include_once('tei_p5_with_facsimile_import.php');
@@ -29,6 +53,9 @@ function decode_format($txt,$format){
 		$parser=new TEIP5Import($txt);
 		$data=$parser->to_json();
 		return $data;
+	} else {
+		echo "ERROR";
+		die();
 	}
 	
 }

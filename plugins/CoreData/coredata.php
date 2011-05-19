@@ -19,8 +19,8 @@ class CoreData
 	// which import feature to use in the wide library 
 	// of classes
 	public function parse_namespaces(){
-		
-		$html='';
+		// start off with default 'auto-select' option
+		$html='<option id="auto" selected="true">Auto Select</option>';
 		foreach(self::$import_namespaces as $key=>$item){
 		
 			// create a select tag for each element in the array

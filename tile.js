@@ -2770,6 +2770,7 @@ TILE.scale=1;
 		'<div class="header"><h2 class="title">Load Data</h2><h2>'+
 		'<a href="#" id="loadTagsClose" class="btnIconLarge close">Close</a></h2><div class="clear">'+
 		'</div></div><div class="body"><div class="option"><h3>Load from a file on your local machine:/URL<br/>(See dropdown for supported Filetypes - .json supported by default)</h3>'+
+		'<div id="warningmessage" class="serverstatus">There was an error processing your data. Please check that you have a supported filetype and that your settings are correct.<br/><a href="http://bit.ly/lgWPBD">--> Help <--</a></div>'+
 		'<input id="selectFileUpload" type="radio" value="file" name="uploadChoice" /><span>Upload from your computer</span>'+
 		'<form id="loadFromFile" action="'+self.importScript+'" method="post" enctype="multipart/form-data">'+
 		'<label for="file">Filename:</label><br/><input id="localFileUpload" type="file" placeholder="Use the browse button to enter a file from your computer ->" name="fileUploadName" size="70" value="" />'+
@@ -2837,20 +2838,62 @@ TILE.scale=1;
 		// 		// convert form into the fileUpload jQuery plugin
 		// 		  
 		
-		$("#loadFromFile").submit(function(e){
-			e.preventDefault();
-		
-			$(this).ajaxSubmit({
-				dataType:'json',
-				success:function(data){
-					// take the returned JSON and load it into TILE
-					TILE.engine.parseJSON(data);
-					// hide dialog
-					$("#LTlight").hide();
-					$("#LTfade").hide();
-				}
-			});
+		$("#loadFromFile").ajaxForm(function(data,stats){
+			// check to make sure data is accurate
+			if(/error/i.test(data)){
+				// error returned - alert user to try again
+				$("#warningmessage").show();
+				
+			} else {
+				data=data.replace(/<pre>|<\/pre>/ig,'');
+				if(__v) console.log('DATA: '+data);
+				data=$.parseJSON(data);
+				// take the returned JSON and load it into TILE
+				TILE.engine.parseJSON(data);
+				// hide dialog
+				$("#warningmessage").hide();
+				$("#LTlight").hide();
+				$("#LTfade").hide();
+			}
 		});
+		
+		
+		// $("#loadFromFile").ajaxForm({
+		// 			dataType:'json',
+		// 			target:"#warningmessage",
+		// 			replaceTarget:false,
+		// 			success:function(data,stats){
+		// 				// take the returned JSON and load it into TILE
+		// 				TILE.engine.parseJSON(data);
+		// 				// hide dialog
+		// 				$("#LTlight").hide();
+		// 				$("#LTfade").hide();
+		// 			}
+		// 		});
+		// $("#loadFromFile").submit(function(e){
+		// 			e.preventDefault();
+		// 			
+		// 			$(this).ajaxSubmit({
+		// 				dataType:'json',
+		// 				target:".warningmessage",
+		// 				success:function(data){
+		// 					
+		// 					if(data=="ERROR") alert('error');
+		// 					// take the returned JSON and load it into TILE
+		// 					TILE.engine.parseJSON(data);
+		// 					// hide dialog
+		// 					$("#LTlight").hide();
+		// 					$("#LTfade").hide();
+		// 				},
+		// 				statusCode:{
+		// 					500:function(){
+		// 						// attach warning message to the warning area of the dialog
+		// 						$(".body > .option > .warningmessage").empty().append("Error with loading document. Check to make sure you have the correct path/filetype.");
+		// 					}
+		// 				}
+		// 			});
+		// 			return false;
+		// 		});
 		
 		
 		// $("#loadFromFile").fileUploadUI({

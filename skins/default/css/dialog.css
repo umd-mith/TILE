@@ -240,3 +240,12 @@
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
 	font-size:.9em;
 }
+
+/*Style for server warning messages (Load Dialog, save dialog, etc.)*/
+.serverstatus{
+	display:none;
+	position:relative;
+	border:solid 1px red;
+	padding:3px;
+}
+

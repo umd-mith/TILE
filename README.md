@@ -21,7 +21,7 @@ The base global property is the Object array **TILE**, which contains:
 ### INITIALIZING ENGINE
 
 **insertPlugin**(plugin {String})
-Takes the plugin wrapper obj and passes it off to PluginController, which initiates the plugin into the interface. The plugin will not be attached to any Mode or state of the interface and will therefore be active the entire session. This is useful for plugins that are 'empty' plugins, or only work as backend plugins that save data or react to events.
+Inserts the script of the plugin with name *plugin* into the HEAD element. *plugin* MUST match the name of the folder in the /plugins folder found in the root TILE installation directory. Example: /plugin/ImageTagger means *plugin* equals 'ImageTagger'.
 
 **insertMode**(name {String})
 Creates a new Mode named name, or set of plugins that are organized in the interface. Each Mode has a unique name, which is represented by a button at the top of the interface. Returns: the Mode object.
@@ -41,7 +41,7 @@ Starts the TILE engine once all of the desired modes and plugins have been inser
 
 ### ADDING HTML
 
-**addImportExportFormats**(str {String})
+**addImportExportFormats**(str {String}) **DEPRECATED**
 Attaches HTML in string format *str* to the Load and Save dialog drop-downs.
 
 **addToolBarButton**(button {Object})
