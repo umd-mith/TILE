@@ -30,6 +30,7 @@ var TILEIMGSCALE=1;
 // Large, global variable that 
 // stores data for other plugins 
 var TILE=[];
+TILE.experimental=false;
 TILE.activeItems=[];
 TILE.url='';
 // ENGINE allows access to global API

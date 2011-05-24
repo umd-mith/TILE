@@ -979,9 +979,12 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			var vd=self.drawTool.exportShapes();
 			for(var x=0;x<vd.length;x++){
 				if(vd[x]&&(vd[x].id==obj.id)){
+					// make sure things are actually different
 					vd[x]=obj;
 				}
 			}
+			
+			self.drawTool.clearShapes();
 			
 			self.drawTool.importShapes(vd);
 			
@@ -1571,7 +1574,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					$(".vd-container").width(self.zoomIF*parseFloat($(".vd-container").width()));
 					$(".vd-container").height(self.zoomIF*parseFloat($(".vd-container").height()));
 					//zooming in
-					self.drawTool.scale(self.zoomIF); 
+					self.drawTool.setScale(self.zoomIF); 
 					if($(".shpButtonHolder").length){
 						// also change positon of .shpButtonHolder
 						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*self.zoomIF)+'px');
@@ -1598,12 +1601,16 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					$(".vd-container").width(self.zoomDF*parseFloat($(".vd-container").width()));
 					$(".vd-container").height(self.zoomDF*parseFloat($(".vd-container").height()));
 					//zooming out
-					self.drawTool.scale(self.zoomDF); 
+					self.drawTool.setScale(self.zoomDF); 
 					// also change positon of .shpButtonHolder
 					if($(".shpButtonHolder").length){
 						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*self.zoomDF)+'px');
 						$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*self.zoomDF)+'px');
 					}
+					// set scales
+					self._imgScale*=self.zoomDF;
+					TILEIMGSCALE*=self.zoomDF;
+					
 					for(var x=0;x<self.manifest.length;x++){
 						var shape=self.manifest[x];
 						if(shape._scale!=TILEIMGSCALE){
@@ -1615,9 +1622,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 						}
 					}	
 					
-					// set scales
-					self._imgScale*=self.zoomDF;
-					TILEIMGSCALE*=self.zoomDF;
+					
 					
 				}
 		
