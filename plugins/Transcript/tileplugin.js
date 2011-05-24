@@ -540,7 +540,8 @@
 			// listens for when a user de-selects a line
 			$("body").bind("lineDeselected",{obj:self},function(e,obj){
 				// send a blank array - thus deleting all items on canvas
-				$("body:first").trigger("loadItems",[[]]);
+				TILE.engine.setActiveObj(null);
+				// $("body:first").trigger("loadItems",[[]]);
 			});
 			$("body").bind("removeTransLink",{obj:self},function(e,data){
 				data.parentTool=self.id;

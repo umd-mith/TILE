@@ -1895,9 +1895,14 @@ TILE.scale=1;
 		_setActiveObj:function(_newActiveObj){
 			var self=this;
 			$(".ui-dialog").hide();
-			if(__v) console.log('active object reached in plugincontroller: '+JSON.stringify(_newActiveObj));
+			
+			if(!_newActiveObj){
+				self.activeObj=null;
+				return;
+			}
 			var refs=[];
 			if(self.activeObj&&(self.activeObj.id==_newActiveObj.id)) return;
+			
 			self.activeObj=null;
 			// reset activeItems
 			TILE.activeItems=[];

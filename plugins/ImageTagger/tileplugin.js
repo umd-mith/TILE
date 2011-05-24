@@ -1509,7 +1509,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// if not found, return error
 			if(n==null) die("Error");
 			var newDLine=n;
-			if(__v) console.log("shifting shapes upward starting at: "+n);
 			for(var c=0;c<autoLines.length;c++){
 				// unless this is the last shape in the stack, replace
 				// the current id with the next shape's id in stack

@@ -92,7 +92,6 @@ Label.prototype={
 			
 			if(self.manifest[x].id==self.curId){
 				if(!self.manifest[x].refs) self.manifest[x].refs=[];
-				if(__v) console.log("selected label: "+self.manifest[x].id+"  and refs: "+self.manifest[x].refs);
 				$("body:first").trigger("labelSelected",[self.manifest[x]]);
 				break;
 			}
