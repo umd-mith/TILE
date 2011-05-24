@@ -412,8 +412,8 @@
             var url = $("#hiddenCanvasSource").attr('src');
 
             // get the correct dimensions at scale 1
-            if (TILEIMGSCALE < 1) {
-                var nscale = 1 / TILEIMGSCALE;
+            if (TILE.scale < 1) {
+                var nscale = 1 / TILE.scale;
                 ow *= nscale;
                 ow = parseInt(ow, 10);
                 oh *= nscale;
@@ -450,7 +450,7 @@
             // of line top-values returned by OCR
             var shapes = [];
             // scale values back to normal scale
-            var nscale = 1 / TILEIMGSCALE;
+            var nscale = 1 / TILE.scale;
             rw *= nscale;
             rh *= nscale;
             rx *= nscale;
@@ -482,7 +482,7 @@
                         'id': id,
                         'type': 'rect',
                         'color': '#000000',
-                        '_scale': TILEIMGSCALE,
+                        '_scale': TILE.scale,
                         'posInfo': posInfo
                     };
                     shapes.push(s);
@@ -568,7 +568,7 @@
                         ldata.push({
                             "id": id + "_shape",
                             "type": "rect",
-                            "_scale": TILEIMGSCALE,
+                            "_scale": TILE.scale,
                             "color": "#000000",
                             "posInfo": {
                                 "x": (left),
@@ -716,7 +716,7 @@
                 self.canvas[0].width = w;
                 self.canvas[0].height = h;
                 self._scale *= 1.25;
-                TILEIMGSCALE *= 1.25;
+                TILE.scale *= 1.25;
             } else if (v < 0) {
                 //zoom out
                 var w = self.canvas.width() * 0.75;
@@ -724,17 +724,17 @@
                 self.canvas[0].width = w;
                 self.canvas[0].height = h;
                 self._scale *= 0.75;
-                TILEIMGSCALE *= 0.75;
+                TILE.scale *= 0.75;
 
             }
             // reset regionBox
             if ($("#regionBox").length) {
                 // minimize to prevent lag or thresholdConversion
                 // from getting called on NaN values
-                var w = ($("#regionBox").width() * TILEIMGSCALE < 50) ? 50: ($("#regionBox").width() * TILEIMGSCALE);
-                var h = ($("#regionBox").height() * TILEIMGSCALE < 50) ? 50: ($("#regionBox").height() * TILEIMGSCALE);
+                var w = ($("#regionBox").width() * TILE.scale < 50) ? 50: ($("#regionBox").width() * TILE.scale);
+                var h = ($("#regionBox").height() * TILE.scale < 50) ? 50: ($("#regionBox").height() * TILE.scale);
 
-                var l = $("#regionBox").position().left * TILEIMGSCALE;
+                var l = $("#regionBox").position().left * TILE.scale;
                 // set top value a little lower than top of .az.inner
                 var t = $(alrcontainer + " > .workspace").position().top + 5;
                 $("#regionBox").width(w);
@@ -774,8 +774,8 @@
                 // 				}
                 // self._loadPage.remove();
                 // $("#hiddenCanvasSource").show();
-                var ow = $("#hiddenCanvasSource")[0].width * TILEIMGSCALE;
-                var oh = $("#hiddenCanvasSource")[0].height * TILEIMGSCALE;
+                var ow = $("#hiddenCanvasSource")[0].width * TILE.scale;
+                var oh = $("#hiddenCanvasSource")[0].height * TILE.scale;
 
                 // if the current width/height too big for the window, size down
                 if ((ow > $("#canvasHTML").width()) || ($("#canvasHTML").height() < oh)) {
@@ -786,7 +786,7 @@
                     // while((ow>$("#canvasHTML").width())||($("#canvasHTML").height()<oh)){
                     // 					ow*=0.75;
                     // 					oh*=0.75;
-                    // 					TILEIMGSCALE*=0.75;
+                    // 					TILE.scale*=0.75;
                     // 				}
                 }
 
@@ -854,7 +854,7 @@
         // Re-draws the canvas
         _resetCanvasImage: function() {
             var self = this;
-            self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ($("#hiddenCanvasSource")[0].width * TILEIMGSCALE), ($("#hiddenCanvasSource")[0].height * TILEIMGSCALE));
+            self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ($("#hiddenCanvasSource")[0].width * TILE.scale), ($("#hiddenCanvasSource")[0].height * TILE.scale));
         },
         //get percentage/proportional value of canvas container to canvas
         _getPerc: function() {
@@ -1473,7 +1473,7 @@
                 } else {
                     //create a blank slate - somehow 'createImageData' doesn't work in this case
                     //var zoomData=this.canvasImage.getZoomLevel();
-                    this.context.drawImage(this.imageEl[0], 0, 0, ($("#hiddenCanvasSource")[0].width * TILEIMGSCALE), ($("#hiddenCanvasSource")[0].height * TILEIMGSCALE));
+                    this.context.drawImage(this.imageEl[0], 0, 0, ($("#hiddenCanvasSource")[0].width * TILE.scale), ($("#hiddenCanvasSource")[0].height * TILE.scale));
                     //find new regionData from same or different coordinates (if user set new coordinates with 'convertBW' button)
                     try {
                         this.regionData = this.context.getImageData(rl, rt, rw, rh);
@@ -1484,7 +1484,7 @@
                         // New Solution: re-draw the canvas and return function - makes the area not appear
                         // in black and white, but the user can still click 'Go' and get data
                         this.regionData = null;
-                        this.context.drawImage(this.imageEl[0], 0, 0, ($("#hiddenCanvasSource")[0].width * TILEIMGSCALE), ($("#hiddenCanvasSource")[0].height * TILEIMGSCALE));
+                        this.context.drawImage(this.imageEl[0], 0, 0, ($("#hiddenCanvasSource")[0].width * TILE.scale), ($("#hiddenCanvasSource")[0].height * TILE.scale));
                         return;
                         // this.thresholdConversion(threshold);
                         // $("body:first").trigger("SecurityError1000");

@@ -26,7 +26,7 @@
 
 // GLOBAL VARIABLES
 // Keep track of Image scale
-var TILEIMGSCALE=1;
+
 // Large, global variable that 
 // stores data for other plugins 
 var TILE=[];
@@ -1027,7 +1027,6 @@ TILE.scale=1;
 		// users supply a filename in ImportDialog that is then used here 
 		// If file is given, then TILE makes an AJAX call to that file. Otherwise,
 		// it parses the current json
-		
 		// file : {String}
 		parseJSON:function(file){
 			var self=this;
@@ -1076,8 +1075,6 @@ TILE.scale=1;
 				}
 			}
 			
-			if(__v) console.log("TILE JSON:");
-			if(__v) console.log(JSON.stringify(json));
 			if(!json) return;
 			
 			// set initial global variables
@@ -1091,7 +1088,6 @@ TILE.scale=1;
 						break;
 					}
 				}
-				if(__v) console.log('finished parsing json');
 				// notify plugins that there is a JSON
 				// loaded
 				$("body:first").trigger("newJSON");
@@ -1895,7 +1891,7 @@ TILE.scale=1;
 		_setActiveObj:function(_newActiveObj){
 			var self=this;
 			$(".ui-dialog").hide();
-			
+			$(".shpButtonHolder").remove();
 			if(!_newActiveObj){
 				self.activeObj=null;
 				return;
