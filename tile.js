@@ -1,28 +1,28 @@
 ///TILE 1.0
 // Authors: Doug Reside (dreside), 
 // Grant Dickie (grantd), 
-// Tim Bowman
+// Tim Bowman,
+// Jim Smith
+
+// Copyright 2009-2011 MITH
+
+/*
+ For more information or to inquire about the TILE interface and what it can do
+ for your project, see http://mith.umd.edu/tile or visit the forums at 
+ http://mith.umd.edu/tile/forums
+*/
+
 
 // Base Code for all of the main TILE interface objects
 // Objects:
 // Floating Div
-// HelpBox
 // Dialog
 // ImportDialog
 // ExportDialog
 // TILE_ENGINE
 // PluginController
 
-// TILE_ENGINE: {Object} main engine for running the LogBar and Layout of TILE interface
-// Usage:
-// 
-// new TILE_ENGINE({toolSet:[Array],defaultTool:String});
-// toolSet (Array) :: An array of plugin wrappers, each wrapper having the specified properties and methods. These will be 
-//                    fed into PluginController
-// 
-// defaultTool (String) :: ID of the default tool to use (Shows up first after TILE is loaded)
-// 
-// 
+
 
 // GLOBAL VARIABLES
 // Keep track of Image scale
@@ -750,12 +750,46 @@ TILE.scale=1;
 
 
 	/**Main Engine **/
+	// Author: Grant Dickie
+	
 	// Sets up the TILE toolbar (upper left-hand corner) with the 
 	// tool selection drop-down, buttons for saving and exporting 
 	// data
 	// 
 	// Objects: 
 	// PluginController
+	
+	/*
+	Basic Usage
+
+	*/
+	// TILE_ENGINE: {Object} main engine for running the LogBar and Layout of TILE interface
+	// Returns: TILE_ENGINE instance {Object}
+	// This instance has access to all of the TILE API functions, properties, and events
+	
+	// **NOTE: currently TILE_ENGINE does not read anything from the Object that is fed as a parameter. This 
+	// may be changed in future versions of TILE to change the style, placement, or behavior of the Engine.
+	//
+	// Use it in your HTML:
+	// 
+	// <script type="text/javascript">
+	// 		var tile=new TILE_ENGINE({});
+	// 		
+			// Using the insertMode method to 
+			// add a interface mode
+	// 		tile.insertMode('Mode1');
+	
+			// attach a plugin to Mode1
+	// 		tile.insertModePlugin('Mode1','Image Tagger');
+	// 		
+			// start up TILE
+	// 		tile.activate();
+	// 		
+	// </script>
+	// OR put the code in a .js file and add to the header
+	
+	
+
 
 	var TILE_ENGINE=function(args){
 		// set local ENGINE variable so that PluginController + other local
@@ -767,9 +801,14 @@ TILE.scale=1;
 		var self=this;
 
 		// toolSet=(args.toolSet)?args.toolSet:[];
+		// Options that can be fed into the constructor to switch off PHP 
+		// and use only Javascript
 		urls = (args.urls ? args.urls : {});
+		// URL used to check whether saved data already loaded
 		self.serverStateUrl = (urls.state ? urls.state : "PHP/isJSON.php");
+		// 
 		self.serverRemoteStateUrl = (urls.remoteState ? urls.remoteState : "PHP/parseRemoteJSON.php");
+		// Images filtered through PHP to prevent cross-domain issues
 		self.serverRemoteImgUrl = (urls.remoteImg ? urls.remoteImg : "PHP/RemoteImgRedirect.php");
 
 		// plugins array

@@ -2033,7 +2033,7 @@ var IT={
 			$("body").live("newActive",{obj:self},self.newActiveHandle);
 			$("body").live("newJSON",{obj:self},self.newJSONHandle);
 			$("body").live("newPage",{obj:self},self.newPageHandle);
-			// $("body").live("dataUpdated",{obj:self},self.dataUpdatedHandle);
+			$("body").live("dataUpdated",{obj:self},self.dataUpdatedHandle);
 			
 			// check to see if data has been loaded
 			var j=TILE.engine.getJSON(true);

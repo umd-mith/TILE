@@ -51,6 +51,11 @@ class CoreData
         $data['tile'] = array();
         $data['tile']['pages'] = array();
         
+		// If there is saved TILE XML data, construct pages from this first
+		if(isset($this -> containers -> tile)){
+			$this->reconcileSavedData();
+		}
+
         foreach($this -> containers as $container) {
             if(!$container -> is_empty()) {
                 $page = array();
@@ -58,7 +63,8 @@ class CoreData
                 $page['url'] = $container -> image_url;
                 $page['lines'] = array();
                 $page['shapes'] = array();
-                
+               
+				
                 foreach($container -> lines as $line) {
 					
                     $l = array();
@@ -93,6 +99,23 @@ class CoreData
         return json_encode($data);
     }
     
+	public function reconcileSavedData(){
+		
+		foreach($container -> tile -> pages as $page){
+			$p=array();
+			
+			if(isset($page -> id)&&isset($page -> url)){
+				$p['id']=$page->id;
+				$p['url']=$page->url;
+				// cycle through the other object
+				// arrays in XML
+				
+				
+			} 
+			
+		}
+	}
+
     public function newContainer($url = "") {
         $c = new CoreDataContainer($url);
         $this -> containers[] = $c;
@@ -131,10 +154,7 @@ class CoreData
 		$highest_startpoint = 32-$length;
 		$randomString = substr($string,rand(0,$highest_startpoint),$length);
 	    return $randomString;
-	}
-	
-	
-	
+	}	
 }
 
 class CoreDataContainer {

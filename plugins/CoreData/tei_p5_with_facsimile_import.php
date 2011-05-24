@@ -24,8 +24,11 @@ class TEIP5WithFacsimileImport extends XMLStreamImport
         $this -> setLineStartXPath('//body/div/div/*|//body/div/div/*/*');
         // we don't want to 
         $this -> setDocumentStartXPath('//facsimile');
+		
         $this -> zone_xpath = $this -> build_xpath_regex('//facsimile/surface/zone');
 		if(isset($tile)){
+			$this->setTileStartPath('//teiHeader/tile/*|//teiHeader/tile/*/*|//teiHeader/tile/pages/*/*');
+			// set the tile start path
 			parent::__construct($content,$tile);
 		} else {
 			parent::__construct($content);

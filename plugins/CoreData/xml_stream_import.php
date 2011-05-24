@@ -95,6 +95,13 @@ class XMLStreamImport extends CoreData
 		$this -> tile_element_start = $this->build_xpath_regex($path);
 	}
 	
+	// Sets XPATH for where the saved shapes are in the TILE XML
+	public function setSaveShapesPath($path){
+		
+	}
+	
+	
+	
 	// Converts the non-attribute portion of an XPath into a regular expression that
 	// matches against the path that represents the element stack.
 	// For example:
@@ -239,7 +246,14 @@ class XMLStreamImport extends CoreData
 		        $this -> document_started = true;
         	}
         }
+		// Go through the saved TILE XML data
+		if(isset($this -> tile_element_start)){
+			if($this -> stack_matches_path_q($this -> tile_element_start)){
+				// found inserted TILE data
+				$this -> newMilestone($name,$attributes);
+			}
 
+		}		
 		if($this -> stack_matches_path_q($this -> milestone_xpath)) {
 			$this -> saveCurrentLine();
 			$this -> newMilestone($name, $attributes);
