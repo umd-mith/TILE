@@ -61,7 +61,7 @@
 			this.submitURL.live('click',{obj:this},this.loadURL);
 			
 			$("#loadTagsDialog > .body > .option > .chooseFile").live('click',function(e){
-				if(__v) console.log($(this).val());
+				
 				// set the URL value to exporting in simple model form
 				$("#importURL").val($(this).val());
 			});
@@ -157,7 +157,7 @@
 				// 					self.fade.hide();
 				// 				}
 			}).responseText;
-			if(__v) console.log("json returned: "+txt);
+			
 			$("body:first").trigger("LoadedURLJsonReady",[JSON.parse(txt)]);
 	
 		}
@@ -198,7 +198,7 @@ var LoadDialog={
 		});
 		
 		$("body").live("LoadedURLJsonReady",function(e,json){
-			if(__v) console.log("NEW JSON LOADED: "+json);
+			
 			self.dialog.light.hide();
 			self.dialog.DOM.hide();
 			self.dialog.fade.hide();

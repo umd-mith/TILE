@@ -166,7 +166,7 @@ var CoreData={
 		switch(obj.type.toLowerCase()){
 			case 'shapes':
 				var zones=self.xmlDoc.getElementsByTagName('surface')[0].childNodes;
-				if(__v) console.log('ZONES: '+zones);
+				
 				var found=false;
 				for(var c=0;c<zones.length;c++){
 					if(zones[c].getAttribute('xml:id')==shape.id){
@@ -191,11 +191,7 @@ var CoreData={
 					// $(self.xmlDoc).find('surface').append('<zone xml:id="'+shape.id+'" rendition="" ulx="'+shape.posInfo.x+'" uly="'+shape.posInfo.y+'" lrx="'+(shape.posInfo.x+shape.posInfo.width)+'" lry="'+(shape.posInfo.y+shape.posInfo.height)+'"></zone>');
 					
 					// creates: '<zone xml:id="'+shape.id+'" rendition="" ulx="'+shape.posInfo.x+'" uly="'+shape.posInfo.y+'" lrx="'+(shape.posInfo.x+shape.posInfo.width)+'" lry="'+(shape.posInfo.y+shape.posInfo.height)+'"></zone>'
-					if(__v){
-						console.log("Resulting XML");
-						var n=new XMLSerializer();
-						console.log(n.serializeToString(self.xmlDoc));
-					}
+					
 				}
 				break;
 			case 'selections':

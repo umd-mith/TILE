@@ -21,14 +21,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 (function($){
 	
 	var ITag=this;
-	/////constructor for ITag - loads all elements for ImageTagger
-	// init(args) : takes args, which contains: {
-		// loc: string representing ID of DOM object to attach to
-		// base : string representing HTTP location of images
-		// json : optional JSON object to pass as main source of images
-			// layout : JSON retrieved from imagetagger.json
-		// }
-
+	// constructor for ITag - loads all elements for ImageTagger
 	var _Itag=function(args){
 		this.loc=args.loc;
 		// this._base=args.base;
@@ -36,12 +29,11 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		var self=this;
 		this.JSONlist=(args.json||null);
 		self.curURL=null;
-		// if(!args.layout) throw "ERROR in setting up imagetagger";
-		// this.html=args.layout;
 		//pre-load the initial html content into loc area - needs .az.inner
 		//to be visible
 		self.htmlContent="<div id=\"raphworkspace_\" class=\"workspace\"></div>";
-		self.htmlToolbar="<ul class=\"menuitem pluginTitle\">Image Tagger</ul><ul class=\"menuitem\">"+
+		if(TILE.experimental){
+			self.htmlToolbar="<ul class=\"menuitem pluginTitle\">Image Tagger</ul><ul class=\"menuitem\">"+
 			"<li><a href=\"#\" id=\"pointer\" class=\"btnIconLarge inactive\" title=\"Select\"></a></li></ul><ul class=\"menuitem\">"+
 			"<li><a href=\"#\" id=\"rect\" class=\"btnIconLarge inactive\" title=\"Rectangle\"></a></li>"+
 			"<li><a href=\"#\" id=\"poly\" class=\"btnIconLarge inactive\" title=\"Polygon\"></a></li>"+
@@ -50,43 +42,25 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			"<li><a href=\"#\" id=\"zoomOut\" class=\"btnIconLarge\" title=\"Zoom Out\"></a></li></ul><ul class=\"menuitem\">"+
 			"<li><a href=\"#\" id=\"pgPrev\" class=\"button\" title=\"Go One Image Back\">Prev</a></li><li><a href=\"#\" id=\"pgNext\" class=\"button\" title=\"Go One Image Forward\">Next</a></li>"+
 			"<li><a class=\"button\" title=\"See a List of All Images\"><span id=\"listView\" class=\"listView\">List view</span></a></li></ul>";
-		// $("#azcontentarea > .az.inner:eq(0)").append("<div class=\"workspace\"></div>");
-		// attach toolbar buttons
-		// $("#azcontentarea > .az.inner:eq(0) > .toolbar").append("<ul class=\"menuitem\">"+
-		// 			"<li><a href=\"#\" id=\"pointer\" class=\"btnIconLarge inactive\" title=\"Select\"></a></li></ul><ul class=\"menuitem\">"+
-		// 			"<li><a href=\"#\" id=\"rect\" class=\"btnIconLarge inactive\" title=\"Rectangle\"></a></li>"+
-		// 			"<li><a href=\"#\" id=\"poly\" class=\"btnIconLarge inactive\" title=\"Polygon\"></a></li>"+
-		// 			"<li><a href=\"#\" id=\"elli\" class=\"btnIconLarge inactive\"  title=\"Ellipse\"></a></li>"+
-		// 			"</ul><ul class=\"menuitem\"><li><a href=\"#\" id=\"zoomIn\" class=\"btnIconLarge\" title=\"Zoom In\"></a></li>"+
-		// 			"<li><a href=\"#\" id=\"zoomOut\" class=\"btnIconLarge\" title=\"Zoom Out\"></a></li></ul><ul class=\"menuitem\">"+
-		// 			"<li><a href=\"#\" id=\"pgPrev\" class=\"button\" title=\"Go One Image Back\">Prev</a></li><li><a href=\"#\" id=\"pgNext\" class=\"button\" title=\"Go One Image Forward\">Next</a></li>"+
-		// 			"<li><a class=\"button\" title=\"See a List of All Images\"><span id=\"listView\" class=\"listView\">List view</span></a></li></ul>");
-		// attach id to toolbar
-		// $("#azcontentarea > .az.inner:eq(0) > .toolbar").attr('id',"_raphshapebar");
+		} else {
+			self.htmlToolbar="<ul class=\"menuitem pluginTitle\">Image Tagger</ul><ul class=\"menuitem\">"+
+				"<li><a href=\"#\" id=\"pointer\" class=\"btnIconLarge inactive\" title=\"Select\"></a></li></ul><ul class=\"menuitem\">"+
+				"<li><a href=\"#\" id=\"rect\" class=\"btnIconLarge inactive\" title=\"Rectangle\"></a></li>"+
+				"<li><a href=\"#\" id=\"elli\" class=\"btnIconLarge inactive\"  title=\"Ellipse\"></a></li>"+
+				"</ul><ul class=\"menuitem\"><li><a href=\"#\" id=\"zoomIn\" class=\"btnIconLarge\" title=\"Zoom In\"></a></li>"+
+				"<li><a href=\"#\" id=\"zoomOut\" class=\"btnIconLarge\" title=\"Zoom Out\"></a></li></ul><ul class=\"menuitem\">"+
+				"<li><a href=\"#\" id=\"pgPrev\" class=\"button\" title=\"Go One Image Back\">Prev</a></li><li><a href=\"#\" id=\"pgNext\" class=\"button\" title=\"Go One Image Forward\">Next</a></li>"+
+				"<li><a class=\"button\" title=\"See a List of All Images\"><span id=\"listView\" class=\"listView\">List view</span></a></li></ul>";
+	
+		}	
+		
 		//global bind for when the VectorDrawer in raphaelImage is completed
 		$("body").live("VDCanvasDONE",{obj:this},this.createShapeToolBar);
-		//received from ImportDialog box
-		// if(!this.JSONlist)	$("body").bind("loadImageList",{obj:this},this.ingestImages);
-		//global bind relating to the event passed by ImageList
-		// $("body").bind("switchImage",{obj:this},this.switchImageHandler);
 		//global bind for when user adds a new image through NewImageDialog
 		$("body").bind("newImageAdded",{obj:this},this.addNewImage);
-		//global bind for when user clicks on the ShapeToolBar button 'imagelist'
-		// $("body").bind("showImageList",{obj:this},this.showImageList);
-		//this.jsonReader=new jsonReader({});
-		//get JSON html data
-		// $.ajax({
-		// 			dataType:'json',
-		// 			url:'lib/JSONHTML/imagetagger.json',
-		// 			success:function(j){
-		// 				//j is json data
-		// 				self.setHTML(j);
-		// 			}
-		// 		});
-		// self.setHTML();
+	
 	};
 	_Itag.prototype={
-	
 		//receives a JSON string that will be used 
 		//as a map of images and other data
 		// e : {Event}
@@ -124,13 +98,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				
 				loc:self.loc
 			});
-			
-		
-			// if(self.JSONlist){
-			// 				self.raphael.addUrl(self.JSONlist);
-			// 			
-			// 				$("body").trigger("imageAdded");
-			// 			}
 			
 		},
 		// takes passed variable and passes to raphael canvas
@@ -224,7 +191,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					$("body").trigger("imageAdded");
 				} else {
 					self.raphael.addUrl(path);
-					//$("body").trigger("openNewImage");
 				}
 			}
 		},
@@ -252,7 +218,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		},
 		addNewShapesToStack:function(shape){
 			var self=this;
-			if(__v) console.log('addNewShapesToStack: '+JSON.stringify(shape));
+			
 			if(self.raphael){
 				if($.inArray(shape.id,self.raphael.shapeIds)<0){
 					self.raphael.shapeIds.push(shape.id);
@@ -290,31 +256,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		// json : {Object} - JSON data with new shape information
 		_restart:function(json){
 			var self=this;
-			//self.DOM.show();
-			//reset the toolbar
-			// $("#pgNext").click(function(e){
-			// 				e.preventDefault();
-			// 				$(this).trigger("turnPage",[1]);
-			// 			});
-			// 			$("#pgPrev").click(function(e){
-			// 				e.preventDefault();
-			// 				$(this).trigger("turnPage",[-1]);
-			// 			});
-			// $("#listView").parent().click(function(e){
-			// 				e.preventDefault();
-			// 				$(this).trigger("showImageList");
-			// 			});
-			// $("body:first").trigger("closeDownVD",[false]);
 			
-			// if(json){
-			// 				// parse data
-			// 				// data comes in format json.data.lines, which represent lines
-			// 				// find shapes inside each line, then add them to shps array
-			// 				var shps=[];
-			// 				for(var j in json.shapes){
-			// 					if(json.shapes[j]) shps.push(json.shapes[j]);
-			// 				}
-			// 			}
 			self.curURL=TILE.url;
 			
 			// send off parsed array to the drawing canvas
@@ -434,6 +376,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// this.$super(args);
 			this.DOM=$("#"+args.loc);
 			var self=this;
+			
+			
 			//Define Area elements
 			//Rectangle
 			this.rect=$("#rect");
@@ -1180,11 +1124,11 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			var url=TILE.url;
 			// change in own manifest
 			for(var sh=0;sh<self.manifest.length; sh++){
-				if(__v) console.log('shape manifest[sh]: '+self.manifest[sh].id);
+				
 				if(self.manifest[sh].id==obj.id){
-					if(__v) console.log("shapeChangeHandle itagger :: "+JSON.stringify(obj.posInfo));
+					
 					self.manifest[sh].posInfo=obj.posInfo;
-					if(__v) console.log("shapeChangeHandle itagger handled :: "+JSON.stringify(self.manifest[sh]));
+					
 					shpObj=obj;
 					break;
 				}
@@ -1281,29 +1225,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			self.manifest.push(shpObj);
 			self.shapeIds.push(shpObj.id);
 			
-			// select shape, which will also alert to other objects
-			// self.drawTool.selectShape(shpObj.id);
-			// 			$("#rect").removeClass("active");
-			// 			$("#poly").removeClass("active");
-			// 			$("#elli").removeClass("active");
-			// 			$("#pointer").addClass("active");
-			// 			// attach additional buttons
-			// 			$("<div class=\"shpButtonHolder\"><div id=\""+shpObj.id+"\" class=\"button shape\">Delete</div></div>").insertBefore($("svg"));
-			// 			// set left and top properties - can't be above the fold of the canvas
-			// 			
-			// 			var left=$("#selBB").position().left;
-			// 			var top=$("#selBB").position().top-$(".shpButtonHolder").height();
-			// 			if((left+$(".shpButtonHolder").width())>$(document).width()){
-			// 				left=left-$(".shpButtonHolder").width();
-			// 			}
-			// 			if(top<$(".vd-container").position().top){
-			// 				top=$("#selBB").position().top;
-			// 			}
-			// 			$(".shpButtonHolder").css("left",left+'px');
-			// 			$(".shpButtonHolder").css("top",(top)+'px');
-				
-			
-					
 			// send signal to other plugins
 			
 			$("body:first").trigger("shapeIsDrawn",[shpObj]);
@@ -1327,27 +1248,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					shpObj=vd[o];
 				}
 			}
-			// for(x in self.manifest[url].shapes){
-			// 			if(self.manifest[url].shapes[x]&&(self.manifest[url].shapes[x].id==id)){
-			// 				
-			// 				if(self.manifest[url].shapes[x].id.substring(0,1)=="D"){
-			// 					self.manifest[url].shapes[x].color="#000000";
-			// 					self.manifest[url].shapes[x].id=self.manifest[url].shapes[x].id.replace("D_","");
-			// 					elx=x;
-			// 					// replace in current canvas state
-			// 					for(v in vd){
-			// 						if(vd[v].id==id){
-			// 							if(__v) console.log("replacing "+JSON.stringify(vd[v])+" with "+JSON.stringify(self.manifest[url].shapes[x]));
-			// 							// replace current temp line with modified one
-			// 							vd[v]=self.manifest[url].shapes[x];
-			// 						}
-			// 					}
-			// 				}
-			// 			
-			// 				
-			// 				break;
-			// 			}
-			// 		}
 			
 			if(!shpObj) return;
 			//clear all shapes
@@ -1386,8 +1286,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				
 			}
-			
-			
 		
 			// $("body:first").trigger("updateAllShapes",[temp]);
 			// show all approved shapes then show current shape
@@ -1478,7 +1376,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			}
 			// update listening objects
 			$("body:first").trigger("shapesUpdate",[ids]);
-			
 		},
 		// Goes through the URLs shapes array and
 		//  shifts up all temporary lines
@@ -1488,7 +1385,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		_shiftAutoLines:function(id){
 			var self=this;
 			var url=$("#srcImageForCanvas").attr('src');
-			if(__v) console.log("shifting shapes has been reached");
 			if(!(self.manifest)) return;
 			
 			var check=false;
@@ -1532,7 +1428,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				if(c==(autoLines.length-1)){
 					// send out call to delete the shape
 					$("body:first").trigger("shapeDeleted",[autoLines[c].id]);
-					if(__v) console.log("finishing the line shift; manifest is now: "+JSON.stringify(self.manifest));
 					break;
 				}
 			
@@ -1549,7 +1444,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					$.extend(true,shape,autoLines[c]);
 				}
 				// store in shape manifest
-				if(__v) console.log("adding shape "+JSON.stringify(shape));
+				
 				self.manifest.push(shape);
 			}
 			
@@ -1924,7 +1819,7 @@ var IT={
 		};
 		
 		var _receiveShapeObjHandle=function(shape){
-			if(__v) console.log('receiveShp:  '+shape);
+			
 			// feed PC a wrapper for the shape
 			var data={
 				id:shape.id,
@@ -1965,7 +1860,7 @@ var IT={
 				if($.inArray(data.pages[p].url,urls)>=0) continue;
 				urls.push(data.pages[p].url);
 			}
-			if(__v) console.log('urls for imagelist: '+JSON.stringify(urls));
+			
 			// send unique url array to itagger
 			self.itagger.showImageList(urls);
 		};
@@ -2094,7 +1989,11 @@ var IT={
 	},
 	newActiveHandle:function(e,obj){
 		var self=e.data.obj;
-		
+		if(obj.type=='none'){
+			// reset
+			self.itagger.raphael.drawTool.clearShapes();
+			return;
+		}
 		// update URL
 		self.itagger.curURL=TILE.url;
 		if(obj.obj.posInfo){
@@ -2166,7 +2065,7 @@ var IT={
 	// updates the shape when it's moved
 	dataUpdatedHandle:function(e,obj){
 		var self=e.data.obj;
-		if(__v) console.log('data updated in imagetagger  '+JSON.stringify(obj));
+		
 		if(obj.type=='shapes'){
 			self.itagger.updateData(obj);
 			
@@ -2190,7 +2089,7 @@ var IT={
 	deleteSelf:function(data){
 		var self=this;
 		if(data.type=="shapes"){
-			if(__v) console.log("removing the shape");
+			
 			self.itagger.raphael._deleteItemHandle(data.id);
 		} else {
 			self.itagger.raphael._deleteLinkHandle(data);

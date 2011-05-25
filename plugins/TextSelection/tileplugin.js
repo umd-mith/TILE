@@ -464,56 +464,6 @@ var TS={
 		}
 		
 	
-		// set up the tool buttons and insert into 
-		// TILE interface
-		// append html
-		// $("<div class=\"menuitem\"><ul><li><a class=\"btnIconLarge\" value=\"Highlight\" id=\"getHLite\" title=\"Highlight a section of text\" class=\"button\">Highlight a section of text</a></li></ul></div>").insertBefore($("#transcript_toolbar > div#ddown"));
-		
-		// LOCAL PRIVATE FUNCTIONS HERE
-		
-		// creates a highlight object
-		// var createHighlight=function(){
-		// 		
-		// 		var url=TILEPAGE;
-		// 		// de-select all transcript lines
-		// 		$(".line_selected").removeClass("line_selected");
-		// 		// clear all other highlights - will come back if they are saved
-		// 		// into the manifest
-		// 		$("span[class^=anno]").each(function(){
-		// 			$(this).children(".button").remove();
-		// 			$(this).children("div").remove();
-		// 		});
-		// 
-		// 		self.textsel.clearSelections();
-		// 
-		// 		var sel=self.textsel.getSelectedText();
-		// 		if(sel==null) return;
-		// 		// make sure it's not highlighting the whole page
-		// 		if(!(/div\#line\_/.test(sel.StartParent))){
-		// 			self.textsel.clearSelections();
-		// 
-		// 			return;
-		// 		}
-		// 
-		// 		// show on screen
-		// 		self.textsel.addSelection(sel);
-		// 		if(!self.manifest[url]) self.manifest[url]=[];
-		// 		self.manifest[url].push(sel);
-		// 		// find span tag and attach buttons
-		// 		self.attachButtons(sel);
-		// 
-		// 		// make active
-		// 		self.activeSel=sel.id;
-		// 		// attach any current divs for references
-		// 		// self._attachLinkDiv(self.curLink);
-		// 		if(__v) console.log("attachHandle in textSel: "+$("."+sel.id+":eq(0)")+"  "+$("."+sel.id).length);
-		// 		// $("body:first").trigger(self.outputCall,[{level:'page',id:sel.id,type:"selections",display:"..."+$(sel.StartParent).text().substring(0,10)+"...",attachHandle:"."+sel.id+":eq("+($("."+sel.id).length-1)+")",tool:self.id,parentTool:null}]);
-		// 		engine.insertData({jsonName:TILEPAGE,id:sel.id,type:"selections",display:"..."+$(sel.StartParent).text().substring(0,10)+"...",attachHandle:"."+sel.id+":eq("+($("."+sel.id).length-1)+")",obj:sel});
-		// 		
-		// 		// Make it so that the colorpicker is visible - otherwise hides behind .transcriptbar
-		// 		$("body > .colorpicker").css({"z-index":"9999"});
-		// 	};
-		
 		// select a highlight and make the highlight
 		// object active
 		var selectHighlight=function(id){
@@ -531,11 +481,10 @@ var TS={
 			var disp=$("span."+h.id+":eq(0)").text().substring(0,10);
 			
 			TILE.engine.updateData({id:h.id,type:'selections',display:disp,attachHandle:handle,obj:{id:id,type:'selections',jsonName:url}});
-			// $("body:first").trigger(self.outputCall,[{id:h.id,type:'selections',display:disp,attachHandle:handle,obj:{id:id,type:'selections',jsonName:url}}]);
 		};
 		
 		var lineClickHandle=function(e){
-			var self=e.data.obj;
+			
 			self.clearHighlights();
 			var sel=self.createHighlight();
 			if(!sel.jsonName) sel.jsonName=TILE.url;
@@ -552,8 +501,6 @@ var TS={
 			$(".menuitem > ul > li > .btnIconLarge").removeClass('active');
 			$(this).addClass("active");
 			// make active and stop all listeners of other objects
-			// $("body:first").trigger(self.activeCall,[self.id]);
-			// engine.setActiveObj();
 			$(".line").unbind();
 			$(".line").bind('mouseup',{obj:self},lineClickHandle);
 		};
@@ -570,8 +517,6 @@ var TS={
 			e.stopPropagation();
 			// is user just turning this one off?
 			if($(this).hasClass('selected')){
-				// if(__v) console.log('highlight already selected');
-				// $(this).removeClass('selected');
 				return;
 			}
 
@@ -611,7 +556,6 @@ var TS={
 			var url=TILE.url;
 			var vd=[];
 			for(x in self.manifest[url]){
-				// if(__v) console.log("self.manifest[url]["+x+"]="+self.manifest[url][x].id);
 				if($.inArray(self.manifest[url][x].id,data)>=0){
 					vd.push(self.manifest[url][x]);
 				}
@@ -622,18 +566,12 @@ var TS={
 				$("#getHLite").addClass('active');
 				$("body:first").trigger(self.activeCall,[self.id]);
 			}
-			// if(__v) console.log("loading highlights from: "+vd);
 			self.textsel.importSelections(vd);
 			// attach buttons
 			for(var v in vd){
 				self.attachButtons(vd[v]);
 			}
 		};	
-		
-		// bind addLink
-		// $("body").bind("addLink",{obj:self},self.addLinkHandle);
-		// global bind for when a user clicks on object that loads items
-		// $("body").bind("loadItems",{obj:self},loadItemsHandle);
 		
 		// bind ENGINE events
 		$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
@@ -653,10 +591,6 @@ var TS={
 			type:'mode'
 		
 		};
-		
-		// var el=engine.addToolBarButton(button);
-		// 	el.elem.addClass('getHLite');
-		// 	el.elem.live('click',getHLite);
 	},
 	newJSONHandle:function(e,o){
 		var self=e.data.obj;
@@ -688,7 +622,6 @@ var TS={
 				var self=e.data.obj;
 				self.clearHighlights();
 				var sel=self.createHighlight();
-				if(__v) console.log("TExt selection retrieved by createHighlight: "+JSON.stringify(sel));
 				TILE.engine.insertData(sel);
 				var handle="span."+sel.id+":eq("+($("span."+sel.id).length-1)+")";
 				TILE.engine.attachMetadataDialog(sel,handle);
@@ -794,7 +727,6 @@ var TS={
 		$("body > .colorpicker").css({"z-index":"9999"});
 		// attach any current divs for references
 		// self._attachLinkDiv(self.curLink);
-		if(__v) console.log("attachHandle in textSel: "+$("."+sel.id+":eq(0)")+"  "+$("."+sel.id).length);
 		var o={jsonName:TILE.url,id:sel.id,type:"selections",display:"..."+$(sel.StartParent).text().substring(0,10)+"...",obj:sel};
 		// add to manifest
 		self.manifest.push(o);
@@ -822,8 +754,6 @@ var TS={
 		if($("span."+id).length>1){
 			$("<span id=\"deleteHLite"+id+"\" class=\"button\">Delete</span>").appendTo($("span."+id+":eq("+($("span."+id).length-1)+")"));
 		} else {
-			if(__v) console.log("textsel attach delete once");
-			
 			$("<span id=\"deleteHLite"+id+"\" class=\"button\">Delete</span>").appendTo($("span."+id));
 		}
 	
@@ -839,23 +769,11 @@ var TS={
 			$(this).remove();
 			
 			$("body:first").trigger("deleteSel",[sel]);
-			
-			// $("body:first").trigger(self.deleteCall,[{id:id,type:'selections',jsonName:url,obj:{id:id,type:"selections"}}]);
-			// self.textsel.importSelections(self.manifest[url]);
-			
 		});
 
 		// attach any current divs for references
 		// self._attachLinkDiv(self.curLink);
 		$("body > .colorpicker").css({"z-index":"9999"});
-		// check for links already created
-		// for(var t in sel){
-		// 		if(/id|StartParent|StartOffset|StartChild|EndParent|EndOffset|EndChild|color/.test(t)) continue;
-		// 		for(var x in sel[t]){
-		// 			if(__v) console.log("sel[t]="+t);
-		// 			self._attachLinkDiv(sel[t][x],sel);
-		// 		}
-		// 	}
 	},
 	selectHighlight:function(id){
 		var self=this;
@@ -873,7 +791,6 @@ var TS={
 		var handle="span."+h.id+":eq("+($("span."+h.id).length-1)+")";
 		var disp=$("span."+h.id+":eq(0)").text().substring(0,10);
 		return [h,handle];
-		// $("body:first").trigger(self.outputCall,[{id:h.id,type:'selections',display:disp,attachHandle:handle,obj:{id:id,type:'selections',jsonName:url}}]);
 	},
 	// e : {Event}
 	// changes : {Object} - {value: {String}, type: {String}}
@@ -911,12 +828,6 @@ var TS={
 			$("#logbar_list > .line > div").remove();
 		});
 		self.textsel.removeHighlightMarkers();
-		
-		// $(".line").unbind("mouseup");
-		// 	$(".line").mouseup(function(e){
-		// 		self.createHighlight(engine);
-		// 		
-		// 	});
 		if(!data||(data.length==0)) return;
 		
 		self.textsel.importSelections(data);
@@ -984,25 +895,6 @@ var TS={
 			}
 			
 		}
-		// 		// make sure that the active ID actually exists in manifest
-		// 		for(var s in self.manifest[url]){
-		// 			if(!self.manifest[url][s]) continue;
-		// 			if(self.manifest[url][s].id==sel){
-		// 				var n=$.inArray(data.id,self.manifest[url][s][data.type]);
-		// 				if(n>=0){
-		// 					if(self.manifest[url][s][data.type].length>1){
-		// 						var ac=	self.manifest[url][s][data.type].slice(0,n);
-		// 						var bc=self.manifest[url][s][data.type].slice((n+1));
-		// 						self.manifest[url][s][data.type]=ac.concat(bc);
-		// 					} else {
-		// 						self.manifest[url][s][data.type]=[];
-		// 					}
-		// 				}
-		// 				
-		// 				
-		// 				break;
-		// 			}
-		// 		}
 		
 	},
 	unActive:function(){
@@ -1015,37 +907,9 @@ var TS={
 			$(o).remove();
 		});
 	},
-	restart:function(){
-		
-	},
 	close:function(){
 		var self=this;
 		$("body:first").trigger(self._close);
-	},
-	// Insert the highlight data into the global json object
-	// json: {Object} Global JSON object that has page URL's as key
-	bundleData:function(json){
-		var self=this;
-		// deep copy the json file
-		jcopy=$.extend(true,{},json);
-		
-		for(var url in self.manifest){
-			for(var j in jcopy){
-				if(j==url){
-					if(!jcopy[j]['selections']) $.extend(jcopy[j],{selections:[]});
-					// if(__v) console.log("SELECTIONS: "+j+"  in manifest: "+self.manifest[url]);
-					jcopy[j].selections=self.manifest[url];
-					// if(__v) console.log(""+j+"  in json: "+JSON.stringify(json[j].selections));
-					
-				}
-			}
-		}
-		json=jcopy;
-		if(__v){
-			 console.log("SELECTIONS IS DONE: ");
-			console.log(JSON.stringify(json));
-		}
-		return json;
 	},
 	_close:"CloseSelector"
 };

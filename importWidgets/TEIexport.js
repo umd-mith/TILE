@@ -11,7 +11,6 @@ function exportToTEI(JSON_str){
 	var JSONobj = JSON.parse(JSON_str);
 	var str="";
 	src = JSONobj["sourceFile"];
-	// if(__v) console.log("exportToTEI src: "+src);
 	if (src==null) {
 		return;
 	} else if ((JSONobj["pages"]!=null)&&(JSONobj["pages"].length>0)){

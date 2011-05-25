@@ -109,7 +109,7 @@ var Dashboard={
 			var id=$(this).attr('id');
 			var type=$(this).parent().parent().attr('id');
 			var h=self.createItemHTML(id,type);
-			if(__v) console.log(id+", "+type);
+			
 			$(".dashboard_main").empty().append(h);
 		});
 		
@@ -194,14 +194,14 @@ var Dashboard={
 		
 		$("#shapesmodule > .page > .shape > a").bind('click',function(e){
 			e.preventDefault();
-			if(__v) console.log($(this).attr('id')+" clicked");
+			
 			if($("a > #"+$(this).attr('id')).length){
 				$("a > #"+$(this).attr('id')).remove();
 			} else {
 				// show the shape
 				var id=$(this).attr("id");
 				var pageurl=$(this).parent().parent(".page").attr('id');
-				if(__v) console.log("sending to displayShape: "+id+' '+pageurl);
+				
 				self.displayShape(id,pageurl);
 			}
 		});

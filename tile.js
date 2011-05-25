@@ -48,6 +48,9 @@ TILE.scale=1;
 	var pluginControl=null; // instance of plugincontroller
 	var json=null; // Global JSON session
 	var _tileBar=null;
+	// Error box
+	var errorbox=null;
+	
 	
 	// used to import data into TILE
 	var importDialog=null;
@@ -236,6 +239,43 @@ TILE.scale=1;
 		
 	};
 	
+	/*
+		Error Dialog Box
+		Displays errors about experimental features. Experimental features and this dialog
+		are unlocked by setting TILE.experimental to true
+	
+	*/
+	var ErrorBox = function(){
+		var self=this;
+		
+		var html='<div id="errorlightbox" class="white_content">'+
+			'<div id="errormessagebox" class="dialog">'+
+			'	<div class="header"><h2 class="">Error Report</h2><h2><a id="errorReportClose" class="btnIconLarge close" href="#"></a></h2></div>'+		
+			'	<div class="body"><div class="option"><h3>To report this error, copy and paste the text in the red box and send it to jdickie@mail.umd.edu</h3>'+
+			'<div id="error_message" class="rederrorbox"><p></p></div>'+
+			'</div></div>'+
+			'</div></div>'+
+		'<div id="errorfadebox" class="black_overlay"></div>';
+		
+		$("body").append(html);
+		
+		$("#errorReportClose").click(function(){
+			$("#errorlightbox").hide();
+			$("#errorfadebox").hide();
+		});
+		
+	};
+	ErrorBox.constructor=ErrorBox;
+	ErrorBox.prototype={
+		displayError:function(text){
+			// show text in rederrorbox div
+			$("#error_message > p").text(text);
+			$("#errorlightbox").show();
+			$("#errorfadebox").show();
+		}
+	};
+	
+	
 	/**
 	Floating Dialog Box
 	author: Tim Bowman
@@ -243,7 +283,7 @@ TILE.scale=1;
 	Usage: 
 	new FloatingDiv();
 	**/
-	FloatingDiv = function(){
+	var FloatingDiv = function(){
 		var self = this;
 		this._color = "#FDFF00";
 		this._labels = [];
@@ -255,7 +295,6 @@ TILE.scale=1;
 	};
 	FloatingDiv.constructor = FloatingDiv;
 	FloatingDiv.prototype = {};
-	
 	$.extend(FloatingDiv.prototype, {
 		// Convert RGB color value to hexidecimal: Returns: Hexidecimal number format '#'+number
 		// rgb : {String} RGB value in (xxx,xxx,xxx) format
@@ -689,11 +728,6 @@ TILE.scale=1;
 		
 	});
 	
-	// TILE.FloatingDiv = FloatingDiv;
-	
-
-	
-
 
 	// NOTE: not using Monomyth
 	var HelpBox=function(args){
@@ -745,10 +779,6 @@ TILE.scale=1;
 	};
 	
 	tile.HelpBox=HelpBox;
-	
-	
-
-
 
 	/**Main Engine **/
 	// Author: Grant Dickie
@@ -788,10 +818,6 @@ TILE.scale=1;
 	// 		
 	// </script>
 	// OR put the code in a .js file and add to the header
-	
-	
-
-
 	var TILE_ENGINE=function(args){
 		// set local ENGINE variable so that PluginController + other local
 		// methods can access this
@@ -826,6 +852,8 @@ TILE.scale=1;
 		_tileBar=new TileToolBar({loc:"tile_toolbar"});
 		// set up plugin controller and listeners for plugin controller
 		pluginControl=new PluginController();
+		// set up error box
+		errorbox=new ErrorBox();
 	};
 	TILE_ENGINE.prototype={
 		// activates the engine - called after loading all 
@@ -873,9 +901,9 @@ TILE.scale=1;
 				
 				
 			},1,self);
-			
-			
-		
+		},
+		showErrorReport:function(text){
+			errorbox.displayError(text);
 		},
 		// adds a string of HTML to the drop-downs in 
 		// save and load dialogs
@@ -1326,7 +1354,6 @@ TILE.scale=1;
 					
 				}
 			}
-			if(__v) console.log("FINAL JSON SENT TO userPrompt for Save: "+JSON.stringify(json));
 			self.savePrompt(json);
 		},
 		// Handles the exportDataToXML Event call
@@ -1373,7 +1400,6 @@ TILE.scale=1;
 					
 				}
 			}
-			if(__v) console.log("FINAL JSON SENT TO userPrompt in ExportXML: "+JSON.stringify(json));
 			// send the JSON object to exportDialog
 			$("body:first").trigger("openExport",json);
 		},
@@ -1894,6 +1920,8 @@ TILE.scale=1;
 			$(".shpButtonHolder").remove();
 			if(!_newActiveObj){
 				self.activeObj=null;
+				// set blank object as active (reset)
+				$("body:first").trigger('newActive',[{id:'none',type:'none'}]);
 				return;
 			}
 			var refs=[];
@@ -1964,7 +1992,6 @@ TILE.scale=1;
 				}
 				
 			}
-			if(__v) console.log('activeObj: '+JSON.stringify(self.activeObj));
 			if(!self.activeObj) return;
 			
 			// set activeItems

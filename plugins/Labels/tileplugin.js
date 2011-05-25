@@ -77,7 +77,7 @@ Label.prototype={
 	
 	},
 	lblSelected:function(e,data){
-		if(__v) console.log(e);
+		
 		var self=e.data.obj;
 		// deactivate other labels and activate this label
 		// $(".labelItem").removeClass("active");
@@ -157,7 +157,7 @@ Label.prototype={
 				// get id for label
 				var id=$(this).attr('id').replace("lbl_","");
 				// $("body:first").trigger("labelSelected",[{type:"labels",id:id}]);
-				if(__v) console.log(id+'  sending out data: ');
+				
 				$("body:first").trigger("labelSelected",[{name:$(this).text(),id:id}]);
 			});
 			self.manifest.push(rec);
@@ -174,7 +174,7 @@ Label.prototype={
 	// ref : {Object} : Referenced object, contains:  id: {String}, type: {String}
 	// label : {Object} : label object to attach ref to
 	_addLinkHandle:function(ref,label){
-		if(__v) console.log("label received this: "+ref);
+		
 		if(ref.type=="labels") return;
 		var self=this;
 		// put focus on labels if no transcript line is selected
@@ -186,7 +186,7 @@ Label.prototype={
 		if(($.inArray(label.id,self.checkIds)<0)){ 
 			
 			self.manifest.push({id:label.id,display:label.name,name:(label.name)?label.name:"Area of interest",refs:[]});
-			if(__v) console.log("Labels adding new label to manifest: "+JSON.stringify(self.manifest[self.manifest.length-1]));
+			
 			self.checkIds.push(label.id);
 			$("<div id=\"lbl_"+label.id+"\" class=\"labelItem\">"+label.name+"</div>").click(function(e){
 				if($(this).hasClass("active")) {
@@ -198,7 +198,7 @@ Label.prototype={
 				// get id for label
 				var id=$(this).attr('id').replace("lbl_","");
 				// $("body:first").trigger("labelSelected",[{type:"labels",id:id}]);
-				if(__v) console.log(id+'  sending out data: ');
+				
 				$("body:first").trigger("labelClick",[{name:$(this).text(),id:id}]);
 			}).appendTo(self.labelList);
 			// $("#lbl_"+id).addClass("active");
@@ -228,7 +228,7 @@ Label.prototype={
 					self.manifest[x].refs=[];
 				}
 				self.manifest[x].refs.push(ref.id);
-				if(__v) console.log("label "+self.manifest[x].id+" has ref: "+self.manifest[x].refs);
+				
 				break;
 			}
 		}
@@ -252,7 +252,7 @@ Label.prototype={
 
 							} else {
 								self.manifest[x].refs=[];
-								if(__v) console.log("deleted ref "+self.manifest[x].refs);
+								
 							}
 						}
 					}
@@ -266,7 +266,7 @@ Label.prototype={
 		// var id=$(".labelItem.active").attr('id').replace("lbl_","");
 		for(x in self.manifest){
 			if(self.manifest[x].id==lbl){
-				if(__v) console.log("manifest has: "+self.manifest[x].id+"  "+self.manifest[x].refs+" need to find: "+ref.id);
+				
 				for(r in self.manifest[x].refs){
 					if(self.manifest[x].refs[r]==ref.id){
 						
@@ -278,7 +278,7 @@ Label.prototype={
 							
 						} else {
 							self.manifest[x].refs=[];
-							if(__v) console.log("deleted ref "+self.manifest[x].refs);
+							
 						}
 					}
 				}
@@ -320,7 +320,7 @@ var LB={
 		$("body").bind("labelSelected",function(e,obj){
 			// send obj to the engine
 			var lbl={id:obj.id,type:'labels',jsonName:'labels'};
-			if(__v) console.log('labelSelected picked up  '+JSON.stringify(lbl));
+			
 			TILE.engine.setActiveObj(lbl);
 		});
 		
@@ -421,7 +421,7 @@ var LB={
 			}
 		}
 		vd=self.findLabelsOnPage(data);
-		if(__v) console.log('found lavels on page for datadded in labels.js: '+JSON.stringify(vd));
+		
 		self.LBL.loadLabels(vd);
 		
 		
@@ -445,7 +445,7 @@ var LB={
 			self.lbls=data;
 			var data=TILE.engine.getJSON();
 			var vd=self.findLabelsOnPage(data);
-			if(__v) console.log('Labels left on the page: '+JSON.stringify(vd));
+			
 			self.LBL.loadLabels(vd);
 		}
 		

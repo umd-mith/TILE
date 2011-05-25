@@ -1,4 +1,14 @@
 /* styles for dialog popup box */
+#errormessagebox.dialog{
+	position:absolute;
+	left:100px;
+	top:45px;
+	width:500px;
+	height:auto;
+	border:1px solid #D5DB97;
+	
+	z-index:1005;
+}
 #savedialog.dialog{
 	position:absolute;
 	left:100px;

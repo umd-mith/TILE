@@ -598,6 +598,11 @@
 			
 			// all lines deactivated
 			$(".line_selected").removeClass("line_selected");
+			
+			if(o.type=='none'){
+				return;
+			}
+			
 			// check to see if activeItems contain ID for 
 			// lines
 			for(var prop in TILE.activeItems){
