@@ -467,13 +467,10 @@ var LB={
 			// 			}
 			// get JSON data for page
 			var data=TILE.engine.getJSON();
-			
 			// find label objects
 			var vd=self.findLabelsOnPage(data);
-			
 			// load into label interface
 			self.LBL.loadLabels(vd);
-			
 		}
 		
 	},
@@ -485,14 +482,11 @@ var LB={
 			return;
 		}
 		
-		
 		// deactivate labels
 		$("#labelList > .labelItem").removeClass('active');
 		if($("#labelList > #"+obj.id).length){
 			$("#labelList > #"+obj.id).addClass("active");
 		}
-		
-		
 	},
 	// finds labels referenced in engine JSON
 	// returns array of active labels

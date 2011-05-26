@@ -687,9 +687,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				$("#raphworkspace_").width($("#azcontentarea > .az.inner").innerWidth());
 				diff=$("#azcontentarea > .az.inner > .toolbar").innerHeight();
 				$("#raphworkspace_").height($("#azcontentarea > .az.inner").innerHeight()-diff);
-				
-				// figure out offset
-				
 			}
 		});
 	
@@ -1486,8 +1483,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					//$("#srcImageForCanvas").height(1.25*parseFloat($("#srcImageForCanvas").height()));
 					$(".vd-container").width(self.zoomIF*parseFloat($(".vd-container").width()));
 					$(".vd-container").height(self.zoomIF*parseFloat($(".vd-container").height()));
-					//zooming in
-					self.drawTool.setScale(self.zoomIF); 
+					
 					if($(".shpButtonHolder").length){
 						// also change positon of .shpButtonHolder
 						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*self.zoomIF)+'px');
@@ -1496,7 +1492,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					// set scales
 					self._imgScale*=self.zoomIF;
 					TILE.scale*=self.zoomIF;
-					
+					//zooming in
+					self.drawTool.setScale(self._imgScale);
 					for(var x=0;x<self.manifest.length;x++){
 						var shape=self.manifest[x];
 						if(shape._scale!=self._imgScale){
@@ -1513,8 +1510,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					//$("#srcImageForCanvas").height(0.75*parseFloat($("#srcImageForCanvas").height()));
 					$(".vd-container").width(self.zoomDF*parseFloat($(".vd-container").width()));
 					$(".vd-container").height(self.zoomDF*parseFloat($(".vd-container").height()));
-					//zooming out
-					self.drawTool.setScale(self.zoomDF); 
+				 
 					// also change positon of .shpButtonHolder
 					if($(".shpButtonHolder").length){
 						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*self.zoomDF)+'px');
@@ -1523,7 +1519,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					// set scales
 					self._imgScale*=self.zoomDF;
 					TILE.scale*=self.zoomDF;
-					
+						//zooming out
+						self.drawTool.setScale(self._imgScale);
 					for(var x=0;x<self.manifest.length;x++){
 						var shape=self.manifest[x];
 						if(shape._scale!=TILE.scale){
@@ -1839,8 +1836,7 @@ var IT={
 			// link with activeObj, if any
 			if(TILE.engine.linkWithActiveObj(data)){
 				
-			} else {	
-				
+			} else {
 				self.itagger.raphael.setActiveShape(shape);
 				// set up active window
 				TILE.engine.attachMetadataDialog(data,'#selBB');
