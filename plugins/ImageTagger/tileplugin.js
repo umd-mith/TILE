@@ -376,8 +376,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// this.$super(args);
 			this.DOM=$("#"+args.loc);
 			var self=this;
-			
-			
 			//Define Area elements
 			//Rectangle
 			this.rect=$("#rect");
@@ -1948,6 +1946,12 @@ var IT={
 			$("body").live("newJSON",{obj:self},self.newJSONHandle);
 			$("body").live("newPage",{obj:self},self.newPageHandle);
 			$("body").live("dataUpdated",{obj:self},self.dataUpdatedHandle);
+			
+			// changeShapeType handle
+			$("body").live("changeShapeType",function(e){
+				$(".ui-dialog").hide();
+				$(".shpButtonHolder").remove();
+			});
 			
 			// check to see if data has been loaded
 			var j=TILE.engine.getJSON(true);

@@ -217,8 +217,9 @@
 			// turn the background-color of this class to 
 			// this._color  
 			var self = this;
-			
+			if(__v) console.log('checked id for JSONobj'+JSONobj.id);
 			if (this._checkForID(JSONobj.id)) {	
+				if(__v) console.log('checked id for JSONobj'+JSONobj.id);
 				this._selections[this._selections.length] = JSONobj;  // add the selObj to the _selections holder
 				this.addHighlightMarkers(JSONobj);
 				// NOT ADDING COLOR SELECTOR - Can be accomplished through FloatingDiv
@@ -496,7 +497,7 @@ var TS={
 		// getText button
 		var getHLite=function(e){
 			e.preventDefault();
-		
+			
 			$(".line_selected").removeClass("line_selected");
 			$(".menuitem > ul > li > .btnIconLarge").removeClass('active');
 			$(this).addClass("active");
@@ -704,13 +705,17 @@ var TS={
 		});
 
 		self.textsel.removeHighlightMarkers();
-
+		
 		var sel=self.textsel.getSelectedText();
+		
 		if(sel==null) return;
 		// make sure it's not highlighting the whole page
-		if(!(/div\#line\_/.test(sel.StartParent))){
+		if(!(/div\#line/.test(sel.StartParent))){
+			if(__v) console.log('didnt pass test '+sel.StartParent);
 			self.textsel.clearSelections();
-
+			if(TILE.experimental){
+				TILE.engine.showError('Oh no');
+			}
 			return;
 		}
 
@@ -730,6 +735,7 @@ var TS={
 		var o={jsonName:TILE.url,id:sel.id,type:"selections",display:"..."+$(sel.StartParent).text().substring(0,10)+"...",obj:sel};
 		// add to manifest
 		self.manifest.push(o);
+		if(__v) console.log('returned from getSelectedText and parsed: '+JSON.stringify(o));
 		return o;
 		
 		
@@ -749,7 +755,6 @@ var TS={
 		if($("#deleteHLite"+id).length){
 			return;
 		}
-		
 		// find span tag and attach buttons
 		if($("span."+id).length>1){
 			$("<span id=\"deleteHLite"+id+"\" class=\"button\">Delete</span>").appendTo($("span."+id+":eq("+($("span."+id).length-1)+")"));
@@ -761,7 +766,6 @@ var TS={
 			e.stopPropagation();
 			$(this).parent().removeClass("active");
 			
-			if(__v) console.log("deleting highlight: "+id);
 			$("span."+id+" > div").remove();
 			$("span."+id+" > .button").remove();
 			self.textsel.removeHighlightMarkers();
