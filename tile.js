@@ -588,8 +588,8 @@ TILE.scale=1;
 			for(var prop in lbls){
 				
 				var name="";
-				if(lbls[prop].name){
-					name=lbls[prop].name;
+				if(lbls[prop].obj.name){
+					name=lbls[prop].obj.name;
 				} else if($("#"+lbls[prop].id).length){
 					name=$("#"+lbls[prop].id).text().substring(0,10)+"...";
 				} else {
@@ -929,13 +929,6 @@ TILE.scale=1;
 			// figure out src path
 			var src='plugins/'+name+'/tileplugin.js';
 			self.plugins.push(src);
-			// var script='<script src="'+src+'" type="text/javascript"></script>';
-			// 			// attach script to header
-			// 			$("head").append(script);
-			
-			// call pluginControl to init the tool
-			
-			// pluginControl.initTool(obj);
 		},
 		// takes a description for a mode
 		// and creates a new mode object
@@ -1010,7 +1003,6 @@ TILE.scale=1;
 		insertModeButtons:function(html,section,name){
 			var self=this;
 			var mode=null;
-			if(__v) console.log("inserting mode buttons "+section+" "+name);
 			// if mode not yet intialised, return 
 			for(var prop in pluginModes){
 				if(pluginModes[prop].name==name){
@@ -1323,9 +1315,7 @@ TILE.scale=1;
 			// if(!self.save) self.save=new Save({loc:"azglobalmenu"});
 			var exfest=[];
 			var curl=null;
-
-		
-		
+    
 			//merge manifest data with json data
 			for(var m in self.manifest){
 				// initialize all variables that don't exist in the json

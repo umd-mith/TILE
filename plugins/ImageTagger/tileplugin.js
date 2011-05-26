@@ -1063,21 +1063,24 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				self.drawTool.deleteShape(foundID);
 				self.deleteShape(foundID);
 			});
-			$("div[id^='approve_']").live('mousedown',function(e){
-				var uid=$(this).attr("id").replace("approve_","");
 			
-				self._approveItemHandle(uid);
-				$(".shpButtonHolder > #approveAllButton").remove();
-				$("div[id^='approve_']").remove();
-				$("#approveAllButton").remove();
-			});
-			$(".shpButtonHolder > #approveAllButton").live('click',function(e){
-				$(".shpButtonHolder > #approveAllButton").remove();
-				$("div[id^='approve_']").remove();
-				
-				self._approveAllItemsHandle();
-				
-			});
+			// Button behaviors for Approving or deleting Auto-recognized lines
+			// DEPRECATED
+			// $("div[id^='approve_']").live('mousedown',function(e){
+			// 				var uid=$(this).attr("id").replace("approve_","");
+			// 			
+			// 				self._approveItemHandle(uid);
+			// 				$(".shpButtonHolder > #approveAllButton").remove();
+			// 				$("div[id^='approve_']").remove();
+			// 				$("#approveAllButton").remove();
+			// 			});
+			// 			$(".shpButtonHolder > #approveAllButton").live('click',function(e){
+			// 				$(".shpButtonHolder > #approveAllButton").remove();
+			// 				$("div[id^='approve_']").remove();
+			// 				
+			// 				self._approveAllItemsHandle();
+			// 				
+			// 			});
 			
 			// adjust width
 			$("#raphworkspace_").width($("#azcontentarea > .az.inner").innerWidth());

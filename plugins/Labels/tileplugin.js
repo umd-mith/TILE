@@ -447,6 +447,33 @@ var LB={
 			var vd=self.findLabelsOnPage(data);
 			
 			self.LBL.loadLabels(vd);
+		} else {
+			// find the labels inside the non-label 
+			// object
+			// var data=[];
+			// 			var lblids=[];
+			// 			for(var prop in obj.obj){
+			// 				if(($.isArray(obj.obj[prop]))&&(/labels/.test(prop))){
+			// 					for(var x in obj.obj[prop]){
+			// 						lblids.push(obj.obj[prop][x]);
+			// 					}
+			// 				}
+			// 			}
+			// 			// make sure all ids are present in self.lbls
+			// 			for(var id in lblids){
+			// 				if($.inArray(lblids[id],self.lbls)<0){
+			// 					self.lbls.push(lblids[id]);
+			// 				}
+			// 			}
+			// get JSON data for page
+			var data=TILE.engine.getJSON();
+			
+			// find label objects
+			var vd=self.findLabelsOnPage(data);
+			
+			// load into label interface
+			self.LBL.loadLabels(vd);
+			
 		}
 		
 	},
