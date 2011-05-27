@@ -344,7 +344,7 @@ var LB={
 		$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
 		$("body").live("newActive",{obj:self},self.activeObjHandle);
 		$("body").live("dataDeleted",{obj:self},self.dataDeletedHandle);
-		$().live("dataLinked",{obj:self},self.dataLinkedHandle);
+		$("body").live("dataLinked",{obj:self},self.dataLinkedHandle);
 		// check to see if json data is already loaded
 		var data=TILE.engine.getJSON(true);
 		if(data){
@@ -411,13 +411,9 @@ var LB={
 		}
 		
 		var self=e.data.obj;
+		var data=TILE.engine.getJSON();
 		vd=self.findLabelsOnPage(data);
 		self.LBL.loadLabels(vd);
-		if(newLbls.length){
-			TILE.engine.insertTags(newLbls);
-		}
-		
-		
 	},
 	dataAddedHandle:function(e){
 		var self=e.data.obj;
