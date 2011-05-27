@@ -344,7 +344,7 @@ var LB={
 		$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
 		$("body").live("newActive",{obj:self},self.activeObjHandle);
 		$("body").live("dataDeleted",{obj:self},self.dataDeletedHandle);
-		
+		$().live("dataLinked",{obj:self},self.dataLinkedHandle);
 		// check to see if json data is already loaded
 		var data=TILE.engine.getJSON(true);
 		if(data){
@@ -401,6 +401,23 @@ var LB={
 		if(newLbls.length){
 			TILE.engine.insertTags(newLbls);
 		}
+	},
+	// handles whenever two objects are attached 
+	// within the JSON
+	dataLinkedHandle:function(e,args){
+		if((args[0].type!='labels')&&(args[1].type!='labels')){
+			// no labels attached - no need to update
+			return;
+		}
+		
+		var self=e.data.obj;
+		vd=self.findLabelsOnPage(data);
+		self.LBL.loadLabels(vd);
+		if(newLbls.length){
+			TILE.engine.insertTags(newLbls);
+		}
+		
+		
 	},
 	dataAddedHandle:function(e){
 		var self=e.data.obj;

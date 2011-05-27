@@ -669,7 +669,6 @@ TILE.scale=1;
 			for(var r in refs){
 				if(!refs[r]) continue;
 				setTimeout(function(s,r){
-					
 					TILE.engine.linkObjects(s,r);
 				},1,self._curLink,refs[r]);
 				
@@ -2327,7 +2326,7 @@ TILE.scale=1;
 				return;
 			}
 			// update the activeItems
-			self.updateActiveItems([obj]);
+			// self.updateActiveItems([obj]);
 			
 			// notify plugins of change
 			if(!obj.obj){
