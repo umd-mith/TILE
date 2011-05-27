@@ -294,7 +294,13 @@
 			/*
 			 * adds highlight markers for new selections
 			 */
-			 
+			if(!JSONobj){
+				if(TILE.experimental){
+					TILE.engine.displayError("Error reading selection object.");
+				}
+				
+				return;
+			} 
 			var self, win, addTo, start, end, range, startSide, endSide, ancestor, flag, done, node, tmp;
 							
 			self = this;
@@ -497,7 +503,8 @@ var TS={
 		// getText button
 		var getHLite=function(e){
 			e.preventDefault();
-			
+			$(".ui-dialog").hide();
+			$(".shpButtonHolder").remove();
 			$(".line_selected").removeClass("line_selected");
 			$(".menuitem > ul > li > .btnIconLarge").removeClass('active');
 			$(this).addClass("active");
@@ -578,7 +585,8 @@ var TS={
 		$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
 		$("body").live("newActive",{obj:self},self.newActiveHandle);
 		$("body").live("newJSON",{obj:self},self.newJSONHandle);
-		$("body").live("newPage",{obj:self},self.newPageHandle);
+		$("body").live("newPage",{obj:self},self.newPageHandle);		
+		$("body").live("dataUpdated",{obj:self},self._objChangeHandle);
 		$("body").live('deleteSel',function(e,sel){
 			// delete the selection in engine
 			TILE.engine.deleteObj(sel);
@@ -797,30 +805,30 @@ var TS={
 		return [h,handle];
 	},
 	// e : {Event}
-	// changes : {Object} - {value: {String}, type: {String}}
-	_objChangeHandle:function(e,changes){
-		var ref=changes.obj;
-		if(!(ref)||(ref.type!='selections')) return;
+	// obj : {Object} - TILE object
+	_objChangeHandle:function(e,obj){
+		
+		if(!(obj)||(obj.type!='selections')) return;
 		var self=e.data.obj;
-		if(changes.type=='color'){
-			// change passed reference's color
-			for(var url in self.manifest){
-				for(var sel in self.manifest){
-					if(self.manifest[sel].id==ref.id){
-						self.manifest[sel].color=changes.value;
-						// change if on display
-						$("span[class^='anno']").each(function(i,o){
-							if($(o).attr('class')==ref.id){
-								$(o).css('background-color',changes.value);
-							}
-						});
-						return;
-						break;
-					}
+		
+		// change passed reference's color
+		for(var url in self.manifest){
+			for(var sel in self.manifest){
+				if(self.manifest[sel].id==obj.id){
+					self.manifest[sel]=obj.obj;
+					// change if on display
+					$("span[class^='anno']").each(function(i,o){
+						if($(o).attr('class')==obj.id){
+							$(o).css('background-color',obj.obj.color);
+						}
+					});
+					return;
+					break;
 				}
 			}
-			
 		}
+		
+	
 	},
 	// e : {event}
 	// data : {Object}

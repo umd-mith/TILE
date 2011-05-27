@@ -501,6 +501,9 @@
 			
 			var clickTrans=function(e){
 				e.preventDefault();
+				$(".ui-dialog").hide();
+				$(".shpButtonHolder").remove();
+				
 				if($(this).hasClass('active')) return;
 				
 				$(".menuitem > ul > li > .btnIconLarge").removeClass('active');

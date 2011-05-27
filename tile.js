@@ -588,14 +588,14 @@ TILE.scale=1;
 			for(var prop in lbls){
 				
 				var name="";
-				if(lbls[prop].obj.name){
+				if(lbls[prop].obj&&lbls[prop].obj.name){
 					name=lbls[prop].obj.name;
 				} else if($("#"+lbls[prop].id).length){
 					name=$("#"+lbls[prop].id).text().substring(0,10)+"...";
 				} else {
 					name=lbls[prop].type+':'+lbls[prop].id;
 				}
-				if(__v) console.log("adding "+JSON.stringify(lbls[prop])+" to html");
+			
 				html+="<div id=\""+lbls[prop].id+"\" class=\"labelItem\">"+name+"<span id=\"del_"+lbls[prop].id+"\" class=\"button shape delete formLink\">X</span></div>";
 				
 			}
@@ -669,6 +669,7 @@ TILE.scale=1;
 			for(var r in refs){
 				if(!refs[r]) continue;
 				setTimeout(function(s,r){
+					
 					TILE.engine.linkObjects(s,r);
 				},1,self._curLink,refs[r]);
 				
@@ -1741,7 +1742,7 @@ TILE.scale=1;
 			if(link){
 				// get the object from JSON
 				var obj=self.findRealObj(link.id,link.type);
-				if(__v) console.log('found obj for colorchange: '+obj);
+				if(__v) console.log('found obj for colorchange: '+JSON.stringify(obj));
 				
 				// change its color
 				obj.color=color;
