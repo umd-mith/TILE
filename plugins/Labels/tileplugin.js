@@ -394,9 +394,6 @@ var LB={
 		}
 		vd=self.findLabelsOnPage(data);
 		
-		// for(var d in self.lbls){
-		// 		vd.push(self.lbls[d]);
-		// 	}
 		self.LBL.loadLabels(vd);
 		if(newLbls.length){
 			TILE.engine.insertTags(newLbls);

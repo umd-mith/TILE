@@ -840,7 +840,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 						var shape=self.manifest[x];
 						if(shape._scale!=TILE.scale){
 							for(var u in shape.posInfo){
-								var dx=(shape.posInfo[u]*TILE.scale)*shape._scale;
+								var dx=(shape.posInfo[u]*TILE.scale)/shape._scale;
 								shape.posInfo[u]=dx;
 							}
 							shape._scale=TILE.scale;
