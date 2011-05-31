@@ -2373,20 +2373,7 @@ TILE.scale=1;
 						f=true;
 						break;
 					} 
-					// else {
-					// 						// check object - if it's not 
-					// 						// connected to something, then
-					// 						// get rid of it
-					// 						var gut=false;
-					// 						for(var prop in TILE.activeItems[v]){
-					// 							if($.isArray(TILE.activeItems[v][prop])){
-					// 								gut=true;
-					// 							}
-					// 						}
-					// 						if(gut){
-					// 							okItems.push(TILE.activeItems[v]);
-					// 						}
-					// 					}
+					
 				}
 				if(!f){
 					TILE.activeItems.push(args[i]);
