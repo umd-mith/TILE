@@ -30,7 +30,7 @@
 // Large, global variable that 
 // stores data for other plugins 
 var TILE=[];
-TILE.experimental=false;
+TILE.experimental=true;
 TILE.activeItems=[];
 TILE.url='';
 // ENGINE allows access to global API
@@ -67,7 +67,6 @@ TILE.scale=1;
 		$("#loadlight").show();
 		$("#loadDialogSplash").show();
 		$("#loadblack").show();
-		if(__v) console.log("showing load");
 	};
 	
 	var removeLoad=function(){
@@ -386,7 +385,6 @@ TILE.scale=1;
 				$('#btnDeleteLabel').css('visibility','visible');
 
 				// only allow up to 5 labels
-				if(__v) console.log($("li#formField"+newNum).html());
 				if (newNum == 5) { $('#btnAddLabel').css('visibility','hidden'); } 
 				
 				// add Autocomplete to the new Element	
@@ -1335,8 +1333,7 @@ TILE.scale=1;
 					
 				} else if((!(/pages/.test(m)))&&(!(/^http|\/|\./.test(m)))){
 					json[m]=[];
-					if(__v) console.log("processing non-page item: "+m);
-					if(__v) console.log("non-page m: "+JSON.stringify(self.manifest[m]));
+				
 					// var temp=$.extend(true,{},self.manifest[m]);
 					for(var o in self.manifest[m]){
 						json[m].push(self.manifest[m][o]);
@@ -1372,18 +1369,15 @@ TILE.scale=1;
 					for(var p in json['pages']){
 						// page p
 						if(json['pages'][p].url==m){
-							if(__v) console.log("inserting url "+m+" into "+JSON.stringify(json['pages'][p]));
 							var temp=$.extend(true,{},self.manifest[m]);
 							// if(!self.json[m][p]) self.json[m][p]=[];
 							json['pages'][p]=temp;
-							if(__v) console.log("self.json[pages]"+p+"  now: "+JSON.stringify(json['pages'][p]));
 							break;
 						}
 					}
 				} else if((!(/^http|\/|\./.test(m)))&&(!(/pages/.test(m)))){
 					if(!json[m]) json[m]=[];
-					if(__v) console.log("processing non-page item: "+m);
-					if(__v) console.log("non-page m: "+JSON.stringify(self.manifest[m]));
+					
 					for(var o in self.manifest[m]){
 						json[m].push(self.manifest[m][o]);
 					}
@@ -1667,7 +1661,7 @@ TILE.scale=1;
 			$(".az.globalmenu > .globalbuttons > .modeitems > div a").removeClass('active');
 			// show button as active
 			$(".az.globalmenu > .globalbuttons > .modeitems > div > a:contains("+self.name+")").addClass("active");
-			if(__v) console.log('alerting set activecall: '+self.activeCall);
+		
 			// alert attached plugins 
 			if(!self.setUp){
 				self.setUp=true;
@@ -1741,7 +1735,6 @@ TILE.scale=1;
 			if(link){
 				// get the object from JSON
 				var obj=self.findRealObj(link.id,link.type);
-				if(__v) console.log('found obj for colorchange: '+JSON.stringify(obj));
 				
 				// change its color
 				obj.color=color;
@@ -1857,8 +1850,7 @@ TILE.scale=1;
 						return;
 					}
 					var ct=self.toolSet[toolIds[t]];
-					if(__v) console.log('calling start for: '+ct.id);
-					
+				
 					// Running the tool plugin constructor
 					ct.start();
 					// if(ct.activeCall){
@@ -2253,7 +2245,9 @@ TILE.scale=1;
 				}
 				// create link
 				var newo=self.parseLink(o1,o2);
-				
+				if(!newo){
+					TILE.engine.displayError('Problem occured: Line 2249 :: '+JSON.stringify(o1));
+				}
 				o1=newo[0];
 				o2=newo[1];
 				// o1=self.findObj(o1.id,o1.type);
@@ -2300,7 +2294,6 @@ TILE.scale=1;
 				obj1.obj=o;
 				mouseNormal();
 			}
-			if(__v) console.log("linking with active object: "+JSON.stringify(self.activeObj));
 			var newo=self.linkObjects(self.activeObj,obj1);
 			$("body:first").trigger("dataLinked",[newo]);
 			return true;
@@ -2768,7 +2761,7 @@ TILE.scale=1;
 			// send to import script
 			// update
 			$("#inv_SaveProgress_Form > #uploadData").val(JSON.stringify(deepcopy(json)));
-			$("#inv_SaveProgress_Form > #uploadData2").val(TILE.content );
+			$("#inv_SaveProgress_Form > #uploadData2").val(TILE.content);
 			$("#inv_SaveProgress_Form > #uploadFileName").val($("#savedialog > .body > .option > #save_filename").val());
 		
 			// submit
@@ -2973,7 +2966,7 @@ TILE.scale=1;
 		// the select element
 		addFormats:function(str){
 			var self=this;
-			if(__v) console.log('file formats loaded: '+str);
+		
 			$("#fileFormatFileURL").append(str);
 			$("#fileFormatFileLocal").append(str);
 		},
@@ -3100,7 +3093,7 @@ TILE.scale=1;
 			
 			// listen for when mode buttons become unactive
 			$("body").bind("bModeUnactive",function(e,id){
-				if(__v) console.log('modeList: '+self.modeList);
+				
 				if(!self.modeList[0]) return;
 				// set back to default
 				$("#"+self.modeList[0]).addClass("active");

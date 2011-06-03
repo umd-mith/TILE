@@ -52,9 +52,10 @@ class CoreData
         $data['tile']['pages'] = array();
         
 		// If there is saved TILE XML data, construct pages from this first
-		if(isset($this -> containers -> tile)){
-			$this->reconcileSavedData();
-		}
+		// if(isset($this -> containers -> tile)){
+		// 		$this->reconcileSavedData();
+		// 		return;
+		// 	}
 
         foreach($this -> containers as $container) {
             if(!$container -> is_empty()) {

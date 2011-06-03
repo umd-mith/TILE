@@ -432,15 +432,6 @@
                 self.processLines(d, rw, rh, rx, ry);
 
             });
-
-            // $.ajax({
-            // 				url:rest,
-            // 				type:'get',
-            // 				dataType:'jsonp',
-            // 				success:function(d){
-            // 					if(__v) console.log("data returned by OCR: "+d);
-            // 				}
-            // 			});
         },
         // take JSON data returned by the
         // OCR tool and wrap it up

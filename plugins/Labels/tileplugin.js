@@ -402,6 +402,7 @@ var LB={
 	// handles whenever two objects are attached 
 	// within the JSON
 	dataLinkedHandle:function(e,args){
+		if(!args) return;
 		if((args[0].type!='labels')&&(args[1].type!='labels')){
 			// no labels attached - no need to update
 			return;

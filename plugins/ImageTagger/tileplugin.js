@@ -1022,7 +1022,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			self.drawTool._drawMode='r';
 			// listener for when a selBB is dragged
 			$("body").live("drag",function(e,ui){
-				// if(__v) console.log($(ui.helper).attr('id'));
 				if(!ui) return;
 				if($(ui.helper).attr('id')=="selBB"){
 					// set left and top properties - can't be above the fold of the canvas
@@ -1830,7 +1829,6 @@ var IT={
 			self.activeShape=data.obj.id;
 			// send directly to engine
 			TILE.engine.insertData(data);
-		
 			// link with activeObj, if any
 			if(TILE.engine.linkWithActiveObj(data)){
 				
@@ -1839,9 +1837,6 @@ var IT={
 				// set up active window
 				TILE.engine.attachMetadataDialog(data,'#selBB');
 			}
-			
-			// put on dashboard
-			$("body:first").trigger('displayOnDashboard',[{mode:'Image Annotation',html:''}]);
 		};
 		// handles the showImageList call
 		var showImageListHandle=function(e){

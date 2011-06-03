@@ -7,7 +7,7 @@
 
 function decode_format($txt,$format){
 	include_once('coredata.php');
-	
+	$data=null;
 	if(preg_match('/auto/i',$format)){
 		// auto-select - try to detect by file affix
 		// JSON has {} at beginning and end
@@ -24,9 +24,16 @@ function decode_format($txt,$format){
 		} else if(preg_match('/<TEI/',$txt)){
 			include_once('xml_stream_import.php');
 			include_once('tei_p5_import.php');
-
-			$parser=new TEIP5Import($txt);
-			$data=$parser->to_json();
+			
+			if(preg_match('/<tile/',$txt)){
+				$parser=new TEIP5Import($txt,null,true);
+				$data=$parser->to_json();
+			} else {
+				$parser=new TEIP5Import($txt);
+				$data=$parser->to_json();
+			}
+			
+			
 			return $data;
 		} else {
 			echo "ERROR";

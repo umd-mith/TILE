@@ -29,10 +29,11 @@ class XMLStreamImport extends CoreData
 		
 		// if passed tile element, then parse
 		if(isset($tile)&&(!is_null($tile))){
-			$this->json = json_decode($tile); 
-			// NOTE : De-coding content due to work-around
-			// for browser HTML resolving special chars
-			// $content=base64_decode($content);
+			if(is_array($tile)){
+				$this->json=$tile;
+			} else{
+				$this->json = json_decode($tile); 
+			}
 		}
 		
 		$this -> setup_parser();
