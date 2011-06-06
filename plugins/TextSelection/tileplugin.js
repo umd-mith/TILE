@@ -217,9 +217,8 @@
 			// turn the background-color of this class to 
 			// this._color  
 			var self = this;
-			if(__v) console.log('checked id for JSONobj'+JSONobj.id);
+			
 			if (this._checkForID(JSONobj.id)) {	
-				if(__v) console.log('checked id for JSONobj'+JSONobj.id);
 				this._selections[this._selections.length] = JSONobj;  // add the selObj to the _selections holder
 				this.addHighlightMarkers(JSONobj);
 				// NOT ADDING COLOR SELECTOR - Can be accomplished through FloatingDiv
@@ -294,6 +293,8 @@
 			/*
 			 * adds highlight markers for new selections
 			 */
+			
+			if(__v) console.log('highlights: '+JSONobj);
 			if(!JSONobj){
 				if(TILE.experimental){
 					TILE.engine.displayError("Error reading selection object.");
@@ -743,7 +744,6 @@ var TS={
 		var o={jsonName:TILE.url,id:sel.id,type:"selections",display:"..."+$(sel.StartParent).text().substring(0,10)+"...",obj:sel};
 		// add to manifest
 		self.manifest.push(o);
-		if(__v) console.log('returned from getSelectedText and parsed: '+JSON.stringify(o));
 		return o;
 		
 		
