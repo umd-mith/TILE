@@ -294,7 +294,6 @@
 			 * adds highlight markers for new selections
 			 */
 			
-			if(__v) console.log('highlights: '+JSONobj);
 			if(!JSONobj){
 				if(TILE.experimental){
 					TILE.engine.displayError("Error reading selection object.");
@@ -644,58 +643,69 @@ var TS={
 	},
 	dataAddedHandle:function(e,o){
 		var self=e.data.obj;
+		if(o.type!="selections") return;
 		var data=[];
 		$("span[class^='anno']").each(function(e){
 			$("#logbar_list > .line > .button").remove();
 			$("#logbar_list > .line > div").remove();
 			
 		});
-		self.textsel.removeHighlightMarkers();
+		// self.textsel.removeHighlightMarkers();
 		
 		// check if selections are active
-		for(var x in TILE.activeItems){
-			if(!TILE.activeItems[x]) continue;
-			var id=TILE.activeItems[x].id;
-			// if already visible, don't add to stack
-			if($("span."+id).length) continue;
-			for(var item in self.manifest){
-				if(self.manifest[item].id==id){
-					data.push(self.manifest[item].obj);
-				}
-			}
-		}
+		// for(var x in TILE.activeItems){
+		// 		if(!TILE.activeItems[x]) continue;
+		// 		var id=TILE.activeItems[x].id;
+		// 		// if already visible, don't add to stack
+		// 		if($("span."+id).length) continue;
+		// 		for(var item in self.manifest){
+		// 			if(self.manifest[item].id==id){
+		// 				data.push(self.manifest[item].obj);
+		// 			}
+		// 		}
+		// 	}
 		// nothing found - stop here
 		if(data.length==0) return;
 		self._loadItemsHandle(data);
 	},
 	newActiveHandle:function(e,o){
 		var self=e.data.obj;
-		var data=[];
-		$("span[class^='anno']").each(function(e){
-				$("#logbar_list > .line > .button").remove();
-				$("#logbar_list > .line > div").remove();
+		if(o.type=='selections'){
+			// remove all markers
+			$("span[class^='anno']").each(function(e){
+					$("#logbar_list > .line > .button").remove();
+					$("#logbar_list > .line > div").remove();
+
+			});
+			self.textsel.removeHighlightMarkers();
 			
-		});
-		self.textsel.removeHighlightMarkers();
-		var data=[];
-		// check if selections are active
-		for(var x in TILE.activeItems){
-			if(!TILE.activeItems[x]||(TILE.activeItems[x].type!='selections')) continue;
-			var id=TILE.activeItems[x].id;
-			// if already visible, don't add to stack
-			if($("span."+id).length) continue;
-			for(var item in self.manifest){
-				if(self.manifest[item].id==id){
+			self._loadItemsHandle([o.obj]);
+		} else {
+			// remove all markers
+			$("span[class^='anno']").each(function(e){
+					$("#logbar_list > .line > .button").remove();
+					$("#logbar_list > .line > div").remove();
+
+			});
+			var data=[];
+			self.textsel.removeHighlightMarkers();
+			// check for selections within object
+			for(var prop in o){
+				if(($.isArray(o[prop]))&&(prop=='selections')){
 					
-					data.push(self.manifest[item].obj);
+					for(var id in o[prop]){
+						for(var item in self.manifest){
+							if(self.manifest[item].id==id){
+								data.push(self.manifest[item].obj);
+							}
+						}
+					}
+					
 				}
 			}
+			
+			if(data.length) self._loadItemsHandle([o.obj]);
 		}
-		
-		// if nothing found - stop here
-		if(data.length==0) return;
-	
-		if(data.length>0) self._loadItemsHandle(data);
 	},
 	// creates a TILE standard object and returns it
 	createHighlight:function(){
@@ -720,17 +730,15 @@ var TS={
 		if(sel==null) return;
 		// make sure it's not highlighting the whole page
 		if(!(/div\#line/.test(sel.StartParent))){
-			if(__v) console.log('didnt pass test '+sel.StartParent);
 			self.textsel.clearSelections();
 			if(TILE.experimental){
-				TILE.engine.showError('Oh no');
+				TILE.engine.showError('Error drawing selection object. Startnode invalid.');
 			}
 			return;
 		}
 
 		// show on screen
 		self.textsel.addSelection(sel);
-		
 		
 		// find span tag and attach buttons
 		self.attachButtons(sel);
