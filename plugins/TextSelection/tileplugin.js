@@ -340,14 +340,14 @@
 			
 			//console.log(start);
 			//console.log(end);
-						
-				/* set range for obj */
-				var sNode = start[0].childNodes.item(JSONobj.StartChild);
-				var eNode = end[0].childNodes.item(JSONobj.EndChild);
-				
-				range = document.createRange(); // create new range from selObj
-				range.setStart(sNode, JSONobj.StartOffset);
-				range.setEnd(eNode, JSONobj.EndOffset);
+					
+			/* set range for obj */
+			var sNode = start[0].childNodes.item(JSONobj.StartChild);
+			var eNode = end[0].childNodes.item(JSONobj.EndChild);
+			
+			range = document.createRange(); // create new range from selObj
+			range.setStart(sNode, JSONobj.StartOffset);
+			range.setEnd(eNode, JSONobj.EndOffset);
 			
 			
 			startSide = range.startContainer;
@@ -671,31 +671,18 @@ var TS={
 	newActiveHandle:function(e,o){
 		var self=e.data.obj;
 		if(o.type=='selections'){
-			// remove all markers
-			$("span[class^='anno']").each(function(e){
-					$("#logbar_list > .line > .button").remove();
-					$("#logbar_list > .line > div").remove();
-
-			});
-			self.textsel.removeHighlightMarkers();
-			
+			// load the passed selection object
 			self._loadItemsHandle([o.obj]);
 		} else {
-			// remove all markers
-			$("span[class^='anno']").each(function(e){
-					$("#logbar_list > .line > .button").remove();
-					$("#logbar_list > .line > div").remove();
-
-			});
+		
 			var data=[];
-			self.textsel.removeHighlightMarkers();
 			// check for selections within object
-			for(var prop in o){
-				if(($.isArray(o[prop]))&&(prop=='selections')){
+			for(var prop in o.obj){
+				if(($.isArray(o.obj[prop]))&&(prop=='selections')){
 					
-					for(var id in o[prop]){
+					for(var id in o.obj[prop]){
 						for(var item in self.manifest){
-							if(self.manifest[item].id==id){
+							if(self.manifest[item].id==o.obj[prop]){
 								data.push(self.manifest[item].obj);
 							}
 						}
@@ -704,7 +691,7 @@ var TS={
 				}
 			}
 			
-			if(data.length) self._loadItemsHandle([o.obj]);
+			if(data.length) self._loadItemsHandle(data);
 		}
 	},
 	// creates a TILE standard object and returns it
