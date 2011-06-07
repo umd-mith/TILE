@@ -818,18 +818,18 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 							ow*=self.zoomDF;
 							oh*=self.zoomDF;
 							TILE.scale*=self.zoomDF;
-						
 						}
-						for(var x=0;x<self.manifest.length;x++){
-							var shape=self.manifest[x];
-							if(shape._scale!=TILE.scale){
-								for(var u in shape.posInfo){
-									var dx=(shape.posInfo[u]*TILE.scale)*shape._scale;
-									shape.posInfo[u]=dx;
-								}
-								shape._scale=TILE.scale;
-							} 
-						}
+					
+					}
+					for(var x=0;x<self.manifest.length;x++){
+						var shape=self.manifest[x];
+						if(shape._scale!=TILE.scale){
+							for(var u in shape.posInfo){
+								var dx=(shape.posInfo[u]*TILE.scale)/shape._scale;
+								shape.posInfo[u]=dx;
+							}
+							shape._scale=TILE.scale;
+						} 
 					}
 				} else {
 					TILE.scale=1;
@@ -863,7 +863,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					// $(".vd-container").height(TILE.scale*parseFloat($(".vd-container").height()));
 				
 					//zooming in
-					self.drawTool.scale(TILE.scale);
+					self.drawTool.setScale(TILE.scale);
 					
 					if($(".shpButtonHolder").length){
 						// also change positon of .shpButtonHolder
@@ -918,6 +918,14 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				
 				
+			}
+			// convert the scale to updated version
+			for(var prop in vd){
+				for(var item in vd[prop].posInfo){
+					var dx=(vd[prop].posInfo[item]*TILE.scale)/shape._scale;
+					vd[prop].posInfo[item]=dx;
+				}
+				vd[prop]._scale=TILE.scale;
 			}
 			
 			self.drawTool.importShapes(vd);

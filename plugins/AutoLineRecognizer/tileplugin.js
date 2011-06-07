@@ -19,6 +19,9 @@
 
 (function() {
     var AutoR = this;
+	AutoR.scale=1;
+	AutoR.imgw=0;
+	AutoR.imgh=0;
     var alrcontainer = "#azcontentarea > .az.inner.autolinerecognizer";
 
     // LOAD SCREEN
@@ -208,7 +211,7 @@
                 //call changeColor each time the box is dragged/resized
                 $("body").live("regionMovedDone",
                 function(e) {
-
+					
                     if ($("#regionBox").length) {
                         self.CANVAS._resetCanvasImage();
                         self.CAR.thresholdConversion();
@@ -237,7 +240,7 @@
         // from AR.restart()
         // transcript {Object} - JSON data containing lines for this session
         _restart: function(transcript) {
-            if (__v) console.log(JSON.stringify(transcript));
+            
             //already constructed, re-attach listeners and show DOM
             var self = this;
 
@@ -423,7 +426,6 @@
                 rx *= nscale;
                 ry *= nscale;
             }
-            if (__v) console.log("image is actual px size: " + ow + ", " + oh);
             var th = $("#backgroundimage").text().split(',');
             var rest = self.REST + '&url=' + url + '&t=' + ry + '&b=' + (rh + ry) + '&l=' + rx + '&r=' + (rx + rw) + '&thresh=' + th[0] + '&lh=' + 15 + '&lnum=' + self.activeLines.length;
 
@@ -559,7 +561,7 @@
                         ldata.push({
                             "id": id + "_shape",
                             "type": "rect",
-                            "_scale": TILE.scale,
+                            "_scale": AutoR.scale,
                             "color": "#000000",
                             "posInfo": {
                                 "x": (left),
@@ -592,7 +594,6 @@
                     data: data,
                     lines: self.activeLines
                 }]);
-
             } else {
                 $("body:first").trigger("outputLines");
             }
@@ -756,31 +757,31 @@
             // self._loadPage.appendTo(self.DOM);
             if (TILE.url == '') return;
             loadImgScreen();
+			
             $("#hiddenCanvasSource").load(function(e) {
-
-                // make sure the image really loaded
-                // if($(this).attr('src').length==0) {
-                // 					$(this).attr('src',TILE.url);
-                // 					return;
-                // 				}
-                // self._loadPage.remove();
-                // $("#hiddenCanvasSource").show();
-                var ow = $("#hiddenCanvasSource")[0].width * TILE.scale;
-                var oh = $("#hiddenCanvasSource")[0].height * TILE.scale;
-
+				AutoR.scale=1;
+				var ow = $("#hiddenCanvasSource")[0].width;
+                var oh = $("#hiddenCanvasSource")[0].height;
+			
+				// set height and width of canvas area to parent div
+				$("#canvasHTML").width($(".az.inner.autolinerecognizer").width());
+				$("#canvasHTML").height($(".az.inner.autolinerecognizer").height());
+				
                 // if the current width/height too big for the window, size down
                 if ((ow > $("#canvasHTML").width()) || ($("#canvasHTML").height() < oh)) {
-
-                    $("#canvasHTML").width($("#hiddenCanvasSource")[0].width);
-                    $("#canvasHTML").height($("#hiddenCanvasSource")[0].height);
-
-                    // while((ow>$("#canvasHTML").width())||($("#canvasHTML").height()<oh)){
-                    // 					ow*=0.75;
-                    // 					oh*=0.75;
-                    // 					TILE.scale*=0.75;
-                    // 				}
+					while((ow > $("#canvasHTML").width())||($("#canvasHTML").height() < oh)){
+						ow*=0.9;
+						oh*=0.9;
+						AutoR.scale*=0.9;
+					}
+                    // $("#canvasHTML").width(ow);
+                    //                    $("#canvasHTML").height(oh);
                 }
 
+				// set global variables
+				AutoR.imgw=ow;
+				AutoR.imgh=oh;
+				if(__v) console.log('set up image autor: '+ow+'  '+oh);
 
                 var real_width = $("#hiddenCanvasSource")[0].width;
                 var real_height = $("#hiddenCanvasSource")[0].height;
@@ -845,7 +846,21 @@
         // Re-draws the canvas
         _resetCanvasImage: function() {
             var self = this;
-            self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ($("#hiddenCanvasSource")[0].width * TILE.scale), ($("#hiddenCanvasSource")[0].height * TILE.scale));
+			// $("#canvasHTML").width($(".az.inner.autolinerecognizer").width());
+			// 			$("#canvasHTML").height($(".az.inner.autolinerecognizer").height());
+			// 			if(__v) console.log('original width/height of canvas: '+$("#canvasHTML").width()+'  '+$("#canvasHTML").height());
+			// 			var ow=$("#hiddenCanvasSource")[0].width;
+			// 			var oh=$("#hiddenCanvasSource")[0].height;
+			// 			if(__v) console.log('original width/height of image: '+ow+'  '+oh);
+			// if the current width/height too big for the window, size down
+            // if ((ow > $("#canvasHTML").width()) || ($("#canvasHTML").height() < oh)) {
+            // 				while((ow > $("#canvasHTML").width())||($("#canvasHTML").height() < oh)){
+            // 					ow*=0.9;
+            // 					oh*=0.9;
+            // 				}
+            //             }
+			
+            self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, AutoR.imgw, AutoR.imgh);
         },
         //get percentage/proportional value of canvas container to canvas
         _getPerc: function() {
@@ -1449,7 +1464,6 @@
 
                 //get canvas imageData
                 if (!this.regionData) {
-                    if (__v) console.log("no region data");
                     try {
                         if (__v) console.log("context is: " + this.context);
                         this.regionData = this.context.getImageData(rl, rt, rw, rh);
@@ -1464,7 +1478,7 @@
                 } else {
                     //create a blank slate - somehow 'createImageData' doesn't work in this case
                     //var zoomData=this.canvasImage.getZoomLevel();
-                    this.context.drawImage(this.imageEl[0], 0, 0, ($("#hiddenCanvasSource")[0].width * TILE.scale), ($("#hiddenCanvasSource")[0].height * TILE.scale));
+                    this.context.drawImage(this.imageEl[0], 0, 0, (AutoR.imgw), (AutoR.imgh));
                     //find new regionData from same or different coordinates (if user set new coordinates with 'convertBW' button)
                     try {
                         this.regionData = this.context.getImageData(rl, rt, rw, rh);
@@ -1475,7 +1489,7 @@
                         // New Solution: re-draw the canvas and return function - makes the area not appear
                         // in black and white, but the user can still click 'Go' and get data
                         this.regionData = null;
-                        this.context.drawImage(this.imageEl[0], 0, 0, ($("#hiddenCanvasSource")[0].width * TILE.scale), ($("#hiddenCanvasSource")[0].height * TILE.scale));
+                        this.context.drawImage(this.imageEl[0], 0, 0, AutoR.imgw, AutoR.imgh);
                         return;
                         // this.thresholdConversion(threshold);
                         // $("body:first").trigger("SecurityError1000");
@@ -1882,6 +1896,7 @@ var AR = {
             $("body").live("outputLines", {
                 obj: self
             },
+			// Callback for when user clicks Perform Line Recognition
             function(e, data) {
                 // HIDE AR ELEMENTS IN DOM
                 // close down any other az_log areas
@@ -1928,8 +1943,6 @@ var AR = {
                     $("body").bind("closeALRLoad", removeScreen);
                 };
 
-
-
                 // CAUSES MASSIVE LAG TIME IN MOST BROWSERS
                 function addLine(line, shape) {
                     if (line && shape) {
@@ -1946,28 +1959,29 @@ var AR = {
                     mode: 'Auto Line Recognizer',
                     html: ''
                 }]);
-
+				var linecount=0;
                 // go through array, make each related line
                 // active, then attach shape
-                for (var prop in lines) {
+                for (var prop in vd) {
                     // set up line var
                     var line = {
-                        id: lines[prop].id,
+                        id: lines[linecount].id,
                         type: 'lines',
                         jsonName: TILE.url,
                         obj: lines[prop]
                     };
+					linecount++;
+					
                     // done yet?
-                    if ((prop) == (lines.length - 1)) done = true;
+                    if ((linecount) == (lines.length - 1)) done = true;
                     setTimeout(function(line, shape, d) {
                         addLine(line, shape);
                         // if done, then trigger the load screen to be removed
-                        if (d) $("body:first").trigger("closeALRLoad");
-                    },
-                    1, line, vd[prop], done);
+                        
+                    },1, line, vd[prop], done);
 
                 }
-
+				 $("body:first").trigger("closeALRLoad");
             });
 
 

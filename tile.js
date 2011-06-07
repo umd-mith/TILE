@@ -111,7 +111,6 @@ TILE.scale=1;
 			}
 		}
        return tempClone;
-
 	};
 	
 	var cloneArray=function(oldArray){
