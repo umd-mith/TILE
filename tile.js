@@ -30,7 +30,7 @@
 // Large, global variable that 
 // stores data for other plugins 
 var TILE=[];
-TILE.experimental=false;
+TILE.experimental=true;
 TILE.activeItems=[];
 TILE.url='';
 // ENGINE allows access to global API
