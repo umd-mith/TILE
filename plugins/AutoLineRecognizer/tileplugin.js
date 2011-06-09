@@ -231,7 +231,7 @@
                 // 					var newScale=self.DOM.width()/$("#hiddenCanvasSource")[0].width;
                 // 				}
                 //change the toolbar
-                $("#listView").parent().unbind("click");
+                // $("#listView").parent().unbind("click");
                 $("#pgNext").unbind("click");
                 $("#pgPrev").unbind("click");
             }

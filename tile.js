@@ -229,10 +229,11 @@ TILE.scale=1;
 		// set initial formats
 		TILE.formats=_tileBar.formatstr;
 		// take away load screen
-		removeLoad(); 
+		removeLoad();
 		
 		if(json){	
 			TILE.engine.parseJSON(json);
+		
 		}
 		
 	};
@@ -815,6 +816,21 @@ TILE.scale=1;
 	// 		
 	// </script>
 	// OR put the code in a .js file and add to the header
+	
+	// ///////
+	// Events
+	// ////////
+	// 
+	// newJSON
+	// newPage
+	// 	newActive - passes TILE object 
+	// 	dataAdded - passes TILE object
+	// 	dataUpdated - passes TILE object
+	// 	dataLinked - passes array of TILE objects
+	// 	dataDeleted - passes TILE object 
+	// 	
+	
+	
 	var TILE_ENGINE=function(args){
 		// set local ENGINE variable so that PluginController + other local
 		// methods can access this
@@ -1047,6 +1063,9 @@ TILE.scale=1;
 		// file : {String}
 		parseJSON:function(file){
 			var self=this;
+			
+			showLoad();
+			
 			if((typeof(file)!='object')&&(/^[http\:\/\/]/.test(file))){
 				//We are just getting the file with images
 				// and the transcripts
@@ -1108,6 +1127,7 @@ TILE.scale=1;
 				// notify plugins that there is a JSON
 				// loaded
 				$("body:first").trigger("newJSON");
+				removeLoad();
 			},3);
 			
 			

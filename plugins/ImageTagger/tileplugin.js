@@ -296,7 +296,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		//constructor
 		var self=this;
 		self.loc=args.loc;
-		$("<div class=\"az inner textImageList\"><div class=\"toolbar\"><ul class=\"menuitem\">"+
+		$("<div class=\"az inner imageannotator textImageList\"><div class=\"toolbar\"><ul class=\"menuitem\">"+
 		"<li><a href=\"#\" id=\"pointer\" class=\"btnIconLarge inactive\"></a></li></ul>"+
 		"<ul class=\"menuitem\"><li><a href=\"#\" id=\"rect\" class=\"btnIconLarge inactive\"></a></li>"+
 		"<li><a href=\"#\" id=\"poly\" class=\"btnIconLarge inactive\"></a></li><li>"+
