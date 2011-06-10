@@ -444,6 +444,7 @@ var LB={
 	},
 	dataDeletedHandle:function(e,obj){
 		var self=e.data.obj;
+		if(!obj) return;
 		if(obj.type.toLowerCase()=='labels'){
 			var data=[];
 			

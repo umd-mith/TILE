@@ -2588,6 +2588,21 @@ TILE.scale=1;
 			if((!obj.jsonName)||(!obj.obj)){
 				obj=self.findTileObj(obj.id,obj.type);
 			}
+			
+			// delete all references
+			for(var item in obj.obj){
+				if($.isArray(obj.obj[item])){
+					for(var prop in obj.obj[item]){
+						
+						var o={id:obj.obj[item][prop],type:item};
+						
+						
+						self.deleteRefFromObj(o,obj);
+					}
+				}
+				
+			}
+			
 			// must be a TILE standard format JSON object
 			// with id, jsonName, type
 			if(!json[obj.type]){
@@ -2618,37 +2633,30 @@ TILE.scale=1;
 				json[obj.type]=ag;
 			}
 			
+			
+			
+			
 			// Notify delete
 			$("body:first").trigger("dataDeleted",[obj]);
-			
-			// delete all references
-			for(var item in obj.obj){
-				if($.isArray(obj.obj[item])){
-					for(var prop in obj.obj[item]){
-						var o={id:obj.obj[item][prop],type:item};
-						self.deleteRefFromObj(o,obj);
-					}
-				}
-				
-			}
-			
 			// delete from activeItems
-			var ag=[];
-			for(var prop in TILE.activeItems){
-				if(TILE.activeItems[prop].id!=obj.id){
-					ag.push(TILE.activeItems[prop]);
-				}
-			}
-			TILE.activeItems=ag;
-			
-			
+			// var ag=[];
+			// 		for(var prop in TILE.activeItems){
+			// 			if(TILE.activeItems[prop].id!=obj.id){
+			// 				ag.push(TILE.activeItems[prop]);
+			// 			}
+			// 		}
+			// 		TILE.activeItems=ag;
+			// 		
+			// 		
 		},
 		deleteRefFromObj:function(obj,ref){
 			var self=this;
 			if((!obj)||(!obj.type)||(!obj.id)||(!ref)||(!ref.type)||(!ref.id)) return;
+			
 			// get TILE standard versions of objects
 			obj=self.findTileObj(obj.id,obj.type);
 			ref=self.findTileObj(ref.id,ref.type);
+			
 			if((!ref)||(!obj)) return;
 			// get rid of ref.id from obj[ref.type]
 			if(json[obj.jsonName]){
@@ -2692,13 +2700,13 @@ TILE.scale=1;
 								}
 							}
 							page[obj.type][item][ref.type]=ag;
-							
+							if(__v) console.log('page array for '+ref.type+'  now: '+JSON.stringify(page[obj.type][item][ref.type]));
 						}
 					}
 				}
 			}
 			obj=self.findTileObj(obj.id,obj.type);
-			$("body:first").trigger('dataDeleted',[obj]);
+			// $("body:first").trigger('dataDeleted',[obj]);
 		}
 	};
 	

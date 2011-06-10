@@ -1023,7 +1023,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// global bind for when user clicks on the approveAllKey [ActiveBox.js]
 			$("body").bind("approveAllItems",{obj:this},this._approveAllItemsHandle);
 			//global bind for when user clicks to delete a shape item in ActiveBox
-			$("body").bind("deleteItem",{obj:this},this._deleteItemHandle);
+			// $("body").bind("deleteItem",{obj:this},this._deleteItemHandle);
 		
 			//set it up
 			self.drawTool._drawMode='r';
@@ -1061,27 +1061,10 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				// 				}
 				
 				
-				self.drawTool.deleteShape(foundID);
+				// self.drawTool.deleteShape(foundID);
+				
 				self.deleteShape(foundID);
 			});
-			
-			// Button behaviors for Approving or deleting Auto-recognized lines
-			// DEPRECATED
-			// $("div[id^='approve_']").live('mousedown',function(e){
-			// 				var uid=$(this).attr("id").replace("approve_","");
-			// 			
-			// 				self._approveItemHandle(uid);
-			// 				$(".shpButtonHolder > #approveAllButton").remove();
-			// 				$("div[id^='approve_']").remove();
-			// 				$("#approveAllButton").remove();
-			// 			});
-			// 			$(".shpButtonHolder > #approveAllButton").live('click',function(e){
-			// 				$(".shpButtonHolder > #approveAllButton").remove();
-			// 				$("div[id^='approve_']").remove();
-			// 				
-			// 				self._approveAllItemsHandle();
-			// 				
-			// 			});
 			
 			// adjust width
 			$("#raphworkspace_").width($("#azcontentarea > .az.inner").innerWidth());
@@ -1333,16 +1316,30 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		deleteShape:function(id){
 			var self=this;
 			var shape=null;
+			// get current shapes
+			var vd=self.drawTool.exportShapes();
+			self.drawTool.clearShapes();
 			var ag=[];
 			// clear from manifest
 			for(var x in self.manifest){
 				if(self.manifest[x].id==id){
 					shape=self.manifest[x];
+					var nvd=[];
+					for(var g in vd){
+						if(vd[g]&&(vd[g].id!=shape.id)){
+							nvd.push(vd[g]);
+						} 
+						vd=nvd;
+					}
+					
 				} else {
 					ag.push(self.manifest[x]);
 				}
 			}
 			self.manifest=ag;
+			
+			self.drawTool.importShapes(vd);
+			
 			// alert out the shape data
 			$("body:first").trigger("shapeDeleted",[shape]);
 		},
@@ -1847,6 +1844,12 @@ var IT={
 		
 		var _receiveShapeObjHandle=function(shape){
 			
+			// re-correct scale back to 1
+			for(var p in shape.posInfo){
+				var dx=(shape.posInfo[p]*1)/shape._scale;
+				shape.posInfo[p]=dx;
+			}
+			shape._scale=1;
 			// feed PC a wrapper for the shape
 			var data={
 				id:shape.id,
@@ -1854,6 +1857,8 @@ var IT={
 				jsonName:TILE.url,
 				obj:shape
 			};
+			
+			
 			
 			// make active
 			self.activeShape=data.obj.id;
