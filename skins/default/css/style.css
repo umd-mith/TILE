@@ -284,12 +284,15 @@ a.btnIconLarge:hover {
 }
 .workspace{
 	position:absolute;
-	overflow:none;
 }
+
 #canvasHTML.workspace{
-	position:absolute;
 	overflow:none;
 }
+#raphworkspace_.workspace{
+	overflow:auto;
+}
+
 .vd-container{
 	z-index:1032;
 }

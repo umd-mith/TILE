@@ -82,7 +82,7 @@
         "<a id=\"autorec_recognize\" class=\"button\">Perform Line Recognition</a></div></div></div>";
         self.canvasArea = $("#azcontentarea").parent();
         //use this later to put in CanvasImage object
-        self.canvasHTML = '<div id="canvasHTML" class="workspace"><canvas id="canvas"/><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
+        self.canvasHTML = '<div id="canvasHTML" class="workspace autolinerecognizer"><canvas id="canvas"/><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
         // Link to Doug Reside's project to convert OCR script into a REST-like service
         self.REST = 'http://localhost:8888/tile/linerecognizer/LineRecognizer.php?ct=j';
         self.transcript = (args.transcript) ? args.transcript: null;

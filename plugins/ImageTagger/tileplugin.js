@@ -1471,10 +1471,14 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		// n : {Integer} either -1 (zoom out) or 1 (zoom in)
 		zoomHandle:function(e,n){
 			var self=e.data.obj;
+			$(".shpButtonHolder").hide();
+		
 			if(self.drawTool&&($("#srcImageForCanvas").width()!=0)){
 				//svg scale() function has to be called after 
 				//RaphaelImage is done resizing container elements
 				
+				var vd=self.drawTool.exportShapes();
+				self.drawTool.clearShapes();
 				// true width
 				var h=$("#srcImageForCanvas")[0].width;
 				// true height
@@ -1488,11 +1492,11 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					$(".vd-container").width(self.zoomIF*parseFloat($(".vd-container").width()));
 					$(".vd-container").height(self.zoomIF*parseFloat($(".vd-container").height()));
 					
-					if($(".shpButtonHolder").length){
-						// also change positon of .shpButtonHolder
-						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*self.zoomIF)+'px');
-						$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*self.zoomIF)+'px');
-					}
+					// if($(".shpButtonHolder").length){
+					// 						// also change positon of .shpButtonHolder
+					// 						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*self.zoomIF)+'px');
+					// 						$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*self.zoomIF)+'px');
+					// 					}
 					// set scales
 					self._imgScale*=self.zoomIF;
 					TILE.scale*=self.zoomIF;
@@ -1507,6 +1511,13 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 							shape._scale=self._imgScale;
 							$("body:first").trigger('imageShapeUpdate',[shape]);
 						}
+						
+						for(var d in vd){
+							if(vd[d].id==shape.id){
+								vd[d]=shape;
+							}
+						}
+						
 					}
 				} else if(n<0){
 					$("#srcImageForCanvas").css("width",(self.zoomDF*parseFloat($("#srcImageForCanvas").width()))+'px');
@@ -1515,15 +1526,15 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					$(".vd-container").height(self.zoomDF*parseFloat($(".vd-container").height()));
 				 
 					// also change positon of .shpButtonHolder
-					if($(".shpButtonHolder").length){
-						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*self.zoomDF)+'px');
-						$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*self.zoomDF)+'px');
-					}
+					// if($(".shpButtonHolder").length){
+					// 					$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*self.zoomDF)+'px');
+					// 					$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*self.zoomDF)+'px');
+					// 				}
 					// set scales
 					self._imgScale*=self.zoomDF;
 					TILE.scale*=self.zoomDF;
-						//zooming out
-						self.drawTool.setScale(self._imgScale);
+					//zooming out
+					self.drawTool.setScale(self._imgScale);
 					for(var x=0;x<self.manifest.length;x++){
 						var shape=self.manifest[x];
 						if(shape._scale!=TILE.scale){
@@ -1533,12 +1544,19 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 							shape._scale=self._imgScale;
 							$("body:first").trigger('imageShapeUpdate',[shape]);
 						}
+						
+						for(var d in vd){
+							if(vd[d].id==shape.id){
+								vd[d]=shape;
+							}
+						}
 					}	
 					
 					
 					
 				}
-		
+				
+				self.drawTool.importShapes(vd);
 			
 			} else {
 				$("body").unbind("zoom",self.zoomHandle);
@@ -1568,9 +1586,15 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				// match up with any in the manifest
 				for(var j in json){
 					if($.inArray(json[j].id,self.shapeIds)<0){
+						var shape=json[j];
+						// adjust scale
+						for(var el in shape.posInfo){
+							var dx=(self._imgScale*shape.posInfo[el])/shape._scale;
+						}
+						shape._scale=self._imgScale;
 						// add to manifest and array of ids
-						self.shapeIds.push(json[j].id);
-						self.manifest.push(json[j]);
+						self.shapeIds.push(shape.id);
+						self.manifest.push(shape);
 						vd.push(json[j]);
 					} else {
 					

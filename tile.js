@@ -594,7 +594,7 @@ TILE.scale=1;
 					name=lbls[prop].type+':'+lbls[prop].id;
 				}
 			
-				html+="<div id=\""+lbls[prop].id+"\" class=\"labelItem\">"+name+"<span id=\"del_"+lbls[prop].id+"\" class=\"button shape delete formLink\">X</span></div>";
+				html+="<div id=\""+lbls[prop].id+"\" class=\"labelItem\">"+name+"<span id=\"del_"+lbls[prop].id+"\" class=\"button shape delete formLink\">Delete</span></div>";
 				
 			}
 			// attach to the float div list
@@ -652,7 +652,7 @@ TILE.scale=1;
 				// shouldn't happen, but just in case
 				if(!el) continue;
 				// create HTML to be added to the list of labels attached to curLink
-				html+="<div id=\""+el.id+"\" class=\"labelItem\">"+el.name+"<span id=\"del_"+el.id+"\" class=\"button shape delete formLink\">X</span></div>";
+				html+="<div id=\""+el.id+"\" class=\"labelItem\">"+el.name+"<span id=\"del_"+el.id+"\" class=\"button shape delete formLink\">Delete</span></div>";
 				// attach to global page list only if there isn't already label there
 				if($("#labelList > #"+el.id).length==0){
 					// 	none attach - attach this element
@@ -2322,6 +2322,7 @@ TILE.scale=1;
 			if((!data)||(data=='')) return;
 			var self=this;
 			mouseWait();
+			showLoad();
 			// update activeItems
 			var obj=self.findObj(data.id,data.type);
 			if(!obj){
@@ -2347,6 +2348,7 @@ TILE.scale=1;
 			
 			$("body:first").trigger("dataAdded",[deepcopy(obj)]);
 			mouseNormal();
+			removeLoad();
 			// quit
 			return;
 			
@@ -2400,7 +2402,7 @@ TILE.scale=1;
 			var self=this;
 			if((obj1!=null)&&(obj2!=null)){
 				var robj1, robj2=null;
-				
+				showLoad();
 				// check to see if each object is on the global or page level
 				// Then insert into the larger JSON session array
 				// GLOBAL: Anything not a URL
@@ -2571,6 +2573,7 @@ TILE.scale=1;
 						robj2={"id":obj2.id,"type":obj2.type,"jsonName":obj2.type,"obj":deepcopy(json[obj2.type][found])};
 					}
 				}
+				removeLoad();
 				return [robj1,robj2];
 			} else {
 				return null;
