@@ -221,6 +221,13 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			
 			if(self.raphael){
 				if($.inArray(shape.id,self.raphael.shapeIds)<0){
+					// adjust scale
+					for(var y in shape.posInfo){
+						var dx=(shape.posInfo[y]*self._imgScale)/shape._scale;
+						shape.posInfo[y]=dx;
+					}
+					shape._scale=self._imgScale;
+					
 					self.raphael.shapeIds.push(shape.id);
 					self.raphael.manifest.push(shape);
 				} 
@@ -820,8 +827,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 							ow*=self.zoomDF;
 							oh*=self.zoomDF;
 							TILE.scale*=self.zoomDF;
+							self._imgScale=TILE.scale;
 						}
-						if(__v) console.log('manifest imagetagger: '+JSON.stringify(self.manifest));
 						for(var x=0;x<self.manifest.length;x++){
 							var shape=self.manifest[x];
 							if(shape._scale!=TILE.scale){
@@ -849,7 +856,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					}
 				}
 				
-				self._imgScale=TILE.scale;
+				
 				self.drawTool.setScale(TILE.scale);
 				if(self._imgScale!=1){
 					// set correct scale
@@ -863,8 +870,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					// $(".vd-container").width(TILE.scale*parseFloat($(".vd-container").width()));
 					// $(".vd-container").height(TILE.scale*parseFloat($(".vd-container").height()));
 				
-					//zooming in
-					self.drawTool.setScale(TILE.scale);
 					
 					if($(".shpButtonHolder").length){
 						// also change positon of .shpButtonHolder
@@ -943,6 +948,12 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				if(vd[x]&&(vd[x].id==obj.id)){
 					// make sure things are actually different
 					vd[x]=obj;
+					for(var y in vd[x].posInfo){
+						var dx=(vd[x].posInfo[y]*self._imgScale)/vd[x]._scale;
+						vd[x].posInfo[y]=dx;
+					}
+					vd[x]._scale=self._imgScale;
+					
 				}
 			}
 			
@@ -1503,10 +1514,11 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 						var shape=self.manifest[x];
 						if(shape._scale!=self._imgScale){
 							for(var u in shape.posInfo){
-								shape.posInfo[u]=(shape.posInfo[u]*self._imgScale)/shape._scale;
+								var dx=(shape.posInfo[u]*self._imgScale)/shape._scale;
+								shape.posInfo[u]=dx;
 							}
 							shape._scale=self._imgScale;
-							$("body:first").trigger('imageShapeUpdate',[shape]);
+							// $("body:first").trigger('imageShapeUpdate',[shape]);
 						}
 						
 						for(var d in vd){
@@ -1536,10 +1548,11 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 						var shape=self.manifest[x];
 						if(shape._scale!=TILE.scale){
 							for(var u in shape.posInfo){
-								shape.posInfo[u]=(shape.posInfo[u]*self._imgScale)/shape._scale;
+								var dx=(shape.posInfo[u]*self._imgScale)/shape._scale;
+								shape.posInfo[u]=dx;
 							}
 							shape._scale=self._imgScale;
-							$("body:first").trigger('imageShapeUpdate',[shape]);
+							// $("body:first").trigger('imageShapeUpdate',[shape]);
 						}
 						
 						for(var d in vd){
@@ -1548,13 +1561,9 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 							}
 						}
 					}	
-					
-					
-					
 				}
 				
 				self.drawTool.importShapes(vd);
-			
 			} else {
 				$("body").unbind("zoom",self.zoomHandle);
 			}
@@ -1573,7 +1582,10 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// dump autoLines
 			self.autoLines=[];
 			if((!url)) return;
-			$("body").bind("zoom",{obj:self},self.zoomHandle);
+			// $("body").bind("zoom",{obj:self},self.zoomHandle);
+			// wipe out other shapes
+			self.setUpCanvas(url,vd);
+			
 			if(self.drawTool){
 				// erase current canvas
 				self.drawTool.clearShapes();
@@ -1587,6 +1599,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 						// adjust scale
 						for(var el in shape.posInfo){
 							var dx=(self._imgScale*shape.posInfo[el])/shape._scale;
+							shape.posInfo[el]=dx;
 						}
 						shape._scale=self._imgScale;
 						// add to manifest and array of ids
@@ -1606,13 +1619,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					}
 				}
 				
-				// wipe out other shapes
-				self.setUpCanvas(url,vd);
-				// select the first shape in stack
-				// self.drawTool.selectShape(vd[0].id);
 				
-				// notify through event 
-				// $("body:first").trigger("shapeIsActive",[vd[0]]);
+				
 				
 			} else {
 				self.setUpCanvas(url);
@@ -1857,9 +1865,6 @@ var IT={
 				jsonName:TILE.url,
 				obj:shape
 			};
-			
-			
-			
 			// make active
 			self.activeShape=data.obj.id;
 			// send directly to engine
@@ -1896,6 +1901,13 @@ var IT={
 		// makes a new insertData call to TILE coredata
 		var shapeUpdateHandle=function(e,obj){
 			if(!obj) return;
+			// reset scale back to 1
+			for(var y in obj.posInfo){
+				var dx=(obj.posInfo[y]*1)/obj._scale;
+				obj.posInfo[y]=dx;
+			}
+			obj._scale=1;
+			
 			// make a tile wrapper if needed
 			if(!obj.jsonName){
 				obj={
