@@ -14,10 +14,13 @@ class XMLStreamImport extends CoreData
 	private $attributes_stack;
 	private $element_stack_depth;
 	private $tile_element_start;
+	private $embedded_tile_start_xpath;
 	private $document_started = false;
 	public  $break_lines_on_newline = false;
+	private $parsing_embedded_tile = false;
+	private $done_parsing = false;
 	// added data for exporting
-	private $json;
+	//private $json;
 	// for defining which tagname tile data needs to be attached to
 	protected $insertNode;
 	protected $xml;
@@ -35,6 +38,7 @@ class XMLStreamImport extends CoreData
 				$this->json = json_decode($tile); 
 			}
 		}
+		$this -> setEmbeddedTILEStartXPath('//teiHeader/tile');
 		
 		$this -> setup_parser();
 		parent::__construct($content);
@@ -53,11 +57,16 @@ class XMLStreamImport extends CoreData
 		if($this -> document_start_xpath == "") {
 			$this -> document_started = true;
 		}
+		$this -> done_parsing = false;
 	
 		xml_parse( $this -> parser, $content );
 		if(!isset($this->line_end_xpath)) {
 			$this -> saveCurrentLine();
 		}
+	}
+	
+	public function setEmbeddedTILEStartXPath($path) {
+		$this -> embedded_tile_start_xpath = $this -> build_xpath_regex($path);
 	}
 	
 	// Sets the XPath for Milestones, which divide the XML document into containers of lines.
@@ -196,7 +205,7 @@ class XMLStreamImport extends CoreData
 
 		xml_set_element_handler(
 			$this->parser,
-			array(&$this, "start_tag"),
+			array(&$this, "_start_tag"),
 			array(&$this, "_end_tag")
 			);
 		xml_set_character_data_handler(
@@ -239,57 +248,105 @@ class XMLStreamImport extends CoreData
 		return $this -> attribute_stack[$this -> element_stack_depth - 1];
 	}
 	
-	public function start_tag($parser, $name, array $attributes) {
+	public function current_element() {
+	    return $this -> element_stack[$this -> element_stack_depth - 1];
+	}
+	
+	public function _start_tag($parser, $name, array $attributes) {
+		if($this -> done_parsing) {
+			return;
+		}
 		$this -> push_element_stack($name, $attributes);
-
-        if(!$this -> document_started) {
-	        if($this -> stack_matches_path_q($this -> document_start_xpath)) {
-		        $this -> document_started = true;
-        	}
-        }
-		// Go through the saved TILE XML data
-		if(isset($this -> tile_element_start)){
-			if($this -> stack_matches_path_q($this -> tile_element_start)){
-				// found inserted TILE data
-				$this -> newMilestone($name,$attributes);
-			}
-
-		}		
-		if($this -> stack_matches_path_q($this -> milestone_xpath)) {
-			$this -> saveCurrentLine();
-			$this -> newMilestone($name, $attributes);
+		$this -> start_tag($parser, $name, $attributes);
+	}
+	
+	public function add_embedded_tile_value($k, $v) {
+		// handle numeric $k
+		if(preg_match('/^\d+$/', $k)) {
+			$this -> embedded_tile_stack[$this -> embedded_tile_stack_size][] = $v;
 		}
-		if($this -> stack_matches_path_q($this -> image_xpath)) {
-			$v = $this -> get_attribute($attributes, $this -> image_xpath);
-			if($v !== false) {
-				// we are using an attribute of the current element
-				$this -> current_container -> image_url = $v;
+		else {
+			$this -> embedded_tile_stack[$this -> embedded_tile_stack_size][$k] = $v;
+		}
+	}
+		
+	public function start_tag($parser, $name, array $attributes) {
+		if($this -> stack_matches_path_q($this -> embedded_tile_start_xpath)) {
+			// at this point, we want to dump everything we've stored and start over with
+			// just the <tile/> children
+			$this -> reset_parse_info();
+			$this -> parsing_embedded_tile = true;
+			$this -> embedded_tile_stack = array();
+			$this -> embedded_tile_stack_size = 0;
+			$this -> embedded_tile_stack[$this -> embedded_tile_stack_size] = array();
+		}
+		if($this -> parsing_embedded_tile) {
+			if($name == "value") {
+			    $this -> add_embedded_tile_value($attributes['key'], $attributes['value']);
+			}
+			else if($name == "array") {
+				$this -> embedded_tile_stack_size += 1;
+				$this -> embedded_tile_stack[$this -> embedded_tile_stack_size] = array();
 			}
 		}
-		if($this -> stack_matches_path_q($this -> line_start_xpath)) {
-			if($this -> line_end_xpath == '') {
+		else {
+	        if(!$this -> document_started) {
+		        if($this -> stack_matches_path_q($this -> document_start_xpath)) {
+			        $this -> document_started = true;
+	        	}
+	        }
+			if($this -> stack_matches_path_q($this -> milestone_xpath)) {
 				$this -> saveCurrentLine();
+				$this -> newMilestone($name, $attributes);
 			}
-			$this -> current_line = "";
+			if($this -> stack_matches_path_q($this -> image_xpath)) {
+				$v = $this -> get_attribute($attributes, $this -> image_xpath);
+				if($v !== false) {
+					// we are using an attribute of the current element
+					$this -> current_container -> image_url = $v;
+				}
+			}
+			if($this -> stack_matches_path_q($this -> line_start_xpath)) {
+				if($this -> line_end_xpath == '') {
+					$this -> saveCurrentLine();
+				}
+				$this -> current_line = "";
+			}
 		}
 	}
 	
 	public function _end_tag($parser, $name) {
+		if($this -> done_parsing) {
+			return;
+		}
 		$this -> end_tag($parser, $name, $this -> current_attributes());
+		$this -> pop_element_stack();
 	}
 	
 	public function end_tag($parser, $name, $attributes) {
-		if($this -> stack_matches_path_q($this -> image_xpath)) {
-			if($this -> image_xpath[1] == '') {
-				// we are using the text content
-				$this -> current_container -> image_url = $this -> text_stack[$this -> element_stack_depth];
+	
+		if($this -> parsing_embedded_tile) {
+			if($this -> stack_matches_path_q($this -> embedded_tile_start_xpath)) {
+				$this -> json = $this -> embedded_tile_stack[0];
+				$this -> done_parsing = true; // ignore the rest
+			}
+			else if($name == "array") {
+			    $value = $this -> embedded_tile_stack[$this -> embedded_tile_stack_size];
+			    $this -> embedded_tile_stack_size -= 1;
+				$this -> add_embedded_tile_value($attributes["key"], $value);
 			}
 		}
-		if($this -> stack_matches_path_q($this -> line_end_xpath)) {
-			$this -> saveCurrentLine();
+		else {
+			if($this -> stack_matches_path_q($this -> image_xpath)) {
+				if($this -> image_xpath[1] == '') {
+					// we are using the text content
+					$this -> current_container -> image_url = $this -> text_stack[$this -> element_stack_depth];
+				}
+			}
+			if($this -> stack_matches_path_q($this -> line_end_xpath)) {
+				$this -> saveCurrentLine();
+			}
 		}
-		
-		$this -> pop_element_stack();
 	}
 	
 	public function character_data($parser, $data) {
@@ -331,81 +388,26 @@ class XMLStreamImport extends CoreData
 	private function convertArrayToXML($arr,$el){
 		$xml='';
 	
-		foreach($arr as $key=>$item){
-			if(is_array($item)||is_object($item)){
-				// generate name
-			// echo $key." ";
-				// generate item parent
-				// or use previous parent (el)
-				if((preg_match('/[0-9]/',$key))||(strlen($key)<=1)){
-					if((is_array($item))||(preg_match('/s$/',$el->tagName))){
-						// echo "is an array with no keyname<br/>";
-						// array is lengthy - continue drilling down recursively
-						// also attach new element
-						$itemEl=$this->xml->createElement(preg_replace('/s$/','',$el->tagName));
-						// echo $itemEl->tagName."<br/>";
-						$this->convertArrayToXML($item,$itemEl);
-						$el->appendChild($itemEl);
-						
-					} else {
-						// just an object wrapper for an element - add to $el
-					// echo "is an object wrapper with no keyname<br/>";
-						
-						$this->convertArrayToXML($item,$el);
-						
-					}
-				} else {
-						// echo "is an object with keyname<br/>";
-					// if it ends in s, it's an item array - otherwise it's
-					// an item
-					if(preg_match('/s$/',$key)){
-						// check if it matches el or not
-					
-						// item array
-						$parent=$this->xml->createElement($key);
-						// echo $parent->tagName."<br/>";
-						// go through children
-						$this->convertArrayToXML($item,$parent);
-						// attach result to parent
-						$el->appendChild($parent);
-					
-					} elseif(strlen($key)<=1) {
-						#single item - attach to DOM
-						
-						// $itemEl=$this->xml->createElement((preg_replace('/s$/','',$el->tagName),$item);
-						// 						$el->appendChild($itemEl);
-					}
-				}
-			
-			} else {
-				// generate name
-				$name='';
-				if(strlen($key)>1){
-					
-					$name=preg_replace('/\n/','',$key);
-					
-				
-				} elseif(preg_match('/[A-Za-z]/',$key)){
-					$name=preg_replace('/s$/','',$el->tagName);
-				}
-				
-				if(strlen($name)>1){
-			
-					// create child node and append
-					$child=$this->xml->createElement($name,$item);
-					// echo $child->tagName."<br/>";
-					$el->appendChild($child);
-					// $xml.='<'.$namespace.$name.'>'.$item.'</'.$namespace.$name.'>'."\n";
-				}
+	    foreach($arr as $key => $value) {
+			if(is_object($value) && get_class($value) == "stdClass") {
+				$value = (array)$value;
 			}
-			
+			if(is_array($value)) {
+				$itemEl = $this->xml->createElement('array');
+				$itemEl -> setAttribute('key', $key);
+				$el -> appendChild($itemEl);
+				$this -> convertArrayToXML($value, $itemEl);
+			}
+			else {
+				$itemEl = $this -> xml -> createElement('value');
+				$itemEl -> setAttribute('key', $key);
+				$itemEl -> setAttribute('value', $value);
+				$el -> appendChild($itemEl);
+			}
 		}
-	
 		return $el;
 	}
-	
-	
-	
+
 	// Takes the tile container data and parses it into XML
 	public function convertTileToXML(){
 		if(!isset($this->json)) return;
@@ -417,28 +419,7 @@ class XMLStreamImport extends CoreData
 		// create root element with xmlns data
 		$this->xml->loadXML('<tile xmlns="http://mith.umd.edu/namespaces/tile"></tile>');
 		$root=$this->xml->getElementsByTagName('tile')->item(0);
-		
-		// step through JSON array
-		foreach($this->json as $m=>$item){
-			// major item element
-			if(is_array($item)||is_object($item)){
-				#display major item, then display inner items
-				// set up parent name
-				$name=preg_replace('/\t|\n|[0-9]*/','',$m);
-				$el=$this->xml->createElement($name);
-				// go through children
-				$result=$this->convertArrayToXML($item,$el);
-				if(!is_null($result))
-					$root->appendChild($result);
-			} elseif($item!='') {
-				// set up parent name
-				$name=preg_replace('/\t|\n|[0-9]*/','',$m);
-				// create node and append
-				$el=$this->xml->createElement($name,$item);
-				$root->appendChild($el);
-			}
-		}
-	
+		$this -> convertArrayToXML($this -> json, $root);
 	}
 	
 	// outputs the generic XML format for TILE

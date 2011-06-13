@@ -6,14 +6,20 @@ class CoreData
     public  $current_container;
 	static	$import_namespaces = array();
     private $content;
+    protected $json;
 
     
     public function __construct($content) {
-		
         $this -> newContainer();
         $this -> content = $content;
         $this -> parse_content($content);
     }
+
+	public function reset_parse_info() {
+		$this -> containers = array();
+		$this -> labels = array();
+		$this -> newContainer();
+	}
     
 	// This is a function to return html for choosing
 	// which import feature to use in the wide library 
@@ -41,63 +47,66 @@ class CoreData
     
     public function to_json($options = 0) {
         // outputs a JSON representation of the containers and lines
-        $data = array();
-		/*
-		NOTE: encoding the content in order to preserve original data format and special
-		chars. Browser automatically resolves special chars. For now, encoding this in 
-		order to use it later in export. 
-		*/
-        $data['content'] = base64_encode($this -> content);
-        $data['tile'] = array();
-        $data['tile']['pages'] = array();
+		if(!isset($this -> json)) {
+	        $data = array();
+			/*
+			NOTE: encoding the content in order to preserve original data format and special
+			chars. Browser automatically resolves special chars. For now, encoding this in 
+			order to use it later in export. 
+			*/
+	        $data['content'] = base64_encode($this -> content);
+	        $data['tile'] = array();
+	        $data['tile']['pages'] = array();
         
-		// If there is saved TILE XML data, construct pages from this first
-		// if(isset($this -> containers -> tile)){
-		// 		$this->reconcileSavedData();
-		// 		return;
-		// 	}
+			// If there is saved TILE XML data, construct pages from this first
+			// if(isset($this -> containers -> tile)){
+			// 		$this->reconcileSavedData();
+			// 		return;
+			// 	}
 
-        foreach($this -> containers as $container) {
-            if(!$container -> is_empty()) {
-                $page = array();
-				$page['id'] = $this -> genRandomID(5);
-                $page['url'] = $container -> image_url;
-                $page['lines'] = array();
-                $page['shapes'] = array();
+	        foreach($this -> containers as $container) {
+	            if(!$container -> is_empty()) {
+	                $page = array();
+					$page['id'] = $this -> genRandomID(5);
+	                $page['url'] = $container -> image_url;
+	                $page['lines'] = array();
+	                $page['shapes'] = array();
                
 				
-                foreach($container -> lines as $line) {
+	                foreach($container -> lines as $line) {
 					
-                    $l = array();
-                    $l['text'] = $line->text;
-                    if($line->id != "") {
-                        $l['id'] = $line->id;
-                    } else if((!isset($line->id))||($line->id == '')){
-						// generate a random ID for this line
-						$l['id'] = 'line'.count($page['lines']);
-					}
-                    $page['lines'][] = $l;
-                }
+	                    $l = array();
+	                    $l['text'] = $line->text;
+	                    if($line->id != "") {
+	                        $l['id'] = $line->id;
+	                    } else if((!isset($line->id))||($line->id == '')){
+							// generate a random ID for this line
+							$l['id'] = 'line'.count($page['lines']);
+						}
+	                    $page['lines'][] = $l;
+	                }
                 
-                foreach($container -> shapes as $shape) {
-                    $s = array();
-                    if($shape -> id != "") {
-                        $s['id'] = $shape -> id;
-                    } else if((!isset($s['id']))||($s['id']=='')){
-						$s['id'] = 'shape'.count($page['shapes']);
-					}
-                    $s['type'] = $shape -> type;
-                    $s['color'] = $shape -> color;
-                    $s['_scale'] = $shape -> scale;
-                    $s['posInfo'] = $shape -> posInfo;
-                    $page['shapes'][] = $s;
-                }
-                $data['tile']['pages'][] = $page;
-            }
-        }
-        $data['tile']['labels'] = array_values($this -> labels);
+	                foreach($container -> shapes as $shape) {
+	                    $s = array();
+	                    if($shape -> id != "") {
+	                        $s['id'] = $shape -> id;
+	                    } else if((!isset($s['id']))||($s['id']=='')){
+							$s['id'] = 'shape'.count($page['shapes']);
+						}
+	                    $s['type'] = $shape -> type;
+	                    $s['color'] = $shape -> color;
+	                    $s['_scale'] = $shape -> scale;
+	                    $s['posInfo'] = $shape -> posInfo;
+	                    $page['shapes'][] = $s;
+	                }
+	                $data['tile']['pages'][] = $page;
+	            }
+	        }
+	        $data['tile']['labels'] = array_values($this -> labels);
         
-        return json_encode($data);
+			$this -> json = $data;
+		}
+        return json_encode($this -> json);
     }
     
 	public function reconcileSavedData(){
