@@ -2916,7 +2916,7 @@ TILE.scale=1;
 				$("#warningmessage").show();
 				
 			} else {
-				data=data.replace(/^<pre>|<\/pre>$/ig,'');
+				data=data.replace(/^<pre.*?>|<\/pre>$/ig,'');
 				
 				data=$.parseJSON(data);
 				// take the returned JSON and load it into TILE
