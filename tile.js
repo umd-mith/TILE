@@ -30,7 +30,7 @@
 // Large, global variable that 
 // stores data for other plugins 
 var TILE=[];
-TILE.experimental=false;
+TILE.experimental=true;
 TILE.activeItems=[];
 TILE.url='';
 // ENGINE allows access to global API
@@ -2707,7 +2707,6 @@ TILE.scale=1;
 								}
 							}
 							page[obj.type][item][ref.type]=ag;
-							if(__v) console.log('page array for '+ref.type+'  now: '+JSON.stringify(page[obj.type][item][ref.type]));
 						}
 					}
 				}

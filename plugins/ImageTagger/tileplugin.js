@@ -782,6 +782,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			var img=$("#srcImageForCanvas")[0];
 			// attach load event
 			$(img).load(function(e){
+				
 				if(!$.browser.webkit){
 					$(img).show();
 				}
@@ -801,10 +802,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					self.manifest[url].origHeight=this.height;
 					if(!self.manifest[url].shapes) self.manifest[url].shapes=[];
 				}
-				// RESET
-				TILE.scale=1;
-				self._imgScale=1;
-				if(TILE.experimental){
+				
+				// if(TILE.experimental){
 					// size to fit window 
 			
 					var ow=(TILE.scale!=self._imgScale)?(this.width*TILE.scale):this.width;
@@ -839,21 +838,22 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 							}
 						}
 					}
-					
-				} else {
-				
-					// reset shapes
-					for(var x=0;x<self.manifest.length;x++){
-						var shape=self.manifest[x];
-						if(shape._scale!=TILE.scale){
-							for(var u in shape.posInfo){
-								var dx=(shape.posInfo[u]*TILE.scale)/shape._scale;
-								shape.posInfo[u]=dx;
-							}
-							shape._scale=TILE.scale;
-						} 
-					}
-				}
+				// } else {
+				// 				// RESET
+				// 				TILE.scale=1;
+				// 				self._imgScale=1;
+				// 				// reset shapes
+				// 				for(var x=0;x<self.manifest.length;x++){
+				// 					var shape=self.manifest[x];
+				// 					if(shape._scale!=TILE.scale){
+				// 						for(var u in shape.posInfo){
+				// 							var dx=(shape.posInfo[u]*TILE.scale)/shape._scale;
+				// 							shape.posInfo[u]=dx;
+				// 						}
+				// 						shape._scale=TILE.scale;
+				// 					} 
+				// 				}
+				// 			}
 				
 				
 				self.drawTool.setScale(TILE.scale);
@@ -892,7 +892,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			$(".shpButtonHolder").remove();
 			
 			if(!shapes.length) return;
-			if(__v) console.log('shapes being loaded before insertion: '+JSON.stringify(shapes));
 			var vd=[];
 			// collate shapes array with 
 			// internal shape stack
@@ -924,7 +923,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				
 				
 			}
-			if(__v) console.log('tile.scale: '+TILE.scale+'  :: imgScale: '+self._imgScale);
 			// convert the scale to updated version
 			for(var prop in vd){
 				for(var item in vd[prop].posInfo){
@@ -933,7 +931,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				vd[prop]._scale=self._imgScale;
 			}
-			if(__v) console.log('shapes being imported: '+JSON.stringify(vd));
 			self.drawTool.importShapes(vd);
 		},
 		updateShape:function(obj){
@@ -1584,11 +1581,13 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			if((!url)) return;
 			// $("body").bind("zoom",{obj:self},self.zoomHandle);
 			// wipe out other shapes
+			TILE.scale=1;
+			self._imgScale=1;
+			if(self.drawTool) self.drawTool.setScale(1);
 			self.setUpCanvas(url);
 			
 			
 			if(self.drawTool){
-				if(__v) console.log('converting shapes '+JSON.stringify(json));
 				// erase current canvas
 				self.drawTool.clearShapes();
 			
@@ -1620,7 +1619,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 						}
 					}
 				}
-				if(__v) console.log('importing shapes into canvas '+JSON.stringify(vd));
 				// self.drawTool.importShapes(vd);
 				
 				
@@ -1860,7 +1858,6 @@ var IT={
 				shape.posInfo[p]=dx;
 			}
 			shape._scale=1;
-			if(__v) console.log('shape converted: '+JSON.stringify(shape));
 			// feed PC a wrapper for the shape
 			var data={
 				id:shape.id,
@@ -2071,7 +2068,6 @@ var IT={
 		self.itagger.curUrl=TILE.url;
 		self.itagger.eraseAllShapes();
 		var shapes=self.findShapesInJSON(TILE.engine.getJSON());
-		if(__v) console.log('imagetagger newJSON reached '+JSON.stringify(shapes));
 		self.itagger._restart(shapes);
 	},	
 	// find a shape within the TILE JSON based on an ID

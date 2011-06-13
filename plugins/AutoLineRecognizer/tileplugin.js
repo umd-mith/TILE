@@ -781,7 +781,7 @@
 				// set global variables
 				AutoR.imgw=ow;
 				AutoR.imgh=oh;
-				if(__v) console.log('set up image autor: '+ow+'  '+oh);
+			
 
                 var real_width = $("#hiddenCanvasSource")[0].width;
                 var real_height = $("#hiddenCanvasSource")[0].height;
@@ -1465,10 +1465,9 @@
                 //get canvas imageData
                 if (!this.regionData) {
                     try {
-                        if (__v) console.log("context is: " + this.context);
+                       
                         this.regionData = this.context.getImageData(rl, rt, rw, rh);
                     } catch(e) {
-                        if (__v) console.log("error reached in threshconversion: " + e);
                         // problem with getting data - handle by upgrading our security clearance
                         // netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
                         // this.regionData=this.context.getImageData(rl, rt, rw, rh);

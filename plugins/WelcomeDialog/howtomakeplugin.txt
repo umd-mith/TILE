@@ -400,7 +400,6 @@ var V={
 		// bold the activeItems
 		for(var prop in o.activeItems){
 			if($("#"+o.activeItems[prop].id+".object").length){
-				if(__v) console.log('found '+o.activeItems[prop].id);
 				$("#"+o.activeItems[prop].id+".object").addClass('boldObj');
 			}
 		}
@@ -494,7 +493,6 @@ newActiveHandle:function(e,o){
 	// bold the activeItems
 	for(var prop in o.activeItems){
 		if($("#"+o.activeItems[prop].id+".object").length){
-			if(__v) console.log('found '+o.activeItems[prop].id);
 			$("#"+o.activeItems[prop].id+".object").addClass('boldObj');
 		}
 	}
