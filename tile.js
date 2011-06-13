@@ -1067,6 +1067,8 @@ TILE.scale=1;
 		parseJSON:function(file){
 			var self=this;
 			
+			pluginControl._reset();
+			
 			showLoad();
 			
 			if((typeof(file)!='object')&&(/^[http\:\/\/]/.test(file))){
@@ -1107,7 +1109,7 @@ TILE.scale=1;
 					// use
 					json=deepcopy(file);
 				}
-				if(TILE.activeItems||curPage){
+				if(curPage){
 					TILE.activeItems=[];
 					curPage=null;
 					TILE.url=null;
@@ -1132,9 +1134,6 @@ TILE.scale=1;
 				$("body:first").trigger("newJSON");
 				removeLoad();
 			},3);
-			
-			
-		
 		},
 		// Put data into the JSON session
 		insertData:function(data){
@@ -1175,6 +1174,7 @@ TILE.scale=1;
 		// All future data sent to insertData gets inserted
 		// in this object's jsonName array
 		setActiveObj:function(obj){
+			
 			pluginControl._setActiveObj(obj);
 		},
 		attachMetadataDialog:function(obj,handle){
@@ -1826,6 +1826,10 @@ TILE.scale=1;
 			}
 			
 			recLoad(0);
+		},
+		_reset:function(){
+			var self=this;
+			self.activeObj=null;
 		},
 		// Takes the plugin wrapper obj and 
 		// sets its start() method

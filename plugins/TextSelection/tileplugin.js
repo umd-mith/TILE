@@ -588,6 +588,7 @@ var TS={
 		$("body").live("newPage",{obj:self},self.newPageHandle);		
 		$("body").live("dataUpdated",{obj:self},self._objChangeHandle);
 		$("body").live('deleteSel',function(e,sel){
+			$(".ui-dialog").hide();
 			// delete the selection in engine
 			TILE.engine.deleteObj(sel);
 		});
@@ -607,7 +608,6 @@ var TS={
 		var json=TILE.engine.getJSON();
 		if(json){
 			for(j in json.pages){
-				// if(!self.manifest[j]) self.manifest[j]=[];
 				if(json.pages[j].selections){
 					for(var sel in json.pages[j].selections){
 						self.manifest.push(json.pages[j].selections[sel]);

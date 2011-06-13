@@ -68,6 +68,28 @@
 		this.curLine=0;
 		this.curUrl=null;
 		
+		$("#logbar_list > .line").live("click",function(e){
+			e.preventDefault();
+			
+			$(this).removeClass("trans_line_hover");
+			// var index = parseInt($(this).attr("id").substring($(this).attr("id").lastIndexOf("_")+1),10);
+			if ($(this).hasClass("line_selected")){
+				// de-select the line
+				// var id=$(".line_selected").attr('id').replace("TILE_Transcript_","");
+				$(".line_selected").removeClass("line_selected");
+				$(this).trigger("lineDeselected");
+			} else{
+				$(".line_selected").removeClass("line_selected");
+				// 						var n=$(this).attr('id').indexOf("_");
+				// 						
+				// 						var index=parseInt($(this).attr('id').substring(0,n),10);
+				$(this).addClass("line_selected");
+				$(this).trigger("TranscriptLineSelected",[$(this).attr('id')]);
+				// self._lineSelected($(this).attr('id'));
+			}
+		
+		});
+		
 		//global bind for when a shape is changed in VectorDrawer (dragged/resized)
 		// $("body").bind("shapesUpdate",{obj:this},this._updateItemHandle);
 		// global bind for when all lines need to be updated
@@ -194,23 +216,6 @@
 					$(this).addClass("trans_line_hover");
 				}).mouseout(function(e){
 					$(this).removeClass("trans_line_hover");
-				}).mousedown(function(e){
-					$(this).removeClass("trans_line_hover");
-					// var index = parseInt($(this).attr("id").substring($(this).attr("id").lastIndexOf("_")+1),10);
-					if ($(this).hasClass("line_selected")){
-						// de-select the line
-						// var id=$(".line_selected").attr('id').replace("TILE_Transcript_","");
-						$(".line_selected").removeClass("line_selected");
-						$(this).trigger("lineDeselected");
-					} else{
-						$(".line_selected").removeClass("line_selected");
-						// 						var n=$(this).attr('id').indexOf("_");
-						// 						
-						// 						var index=parseInt($(this).attr('id').substring(0,n),10);
-						$(this).addClass("line_selected");
-						$(this).trigger("TranscriptLineSelected",[$(this).attr('id')]);
-						// self._lineSelected($(this).attr('id'));
-					}
 				});
 				var n=i;
 				// attach data for index value 
@@ -642,12 +647,12 @@
 			self.transcript._insertLines(text);
 			self.transcript._drawText();
 
-			for(var a in TILE.activeItems){
-				var id=TILE.activeItems[a].id;
-				if($("#"+id+".line").length){
-					$("#"+id+".line").addClass('line_selected');
-				}
-			}
+			// for(var a in TILE.activeItems){
+			// 				var id=TILE.activeItems[a].id;
+			// 				if($("#"+id+".line").length){
+			// 					$("#"+id+".line").addClass('line_selected');
+			// 				}
+			// 			}
 		},
 		// being passed a copy of the engine
 		loadJSON:function(engine,activeItems){

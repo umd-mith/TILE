@@ -804,7 +804,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				// RESET
 				TILE.scale=1;
 				self._imgScale=1;
-				self.drawTool.setScale(TILE.scale);
 				if(TILE.experimental){
 					// size to fit window 
 			
@@ -827,8 +826,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 							ow*=self.zoomDF;
 							oh*=self.zoomDF;
 							TILE.scale*=self.zoomDF;
-							self._imgScale=TILE.scale;
 						}
+						self._imgScale=TILE.scale;
 						for(var x=0;x<self.manifest.length;x++){
 							var shape=self.manifest[x];
 							if(shape._scale!=TILE.scale){
@@ -885,15 +884,15 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		loadShapes:function(shapes){
 			var self=this;
 			if(!self.drawTool) return;
+			
 			// clear canvas
 			self.drawTool.clearShapes();
-			// set to scale
-			self.drawTool.setScale(TILE.scale);
 			
 			// clear buttons
 			$(".shpButtonHolder").remove();
 			
 			if(!shapes.length) return;
+			if(__v) console.log('shapes being loaded before insertion: '+JSON.stringify(shapes));
 			var vd=[];
 			// collate shapes array with 
 			// internal shape stack
@@ -925,15 +924,16 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				
 				
 			}
+			if(__v) console.log('tile.scale: '+TILE.scale+'  :: imgScale: '+self._imgScale);
 			// convert the scale to updated version
 			for(var prop in vd){
 				for(var item in vd[prop].posInfo){
-					var dx=(vd[prop].posInfo[item]*TILE.scale)/shape._scale;
+					var dx=(vd[prop].posInfo[item]*self._imgScale)/shape._scale;
 					vd[prop].posInfo[item]=dx;
 				}
 				vd[prop]._scale=self._imgScale;
 			}
-			
+			if(__v) console.log('shapes being imported: '+JSON.stringify(vd));
 			self.drawTool.importShapes(vd);
 		},
 		updateShape:function(obj){
@@ -1584,9 +1584,11 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			if((!url)) return;
 			// $("body").bind("zoom",{obj:self},self.zoomHandle);
 			// wipe out other shapes
-			self.setUpCanvas(url,vd);
+			self.setUpCanvas(url);
+			
 			
 			if(self.drawTool){
+				if(__v) console.log('converting shapes '+JSON.stringify(json));
 				// erase current canvas
 				self.drawTool.clearShapes();
 			
@@ -1618,8 +1620,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 						}
 					}
 				}
-				
-				self.drawTool.importShapes(vd);
+				if(__v) console.log('importing shapes into canvas '+JSON.stringify(vd));
+				// self.drawTool.importShapes(vd);
 				
 				
 			} else {
@@ -1851,13 +1853,14 @@ var IT={
 		};
 		
 		var _receiveShapeObjHandle=function(shape){
-			
+			if(__v) console.log('shape received: '+JSON.stringify(shape));
 			// re-correct scale back to 1
 			for(var p in shape.posInfo){
 				var dx=(shape.posInfo[p]*1)/shape._scale;
 				shape.posInfo[p]=dx;
 			}
 			shape._scale=1;
+			if(__v) console.log('shape converted: '+JSON.stringify(shape));
 			// feed PC a wrapper for the shape
 			var data={
 				id:shape.id,
@@ -2051,7 +2054,10 @@ var IT={
 				if(prop.toLowerCase()=='shapes'){
 					// add to vd
 					for(var shape in item[prop]){
-						vd.push(item[prop][shape]);
+						var sh=self.findShapeInJSON(item[prop][shape]);
+						if(sh){
+							vd.push(sh);
+						}
 					}
 				}
 			}	
@@ -2065,13 +2071,31 @@ var IT={
 		self.itagger.curUrl=TILE.url;
 		self.itagger.eraseAllShapes();
 		var shapes=self.findShapesInJSON(TILE.engine.getJSON());
-		
+		if(__v) console.log('imagetagger newJSON reached '+JSON.stringify(shapes));
 		self.itagger._restart(shapes);
 	},	
+	// find a shape within the TILE JSON based on an ID
+	findShapeInJSON:function(id){
+		var self=this;
+		
+		var json=TILE.engine.getJSON(true);
+		var shape=null;
+		if(json['shapes']){
+			for(var sh in json['shapes']){
+				if(json['shapes'][sh].id==id){
+					shape=(json['shapes'][sh].obj)?json['shapes'][sh].obj:json['shapes'][sh];
+				}
+			}
+			return shape;
+		} else {
+			return null;
+		}
+		
+	},
 	findShapesInJSON:function(json){
 		var self=this;
 		
-		if(!json.pages) return;
+		if(!json.pages) return null;
 		
 		var arr=[];
 		for(var p in json.pages){
