@@ -262,7 +262,12 @@ class XMLStreamImport extends CoreData
 	
 	public function add_embedded_tile_value($k, $v) {
 		// handle numeric $k
-		$this -> embedded_tile_stack[$this -> embedded_tile_stack_size][$k] = $v;
+		if(preg_match('/^\d+$/', $k)) {
+			$this -> embedded_tile_stack[$this -> embedded_tile_stack_size][] = $v;
+		}
+		else {
+			$this -> embedded_tile_stack[$this -> embedded_tile_stack_size][$k] = $v;
+		}
 	}
 		
 	public function start_tag($parser, $name, array $attributes) {
@@ -384,6 +389,9 @@ class XMLStreamImport extends CoreData
 		$xml='';
 	
 	    foreach($arr as $key => $value) {
+			if(is_object($value) && get_class($value) == "stdClass") {
+				$value = (array)$value;
+			}
 			if(is_array($value)) {
 				$itemEl = $this->xml->createElement('array');
 				$itemEl -> setAttribute('key', $key);
