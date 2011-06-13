@@ -30,7 +30,7 @@
 // Large, global variable that 
 // stores data for other plugins 
 var TILE=[];
-TILE.experimental=true;
+TILE.experimental=false;
 TILE.activeItems=[];
 TILE.url='';
 // ENGINE allows access to global API
@@ -620,7 +620,10 @@ TILE.scale=1;
 
 			$('li.cloneMe').each(function(i) {
 				var n = i+1;
-				lbls[i] = $('input#formLabel'+n).val();
+				var l=$('input#formLabel'+n).val();
+				if($.inArray(l,lbls)<0){
+					lbls[i] = $('input#formLabel'+n).val();
+				}
 			});
 			var refs=[];
 			var html="";

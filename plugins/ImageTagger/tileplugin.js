@@ -1619,7 +1619,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					}
 				}
 				
-				
+				self.drawTool.importShapes(vd);
 				
 				
 			} else {
@@ -2044,7 +2044,6 @@ var IT={
 		if(obj.obj.posInfo){
 			// is a shape - handle differently
 			self.itagger.raphael.setActiveShape(obj.obj);
-			
 		} else {
 			var item=obj.obj;
 			var vd=[];
@@ -2082,6 +2081,7 @@ var IT={
 					if((!shape)||(!shape.id)){
 						continue;
 					} else {
+						TILE.scale=1;
 						// correctify the posInfo
 						if(shape._scale!=TILE.scale){
 							for(var prop in shape.posInfo){
