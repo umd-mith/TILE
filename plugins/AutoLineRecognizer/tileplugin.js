@@ -846,19 +846,6 @@
         // Re-draws the canvas
         _resetCanvasImage: function() {
             var self = this;
-			// $("#canvasHTML").width($(".az.inner.autolinerecognizer").width());
-			// 			$("#canvasHTML").height($(".az.inner.autolinerecognizer").height());
-			// 			if(__v) console.log('original width/height of canvas: '+$("#canvasHTML").width()+'  '+$("#canvasHTML").height());
-			// 			var ow=$("#hiddenCanvasSource")[0].width;
-			// 			var oh=$("#hiddenCanvasSource")[0].height;
-			// 			if(__v) console.log('original width/height of image: '+ow+'  '+oh);
-			// if the current width/height too big for the window, size down
-            // if ((ow > $("#canvasHTML").width()) || ($("#canvasHTML").height() < oh)) {
-            // 				while((ow > $("#canvasHTML").width())||($("#canvasHTML").height() < oh)){
-            // 					ow*=0.9;
-            // 					oh*=0.9;
-            // 				}
-            //             }
 			
             self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, AutoR.imgw, AutoR.imgh);
         },
@@ -1948,7 +1935,6 @@ var AR = {
                 function addLine(line, shape) {
                     if (line && shape) {
                         TILE.engine.insertData(shape);
-// if(__v) console.log('linking: '+JSON.stringify(line)+'  '+JSON.stringify(shape));
                         TILE.engine.linkObjects(line, shape);
                     }
                 };
@@ -1965,7 +1951,7 @@ var AR = {
                 // go through array, make each related line
                 // active, then attach shape
                 for (var prop in vd) {
-					if(!lines[linecount]) break;
+					if((!lines[linecount])||(!lines[prop])) break;
                     // set up line var
                     var line = {
                         id: lines[linecount].id,
@@ -1974,9 +1960,7 @@ var AR = {
                         obj: lines[prop]
                     };
 					linecount++;
-					
-                    // done yet?
-                    if ((linecount) == (lines.length - 1)) done = true;
+				
                     setTimeout(function(line, shape) {
                         addLine(line, shape);
                         // if done, then trigger the load screen to be removed
