@@ -1946,6 +1946,7 @@ var AR = {
                 function addLine(line, shape) {
                     if (line && shape) {
                         TILE.engine.insertData(shape);
+// if(__v) console.log('linking: '+JSON.stringify(line)+'  '+JSON.stringify(shape));
                         TILE.engine.linkObjects(line, shape);
                     }
                 };
@@ -1977,7 +1978,7 @@ var AR = {
                         addLine(line, shape);
                         // if done, then trigger the load screen to be removed
                         
-                    },1, line, vd[prop], done);
+                    },15, line, vd[prop]);
 
                 }
 				 $("body:first").trigger("closeALRLoad");

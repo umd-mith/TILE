@@ -1851,7 +1851,6 @@ var IT={
 		};
 		
 		var _receiveShapeObjHandle=function(shape){
-			if(__v) console.log('shape received: '+JSON.stringify(shape));
 			// re-correct scale back to 1
 			for(var p in shape.posInfo){
 				var dx=(shape.posInfo[p]*1)/shape._scale;
