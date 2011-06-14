@@ -1910,7 +1910,9 @@ var AR = {
                 var vd = [];
                 var shapes = data.data;
                 var lines = data.lines;
-                for (var d in shapes) {
+				// combine together in one array
+				for (var d in shapes) {
+					if(!data.lines[d]) break;
                     var o = {
                         id: shapes[d].id,
                         type: 'shapes',
@@ -1963,6 +1965,7 @@ var AR = {
                 // go through array, make each related line
                 // active, then attach shape
                 for (var prop in vd) {
+					if(!lines[linecount]) break;
                     // set up line var
                     var line = {
                         id: lines[linecount].id,
@@ -1974,7 +1977,7 @@ var AR = {
 					
                     // done yet?
                     if ((linecount) == (lines.length - 1)) done = true;
-                    setTimeout(function(line, shape, d) {
+                    setTimeout(function(line, shape) {
                         addLine(line, shape);
                         // if done, then trigger the load screen to be removed
                         
