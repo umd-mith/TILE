@@ -497,6 +497,7 @@ var TS={
 			if(!sel.jsonName) sel.jsonName=TILE.url;
 			TILE.engine.insertData(sel);
 			var handle="span."+sel.id+":eq("+($("span."+sel.id).length-1)+")";
+		
 			TILE.engine.attachMetadataDialog(sel,handle);
 		};
 		
@@ -505,11 +506,12 @@ var TS={
 			e.preventDefault();
 			$(".ui-dialog").hide();
 			$(".shpButtonHolder").remove();
+			TILE.engine.setActiveObj(null);
 			$(".line_selected").removeClass("line_selected");
 			$(".menuitem > ul > li > .btnIconLarge").removeClass('active');
 			$(this).addClass("active");
 			// make active and stop all listeners of other objects
-			$(".line").unbind();
+			$("#logbar_list > .line").unbind();
 			$(".line").bind('mouseup',{obj:self},lineClickHandle);
 		};
 		

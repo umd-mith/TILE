@@ -68,27 +68,7 @@
 		this.curLine=0;
 		this.curUrl=null;
 		
-		$("#logbar_list > .line").live("click",function(e){
-			e.preventDefault();
-			
-			$(this).removeClass("trans_line_hover");
-			// var index = parseInt($(this).attr("id").substring($(this).attr("id").lastIndexOf("_")+1),10);
-			if ($(this).hasClass("line_selected")){
-				// de-select the line
-				// var id=$(".line_selected").attr('id').replace("TILE_Transcript_","");
-				$(".line_selected").removeClass("line_selected");
-				$(this).trigger("lineDeselected");
-			} else{
-				$(".line_selected").removeClass("line_selected");
-				// 						var n=$(this).attr('id').indexOf("_");
-				// 						
-				// 						var index=parseInt($(this).attr('id').substring(0,n),10);
-				$(this).addClass("line_selected");
-				$(this).trigger("TranscriptLineSelected",[$(this).attr('id')]);
-				// self._lineSelected($(this).attr('id'));
-			}
 		
-		});
 		
 		//global bind for when a shape is changed in VectorDrawer (dragged/resized)
 		// $("body").bind("shapesUpdate",{obj:this},this._updateItemHandle);
@@ -221,6 +201,29 @@
 				// attach data for index value 
 				$("#"+uid).data("index",n);
 			}
+			
+			$("#logbar_list > .line").bind("click",function(e){
+				e.preventDefault();
+
+				$(this).removeClass("trans_line_hover");
+				// var index = parseInt($(this).attr("id").substring($(this).attr("id").lastIndexOf("_")+1),10);
+				if ($(this).hasClass("line_selected")){
+					// de-select the line
+					// var id=$(".line_selected").attr('id').replace("TILE_Transcript_","");
+					$(".line_selected").removeClass("line_selected");
+					$(this).trigger("lineDeselected");
+				} else{
+					$(".line_selected").removeClass("line_selected");
+					// 						var n=$(this).attr('id').indexOf("_");
+					// 						
+					// 						var index=parseInt($(this).attr('id').substring(0,n),10);
+					$(this).addClass("line_selected");
+					$(this).trigger("TranscriptLineSelected",[$(this).attr('id')]);
+					// self._lineSelected($(this).attr('id'));
+				}
+
+			});
+			
 			// check if the page has no transcript lines associated with it
 			if($("#"+self.loc.attr('id')+" > .line").length==0){
 				// no lines 
