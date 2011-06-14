@@ -121,6 +121,20 @@ if(isset($_POST['format'])&&isset($_POST['filepath'])){
 	header('Content-type: text/javascript');
 	echo $data;	
 	
+} else if(isset($_GET['file'])){
+	$name=$_GET['file'];
+	if(preg_match('/<|>/',$name)){
+		die("ERROR READING FILE");
+	}
+	$txt='';
+	// use for HTTP
+	$txt=file_get_contents($name);
+	// send to decode format
+	$data=decode_format($txt,'auto');
+	// send out using JScript
+	header('Content-type: text/javascript');
+	echo $data;
+	
 }
 
 

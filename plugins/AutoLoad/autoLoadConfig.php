@@ -9,7 +9,7 @@ $prefix=preg_replace('/plugins\/AutoLoad\/autoLoadConfig\.php/','',$host);
 # SET DEFAULT SCRIPT HERE
 $DEFAULT_SCRIPT="".$prefix."importWidgets/importXML.php?uri=".$prefix."importWidgets/testPemb.xml&rname=text&rnum=0&ipath=http://www.nd.edu/~pemb25/Website-tv/IMT/";
 
-$swinburne=$prefix."/swinburne.json";
+$swinburne=$prefix."/plugins/CoreData/importDataScript.php?file=http://ella.slis.indiana.edu/~jawalsh/tmp/tile_tei_import_test/acs0000001-01-i010.xml";
 
 echo $swinburne;
 
