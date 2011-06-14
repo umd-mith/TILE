@@ -848,11 +848,11 @@ TILE.scale=1;
 		// and use only Javascript
 		urls = (args.urls ? args.urls : {});
 		// URL used to check whether saved data already loaded
-		self.serverStateUrl = (urls.state ? urls.state : "PHP/isJSON.php");
+		self.serverStateUrl = (urls.state ? urls.state : "plugins/Session/isJSON.php");
 		// 
-		self.serverRemoteStateUrl = (urls.remoteState ? urls.remoteState : "PHP/parseRemoteJSON.php");
+		self.serverRemoteStateUrl = (urls.remoteState ? urls.remoteState : "plugins/CoreData/parseRemoteJSON.php");
 		// Images filtered through PHP to prevent cross-domain issues
-		self.serverRemoteImgUrl = (urls.remoteImg ? urls.remoteImg : "PHP/RemoteImgRedirect.php");
+		self.serverRemoteImgUrl = (urls.remoteImg ? urls.remoteImg : "plugins/Session/RemoteImgRedirect.php");
 
 		// plugins array
 		self.plugins=[];
