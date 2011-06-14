@@ -190,7 +190,7 @@ TILE.scale=1;
 				var str=window.location.href.slice((n+6));
 				// send to the PHP dev library for importing files
 				$.ajax({
-					url:('importWidgets/importExternalFiles.php?file='+str),
+					url:('plugins/CoreData/importExternalFiles.php?file='+str),
 					dataType:'text',
 					// set up status codes for false returns/500 etc.
 					statusCode:{
