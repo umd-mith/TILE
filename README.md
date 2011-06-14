@@ -5,6 +5,32 @@ The Text-Image Linking Environment (TILE) is a web-based tool for creating and e
 
 --------------
 
+Local Installation
+----
+1. Unpack the TILE root directory into your working directory. Your installation should look like this:
+
+index.html
+lib/
+plugins/
+README.md
+skins/
+swinburne.json
+tile.js
+
+2. If you do not have a local Web Server running, you can get one from one of these locations:
+
+* MacOS: MAMP - [URL](http://www.mamp.info/en/index.html)
+
+* Windows: WampServer - [URL](http://www.wampserver.com/en/)
+
+* Linux/Ubuntu: The best way to install a server on a Linux machine to install it manually. Here's a tutorial - [Linux](http://wiki.debian.org/LaMp) | [Ubuntu](https://help.ubuntu.com/community/ApacheMySQLPHP) 
+
+3. Activate your local server software and run tile from the active site directory. 
+
+4. Navigate to the index.html page of your root directory for TILE. TILE should be running and loading the default data. To change what it is loading, you can configure the plugins/AutoLoad/autoLoadConfig.php. 
+
+5. The plugins that come loaded with the TILE release can be customized. This can be done by commenting out or adding the *insertMode*, *insertModeHTML*, and *insertPlugin* calls to TILE.engine. For more information, consult the online tutorial [here](http://mith.umd.edu/tile/documentation/user/local-installation/).
+
 TILE API
 ----
 A summary of the most-recent TILE API is included below. [API documentation](http://mith.umd.edu/tile/documentation/tile-api/) is also provided on the TILE website and reflects code shipped in the latest release; the API documented below may change with future commits.
@@ -14,8 +40,9 @@ A summary of the most-recent TILE API is included below. [API documentation](htt
 The base global property is the Object array **TILE**, which contains:
 * TILE.engine {Object} - A copy of the TILE_ENGINE instance.
 * TILE.url {String} - The current URL 
-* TILE.activeItems {Object array} - Array of current objects either visible or part of another Object's references.
 * TILE.preLoad {String/Object} - URL or Object that represents JSON that will be pre-loaded into TILE. Needs to be set before **activate** is called.
+* TILE.scale {Integer} - Current scale for all images in TILE. 
+* TILE.experimental {Boolean} - If true, turns on the experimental features for TILE. 
 
 
 ### INITIALIZING ENGINE
@@ -102,6 +129,27 @@ Takes the TILE JSON pointer to the previous page URL and calls the newPage event
 
 **changePage**(val {Integer})
 Changes to the Nth position in the URL stack – based on what value the integer passed is (Does not accept negative integers or integers that go beyond the array of pages)
+
+Events
+------
+
+**newActive**(obj {Object})
+Fired when a new object is set to active in the TILE core - passes the TILE Object that is now active.
+
+**newJSON**
+Fired when a new JSON object is loaded into TILE and set as the core JSON data.
+
+**newPage**
+Fired when nextPage(), prevPage(), or changePage() have been called.
+
+**dataAdded**
+Fired when new data is inserted into the TILE core through TILE.engine.insertData()
+
+**dataUpdated**
+Fired when data is changed or replaced within the TILE core JSON. Passes the TILE Object that has been changed.
+
+**dataDeleted**
+Fired when data is removed from the TILE core JSON. Passes the TILE Object that has been removed.
 
 Credits
 ----
