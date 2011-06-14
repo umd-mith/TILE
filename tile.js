@@ -2914,14 +2914,20 @@ TILE.scale=1;
 		
 		$("#loadFromFile").ajaxForm(function(data,stats){
 			// check to make sure data is accurate
-			if(/error/i.test(data)){
+			try {
+				data=data.replace(/^<pre.*?>|<\/pre>$/ig,'');
+			
+				data=$.parseJSON(data);
+			}
+			catch(e) {
+				// error -- unable to parse JSON
+				$("#warningmessage").show();
+			}
+			if(typeof(data) == "undefined"){
 				// error returned - alert user to try again
 				$("#warningmessage").show();
 				
 			} else {
-				data=data.replace(/^<pre.*?>|<\/pre>$/ig,'');
-				
-				data=$.parseJSON(data);
 				// take the returned JSON and load it into TILE
 				TILE.engine.parseJSON(data);
 				// hide dialog
