@@ -106,8 +106,6 @@
 			
 			engine.insertMode('Auto Line Recognizer');
 			
-			engine.insertMode('Dashboard');
-			
 			// Image tagger
 			engine.insertModePlugin('Image Annotation','ImageTagger');
 			// Auto recognizer
@@ -119,17 +117,17 @@
 			// labels
 			engine.insertModePlugin('Image Annotation','Labels');
 			
-			
-			// dashboard
-			engine.insertModePlugin('Dashboard','Dashboard');
 			// CoreData plugin
 			engine.insertPlugin('CoreData');
 			// autoload
 			engine.insertPlugin('AutoLoad');
-			if(!(/^http:\/\/localhost/.test(document.URL))){
-				// welcome dialog
-				engine.insertPlugin('WelcomeDialog');
-			}
+			
+			// To enable the Welcome Dialog, uncomment the following
+			// IF statement
+			// if(!(/^http:\/\/localhost/.test(document.URL))){
+			// 				// welcome dialog
+			// 				engine.insertPlugin('WelcomeDialog');
+			// 			}
 			
 			// activate
 			engine.activate('Image Annotation');
