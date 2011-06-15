@@ -1760,17 +1760,7 @@ TILE.scale=1;
 				
 				// change its color
 				obj.color=color;
-				// add/change to activeItems
-				var x=null;
 				
-				for(var a in TILE.activeItems){
-					if(TILE.activeItems[a].id==obj.id){
-						TILE.activeItems[a].color=color;
-						x=true;
-					}
-				}
-				
-				if(!x) TILE.activeItems.push(obj);
 				$("body:first").trigger("dataUpdated",[{"id":obj.id,"type":link.type,"obj":obj}]);
 			}
 		});

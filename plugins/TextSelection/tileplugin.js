@@ -486,8 +486,8 @@ var TS={
 			if(!h) return;
 			var handle="span."+h.id+":eq("+($("span."+h.id).length-1)+")";
 			var disp=$("span."+h.id+":eq(0)").text().substring(0,10);
-			
-			TILE.engine.updateData({id:h.id,type:'selections',display:disp,attachHandle:handle,obj:{id:id,type:'selections',jsonName:url}});
+			return [disp,handle];
+			// TILE.engine.updateData({id:h.id,type:'selections',display:disp,attachHandle:handle,obj:{id:id,type:'selections',jsonName:url}});
 		};
 		
 		var lineClickHandle=function(e){
@@ -521,7 +521,7 @@ var TS={
 		
 		// listener for when PluginController sends data 
 		// to change in current selection
-		$("body").live("ObjectChange",{obj:self},self._objChangeHandle);
+		// $("body").live("ObjectChange",{obj:self},self._objChangeHandle);
 		// listener for clicking on a highlight
 		$("span[class^='anno']").live('mouseup',function(e){
 			e.stopPropagation();
@@ -533,9 +533,11 @@ var TS={
 			$("span[class^='anno']").removeClass("selected");
 			var id=$(this).attr('class');
 			$(this).addClass("selected");
-
+			
+			if(__v) console.log('mouseup for span ');
 			// select the highlight
 			var o=self.selectHighlight(id);
+			
 			// use data to attach metadata box
 			if(o) TILE.engine.attachMetadataDialog(o[0],o[1]);
 			
@@ -678,22 +680,27 @@ var TS={
 		} else {
 		
 			var data=[];
+			if(__v) console.log('newactive '+JSON.stringify(o));
 			// check for selections within object
 			for(var prop in o.obj){
 				if(($.isArray(o.obj[prop]))&&(prop=='selections')){
 					
 					for(var id in o.obj[prop]){
 						for(var item in self.manifest){
-							if(self.manifest[item].id==o.obj[prop]){
-								data.push(self.manifest[item].obj);
+							if(self.manifest[item].id==o.obj[prop][id]){
+								var sel=(self.manifest[item].obj)?self.manifest[item].obj:self.manifest[item];
+								data.push(sel);
 							}
 						}
 					}
 					
 				}
 			}
-			
-			if(data.length) self._loadItemsHandle(data);
+			if(__v) console.log('newactive selections '+JSON.stringify(data));
+			if(data.length) {
+				$("#getHLite").trigger("click");
+				self._loadItemsHandle(data);
+			}
 		}
 	},
 	// creates a TILE standard object and returns it
@@ -755,6 +762,7 @@ var TS={
 	},
 	attachButtons:function(sel){
 		var self=this;
+		if(!sel) return;
 		var id=sel.id;
 		
 		if($("#deleteHLite"+id).length){
@@ -782,7 +790,6 @@ var TS={
 
 		// attach any current divs for references
 		// self._attachLinkDiv(self.curLink);
-		$("body > .colorpicker").css({"z-index":"9999"});
 	},
 	selectHighlight:function(id){
 		var self=this;
@@ -807,23 +814,24 @@ var TS={
 		
 		if(!(obj)||(obj.type!='selections')) return;
 		var self=e.data.obj;
-		
+		if(__v) console.log('obj change '+JSON.stringify(obj));
 		// change passed reference's color
-		for(var url in self.manifest){
-			for(var sel in self.manifest){
-				if(self.manifest[sel].id==obj.id){
-					self.manifest[sel]=obj.obj;
-					// change if on display
-					$("span[class^='anno']").each(function(i,o){
-						if($(o).attr('class')==obj.id){
-							$(o).css('background-color',obj.obj.color);
-						}
-					});
-					return;
-					break;
-				}
+		
+		for(var sel in self.manifest){
+			if(self.manifest[sel].id==obj.id){
+				self.manifest[sel]=obj.obj;
+				if(__v) console.log('manifest '+JSON.stringify(self.manifest[sel]));
+				// change if on display
+				$("span[class^='anno']").each(function(i,o){
+					
+					if($(o).attr('class').replace(' selected','')==obj.id){
+						$(o).css('background-color',obj.obj.color);
+					}
+				});
+				break;
 			}
 		}
+	
 		
 	
 	},
@@ -831,7 +839,6 @@ var TS={
 	// data : {Object}
 	_loadItemsHandle:function(data){
 		var self=this;
-		
 		$("span[class^='anno']").each(function(e){
 			$("#logbar_list > .line > .button").remove();
 			$("#logbar_list > .line > div").remove();
@@ -844,6 +851,7 @@ var TS={
 		for(var v in data){
 			self.attachButtons(data[v]);
 		}
+		
 	},
 	inputData:function(data){
 		if(!data.obj) return false;

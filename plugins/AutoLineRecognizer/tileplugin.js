@@ -399,96 +399,6 @@
             //signal to user
             self.regionBox._flash();
         },
-        // Uses the REST protocol to call an external OCR service
-        // REST URL is defined by TILEOCR.REST
-        getDataFromREST: function() {
-            var self = this;
-            // get original dimensions of image
-            var ow = $("#canvas").width();
-            var oh = $("#canvas").height();
-            // original dimensions of the regionbox
-            var rw = $("#regionBox").width();
-            var rh = $("#regionBox").height();
-            var rx = $("#regionBox").position().left;
-            var ry = $("#regionBox").position().top;
-            // url comes from hidden img
-            var url = $("#hiddenCanvasSource").attr('src');
-
-            // get the correct dimensions at scale 1
-            if (TILE.scale < 1) {
-                var nscale = 1 / TILE.scale;
-                ow *= nscale;
-                ow = parseInt(ow, 10);
-                oh *= nscale;
-                oh = parseInt(oh, 10);
-                rw *= nscale;
-                rh *= nscale;
-                rx *= nscale;
-                ry *= nscale;
-            }
-            var th = $("#backgroundimage").text().split(',');
-            var rest = self.REST + '&url=' + url + '&t=' + ry + '&b=' + (rh + ry) + '&l=' + rx + '&r=' + (rx + rw) + '&thresh=' + th[0] + '&lh=' + 15 + '&lnum=' + self.activeLines.length;
-
-            $.getJSON(rest,
-            function(d, status) {
-                self.processLines(d, rw, rh, rx, ry);
-
-            });
-        },
-        // take JSON data returned by the
-        // OCR tool and wrap it up
-        processLines: function(json, rw, rh, rx, ry) {
-            var self = this;
-            // make a stack of shapes out of the stack
-            // of line top-values returned by OCR
-            var shapes = [];
-            // scale values back to normal scale
-            var nscale = 1 / TILE.scale;
-            rw *= nscale;
-            rh *= nscale;
-            rx *= nscale;
-            ry *= nscale;
-
-            for (var l in json.lines) {
-                if (json.lines[l]) {
-                    // integer showing the top value of the line
-                    // make shape object
-                    var top = (parseInt(json.lines[l], 10) * nscale);
-                    // calculate height
-                    // next line - this line
-                    var h = 0;
-                    if (json.lines[(l + 1)]) {
-                        var ntop = parseInt(json.lines[(l + 1)], 10) * nscale;
-                        h = ntop - top;
-                    } else {
-                        var ltop = parseInt(json.lines[(l - 1)], 10) * nscale;
-                        h = ltop - rh;
-                    }
-                    var id = Math.floor(Math.random() * 5000);
-                    var posInfo = {
-                        'height': h,
-                        'width': rw,
-                        'x': rx,
-                        'y': (json.lines[l] * nscale)
-                    };
-                    var s = {
-                        'id': id,
-                        'type': 'rect',
-                        'color': '#000000',
-                        '_scale': TILE.scale,
-                        'posInfo': posInfo
-                    };
-                    shapes.push(s);
-                }
-            }
-            var ldata = [];
-            // wrap shapes with lines
-            for (var x in self.activeLines) {
-                ldata.push(shapes[x]);
-            }
-            // output data
-            self._outputData(ldata);
-        },
         // Uses the CanvasAutoRecognizer functions to recognize pockets of black dots
         // in the image. Parses data into JSON, then sends it to outputData
         //
@@ -1422,7 +1332,6 @@
         thresholdConversion: function() {
             var threshold = $("#backgroundimage").text();
 
-
             this.dotMatrix = [];
 
             this.Region = $("#regionBox");
@@ -1738,7 +1647,6 @@
 
             for (var i = 0; i < (OrderByDots.length - 1); i++) {
                 for (var j = i + 1; j < OrderByDots.length; j++) {
-                    ////debug("sorting "+i+","+j);
                     if (OrderByDots[j]["num"] < OrderByDots[i]["num"]) {
                         var dummy = OrderByDots[i];
                         OrderByDots[i] = OrderByDots[j];
