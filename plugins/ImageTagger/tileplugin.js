@@ -936,21 +936,29 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		updateShape:function(obj){
 			var self=this;
 			
-			var shape=self.findShapeFromId(obj.id);
-			// replace
-			shape=obj;
+			// var shape=self.findShapeFromId(obj.id);
+			// 		// replace
+			// 		shape=obj;
 			
+			var shape=null;
+			for(var x in self.manifest){
+				if(self.manifest[x].id==obj.id){
+					self.manifest[x]=(obj.obj)?(obj.obj):obj;
+					shape=self.manifest[x];
+					break;
+				}
+			}
 			var vd=self.drawTool.exportShapes();
 			for(var x=0;x<vd.length;x++){
-				if(vd[x]&&(vd[x].id==obj.id)){
+				if(vd[x]&&(vd[x].id==shape.id)){
 					// make sure things are actually different
-					vd[x]=obj;
+					vd[x]=shape;
 					for(var y in vd[x].posInfo){
 						var dx=(vd[x].posInfo[y]*self._imgScale)/vd[x]._scale;
 						vd[x].posInfo[y]=dx;
 					}
 					vd[x]._scale=self._imgScale;
-					
+					break;
 				}
 			}
 			
@@ -1117,20 +1125,27 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		_shapeChangeHandle:function(e,obj){
 			var self=e.data.obj;
 			var url=TILE.url;
+			var shpObj=null;
 			// change in own manifest
 			for(var sh=0;sh<self.manifest.length; sh++){
 				
 				if(self.manifest[sh].id==obj.id){
-					
+					if(self.manifest[sh]._scale!=obj._scale){
+						// adjust scales
+						for(var p in obj.posInfo){
+							var dx=(obj.posInfo[p]*self.manifest[sh]._scale)/obj._scale;
+							obj.posInfo[p]=dx;
+						}
+						obj._scale=self.manifest[sh]._scale;
+					}
 					self.manifest[sh].posInfo=obj.posInfo;
 					
-					shpObj=obj;
+					shpObj=self.manifest[sh];
 					break;
 				}
 			}
 			
-		
-			$("body:first").trigger("imageShapeUpdate",[obj]);
+			$("body:first").trigger("imageShapeUpdate",[shpObj]);
 		},
 		// Called whenever a user clicks on an object while VectorDrawer
 		// is in 's' mode
@@ -1906,7 +1921,6 @@ var IT={
 				obj.posInfo[y]=dx;
 			}
 			obj._scale=1;
-			
 			// make a tile wrapper if needed
 			if(!obj.jsonName){
 				obj={
@@ -1916,6 +1930,7 @@ var IT={
 					obj:obj
 				};
 			}
+			
 			// update in TILE
 			TILE.engine.updateData(obj);
 		};

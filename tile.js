@@ -2271,9 +2271,9 @@ TILE.scale=1;
 				}
 				// create link
 				var newo=self.parseLink(o1,o2);
-				if(!newo){
-					TILE.engine.displayError('Problem occured: Line 2249 :: '+JSON.stringify(o1));
-				}
+				// if(!newo){
+				// 					TILE.engine.displayError('Problem occured: Line 2249 :: '+JSON.stringify(o1));
+				// 				}
 				o1=newo[0];
 				o2=newo[1];
 				// o1=self.findObj(o1.id,o1.type);
@@ -2365,17 +2365,45 @@ TILE.scale=1;
 		// If found, update found record
 		updateDataInJSON:function(obj){
 			var self=this;
-			tileObj=self.findRealObj(obj.id,obj.type);
-			
-			for(var x in tileObj){
-				if((obj[x])&&($.isArray(tileObj[x]))){
-					// change the array data
-					tileObj[x]=obj[x];
+			// tileObj=self.findRealObj(obj.id,obj.type);
+			var id=obj.id;
+			var type=obj.type;
+			if(!json[type]){
+				// URL - find in current page
+				var page=null;
+				for(var p in json.pages){
+					if(json.pages[p].url==TILE.url){
+						// found page
+						page=json.pages[p];
+						break;
+					}
 				}
+				if((!page)||(!page[type])) return obj;
+				for(var item in page[type]){
+					if(id==page[type][item].id){
+						page[type][item]=obj.obj;
+					}
+				}
+			} else {
+				if(!json[type]) return obj;
+				for(var item in json[type]){
+					if(id==json[type][item].id){
+						json[type][item]=obj.obj;
+						break;
+					}
+				}
+				
 			}
+			
+			// tileObj=deepcopy()
+			// 			for(var x in tileObj){
+			// 				if((obj[x])&&($.isArray(tileObj[x]))){
+			// 					// change the array data
+			// 					tileObj[x]=obj[x];
+			// 				}
+			// 			}
 			// done updating real object, get TILE copy
 			var copy=self.findTileObj(obj.id,obj.type);
-			
 			$("body:first").trigger("dataUpdated",[copy]);
 			
 		},
