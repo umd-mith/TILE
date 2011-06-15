@@ -28,5 +28,5 @@
 	}
 
 	// declare namespace
-	array_push(CoreData::$import_namespaces,'TEI :: P5 DTD');
+	array_push(CoreData::$import_namespaces,'TEI :: P5');
 ?>

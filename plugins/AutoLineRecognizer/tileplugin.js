@@ -1911,7 +1911,7 @@ var AR = {
 
                 // LOAD SCREEN
                 // take away the load screen
-                function removeScreen(e) {
+                function removeScreen() {
                     $("#ALR_LOAD").remove();
                     $("#ALRBACK").remove();
 
@@ -1942,16 +1942,12 @@ var AR = {
                 // start loadScreen
                 loadScreen();
                 var done = false;
-                // create html to put in dashboard
-                $("body:first").trigger("displayOnDashboard", [{
-                    mode: 'Auto Line Recognizer',
-                    html: ''
-                }]);
+                
 				var linecount=0;
                 // go through array, make each related line
                 // active, then attach shape
                 for (var prop in vd) {
-					if((!lines[linecount])||(!lines[prop])) break;
+					
                     // set up line var
                     var line = {
                         id: lines[linecount].id,
@@ -1960,7 +1956,15 @@ var AR = {
                         obj: lines[prop]
                     };
 					linecount++;
-				
+					if((!lines[linecount])||(!lines[prop])||(!vd[linecount])) {
+						setTimeout(function(){
+							removeScreen();
+							$("#logbar_list > .line:first").trigger("click");
+							
+						},1500);
+						
+						
+					}
                     setTimeout(function(line, shape) {
                         addLine(line, shape);
                         // if done, then trigger the load screen to be removed
@@ -1968,7 +1972,9 @@ var AR = {
                     },15, line, vd[prop]);
 
                 }
-				 $("body:first").trigger("closeALRLoad");
+
+				 
+				
             });
 
 

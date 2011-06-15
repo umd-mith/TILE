@@ -99,13 +99,13 @@
 			// Initialize the core functions and objects:
 			// (Metadata dialog, TILE_ENGINE, Save dialog, Toolbar)
 			engine=new TILE_ENGINE({});
-			// add plugins
 			
-			// add Mode
+			// add Modes
 			engine.insertMode('Image Annotation');
 			
 			engine.insertMode('Auto Line Recognizer');
 			
+			// Add Plugins
 			// Image tagger
 			engine.insertModePlugin('Image Annotation','ImageTagger');
 			// Auto recognizer
