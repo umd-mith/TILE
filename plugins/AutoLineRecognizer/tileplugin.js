@@ -389,7 +389,7 @@
 
             var dims = self.regionBox._getDims();
             //var rgb = $("#backgroundimage").text();
-            var rgb = self.colorFilter._RGB();
+            
             var _d = new Date();
             //create JSON object that is output after
             self.regionList = {
@@ -401,7 +401,7 @@
                 "top": dims.top,
                 "width": dims.width,
                 "height": dims.height,
-                "rgb": rgb,
+                
                 "uri": $("#hiddenCanvasSource").attr('src')
             };
 
