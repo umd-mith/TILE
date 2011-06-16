@@ -443,8 +443,6 @@
                 // Top value of the bounding box - this is where measurement for lines starts at
                 var alphaTop = _REG.top;
 
-                var lastTop = alphaTop+bucket[0];
-
                 $(".selLine").removeClass("selLine").addClass("recLine");
                 //find proportion of canvas image
                 var imgdims = self.CANVAS._getPerc();
@@ -452,16 +450,6 @@
                 //for sending to the logbar
                 var sids = [];
 				
-				// for(var i=0;i<bucket.length;i++){
-				// 					if(i%2!=0){
-				// 						var top=bucket[(i-1)];
-				// 						var height=bucket[i]-top;
-				// 					
-				// 						if(__v) console.log('bucket['+i+'] '+bucket[i]+' height: '+height+' '+top);
-				// 					}
-				// 				}
-				// 				
-				// 				return;
 				
 				// Goes through each value of the bucket and 
 				// creates top and height values. Then constucts the 
@@ -475,7 +463,7 @@
 	                    var top = alphaTop + bucket[(i-1)];
 					
 	                    // Calculate for average height of line
-	                    var height = parseInt(top, 10)-parseInt([bucket[i]], 10);
+	                    var height = parseInt(bucket[i], 10)-parseInt([bucket[(i-1)]], 10);
 					
 	                    
 	                    //creating a similar JSON structure to that of the
@@ -1519,6 +1507,7 @@
 			if(!self.line_pairs||(self.line_pairs.length==0)){
 				
 				self.thresholdConversion();
+				if(__v) console.log('line_pairs  '+self.line_pairs);
 				return self.line_pairs;
 			} else {
 				return self.line_pairs;
