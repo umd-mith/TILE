@@ -450,55 +450,57 @@
                 //for sending to the logbar
                 var sids = [];
 				
+				var linecount=0;
+				
 				
 				// Goes through each value of the bucket and 
 				// creates top and height values. Then constucts the 
 				// shape object that is fed back into TILE.
 				// Uses same left and width attribute for all lines.
-                for (var i = 1; i < bucket.length; i++) {
-					// 
-					if(i%2!=0){
-	
-	                    // add the value of the line to the
-	                    var top = alphaTop + bucket[(i-1)];
-					
-	                    // Calculate for average height of line
-	                    var height = parseInt(bucket[i], 10)-parseInt([bucket[(i-1)]], 10);
-					
-	                    
-	                    //creating a similar JSON structure to that of the
-	                    //VectorDrawer structure for loading in shapes
-	                    // First generate random ID for shape
-						var id = Math.floor(Math.random() * 365);
-	                    while ($.inArray(id, sids) >= 0) {
-	                        id = Math.floor(Math.random() * 365);
-	                    }
-	                    sids.push(id);
-	                    //change the uid of the lineBox that goes with this
-	                    // $("#lineBox_" + i).attr('id', "lineBox_" + id + "_shape");
+                for (var i = 1; i <= bucket.length; i+=2) {
+				
+                    // add the value of the line to the
+                    var top = alphaTop + bucket[(i-1)];
+					var bottom=alphaTop+bucket[i];
+				
+                    // Calculate for average height of line
+                    var height = bottom-top;
+				
+                    
+                    //creating a similar JSON structure to that of the
+                    //VectorDrawer structure for loading in shapes
+                    // First generate random ID for shape
+					var id = Math.floor(Math.random() * 365);
+                    while ($.inArray(id, sids) >= 0) {
+                        id = Math.floor(Math.random() * 365);
+                    }
+                    sids.push(id);
+                    //change the uid of the lineBox that goes with this
+                    // $("#lineBox_" + i).attr('id', "lineBox_" + id + "_shape");
 
-	                    //update assoc. transcript tag
-	                    if (self.activeLines[i]) {
-	                        // if(!self.transcript.lines[i].shapes) self.transcript.lines[i].shapes=[];
-	                        // if(!self.transcript.shapes) self.transcript.shapes=[];
-	                        //add data to the session's JSON object.
-						
-	                        ldata.push({shape:{
-	                            "id": id + "_shape",
-	                            "type": "rect",
-	                            "_scale": AutoR.scale,
-	                            "color": "#000000",
-	                            "posInfo": {
-	                                "x": (left),
-	                                "y": (top),
-	                                "width": (_REG.width),
-	                                "height": (height)
-	                            }
-	                        },
-							line:self.activeLines[i]	
-							});
-	                    }
-					}
+                    //update assoc. transcript tag
+                    if (self.activeLines[linecount]) {
+                        // if(!self.transcript.lines[i].shapes) self.transcript.lines[i].shapes=[];
+                        // if(!self.transcript.shapes) self.transcript.shapes=[];
+                        //add data to the session's JSON object.
+					
+                        ldata.push({shape:{
+                            "id": id + "_shape",
+                            "type": "rect",
+                            "_scale": AutoR.scale,
+                            "color": "#000000",
+                            "posInfo": {
+                                "x": (left),
+                                "y": (top),
+                                "width": (_REG.width),
+                                "height": (height)
+                            }
+                        },
+						line:self.activeLines[linecount]	
+						});
+						linecount++;
+                    }
+				
                 }
                 self.regionBox.DOM.hide();
                 //hide regionBox
