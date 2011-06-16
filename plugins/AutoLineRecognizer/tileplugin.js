@@ -455,14 +455,24 @@
 				// creates top and height values. Then constucts the 
 				// shape object that is fed back into TILE.
 				// Uses same left and width attribute for all lines.
-                for (var i = 1; i <= bucket.length; i+=2) {
+                for (var i = 1; i < bucket.length; i+=2) {
 				
                     // add the value of the line to the
-                    var top = alphaTop + bucket[(i-1)];
-					var bottom=alphaTop+bucket[i];
+                    var top = alphaTop + bucket[(i-1)] + 1;
+					var bottom=alphaTop+(bucket[i+1]) - 2;
 				
                     // Calculate for average height of line
                     var height = bottom-top;
+					if(i > 1) {
+						top += height;
+					}
+					else {
+					
+					}
+					if(i == bucket.length) {
+						bottom += 2;
+						height += 2;
+					}
 				
                     
                     //creating a similar JSON structure to that of the
@@ -1493,6 +1503,7 @@
  				if(in_line) {
  					this.line_pairs[j] = rh-2;
  				}
+				this.line_pairs[j+1] = rh;
  				//console.log(this.line_pairs);
 
                 //convert area to black and white using putImageData
