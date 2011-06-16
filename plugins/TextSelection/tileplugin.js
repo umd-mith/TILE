@@ -685,7 +685,12 @@ var TS={
 			// load the passed selection object
 			self._loadItemsHandle([o.obj]);
 		} else {
-		
+			// erase markers
+			$("span[class^='anno']").each(function(e){
+				$(this).children(".button").remove();
+				$(this).children("div").remove();
+			});
+			self.textsel.removeHighlightMarkers();
 			var data=[];
 			// check for selections within object
 			for(var prop in o.obj){

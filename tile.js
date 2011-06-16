@@ -718,7 +718,7 @@ TILE.scale=1;
 			// 				lb.refs=ac;
 			// 			}
 			// 			$.extend(lb,{parentTool:self._curLink.tool,parentObj:self._curLink.id,parentType:self._curLink.type});
-			
+			if(__v) console.log('deleting '+JSON.stringify(lb)+'  from  '+JSON.stringify(self._curLink));
 			TILE.engine.deleteObj(self._curLink,lb);
 			// also need to do reverse in order for link to be severed
 			TILE.engine.deleteObj(lb,self._curLink);
@@ -2730,7 +2730,7 @@ TILE.scale=1;
 				}
 			}
 			obj=self.findTileObj(obj.id,obj.type);
-			// $("body:first").trigger('dataDeleted',[obj]);
+		$("body:first").trigger('dataUpdated',[obj]);
 		}
 	};
 	
