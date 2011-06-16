@@ -518,7 +518,6 @@ var TS={
 		// attach button listener
 		$("#getHLite").live('click',getHLite);
 		
-		
 		// listener for when PluginController sends data 
 		// to change in current selection
 		// $("body").live("ObjectChange",{obj:self},self._objChangeHandle);
@@ -536,9 +535,18 @@ var TS={
 			
 			// select the highlight
 			var o=self.selectHighlight(id);
+			var h=o[0];
+			if(!h.jsonName){
+				h={
+					id:o[0].id,
+					type:'selections',
+					jsonName:TILE.url,
+					obj:o[0]
+				};
+			}
 			
 			// use data to attach metadata box
-			if(o) TILE.engine.attachMetadataDialog(o[0],o[1]);
+			if(o) TILE.engine.attachMetadataDialog(h,o[1]);
 			
 		});
 		$("span[class^='anno']").live('mouseover',function(e){
