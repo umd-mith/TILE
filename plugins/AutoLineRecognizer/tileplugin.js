@@ -69,18 +69,32 @@
 
         // self.loc=(args.loc)?  $("#"+args.loc):$("div.az.tool:empty");
         // self.html=args.layout.autorec;
-        self.logHTML = "<div id=\"autoreclog\" class=\"az tool autolinerecognizer\"><div id=\"autorecarea\" class=\"az inner autolinerecognizer\"><div class=\"autorec_toolbar\"><div class=\"toolbar\">Auto Line Recognizer<div class=\"menuitem\">" +
-        "<span class=\"button\">Cancel</span></div></div><div id=\"content\" class=\"az\"><div id=\"sidebarHead\"><div id=\"boxSize\">" +
-        "</div><div id=\"boxPos\"></div></div><div class=\"step\"><div class=\"instructions\"><p><span class=\"stepnum\">Step 1: </span>Choose global color and region settings</p>" +
-        "</div><div id=\"colorSection\">" +
-        "<span id=\"colorPanel\" class=\"color\"><label>Red:</label><div id=\"red\"></div><label>Green:</label><div id=\"green\"></div><label>Blue:</label><div id=\"blue\"></div></span>" +
-        "<div id=\"backgroundimage\">0,0,0</div></div>" +
-        "<div id=\"sidebarContent\"></div></div><div class=\"step\"><div class=\"instructions\">" +
-        "<p><span class=\"stepnum\">Step 2: </span>Select the lines that you want to recognize</p>" +
-        "</div><div id=\"transcript\"></div><div id=\"transcript_controls\">" +
-        "<a id=\"selectAll\" class=\"textlink\">Select All</a> | <a id=\"selectNone\" class=\"textlink\">Select None</a></div><div class=\"buttondiv\">" +
-        "<a id=\"autorec_recognize\" class=\"button\">Perform Line Recognition</a></div></div></div>";
-        self.canvasArea = $("#azcontentarea").parent();
+       
+
+		// OLD LOG HTML THAT REFERS TO USING RGB VALUES TO DETERMINE LINE PLACEMENT
+		// INCLUDES SLIDERS FOR RGB VALUES
+ 		// self.logHTML = "<div id=\"autoreclog\" class=\"az tool autolinerecognizer\"><div id=\"autorecarea\" class=\"az inner autolinerecognizer\"><div class=\"autorec_toolbar\"><div class=\"toolbar\">Auto Line Recognizer<div class=\"menuitem\">" +
+        //        "<span class=\"button\">Cancel</span></div></div><div id=\"content\" class=\"az\"><div id=\"sidebarHead\"><div id=\"boxSize\">" +
+        //        "</div><div id=\"boxPos\"></div></div><div class=\"step\"><div class=\"instructions\"><p><span class=\"stepnum\">Step 1: </span>Choose global color and region settings</p>" +
+        //        "</div><div id=\"colorSection\">" +
+        //        "<span id=\"colorPanel\" class=\"color\"><label>Red:</label><div id=\"red\"></div><label>Green:</label><div id=\"green\"></div><label>Blue:</label><div id=\"blue\"></div></span>" +
+        //        "<div id=\"backgroundimage\">0,0,0</div></div>" +
+        //        "<div id=\"sidebarContent\"></div></div><div class=\"step\"><div class=\"instructions\">" +
+        //        "<p><span class=\"stepnum\">Step 2: </span>Select the lines that you want to recognize</p>" +
+        //        "</div><div id=\"transcript\"></div><div id=\"transcript_controls\">" +
+        //        "<a id=\"selectAll\" class=\"textlink\">Select All</a> | <a id=\"selectNone\" class=\"textlink\">Select None</a></div><div class=\"buttondiv\">" +
+        //        "<a id=\"autorec_recognize\" class=\"button\">Perform Line Recognition</a></div></div></div>";
+        
+		// NEW LOGBAR FOR NON-RGB METHOD OF RECOGNIZING LINES
+		self.logHTML='<div id="autoreclog" class="az tool autolinerecognizer"><div id="autorecarea" class="az inner autolinerecognizer"><div class="autorec_toolbar"><div class="toolbar">Auto Line Recognizer<div class="menuitem">' +
+         '<span class="button">Cancel</span></div></div>'+
+		'<div class="step"><div class="instuctions"><p>Does this image of text have:</p></div>'+
+		'<p><input type="radio" id="darkonlight" name="threshChoice" />Dark text on a light background</p>'+
+		'<p><input type="radio" id="lightondark" name="threshChoice" />Light text on a dark(er) background.</p></div>'+
+		'<div class="step"></div><div class="step"><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
+		'</div>';
+
+		self.canvasArea = $("#azcontentarea").parent();
         //use this later to put in CanvasImage object
         self.canvasHTML = '<div id="canvasHTML" class="workspace autolinerecognizer"><canvas id="canvas"/><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
         // Link to Doug Reside's project to convert OCR script into a REST-like service
@@ -133,7 +147,7 @@
                 self._paginate( - 1);
                 //$(this).trigger("turnPage",[-1]);
             });
-            self.recognizeB = $("#" + self.DOM.attr('id') + " > #content > div.step > div.buttondiv > #autorec_recognize");
+            self.recognizeB = $("#autorec_recognize");
             self.doneB = $("#" + self.DOM.attr('id') + " > #content > div > #done").click(function(e) {
                 e.preventDefault();
                 self._outputData();
@@ -412,24 +426,16 @@
                 //add to this region's images
                 //	self.regionList[self.curRegion].images.push($("#hiddenCanvasSource").attr('src'));
                 numOfLines = self.activeLines.length;
-                bucket = self.CAR.createLineBreaks(numOfLines);
-                bucket.sort(function(a, b) {
-                    return (a - b);
-                });
-                curLinesArray = [];
-
-                // figure out the current image scale
-                var w = $("#hiddenCanvasSource")[0].width;
-                var h = $("#hiddenCanvasSource")[0].height;
-                var scalecorrectx = 1;
-                //parseFloat(1/$("#canvas")[0].width);
-                var scalecorrecty = 1;
-                //parseFloat(1/$("#canvas")[0].height);
-                //get the current region
-                var _REG = self.regionList;
-
+                // bucket = self.CAR.createLineBreaks(numOfLines);
+               
+				// Get line values
+				bucket=self.CAR.getLines();
+ 			
+				// Retrieve dimensions of the red bounding box
+				_REG=self.regionBox._getDims();
+                // Permanent Left value for all lines
                 var left = _REG.left;
-
+				// Correction value for Auto Recognizer CSS vs. Image Tagger CSS
                 var tbarcorrect = ($(".az.inner.imageannotation > .toolbar").height() / 2);
                 // correct the bounding box top value
                 _REG.top -= tbarcorrect;
@@ -437,7 +443,7 @@
                 // Top value of the bounding box - this is where measurement for lines starts at
                 var alphaTop = _REG.top;
 
-                var lastTop = alphaTop;
+                var lastTop = alphaTop+bucket[0];
 
                 $(".selLine").removeClass("selLine").addClass("recLine");
                 //find proportion of canvas image
@@ -445,42 +451,66 @@
                 var ldata = [];
                 //for sending to the logbar
                 var sids = [];
-                for (var i = 0; i < bucket.length; i++) {
-                    // add the value of the line to the
-                    var top = alphaTop + bucket[i];
+				
+				// for(var i=0;i<bucket.length;i++){
+				// 					if(i%2!=0){
+				// 						var top=bucket[(i-1)];
+				// 						var height=bucket[i]-top;
+				// 					
+				// 						if(__v) console.log('bucket['+i+'] '+bucket[i]+' height: '+height+' '+top);
+				// 					}
+				// 				}
+				// 				
+				// 				return;
+				
+				// Goes through each value of the bucket and 
+				// creates top and height values. Then constucts the 
+				// shape object that is fed back into TILE.
+				// Uses same left and width attribute for all lines.
+                for (var i = 1; i < bucket.length; i++) {
+					// 
+					if(i%2!=0){
+	
+	                    // add the value of the line to the
+	                    var top = alphaTop + bucket[(i-1)];
+					
+	                    // Calculate for average height of line
+	                    var height = parseInt(top, 10)-parseInt([bucket[i]], 10);
+					
+	                    
+	                    //creating a similar JSON structure to that of the
+	                    //VectorDrawer structure for loading in shapes
+	                    // First generate random ID for shape
+						var id = Math.floor(Math.random() * 365);
+	                    while ($.inArray(id, sids) >= 0) {
+	                        id = Math.floor(Math.random() * 365);
+	                    }
+	                    sids.push(id);
+	                    //change the uid of the lineBox that goes with this
+	                    // $("#lineBox_" + i).attr('id', "lineBox_" + id + "_shape");
 
-                    // Calculate for average height of line
-                    var height = parseInt(top, 10) - parseInt(lastTop, 10);
-                    // Value used for calculating average height - measured against current line's height
-                    lastTop = (top);
-                    //creating a similar JSON structure to that of the
-                    //VectorDrawer structure for loading in shapes
-                    var id = Math.floor(Math.random() * 365);
-                    while ($.inArray(id, sids) >= 0) {
-                        id = Math.floor(Math.random() * 365);
-                    }
-                    sids.push(id);
-                    //change the uid of the lineBox that goes with this
-                    $("#lineBox_" + i).attr('id', "lineBox_" + id + "_shape");
-
-                    //update assoc. transcript tag
-                    if (self.activeLines[i]) {
-                        // if(!self.transcript.lines[i].shapes) self.transcript.lines[i].shapes=[];
-                        // if(!self.transcript.shapes) self.transcript.shapes=[];
-                        //add data to the session's JSON object
-                        ldata.push({
-                            "id": id + "_shape",
-                            "type": "rect",
-                            "_scale": AutoR.scale,
-                            "color": "#000000",
-                            "posInfo": {
-                                "x": (left),
-                                "y": (top),
-                                "width": (_REG.width),
-                                "height": (height)
-                            }
-                        });
-                    }
+	                    //update assoc. transcript tag
+	                    if (self.activeLines[i]) {
+	                        // if(!self.transcript.lines[i].shapes) self.transcript.lines[i].shapes=[];
+	                        // if(!self.transcript.shapes) self.transcript.shapes=[];
+	                        //add data to the session's JSON object.
+						
+	                        ldata.push({shape:{
+	                            "id": id + "_shape",
+	                            "type": "rect",
+	                            "_scale": AutoR.scale,
+	                            "color": "#000000",
+	                            "posInfo": {
+	                                "x": (left),
+	                                "y": (top),
+	                                "width": (_REG.width),
+	                                "height": (height)
+	                            }
+	                        },
+							line:self.activeLines[i]	
+							});
+	                    }
+					}
                 }
                 self.regionBox.DOM.hide();
                 //hide regionBox
@@ -500,10 +530,7 @@
             }
             // output all data found
             if (data) {
-                $("body:first").trigger("outputLines", [{
-                    data: data,
-                    lines: self.activeLines
-                }]);
+                $("body:first").trigger("outputLines", [data]);
             } else {
                 $("body:first").trigger("outputLines");
             }
@@ -1437,7 +1464,7 @@
 						this.bdrows_diff[j-1] = (this.bdrows[j] - this.bdrows[j-1])/(rw);
 						if(j>1) {
 							this.bdrows_diff2[j-2] = (this.bdrows_diff[j-1] - this.bdrows_diff[j-2]);
-							this.bdrows_diff2[j-2] = parseInt(this.bdrows_diff[j-2]);
+							this.bdrows_diff2[j-2] = parseInt(this.bdrows_diff[j-2],10);
 						}
 					}
                 }
@@ -1485,6 +1512,18 @@
 
             }
         },
+		// Return bucket of line values. If none present, call thresholdConversion
+		getLines:function(){
+			var self=this;
+			
+			if(!self.line_pairs||(self.line_pairs.length==0)){
+				
+				self.thresholdConversion();
+				return self.line_pairs;
+			} else {
+				return self.line_pairs;
+			}
+		},
         // Takes dotMatrix array and figures out median
         // threshold
         medianThreshold: function() {
@@ -1791,6 +1830,8 @@ var AR = {
             $("#azcontentarea > .az.inner:eq(0)").show();
             $("#az_log").removeClass('tool').addClass('log');
             $("#az_log > #az_transcript_area").show();
+
+			// Picks up shapes that were recognized in _recognize
             $("body").live("outputLines", {
                 obj: self
             },
@@ -1807,19 +1848,18 @@ var AR = {
                 // send to engine
                 // first go through and parse each data element
                 var vd = [];
-                var shapes = data.data;
-                var lines = data.lines;
+                
 				// combine together in one array
-				for (var d in shapes) {
-					if(!data.lines[d]) break;
-                    var o = {
-                        id: shapes[d].id,
-                        type: 'shapes',
-                        jsonName: TILE.url,
-                        obj: shapes[d]
-                    };
-                    vd.push(o);
-                }
+				// for (var d in data) {
+				// 					if(!data.lines[d]) break;
+				//                     var o = {
+				//                         id: shapes[d].id,
+				//                         type: 'shapes',
+				//                         jsonName: TILE.url,
+				//                         obj: shapes[d]
+				//                     };
+				//                     vd.push(o);
+				//                 }
 
                 // LOAD SCREEN
                 // take away the load screen
@@ -1846,6 +1886,7 @@ var AR = {
                 // CAUSES MASSIVE LAG TIME IN MOST BROWSERS
                 function addLine(line, shape) {
                     if (line && shape) {
+	if(__v) console.log('line: '+JSON.stringify(line)+'  shape: '+JSON.stringify(shape));
                         TILE.engine.insertData(shape);
                         TILE.engine.linkObjects(line, shape);
                     }
@@ -1858,31 +1899,32 @@ var AR = {
 				var linecount=0;
                 // go through array, make each related line
                 // active, then attach shape
-                for (var prop in vd) {
+                for (var prop in data) {
 					
                     // set up line var
-                    var line = {
-                        id: lines[linecount].id,
+                    var lineObj = {
+                        id: data[prop].line.id,
                         type: 'lines',
                         jsonName: TILE.url,
-                        obj: lines[prop]
+                        obj: data[prop].line
                     };
+					
+					// set up shape
+					var shapeObj={
+						id:data[prop].shape.id,
+						type:'shapes',
+						jsonName:TILE.url,
+						obj:data[prop].shape
+					};
+					
 					linecount++;
-					if((!lines[linecount])||(!lines[prop])||(!vd[linecount])) {
-						setTimeout(function(){
-							removeScreen();
-							$("#logbar_list > .line:first").trigger("click");
-							
-						},1500);
-						
-						
-					}
+					
                     setTimeout(function(line, shape) {
                         addLine(line, shape);
                         // if done, then trigger the load screen to be removed
                         
-                    },15, line, vd[prop]);
-
+                    },15, lineObj, shapeObj);
+					removeScreen();
                 }
 
 				 
