@@ -325,7 +325,7 @@
                     // push on line stack
                     self.lineManifest.push(self.transcript.lines[t]);
                     //create a selLine object out of transcript item
-                    var el = $("<div class='trLine selLine' id='trLine" + t + "'>" + self.transcript.lines[t].text + "</div>");
+                    var el = $("<div class='trLine selLine' id='" + t + "'>" + self.transcript.lines[t].text + "</div>");
                     self.transcriptArea.append(el);
                     el.click(function(e) {
                         if ($(this).hasClass("selected")) {
