@@ -22,6 +22,7 @@
 	AutoR.scale=1;
 	AutoR.imgw=0;
 	AutoR.imgh=0;
+	AutoR.darkText=true;
     var alrcontainer = "#azcontentarea > .az.inner.autolinerecognizer";
 
     // LOAD SCREEN
@@ -86,19 +87,23 @@
         //        "<a id=\"autorec_recognize\" class=\"button\">Perform Line Recognition</a></div></div></div>";
         
 		// NEW LOGBAR FOR NON-RGB METHOD OF RECOGNIZING LINES
-		self.logHTML='<div id="autoreclog" class="az tool autolinerecognizer"><div id="autorecarea" class="az inner autolinerecognizer"><div class="autorec_toolbar"><div class="toolbar">Auto Line Recognizer<div class="menuitem">' +
+		self.logHTML='<div id="autoreclog" class="az tool autolinerecognizer"><div id="autorecarea" class="az inner autolinerecognizer">'+
+		'<div class="autorec_toolbar"><div class="toolbar">Auto Line Recognizer<div class="menuitem">' +
          '<span class="button">Cancel</span></div></div>'+
-		'<div class="step"><div class="instuctions"><p>Does this image of text have:</p></div>'+
-		'<p><input type="radio" id="darkonlight" name="threshChoice" />Dark text on a light background</p>'+
-		'<p><input type="radio" id="lightondark" name="threshChoice" />Light text on a dark(er) background.</p></div>'+
-		'<div class="step"></div><div class="step"><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
-		'</div>';
+		'<div id="content" class="az"><div class="step"><div class="instructions"><p>Does this image of text have:</p></div>'+
+		'<div><p><input type="radio" id="darkonlight" name="threshChoice" />Dark text on a light background</p>'+
+		'<p><input type="radio" id="lightondark" name="threshChoice" />Light text on a dark(er) background.</p></div></div>'+
+		'<div class="step"><div class="instructions">' +
+        '<p><span class="stepnum">Step 2: </span>Select the lines that you want to recognize</p>' +
+        '</div><div id="transcript"></div><div id="transcript_controls">' +
+        '<a id="selectAll" class="textlink">Select All</a> | <a id="selectNone" class="textlink">Select None</a></div>'+
+		'<div class="step"><div class="instructions"><p>Push this a here button:</p></div><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
+		'</div></div>';
 
 		self.canvasArea = $("#azcontentarea").parent();
         //use this later to put in CanvasImage object
         self.canvasHTML = '<div id="canvasHTML" class="workspace autolinerecognizer"><canvas id="canvas"/><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
-        // Link to Doug Reside's project to convert OCR script into a REST-like service
-        self.REST = 'http://localhost:8888/tile/linerecognizer/LineRecognizer.php?ct=j';
+   
         self.transcript = (args.transcript) ? args.transcript: null;
         self.lineManifest = [];
         self.activeLines = [];
@@ -119,19 +124,19 @@
             // self.html=jsonhtml.autorec;
 
             self.DOM = $("div.autorec_toolbar").attr('id', self.uid + "_main");
-            //ColorFilter
-            self.colorFilterArea = $("#" + self.DOM.attr('id') + " > div.colorSection").attr("id", self.uid + "_CF");
-            self.colorFilter = new TileColorFilter({
-                DOM: self.colorFilterArea.attr("id"),
-                green: "green",
-                blue: "blue",
-                red: "red",
-                colorBox: "backgroundimage"
-            });
-            self.contentArea = $("#" + self.DOM.attr('id') + " > #content");
-            //get areas
-            self.regionListBoxDiv = $("#" + self.DOM.attr('id') + " > #content > div.step > div#sidebarContent");
-
+            
+			$("#darkonlight").live('click',function(e){
+				
+				AutoR.darkText=true;
+			});
+			
+			$("#darkonlight").attr('checked','checked');
+			
+			$("#lightondark").live('click',function(e){
+				
+				AutoR.darkText=false;
+			});
+			
             self.transcriptArea = $("#" + self.DOM.attr('id') + " > #content > .step > #transcript");
 
             //get buttons
@@ -139,14 +144,7 @@
                 e.preventDefault();
                 self._outputData();
             });
-            self.nextB = $("#" + self.DOM.attr('id') + " > #content > div.step > div.buttondiv > #nextButton").click(function(e) {
-                //$(this).trigger("turnPage",[1]);
-                self._paginate(1);
-            });
-            self.prevB = $("#" + self.DOM.attr('id') + " > #content > div.step > div.buttondiv > #prevButton").click(function(e) {
-                self._paginate( - 1);
-                //$(this).trigger("turnPage",[-1]);
-            });
+           
             self.recognizeB = $("#autorec_recognize");
             self.doneB = $("#" + self.DOM.attr('id') + " > #content > div > #done").click(function(e) {
                 e.preventDefault();
@@ -275,8 +273,8 @@
                     $("#az_log > .az.inner:eq(1)").show();
                     $(alrcontainer).show();
                     // self.DOM.show();
-                    self.colorFilter.DOM.show();
-                    self.colorFilter._restart();
+                    // self.colorFilter.DOM.show();
+                    //                     self.colorFilter._restart();
                     self.CANVAS._restart(transcript);
                     $(this).animate({
                         opacity: 1,
