@@ -1657,9 +1657,7 @@
             var lastRow = 0;
             var bucket = [];
             var i = 0;
-            //debug("medIndex: "+Math.floor(OrderByRows.length/2));
             var median = OrderByDots[Math.floor(OrderByRows.length / 2)].num;
-            //debug("median: "+median);
             while ((bucket.length < numOfLines) && (i < OrderByDots.length)) {
                 var r = parseInt(OrderByDots[i]["row"].substring(1), 10);
                 var j = 0;
@@ -1691,40 +1689,7 @@
                 i++;
             }
             return bucket;
-        },
-        addLineBreak: function(e) {
-
-            },
-        colorLineBreaks: function(imageEl) {
-            for (y in this.dots) {
-                var row = parseInt(y.substring(1), 10);
-                for (x in this.dots[y]) {
-                    var col = parseInt(x.substring(1), 10);
-                    var shape = this.dots[y][x];
-                    color = 4;
-                    if (this.shapes[shape]) {
-                        var forow = parseInt(this.shapes[shape].foundOnRow, 10);
-
-                        //if (jQuery.inArray(shape,this.lineBreaks)>0){
-                        var index = (col + row * this.Region.w) * 4;
-                        var alpha = this.regionData.data[index + 3];
-                        //var odd=((forow%2)==0);
-                        var color = (forow % 3);
-                        //even, it gets a red value, ODD, gets a GREEN value
-                    }
-                    this.regionData.data[index] = (color == 0) ? 255: 0;
-                    this.regionData.data[index + 1] = (color == 1) ? 255: 0;
-                    this.regionData.data[index + 2] = (color == 2) ? 255: 0;
-                    this.regionData.data[index + 3] = alpha;
-
-                    //}
-                }
-            }
-            //change colors
-            var nh = (parseInt(imageEl.height, 10) * 1000) / parseInt(imageEl.width, 10);
-            this.context.putImageData(this.regionData, this.Region.ox, this.Region.oy);
         }
-
     };
 
 })();
