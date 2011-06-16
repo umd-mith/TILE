@@ -1329,6 +1329,16 @@
     CanvasAutoRecognizer.prototype = {
         // Conversion of region of image to black and white
         // threshold {Integer} - threshold for BW conversion
+		//
+		// at the end, this.line_pairs will be an array of row numbers
+		// if we have a dark text on light background, then the first number will be the beginning
+		//   of the first line, the second will be the end of the first line, the third will be
+		//   the beginning of the second line, the fourth will be the end of the second line, etc.
+		// if we have light text on a dark background, then the first number will likely be the end of
+		//   the first line, the second will be the beginning of the second line, the third will be
+		//   the end of the second line, etc. (basically, we're offset by one and need to insert
+		//   the first row at the beginning of the array)
+
         thresholdConversion: function() {
             var threshold = $("#backgroundimage").text();
 
@@ -1393,12 +1403,14 @@
                 }
 
                 var total = 0;
+				this.bdrows_diff = [];
+				this.bdrows_diff2 = [];
                 //CREATING this.dots array matrix
                 //GOING HORIZONTAL TO VERTICAL
                 for (var j = 0; j < rh; j++) {
-                    this.bdrows["R" + j] = 0;
+                    this.bdrows[j] = 0;
                     for (var i = 0; i < rw; i++) {
-                        this.bdcols["C" + i] = 0;
+                        this.bdcols[i] = 0;
                         var index = (i + j * rw) * 4;
                         var red = this.regionData.data[index];
                         var green = this.regionData.data[index + 1];
@@ -1411,36 +1423,63 @@
                         }
                         this.dotMatrix[j][i] = average;
 
+						// Convert image to grey-level based on intensity
+						this.regionData.data[index] = average;
+						this.regionData.data[index+1] = average;
+						this.regionData.data[index+2] = average;
+						this.regionData.data[index+3] = alpha;
 
-                        if (average > threshold) {
-                            //turn white
-                            this.regionData.data[index] = 255;
-                            this.regionData.data[index + 1] = 255;
-                            this.regionData.data[index + 2] = 255;
-                            this.regionData.data[index + 3] = alpha;
-                        }
-                        else {
-                            //turn black
-                            this.regionData.data[index] = 0;
-                            this.regionData.data[index + 1] = 0;
-                            this.regionData.data[index + 2] = 0;
-                            this.regionData.data[index + 3] = alpha;
-                            //add to large array
-                            if ((this.dots["D" + j] == null)) {
-                                this.dots["D" + j] = [];
-                            }
-                            this.bdcols["C" + i]++;
-                            this.bdrows["R" + j]++;
-
-                            this.dots["D" + j]["D" + i] = 0;
-                            total++;
-                        }
-
+						this.bdcols[i] += average;
+						this.bdrows[j] += average;
                     }
 
-
-
+					if(j>0) {
+						this.bdrows_diff[j-1] = (this.bdrows[j] - this.bdrows[j-1])/(rw);
+						if(j>1) {
+							this.bdrows_diff2[j-2] = (this.bdrows_diff[j-1] - this.bdrows_diff[j-2]);
+							this.bdrows_diff2[j-2] = parseInt(this.bdrows_diff[j-2]);
+						}
+					}
                 }
+
+				 				//console.log(this.bdrows_diff2);
+ 				this.line_pairs = [];
+				var in_line = false;
+				var line_acc = 0;
+				var line_fuzzy = 0;
+				var j = 0;
+				for(var i = 0; i < rh-2; i++) {
+ 					line_fuzzy += 1;
+ 					if(in_line) {
+ 						if(Math.abs(this.bdrows_diff2[i]) > 2) {
+ 				  			line_acc += this.bdrows_diff2[i];
+ 							if(2*line_acc > -line_fuzzy) {
+ 								this.line_pairs[j] = i;
+ 								j += 1;
+ 								in_line = false;
+ 								line_acc = 0;
+ 								line_fuzzy = 0;
+ 							}
+ 						}
+ 					}
+ 					else {
+ 						if(Math.abs(this.bdrows_diff2[i]) > 2) {
+ 							line_acc += this.bdrows_diff2[i];
+ 							if(2*line_acc < line_fuzzy) {
+ 								this.line_pairs[j] = i;
+ 								j += 1;
+ 								in_line = true;
+ 								line_acc = 0;
+ 								line_fuzzy = 0;
+ 							}
+ 						}
+ 					}
+ 				}
+ 				if(in_line) {
+ 					this.line_pairs[j] = rh-2;
+ 				}
+ 				//console.log(this.line_pairs);
+
                 //convert area to black and white using putImageData
                 this.context.putImageData(this.regionData, rl, rt);
 
