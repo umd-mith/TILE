@@ -506,7 +506,7 @@ var TS={
 			e.preventDefault();
 			$(".ui-dialog").hide();
 			$(".shpButtonHolder").remove();
-			TILE.engine.setActiveObj(null);
+			// TILE.engine.setActiveObj(null);
 			$(".line_selected").removeClass("line_selected");
 			$(".menuitem > ul > li > .btnIconLarge").removeClass('active');
 			$(this).addClass("active");
@@ -534,7 +534,6 @@ var TS={
 			var id=$(this).attr('class');
 			$(this).addClass("selected");
 			
-			if(__v) console.log('mouseup for span ');
 			// select the highlight
 			var o=self.selectHighlight(id);
 			
@@ -680,7 +679,6 @@ var TS={
 		} else {
 		
 			var data=[];
-			if(__v) console.log('newactive '+JSON.stringify(o));
 			// check for selections within object
 			for(var prop in o.obj){
 				if(($.isArray(o.obj[prop]))&&(prop=='selections')){
@@ -696,7 +694,6 @@ var TS={
 					
 				}
 			}
-			if(__v) console.log('newactive selections '+JSON.stringify(data));
 			if(data.length) {
 				$("#getHLite").trigger("click");
 				self._loadItemsHandle(data);
@@ -798,7 +795,8 @@ var TS={
 		
 		for(var i in self.manifest){
 			if(self.manifest[i].id==id){
-				h=self.manifest[i];
+				h=(self.manifest[i].obj)?self.manifest[i].obj:self.manifest[i];
+				if(__v) console.log('manifest: '+JSON.stringify(h));
 				break;
 			}
 		}
