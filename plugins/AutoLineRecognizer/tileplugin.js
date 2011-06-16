@@ -455,20 +455,17 @@
 				// creates top and height values. Then constucts the 
 				// shape object that is fed back into TILE.
 				// Uses same left and width attribute for all lines.
-                for (var i = 1; i < bucket.length; i+=2) {
+                for (var i = 1; i <= bucket.length; i+=2) {
 				
                     // add the value of the line to the
-                    var top = alphaTop + bucket[(i-1)] + 1;
-					var bottom=alphaTop+(bucket[i+1]) - 2;
+                    var top = alphaTop + bucket[i-1];
+					var bottom=alphaTop + bucket[i];
 				
                     // Calculate for average height of line
                     var height = bottom-top;
-					if(i > 1) {
-						top += height;
-					}
-					else {
+					top += height-1;
+					height *= 2;
 					
-					}
 					if(i == bucket.length) {
 						bottom += 2;
 						height += 2;
@@ -1430,10 +1427,13 @@
                 var total = 0;
 				this.bdrows_diff = [];
 				this.bdrows_diff2 = [];
+				var row_min, row_max;
                 //CREATING this.dots array matrix
                 //GOING HORIZONTAL TO VERTICAL
                 for (var j = 0; j < rh; j++) {
                     this.bdrows[j] = 0;
+					row_min = 255;
+					row_max = 0;
                     for (var i = 0; i < rw; i++) {
                         this.bdcols[i] = 0;
                         var index = (i + j * rw) * 4;
@@ -1441,12 +1441,15 @@
                         var green = this.regionData.data[index + 1];
                         var blue = this.regionData.data[index + 2];
                         var alpha = this.regionData.data[index + 3];
-                        var average = (red + green + blue) / 3;
+                        var average = (30*red + 59*green + 11*blue) / 100; // Y'_601 standard for intensity
                         adiff = Math.abs(average - threshold);
                         if (! (this.dotMatrix[j])) {
                             this.dotMatrix[j] = [];
                         }
                         this.dotMatrix[j][i] = average;
+
+						if(average < row_min) row_min = average;
+						if(average > row_max) row_max = average;
 
 						// Convert image to grey-level based on intensity
 						this.regionData.data[index] = average;
@@ -1459,7 +1462,11 @@
                     }
 
 					if(j>0) {
-						this.bdrows_diff[j-1] = (this.bdrows[j] - this.bdrows[j-1])/(rw);
+						if(Math.abs(row_max - row_min) < 5) {
+							this.bdrows_diff[j-1] = 0;
+						}
+						else
+							this.bdrows_diff[j-1] = (this.bdrows[j] - this.bdrows[j-1])/(rw);
 						if(j>1) {
 							this.bdrows_diff2[j-2] = (this.bdrows_diff[j-1] - this.bdrows_diff[j-2]);
 							this.bdrows_diff2[j-2] = parseInt(this.bdrows_diff[j-2],10);
