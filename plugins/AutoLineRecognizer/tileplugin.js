@@ -1457,6 +1457,9 @@
                         var blue = this.regionData.data[index + 2];
                         var alpha = this.regionData.data[index + 3];
                         var average = (30*red + 59*green + 11*blue) / 100; // Y'_601 standard for intensity
+						if(!AutoR.darkText) {
+							average = 255 - average;
+						}
                         adiff = Math.abs(average - threshold);
                         if (! (this.dotMatrix[j])) {
                             this.dotMatrix[j] = [];
@@ -1523,9 +1526,10 @@
  					}
  				}
  				if(in_line) {
- 					this.line_pairs[j] = rh-2;
+ 					this.line_pairs[j] = rh-1;
+					j += 1;
  				}
-				this.line_pairs[j+1] = rh;
+				this.line_pairs[j] = rh;
  				//console.log(this.line_pairs);
 
                 //convert area to black and white using putImageData
