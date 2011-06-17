@@ -23,6 +23,7 @@
 	AutoR.imgw=0;
 	AutoR.imgh=0;
 	AutoR.darkText=true;
+	AutoR.recognizedShapes=[];
 	AutoR.activeLineNums=[];
 	
     var alrcontainer = "#azcontentarea > .az.inner.autolinerecognizer";
@@ -102,9 +103,9 @@
 		'<div class="step"><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
 		'</div></div>';
 
-		self.canvasArea = $("#azcontentarea").parent();
+		
         //use this later to put in CanvasImage object
-        self.canvasHTML = '<div id="canvasHTML" class="workspace autolinerecognizer"><canvas id="canvas"/><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
+        self.canvasHTML = '<div id="canvasHTML" class="workspace autolinerecognizer"><div id="html5area"><canvas id="canvas"/></div><div id="raphaelarea"><img id="imageRaphaelPreview" /></div><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
    
         self.transcript = (args.transcript) ? args.transcript: null;
         self.lineManifest = [];
@@ -153,11 +154,7 @@
                 self._outputData();
             });
 
-            self.closeOutB = $("#" + self.DOM.attr('id') + " > #content > span > #clickDone").click(function(e) {
-                e.preventDefault();
-                self._outputData();
-            });
-
+          
             self.selectAll = $("#" + self.DOM.attr('id') + " > #content > .step > #transcript_controls > #selectAll");
             self.selectNone = $("#" + self.DOM.attr('id') + " > #content > .step > #transcript_controls > #selectNone");
             self.selectAll.click(function(e) {
@@ -191,85 +188,78 @@
         // and replaces with this Tools' CanvasImage
         swapCanvas: function() {
             var self = this;
-            if (self.canvasArea) {
-                //hide stuff in canvasArea - except for toolbar
-                self.canvasArea.hide();
-                var container = self.canvasArea.parent();
+           
+			//make canvas
+			self.CANVAS = new CanvasImage({
 
-                //make canvas
-                self.CANVAS = new CanvasImage({
-                    loc: container
-                });
+			});
 
-                //create region box and put over newly created canvas
-                self.regionBox = new RegionBox({
-                    loc: container
-                });
-                //create canvas auto recognizer to use regionBox above and
-                //handle all color conversion/analysis
-                self.CAR = new CanvasAutoRecognizer({
-                    canvas: self.CANVAS.canvas,
-                    canvasImage: self.srcImage,
-                    imageEl: "hiddenCanvasSource",
-                    regionID: "regionBox"
-                });
+			self.shapePreview=new ShapePreviewCanvas();
 
+			//create region box and put over newly created canvas
+			self.regionBox = new RegionBox({
 
+			});
+			//create canvas auto recognizer to use regionBox above and
+			//handle all color conversion/analysis
+			self.CAR = new CanvasAutoRecognizer({
+				canvas: self.CANVAS.canvas,
+				canvasImage: self.srcImage,
+				imageEl: "hiddenCanvasSource",
+				regionID: "regionBox"
+			});
 
-                self.recognizeB.click(function(e) {
-                    e.preventDefault();
-                    // self.getDataFromREST();
-                    self._recognize();
-                });
-                //set global listeners
-                //when user changes settings on colorfilter, need to reset canvas region
-                $("body").bind("ColorChange", {
-                    obj: self
-                },
-                self.ColorChangeHandle);
-                //when canvas has loaded image, need to load the transcript
-                //regionBox dragging/resizing listeners
-                //call changeColor each time the box is dragged/resized
-                $("body").live("regionMovedDone",
-                function(e) {
-					
-                    if ($("#regionBox").length) {
-                        self.CANVAS._resetCanvasImage();
-                        self.CAR.thresholdConversion();
-                    }
-                });
-                $("body").live("regionResizeDone",
-                	function(e) {
-                    
-                       self.CANVAS._resetCanvasImage();
-                       self.CAR.thresholdConversion();
-                   
-                });
-
-				$("#transcript > .trLine").live('click',function(e){
-					var t=parseInt($(this).attr('id'),10);
-					 if ($(this).hasClass("selected")) {
-                         $(this).removeClass("selected");
-						
-                         self.deselectActiveLine(t);
-                     } else {
-                         $(this).addClass("selected");
-                         self.setActiveLine(t);
-                     }
+			self.recognizeB.click(function(e) {
+				e.preventDefault();
+				// self.getDataFromREST();
+				self._recognize();
+			});
+			//set global listeners
+			//when user changes settings on colorfilter, need to reset canvas region
+			$("body").bind("ColorChange", {
+				obj: self
+			},self.ColorChangeHandle);
+			//when canvas has loaded image, need to load the transcript
+			//regionBox dragging/resizing listeners
+			//call changeColor each time the box is dragged/resized
+			$("body").live("regionMovedDone",
+			function(e) {
+				self.CANVAS._resetCanvasImage();
+				self.CAR.thresholdConversion();
 				
-				});
-				
-                // if(TILE.url){
-                // 					var cursrc=TILE.url;
-                // 					if(!(cursrc in self.url)) self.url.push($("#hiddenCanvasSource").attr("src"));
-                // 					//adjust regionBox size
-                // 					var newScale=self.DOM.width()/$("#hiddenCanvasSource")[0].width;
-                // 				}
-                //change the toolbar
-                // $("#listView").parent().unbind("click");
-                $("#pgNext").unbind("click");
-                $("#pgPrev").unbind("click");
-            }
+			});
+			$("body").live("regionResizeDone",
+				function(e) {
+
+				self.CANVAS._resetCanvasImage();
+				self.CAR.thresholdConversion();
+
+			});
+
+			$("#transcript > .trLine").live('click',function(e){
+			var t=parseInt($(this).attr('id'),10);
+			if ($(this).hasClass("selected")) {
+				$(this).removeClass("selected");
+
+				self.deselectActiveLine(t);
+			} else {
+				$(this).addClass("selected");
+				self.setActiveLine(t);
+			}
+
+		});
+
+			// if(TILE.url){
+			// 					var cursrc=TILE.url;
+			// 					if(!(cursrc in self.url)) self.url.push($("#hiddenCanvasSource").attr("src"));
+			// 					//adjust regionBox size
+			// 					var newScale=self.DOM.width()/$("#hiddenCanvasSource")[0].width;
+			// 				}
+			//change the toolbar
+			// $("#listView").parent().unbind("click");
+			$("#pgNext").unbind("click");
+			$("#pgPrev").unbind("click");
+
         },
         // Once the setUp is run, and the AR has been hidden, call this function
         // from AR.restart()
@@ -313,7 +303,7 @@
                 // 					self.canvasArea.animate({opacity:0.35},400,function(){
                 // 						self.canvasArea.hide();
                 // 						
-                // 						self.canvasArea.animate({opacity:1},200);
+                // 						self.f.animate({opacity:1},200);
                 // 					});
                 // 				}
                 if (transcript) {
@@ -525,24 +515,49 @@
                 self.regionBox.DOM.hide();
                 //hide regionBox
 
-                //output data and close autoRecognizer
-                self._outputData(ldata);
+                // set recognized images variable and
+				// send to shapePreview
+				AutoR.recognizedShapes=ldata;
+				var shapes=[];
+				for(var x in AutoR.recognizedShapes){
+					if(!AutoR.recognizedShapes[x]) continue;
+					shapes.push(AutoR.recognizedShapes[x].shape);
+				}
+				
+				self.shapePreview.show();
+				self.CANVAS.hide();
+				self.shapePreview.loadShapes(shapes);
+				
+				self.recognizeB.unbind("click");
+				self.recognizeB.click(function(e){
+					e.preventDefault();
+					self.shapePreview.hide();
+					self.CANVAS.show();
+					$(this).unbind('click');
+					self.recognizeB.click(function(e){
+						e.preventDefault();
+						self._recognize();
+					});
+				});
+				
+				//output data and close autoRecognizer
+                self._outputData();
             }
         },
         // Takes the parsed JSON data from recognize() and
         // sends it out using 'outputAutoRecData'
         //
-        _outputData: function(data) {
+        _outputData: function() {
             var self = this;
             var url = TILE.url;
             if (url) {
                 $("#hiddenCanvasSource").attr("src", url.substring((url.indexOf('=') + 1)));
             }
             // output all data found
-            if (data) {
-                $("body:first").trigger("outputLines", [data]);
+            if (AutoR.recognizedShapes) {
+                $("body:first").trigger("outputLines", [AutoR.recognizedShapes]);
             } else {
-                $("body:first").trigger("outputLines");
+                $("body:first").trigger("closeALR");
             }
         }
     };
@@ -570,12 +585,12 @@
         //url is actually an array of image values
         this.url = (typeof args.url == "object") ? args.url: [args.url];
 
-        this.loc = $("#azcontentarea");
-        if (this.loc) {
-            //set to specified width and height
-            if (args.width) this.DOM.width(args.width);
-            if (args.height) this.DOM.height(args.height);
-        }
+        // this.loc = $("#azcontentarea");
+        //        if (this.loc) {
+        //            //set to specified width and height
+        //            if (args.width) this.DOM.width(args.width);
+        //            if (args.height) this.DOM.height(args.height);
+        //        }
         //grab source image
         this.srcImage = $("#hiddenCanvasSource");
         // attach html
@@ -596,20 +611,20 @@
         this.DOM.height(this.DOM.closest(".az.content").height() - this.DOM.closest(".toolbar").height());
 
         // set up listeners for zoom buttons
-        $(alrcontainer + " > .toolbar > ul > li > a#zoomIn").live('click',
-        function(e) {
-            e.preventDefault();
-            // fire zoom trigger for AR
-            $("body:first").trigger("zoomAR", [1]);
-        });
-        $(alrcontainer + " > .toolbar > ul > li > a#zoomOut").live('click',
-        function(e) {
-            e.preventDefault();
-            // fire zoom trigger for AR
-            $("body:first").trigger("zoomAR", [ - 1]);
-        });
-
-        this.canvas = $("#" + this.DOM.attr('id') + " > #canvas");
+        // $(alrcontainer + " > .toolbar > ul > li > a#zoomIn").live('click',
+        //         function(e) {
+        //             e.preventDefault();
+        //             // fire zoom trigger for AR
+        //             $("body:first").trigger("zoomAR", [1]);
+        //         });
+        //         $(alrcontainer + " > .toolbar > ul > li > a#zoomOut").live('click',
+        //         function(e) {
+        //             e.preventDefault();
+        //             // fire zoom trigger for AR
+        //             $("body:first").trigger("zoomAR", [ - 1]);
+        //         });
+        
+        this.canvas = $("#" + this.DOM.attr('id') + " > #html5area > #canvas");
         //need real DOM element, not jQuery object
         this.canvasEl = this.canvas[0];
         this.imageEl = this.srcImage[0];
@@ -644,6 +659,17 @@
         // 			});
     };
     CanvasImage.prototype = {
+		show:function(){
+			var self=this;
+			$("#html5area").show();
+			self.setUpCanvas();
+			$("#regionBox").show();
+		},
+		hide:function(){
+			var self=this;
+			$("#html5area").hide();
+			$("#regionBox").hide();
+		},
         zoomHandle: function(e, v) {
             var self = e.data.obj;
             //v is either greater than 0 or less than 0
@@ -744,6 +770,7 @@
                     $("#regionBox").width(real_width - (real_width / 4));
                     $("#regionBox").height(real_height - (real_height / 4));
                 }
+				$("#regionBox").css({"top":"0px","left":"0px"});
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
 
@@ -816,6 +843,57 @@
         }
     };
 
+
+var ShapePreviewCanvas=function(){
+	var self=this;
+	// set up image
+	$("#imageRaphaelPreview").attr('src',TILE.url);
+	
+	// set up the raphael canvas
+	self.canvas=new VectorDrawer({"overElm":"#imageRaphaelPreview","initScale":AutoR.scale});
+	// hide the canvas
+	$("#raphaelarea").hide();
+	
+	
+};
+ShapePreviewCanvas.prototype={
+	show:function(){
+		$("#raphaelarea").show();
+	},
+	hide:function(){
+		$("#raphaelarea").hide();
+	},
+	loadShapes:function(shapes){
+		var self=this;
+		if(!self.canvas) return;
+		var srcImg=$("#hiddenCanvasSource")[0];
+		
+		self.canvas.clearShapes();
+		
+		// loads the image then uses callback function
+		// to measure width and height of image at scale of 1
+		// measures to AutoR.scale and sets up images
+		$("#imageRaphaelPreview").load(function(e){
+			// adjust image to scale
+			var w=srcImg.width;
+			var h=srcImg.height;
+			
+			$("#raphaelarea > .vd-container").width(w);
+			$("#raphaelarea > .vd-container").height(h);
+			
+			
+			var dx=(w*AutoR.scale)/1;
+			var dy=(h*AutoR.scale)/1;
+			
+			$(this).width(dx);
+			$(this).height(dy);
+			self.canvas.setScale(AutoR.scale);
+			self.canvas.importShapes(shapes);
+		}).attr('src',TILE.url);
+	}
+};
+
+
     /**
 		RegionBox
 		
@@ -827,9 +905,9 @@
         // Constructor
         if (!$(alrcontainer).length) throw "RegionBox cannot be inserted at this point";
         var self = this;
-        self.loc = $(args.loc);
+        
         self.DOM = $("<div id=\"regionBox\" class=\"boxer_plainbox\"></div>");
-        self.DOM.appendTo($(alrcontainer));
+        self.DOM.appendTo($("#html5area"));
         //adjust top/left
         var p = $(alrcontainer).position();
 
@@ -1841,10 +1919,7 @@ var AR = {
                 }
 
             });
-            $("body").bind(self.tileMode.unActiveCall,
-            function(e) {
-
-                });
+            
             // construct auto Rec
             this.__AR__._setUp();
 
@@ -1855,18 +1930,22 @@ var AR = {
             $("#azcontentarea > .az.inner:eq(0)").show();
             $("#az_log").removeClass('tool').addClass('log');
             $("#az_log > #az_transcript_area").show();
-
+			
+			$("body").live("closeALR",function(e){
+				 // HIDE AR ELEMENTS IN DOM
+	               // close down any other az_log areas
+                $("#az_log > .az.inner").hide();
+                self.tileMode.setUnActive();
+                $("#autoreclog").css("z-index", "0");
+			});
+			
 			// Picks up shapes that were recognized in _recognize
             $("body").live("outputLines", {
                 obj: self
             },
 			// Callback for when user clicks Perform Line Recognition
             function(e, data) {
-                // HIDE AR ELEMENTS IN DOM
-                // close down any other az_log areas
-                $("#az_log > .az.inner").hide();
-                self.tileMode.setUnActive();
-                $("#autoreclog").css("z-index", "0");
+               
 
                 // INSERT DATA
                 if (!data) return;
@@ -1874,17 +1953,6 @@ var AR = {
                 // first go through and parse each data element
                 var vd = [];
                 
-				// combine together in one array
-				// for (var d in data) {
-				// 					if(!data.lines[d]) break;
-				//                     var o = {
-				//                         id: shapes[d].id,
-				//                         type: 'shapes',
-				//                         jsonName: TILE.url,
-				//                         obj: shapes[d]
-				//                     };
-				//                     vd.push(o);
-				//                 }
 
                 // LOAD SCREEN
                 // take away the load screen
@@ -1950,13 +2018,21 @@ var AR = {
                         
                     },15, lineObj, shapeObj);
 					removeScreen();
-					$("#logbar_list > .line")
+					
                 }
 
 				 
 				
             });
-
+			
+			$("body").live("deleteALRLines",function(e,shapes){
+				
+				for(var prop in shapes){
+					TILE.engine.deleteObj(shapes[prop]);
+				}
+			
+			});
+			
 
         }
     },

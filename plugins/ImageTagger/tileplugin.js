@@ -797,11 +797,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				if(loadShapes) self.drawTool.importShapes(loadShapes);
 				
-				if(self.manifest[url]){
-					self.manifest[url].origWidth=this.width;
-					self.manifest[url].origHeight=this.height;
-					if(!self.manifest[url].shapes) self.manifest[url].shapes=[];
-				}
+				
 				
 				// if(TILE.experimental){
 					// size to fit window 

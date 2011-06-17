@@ -2329,9 +2329,7 @@ TILE.scale=1;
 			} else {
 				// replace the data with what is passed
 				// by this call (update/post new data)
-				self.replaceData(data);
-				// update activeItems
-				self.updateActiveItems([obj]);
+				// self.replaceData(data);
 				// quit
 				return;
 			}
