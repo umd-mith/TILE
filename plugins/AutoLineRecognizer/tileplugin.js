@@ -364,13 +364,13 @@
         deselectActiveLine: function(n) {
             var self = this;
             
-			self.activeLines[n].active=(self.activeLines[n].active)?true:false;
+			self.activeLines[n].active=false;
 
         },
         setActiveLine: function(n) {
             var self = this;
 
-			self.activeLines[n].active=(self.activeLines[n].active)?false:true;
+			self.activeLines[n].active=true;
 			
         },
         // Called by Mouse Drag, Drop, Move and Resize events
@@ -865,8 +865,7 @@
                 $("body:first").trigger("regionResizeDone");
             }
         });
-        //listeners
-        // $("body").bind("zoomAR",{obj:self},self._zoomHandle);	
+        
     };
     RegionBox.prototype = {
         //flashes the box on and off
