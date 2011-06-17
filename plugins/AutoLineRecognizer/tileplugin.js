@@ -1526,9 +1526,10 @@
  					}
  				}
  				if(in_line) {
- 					this.line_pairs[j] = rh-2;
+ 					this.line_pairs[j] = rh-1;
+					j += 1;
  				}
-				this.line_pairs[j+1] = rh;
+				this.line_pairs[j] = rh;
  				//console.log(this.line_pairs);
 
                 //convert area to black and white using putImageData
