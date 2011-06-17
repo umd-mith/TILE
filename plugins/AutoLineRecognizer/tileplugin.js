@@ -853,7 +853,7 @@
             }
         });
         self.DOM.resizable({
-            handles: ['br'],
+            handles: 'se',
             stop: function(e, ui) {
 
                 $("#regionBox").css({
