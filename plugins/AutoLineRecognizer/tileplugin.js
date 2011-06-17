@@ -23,6 +23,8 @@
 	AutoR.imgw=0;
 	AutoR.imgh=0;
 	AutoR.darkText=true;
+	AutoR.activeLineNums=[];
+	
     var alrcontainer = "#azcontentarea > .az.inner.autolinerecognizer";
 
     // LOAD SCREEN
@@ -90,14 +92,14 @@
 		self.logHTML='<div id="autoreclog" class="az tool autolinerecognizer"><div id="autorecarea" class="az inner autolinerecognizer">'+
 		'<div class="autorec_toolbar"><div class="toolbar">Auto Line Recognizer<div class="menuitem">' +
          '<span class="button">Cancel</span></div></div>'+
-		'<div id="content" class="az"><div class="step"><div class="instructions"><p>Does this image of text have:</p></div>'+
+		'<div id="content" class="az"><div class="step"><div class="instructions">Align the red box over the area of text to recognize</div></div><div class="step"><div class="instructions"><p>Does this image of text have:</p></div>'+
 		'<div><p><input type="radio" id="darkonlight" name="threshChoice" />Dark text on a light background</p>'+
 		'<p><input type="radio" id="lightondark" name="threshChoice" />Light text on a dark(er) background.</p></div></div>'+
-		'<div class="step"><div class="instructions">' +
-        '<p><span class="stepnum">Step 2: </span>Select the lines that you want to recognize</p>' +
+		'<div class="step"><div class="instructions">'+
+        '<p>Select the lines that you want to recognize</p>' +
         '</div><div id="transcript"></div><div id="transcript_controls">' +
         '<a id="selectAll" class="textlink">Select All</a> | <a id="selectNone" class="textlink">Select None</a></div>'+
-		'<div class="step"><div class="instructions"><p>Push this a here button:</p></div><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
+		'<div class="step"><div class="instructions"><p>Push button:</p></div><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
 		'</div></div>';
 
 		self.canvasArea = $("#azcontentarea").parent();
@@ -161,10 +163,17 @@
             self.selectAll.click(function(e) {
                 e.preventDefault();
                 self.transcriptArea.children("div").removeClass("selected").addClass("selected");
+				for(var a in self.activeLines){
+					self.activeLines[a].active=true;
+				}
+
             });
             self.selectNone.click(function(e) {
                 e.preventDefault();
                 self.transcriptArea.children("div").removeClass("selected");
+				for(var a in self.activeLines){
+					self.activeLines[a].active=false;
+				}
             });
 
             //swap out other canvas/image area data for CanvasImage
@@ -236,6 +245,20 @@
                         self.CAR.thresholdConversion();
                     }
                 });
+
+				$("#transcript > .trLine").live('click',function(e){
+					var t=parseInt($(this).attr('id'),10);
+					 if ($(this).hasClass("selected")) {
+                         $(this).removeClass("selected");
+						
+                         self.deselectActiveLine(t);
+                     } else {
+                         $(this).addClass("selected");
+                         self.setActiveLine(t);
+                     }
+				
+				});
+				
                 // if(TILE.url){
                 // 					var cursrc=TILE.url;
                 // 					if(!(cursrc in self.url)) self.url.push($("#hiddenCanvasSource").attr("src"));
@@ -327,17 +350,9 @@
                     //create a selLine object out of transcript item
                     var el = $("<div class='trLine selLine' id='" + t + "'>" + self.transcript.lines[t].text + "</div>");
                     self.transcriptArea.append(el);
-                    el.click(function(e) {
-                        if ($(this).hasClass("selected")) {
-                            $(this).removeClass("selected");
-                            self.deselectActiveLine(t);
-                        } else {
-                            $(this).addClass("selected");
-                            self.setActiveLine(t);
-                        }
-                    });
+                   	
                     // make active
-                    self.activeLines.push(self.transcript.lines[t]);
+                    self.activeLines.push({line:self.transcript.lines[t],active:true});
 
                 }
                 // default mode is that all transcript lines are selected
@@ -348,22 +363,15 @@
         },
         deselectActiveLine: function(n) {
             var self = this;
-            if (!self.lineManifest[n]) return;
-            var id = self.lineManifest[n].id;
-            // filter out the deselected line from
-            // activeLines
-            var ag = [];
-            for (var x in self.activeLines) {
-                if (self.activeLines[x].id != id) {
-                    // push on stack
-                    ag.push(self.activeLines[x]);
-                }
-            }
-            self.activeLines = ag;
+            
+			self.activeLines[n].active=(self.activeLines[n].active)?true:false;
 
         },
         setActiveLine: function(n) {
             var self = this;
+
+			self.activeLines[n].active=(self.activeLines[n].active)?false:true;
+			
         },
         // Called by Mouse Drag, Drop, Move and Resize events
         // Changes the threshold using the CanvasAutoRecognizer Object's
@@ -484,11 +492,18 @@
                     // $("#lineBox_" + i).attr('id', "lineBox_" + id + "_shape");
 
                     //update assoc. transcript tag
+					if(!self.activeLines[linecount].active){
+						while(self.activeLines[linecount]&&(self.activeLines[linecount].active==false)){
+							linecount++;
+						}
+						if(!(self.activeLines[linecount])||(self.activeLines[linecount].active==false)) break;
+					}
+					
                     if (self.activeLines[linecount]) {
                         // if(!self.transcript.lines[i].shapes) self.transcript.lines[i].shapes=[];
                         // if(!self.transcript.shapes) self.transcript.shapes=[];
                         //add data to the session's JSON object.
-					
+						
                         ldata.push({shape:{
                             "id": id + "_shape",
                             "type": "rect",
@@ -501,7 +516,7 @@
                                 "height": (height)
                             }
                         },
-						line:self.activeLines[linecount]	
+						line:self.activeLines[linecount].line	
 						});
 						linecount++;
                     }
