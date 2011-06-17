@@ -239,11 +239,11 @@
                     }
                 });
                 $("body").live("regionResizeDone",
-                function(e) {
-                    if ($("#regionBox").length) {
-                        self.CANVAS._resetCanvasImage();
-                        self.CAR.thresholdConversion();
-                    }
+                	function(e) {
+                    
+                       self.CANVAS._resetCanvasImage();
+                       self.CAR.thresholdConversion();
+                   
                 });
 
 				$("#transcript > .trLine").live('click',function(e){
@@ -853,7 +853,7 @@
             }
         });
         self.DOM.resizable({
-            handles: 'all',
+            handles: ['br'],
             stop: function(e, ui) {
 
                 $("#regionBox").css({
