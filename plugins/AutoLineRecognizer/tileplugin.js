@@ -96,10 +96,10 @@
 		'<div><p><input type="radio" id="darkonlight" name="threshChoice" />Dark text on a light background</p>'+
 		'<p><input type="radio" id="lightondark" name="threshChoice" />Light text on a dark(er) background.</p></div></div>'+
 		'<div class="step"><div class="instructions">'+
-        '<p>Select the lines that you want to recognize</p>' +
+        '<p>Select transcript lines that you want to recognize</p>' +
         '</div><div id="transcript"></div><div id="transcript_controls">' +
         '<a id="selectAll" class="textlink">Select All</a> | <a id="selectNone" class="textlink">Select None</a></div>'+
-		'<div class="step"><div class="instructions"><p>Push button:</p></div><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
+		'<div class="step"><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
 		'</div></div>';
 
 		self.canvasArea = $("#azcontentarea").parent();
@@ -1911,7 +1911,7 @@ var AR = {
                 // CAUSES MASSIVE LAG TIME IN MOST BROWSERS
                 function addLine(line, shape) {
                     if (line && shape) {
-	if(__v) console.log('line: '+JSON.stringify(line)+'  shape: '+JSON.stringify(shape));
+						
                         TILE.engine.insertData(shape);
                         TILE.engine.linkObjects(line, shape);
                     }
@@ -1950,6 +1950,7 @@ var AR = {
                         
                     },15, lineObj, shapeObj);
 					removeScreen();
+					$("#logbar_list > .line")
                 }
 
 				 
