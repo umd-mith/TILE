@@ -858,6 +858,9 @@ var ShapePreviewCanvas=function(){
 	// hide the canvas
 	$("#raphaelarea").hide();
 	
+	// global bind for when a shape is selected
+	$("body").bind("shapeActive",{obj:self},self.shapeActiveHandle);
+	
 	
 };
 ShapePreviewCanvas.prototype={
@@ -898,6 +901,16 @@ ShapePreviewCanvas.prototype={
 			self.canvas.setScale(AutoR.scale);
 			self.canvas.importShapes(shapes);
 		}).attr('src',TILE.url);
+	},
+	shapeActiveHandle:function(e,id){
+		var self=e.data.obj;
+		
+		if(!self.canvas) return;
+		var foundID=$(shape.node).attr('id');
+		
+		// select shape, which will draw selBB area
+		self.drawTool.selectShape(foundID);
+		
 	}
 };
 
