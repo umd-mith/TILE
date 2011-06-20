@@ -851,6 +851,10 @@ var ShapePreviewCanvas=function(){
 	
 	// set up the raphael canvas
 	self.canvas=new VectorDrawer({"overElm":"#imageRaphaelPreview","initScale":AutoR.scale});
+	
+	// set drawMode permenantly to select
+	self.canvas._drawMode='s';
+	
 	// hide the canvas
 	$("#raphaelarea").hide();
 	
@@ -887,6 +891,10 @@ ShapePreviewCanvas.prototype={
 			
 			$(this).width(dx);
 			$(this).height(dy);
+			// also adjust the svg canvas - vectordrawer doesn't
+			// do this automatically
+			$("#raphaelarea > .vd-container > *").width(dx);
+			$("#raphaelarea > .vd-container > *").height(dy);
 			self.canvas.setScale(AutoR.scale);
 			self.canvas.importShapes(shapes);
 		}).attr('src',TILE.url);

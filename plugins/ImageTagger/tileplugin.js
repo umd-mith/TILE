@@ -935,7 +935,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// var shape=self.findShapeFromId(obj.id);
 			// 		// replace
 			// 		shape=obj;
-			
+			if(__v) console.log('shape being updated '+JSON.stringify(obj));
 			var shape=null;
 			for(var x in self.manifest){
 				if(self.manifest[x].id==obj.id){
@@ -944,7 +944,13 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					break;
 				}
 			}
+			if(!shape){
+				// need to insert into the manifest
+				shape=(obj.obj)?(obj.obj):obj;
+				self.manifest.push(shape);
+			}
 			var vd=self.drawTool.exportShapes();
+			if(__v) console.log('right now, VD has : '+JSON.stringify(vd));
 			for(var x=0;x<vd.length;x++){
 				if(vd[x]&&(vd[x].id==shape.id)){
 					// make sure things are actually different
