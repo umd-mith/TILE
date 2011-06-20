@@ -2015,8 +2015,6 @@ var AR = {
             },
 			// Callback for when user clicks Perform Line Recognition
             function(e, data) {
-               
-
                 // INSERT DATA
                 if (!data) return;
                 // send to engine
@@ -2106,6 +2104,37 @@ var AR = {
 
         }
     },
+	// locate shapes within the TILE JSON data and 
+	// load into PreviewCanvas
+	findShapesInJSON:function(){
+		var self=this;
+		// only get JSON for this page
+		var json=TILE.engine.getJSON(true);
+		var sIDs=[];
+		$.each(json.lines, function (i,line) {
+			if(line&&(line.shapes)){
+				$.each(line.shapes, function (ix, id) {
+					if($.inArray(sIDs, id)<0){
+						sIDs.push(id);
+					}
+				});
+				
+			}
+		});
+		
+		// go through IDs to find shapes
+		
+		var shapes=[];
+		if(sIDs.length>0){
+			$.each(json.shapes, function (i, shape) {
+				if(shape&&($.inArray(sIDs, shape.id)>=0)){
+					shapes.push(shape);
+				}
+			});
+		}
+		
+		return shapes;
+	},
     name: "AutoLineRecognizer"
 };
 
