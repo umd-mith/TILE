@@ -17,14 +17,15 @@
 // Plugs into the tile1.0.js interface. This is done by providing a smaller object, AR, that includes several required functions for a
 // plugin in TILE to have. For more information, see below, where the constructor AR is located.
 
-(function() {
+(function ($) {
+	
     var AutoR = this;
-	AutoR.scale=1;
-	AutoR.imgw=0;
-	AutoR.imgh=0;
-	AutoR.darkText=true;
-	AutoR.recognizedShapes=[];
-	AutoR.activeLineNums=[];
+	AutoR.scale = 1;
+	AutoR.imgw = 0;
+	AutoR.imgh = 0;
+	AutoR.darkText = true;
+	AutoR.recognizedShapes = [];
+	AutoR.activeLineNums = [];
 	
     var alrcontainer = "#azcontentarea > .az.inner.autolinerecognizer";
 
@@ -107,7 +108,7 @@
         //use this later to put in CanvasImage object
         self.canvasHTML = '<div id="canvasHTML" class="workspace autolinerecognizer"><div id="html5area"><canvas id="canvas"/></div><div id="raphaelarea"><img id="imageRaphaelPreview" /></div><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
    
-        self.transcript = (args.transcript) ? args.transcript: null;
+        self.transcript = (args.transcript) ? args.transcript : null;
         self.lineManifest = [];
         self.activeLines = [];
         self.curRegion = 0;
@@ -483,15 +484,15 @@
 
                     //update assoc. transcript tag
 					if(!self.activeLines[linecount].active){
-						while(self.activeLines[linecount]&&(self.activeLines[linecount].active==false)){
+						while(self.activeLines[linecount]&&(self.activeLines[linecount].active == false)){
 							linecount++;
 						}
-						if(!(self.activeLines[linecount])||(self.activeLines[linecount].active==false)) break;
+						if(!(self.activeLines[linecount])||(self.activeLines[linecount].active == false)) break;
 					}
 					
                     if (self.activeLines[linecount]) {
                         // if(!self.transcript.lines[i].shapes) self.transcript.lines[i].shapes=[];
-                        // if(!self.transcript.shapes) self.transcript.shapes=[];
+                        // if(!self.transcript.shapes) self.transcript.shape[];
                         //add data to the session's JSON object.
 						
                         ldata.push({shape:{
@@ -844,7 +845,7 @@
     };
 
 
-var ShapePreviewCanvas=function(){
+var ShapePreviewCanvas = function () {
 	var self=this;
 	// set up image
 	$("#imageRaphaelPreview").attr('src',TILE.url);
@@ -863,7 +864,7 @@ var ShapePreviewCanvas=function(){
 	
 	
 };
-ShapePreviewCanvas.prototype={
+ShapePreviewCanvas.prototype = {  
 	show:function(){
 		$("#raphaelarea").show();
 	},
@@ -876,22 +877,23 @@ ShapePreviewCanvas.prototype={
 		var srcImg=$("#hiddenCanvasSource")[0];
 		
 		self.canvas.clearShapes();
-		
+	
 		// loads the image then uses callback function
 		// to measure width and height of image at scale of 1
 		// measures to AutoR.scale and sets up images
-		$("#imageRaphaelPreview").load(function(e){
+		$("#imageRaphaelPreview").bind('load',function(e){
+			$(this).unbind('load');
+			if(__v) console.log('load for '+srcImg);
 			// adjust image to scale
 			var w=srcImg.width;
 			var h=srcImg.height;
-			
 			$("#raphaelarea > .vd-container").width(w);
 			$("#raphaelarea > .vd-container").height(h);
-			
-			
+	
+	
 			var dx=(w*AutoR.scale)/1;
 			var dy=(h*AutoR.scale)/1;
-			
+	
 			$(this).width(dx);
 			$(this).height(dy);
 			// also adjust the svg canvas - vectordrawer doesn't
@@ -900,7 +902,32 @@ ShapePreviewCanvas.prototype={
 			$("#raphaelarea > .vd-container > *").height(dy);
 			self.canvas.setScale(AutoR.scale);
 			self.canvas.importShapes(shapes);
-		}).attr('src',TILE.url);
+		});
+		if(__v) console.log('imagepreview: '+$("#imageRaphaelPreview")[0]);
+		$("#imageRaphaelPreview").attr('src',TILE.url);
+		// setTimeout(function(){
+		// 			if(__v) console.log('load for '+srcImg);
+		// 			// adjust image to scale
+		// 			var w=srcImg.width;
+		// 			var h=srcImg.height;
+		// 			$("#raphaelarea > .vd-container").width(w);
+		// 			$("#raphaelarea > .vd-container").height(h);
+		// 			
+		// 			
+		// 			var dx=(w*AutoR.scale)/1;
+		// 			var dy=(h*AutoR.scale)/1;
+		// 			
+		// 			$(this).width(dx);
+		// 			$(this).height(dy);
+		// 			// also adjust the svg canvas - vectordrawer doesn't
+		// 			// do this automatically
+		// 			$("#raphaelarea > .vd-container > *").width(dx);
+		// 			$("#raphaelarea > .vd-container > *").height(dy);
+		// 			self.canvas.setScale(AutoR.scale);
+		// 			self.canvas.importShapes(shapes);
+		// 			
+		// 		},1000);
+			
 	},
 	shapeActiveHandle:function(e,id){
 		var self=e.data.obj;
@@ -1894,7 +1921,7 @@ ShapePreviewCanvas.prototype={
         }
     };
 
-})();
+})(jQuery);
 
 
 // Plugin for TILE_ENGINE
