@@ -877,12 +877,17 @@ ShapePreviewCanvas.prototype = {
 		var srcImg=$("#hiddenCanvasSource")[0];
 		
 		self.canvas.clearShapes();
-	
+		
+		
+		
+		
+		$("#imageRaphaelPreview").attr('src','');
+		
 		// loads the image then uses callback function
 		// to measure width and height of image at scale of 1
 		// measures to AutoR.scale and sets up images
-		$("#imageRaphaelPreview").bind('load',function(e){
-			$(this).unbind('load');
+		var onLoadImg = function (){
+			
 			if(__v) console.log('load for '+srcImg);
 			// adjust image to scale
 			var w=srcImg.width;
@@ -894,17 +899,34 @@ ShapePreviewCanvas.prototype = {
 			var dx=(w*AutoR.scale)/1;
 			var dy=(h*AutoR.scale)/1;
 	
-			$(this).width(dx);
-			$(this).height(dy);
+			$("#imageRaphaelPreview").width(dx);
+			$("#imageRaphaelPreview").height(dy);
 			// also adjust the svg canvas - vectordrawer doesn't
 			// do this automatically
 			$("#raphaelarea > .vd-container > *").width(dx);
 			$("#raphaelarea > .vd-container > *").height(dy);
 			self.canvas.setScale(AutoR.scale);
 			self.canvas.importShapes(shapes);
-		});
-		if(__v) console.log('imagepreview: '+$("#imageRaphaelPreview")[0]);
+		};
+		
+		
 		$("#imageRaphaelPreview").attr('src',TILE.url);
+		
+		var checkLoad = function(el, callback) {
+			if(__v) console.log('checkLoad '+el.width());
+			if(el.width() > 0 && el.height() > 0){
+				callback();
+			} else {
+				setTimeout(function () {
+					checkLoad(el, callback);
+				},100);
+			}
+			
+		};
+		
+		checkLoad($("#imageRaphaelPreview"), onLoadImg);
+		
+		
 		// setTimeout(function(){
 		// 			if(__v) console.log('load for '+srcImg);
 		// 			// adjust image to scale
