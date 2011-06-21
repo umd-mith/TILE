@@ -766,6 +766,101 @@
 
 
         },
+		// Used for HTML Webkit browsers
+		// Similar to setUpCanvas
+		altSetUpCanvas: function () {
+			var self = this;
+			
+			 // $("#hiddenCanvasSource").hide();
+	         self.canvas[0].width = 0;
+            // self._loadPage.appendTo(self.DOM);
+            if (TILE.url == '') return;
+
+            loadImgScreen();
+
+			var loadHTML5 = function () {
+				AutoR.scale=1;
+				var ow = $("#hiddenCanvasSource")[0].width;
+                var oh = $("#hiddenCanvasSource")[0].height;
+			
+				// set height and width of canvas area to parent div
+				$("#canvasHTML").width($(".az.inner.autolinerecognizer").width());
+				$("#canvasHTML").height($(".az.inner.autolinerecognizer").height());
+				
+                // if the current width/height too big for the window, size down
+                if ((ow > $("#canvasHTML").width()) || ($("#canvasHTML").height() < oh)) {
+					while((ow > $("#canvasHTML").width())||($("#canvasHTML").height() < oh)){
+						ow*=0.9;
+						oh*=0.9;
+						AutoR.scale*=0.9;
+					}
+                }
+
+				// set global variables
+				AutoR.imgw=ow;
+				AutoR.imgh=oh;
+			
+
+                var real_width = $("#hiddenCanvasSource")[0].width;
+                var real_height = $("#hiddenCanvasSource")[0].height;
+
+                self.curUrl = $("#hiddenCanvasSource").attr("src");
+
+
+                self.canvas[0].width = real_width;
+                self.canvas[0].height = real_height;
+
+
+                if (($("#regionBox").width() > real_width) || ($("#regionBox").height() > real_height)) {
+                    $("#regionBox").width(real_width - (real_width / 4));
+                    $("#regionBox").height(real_height - (real_height / 4));
+                }
+				$("#regionBox").css({"top":"0px","left":"0px"});
+                self.canvas.attr("width", self.canvas[0].width);
+                self.canvas.attr("height", self.canvas[0].height);
+
+                self.context = self.canvasEl.getContext('2d');
+                self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
+                $("#" + self.uid).width($("#azcontentarea").width());
+                $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
+                
+                $("#regionBox").width((ow - 20));
+                $("#regionBox").height((oh - 20));
+
+                // show the region box after the image has loaded
+                removeImgScreen();
+
+				$("body:first").trigger("HTML5CANVASDONE");
+			};
+			
+			var cleanURL = '';
+            // test for remote image and that the url isn't already inserted with the 'PHP'
+            if ((/file::/.test(TILE.url) == false) && (/PHP\//.test(TILE.url) == false)) {
+                var rootUri = window.location.href;
+                rootUri = rootUri.substring(0, rootUri.lastIndexOf("/"));
+                cleanURL = rootUri + "/" + TILE.engine.serverRemoteImgUrl + "?uimg=" + TILE.url;
+            } else {
+                cleanURL = TILE.url;
+            }
+
+			$("#hiddenCanvasSource").attr('src',cleanURL);
+
+			var checkLoad = function(el, callback) {
+				if(el.width() > 0 && el.height() > 0){
+					callback();
+				} else {
+					setTimeout(function () {
+						checkLoad(el, callback);
+					},100);
+				}
+
+			};
+
+			checkLoad($("#hiddenCanvasSource"), loadHTML5);
+			
+			
+			
+		},
         // Takes a url and sets up the  HTML5 Canvas to this
         // url
         // url {String} : url to set canvas to
@@ -775,12 +870,21 @@
         // ------------------------------------------------------
         setUpCanvas: function(url) {
             var self = this;
+			
+
             // $("#hiddenCanvasSource").hide();
             self.canvas[0].width = 0;
             // self._loadPage.appendTo(self.DOM);
             if (TILE.url == '') return;
-            loadImgScreen();
+            
 			
+			// use alternate function for webkit browsers
+			if($.browser.webkit){
+				self.altSetUpCanvas();
+				return;
+			}
+			
+			loadImgScreen();
             $("#hiddenCanvasSource").load(function(e) {
 				AutoR.scale=1;
 				var ow = $("#hiddenCanvasSource")[0].width;
