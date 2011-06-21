@@ -24,6 +24,7 @@
 	AutoR.imgw = 0;
 	AutoR.imgh = 0;
 	AutoR.darkText = true;
+	AutoR.autoData = [];
 	AutoR.recognizedShapes = [];
 	AutoR.activeLineNums = [];
 	AutoR.predefinedShapes = [];
@@ -96,13 +97,13 @@
 		'<div class="autorec_toolbar"><div class="toolbar">Auto Line Recognizer<div class="menuitem">' +
          '<span class="button">Cancel</span></div></div>'+
 		'<div id="content" class="az"><div class="step"><div class="instructions">Align the red box over the area of text to recognize</div><a id="showRegionBox" class="button">Start</a></div><div class="step"><div class="instructions"><p>Does this image of text have:</p></div>'+
-		'<div><p><input type="radio" id="darkonlight" name="threshChoice" />Dark text on a light background</p>'+
-		'<p><input type="radio" id="lightondark" name="threshChoice" />Light text on a dark(er) background.</p></div></div>'+
+		'<div><p><input type="radio" id="darkonlight" name="threshChoice" disabled="disabled" />Dark text on a light background</p>'+
+		'<p><input type="radio" id="lightondark" name="threshChoice" disabled="disabled" />Light text on a dark(er) background.</p></div></div>'+
 		'<div class="step"><div class="instructions">'+
         '<p>Select transcript lines that you want to recognize</p>' +
         '</div><div id="transcript"></div><div id="transcript_controls">' +
-        '<a id="selectAll" class="button">Select All</a> | <a id="selectNone" class="button">Select None</a></div>'+
-		'<div class="step"><br/><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
+        '<a id="selectAll" class="button inactive">Select All</a> | <a id="selectNone" class="button inactive">Select None</a></div>'+
+		'<div class="step"><br/><a id="autorec_recognize" class="button inactive">Perform Line Recognition</a></div>'+
 		'</div></div>';
 
 		
@@ -235,6 +236,26 @@
 			
 			self.shapePreview.hide();
 			self.CANVAS.show();
+			
+			// if previously recognized shapes still present, delete them
+			if(AutoR.recognizedShapes.length){
+				// copy array
+				var args=[];
+				$.each(AutoR.recognizedShapes, function (i, o) {
+					args.push(o);
+				});
+
+				// send out
+				$("body:first").trigger("deleteRecognizedShapes",[args]);
+				AutoR.recognizedShapes=[];
+			}
+			
+			$("#darkonlight").attr('disabled','');
+			$("#lightondark").attr('disabled','');
+			
+			$("#transcript_controls > a").removeClass("inactive");
+			
+			$("#autorec_recognize").removeClass("inactive");
 			
 			$("#regionBox").show();
 			
@@ -469,21 +490,8 @@
             
             if (self.regionBox.DOM.css("display") == 'none') return;
 
-
-			// if previously recognized shapes still present, delete them
-			if(AutoR.recognizedShapes.length){
-				// copy array
-				var args=[];
-				$.each(AutoR.recognizedShapes, function (i, o) {
-					args.push(o);
-				});
-				
-				// send out
-				$("body:first").trigger("deleteRecognizedShapes",[args]);
-				AutoR.recognizedShapes=[];
-			}
-
             self._capture();
+
             var url = $("#hiddenCanvasSource").attr('src');
             if (self.regionList) {
                 //add to this region's images
@@ -581,32 +589,44 @@
                 }
                 self.regionBox.DOM.hide();
                 //hide regionBox
-
+				
+				// turn off toolbar
+				$("#darkonlight").attr('disabled','disabled');
+				$("#lightondark").attr('disabled','disabled');
+				$("#transcript_controls > a").addClass('inactive');
+				$("#autorec_recognize").addClass('inactive');
+				
+				
                 // set recognized images variable and
 				// send to shapePreview
-				AutoR.recognizedShapes=ldata;
+				// AutoR.recognizedShapes=ldata;
 				var shapes=[];
-				for(var x in AutoR.recognizedShapes){
-					if(!AutoR.recognizedShapes[x]) continue;
-					shapes.push(AutoR.recognizedShapes[x].shape);
+				for(var x in ldata){
+					
+					shapes.push(ldata[x].shape);
 				}
+				AutoR.recognizedShapes=shapes;
+				
+				AutoR.autoData=ldata;
+				
+				if(__v) console.log('jaja '+JSON.stringify(AutoR.recognizedShapes));
 				
 				self.shapePreview.show();
 				self.CANVAS.hide();
-				self.shapePreview.loadShapes(shapes);
+				self.shapePreview.loadShapes(AutoR.recognizedShapes);
 				
-				self.recognizeB.unbind("click");
-				self.recognizeB.click(function(e){
-					e.preventDefault();
-					self.shapePreview.hide();
-					self.CANVAS.show();
-					$(this).unbind('click');
-					$("#regionBox").hide();
-					self.recognizeB.click(function(e){
-						e.preventDefault();
-						self._recognize();
-					});
-				});
+				// self.recognizeB.unbind("click");
+				// 				self.recognizeB.click(function(e){
+				// 					e.preventDefault();
+				// 					self.shapePreview.hide();
+				// 					self.CANVAS.show();
+				// 					$(this).unbind('click');
+				// 					$("#regionBox").hide();
+				// 					self.recognizeB.click(function(e){
+				// 						e.preventDefault();
+				// 						self._recognize();
+				// 					});
+				// 				});
 				
 				//output data and close autoRecognizer
                 self._outputData();
@@ -622,8 +642,8 @@
                 $("#hiddenCanvasSource").attr("src", url.substring((url.indexOf('=') + 1)));
             }
             // output all data found
-            if (AutoR.recognizedShapes) {
-                $("body:first").trigger("outputLines", [AutoR.recognizedShapes]);
+            if (AutoR.autoData) {
+                $("body:first").trigger("outputLines", [AutoR.autoData]);
             } else {
                 $("body:first").trigger("closeALR");
             }
@@ -1074,11 +1094,13 @@ ShapePreviewCanvas.prototype = {
 			
 			// changing the scaling for all shapes
 			$.each(shapes, function (ix, shape) {
-				$.each(shape.posInfo, function (iy, info) {
-					var dx = (info * AutoR.scale) / shape._scale;
-					shape.posInfo[iy] = dx;
-				});
-				shape._scale = AutoR.scale;
+				if(shape){
+					$.each(shape.posInfo, function (iy, info) {
+						var dx = (info * AutoR.scale) / shape._scale;
+						shape.posInfo[iy] = dx;
+					});
+					shape._scale = AutoR.scale;
+				}
 			});
 			
 			self.canvas.importShapes(shapes);
@@ -2319,7 +2341,6 @@ var AR = {
 	},
 	deleteRSHandle : function (e, shapes) {
 		var self = e.data.obj;
-		
 		$.each(shapes, function (i, shape) {
 			var o = shape;
 			if(!o.jsonName){
@@ -2330,7 +2351,6 @@ var AR = {
 					obj : shape
 				};
 			}
-			
 			TILE.engine.deleteObj(o);
 			
 		});
