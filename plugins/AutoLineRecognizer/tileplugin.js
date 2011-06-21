@@ -102,7 +102,7 @@
         '<p>Select transcript lines that you want to recognize</p>' +
         '</div><div id="transcript"></div><div id="transcript_controls">' +
         '<a id="selectAll" class="button">Select All</a> | <a id="selectNone" class="button">Select None</a></div>'+
-		'<div class="step"><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
+		'<div class="step"><br/><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
 		'</div></div>';
 
 		
