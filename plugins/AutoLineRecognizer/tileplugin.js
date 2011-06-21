@@ -237,6 +237,7 @@
 			self.shapePreview.hide();
 			self.CANVAS.show();
 			
+			
 			// if previously recognized shapes still present, delete them
 			if(AutoR.recognizedShapes.length){
 				// copy array
@@ -249,6 +250,8 @@
 				$("body:first").trigger("deleteRecognizedShapes",[args]);
 				AutoR.recognizedShapes=[];
 			}
+			
+			self.CANVAS.setUpCanvas();
 			
 			$("#darkonlight").attr('disabled','');
 			$("#lightondark").attr('disabled','');
@@ -2070,7 +2073,6 @@ ShapePreviewCanvas.prototype = {
                 this.shapes[j] = dummy;
             }
         },
-
         createLineBreaks: function(numOfLines) {
             //creates linebreaks array from shapes array
             linebreaks = [];
@@ -2327,6 +2329,9 @@ var AR = {
 				
 			}
 		});
+		
+		
+		
 		// go through IDs to find shapes
 		var shapes=[];
 		if(sIDs.length>0){
