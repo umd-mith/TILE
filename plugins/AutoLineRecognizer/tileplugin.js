@@ -235,7 +235,11 @@
 			
 			self.shapePreview.hide();
 			self.CANVAS.show();
+			
 			$("#regionBox").show();
+			
+			if(!self.regionBox) self.regionBox = $("#regionBox");
+			
 		},
         // Sets up CanvasArea - replaces CanvasArea from previous tool
         // and replaces with this Tools' CanvasImage
@@ -264,7 +268,6 @@
 
 			self.recognizeB.click(function(e) {
 				e.preventDefault();
-				// self.getDataFromREST();
 				self._recognize();
 			});
 			//set global listeners
@@ -463,8 +466,23 @@
         //
         _recognize: function() {
             var self = this;
-            if (!self.regionBox) return;
+            
             if (self.regionBox.DOM.css("display") == 'none') return;
+
+
+			// if previously recognized shapes still present, delete them
+			if(AutoR.recognizedShapes.length){
+				// copy array
+				var args=[];
+				$.each(AutoR.recognizedShapes, function (i, o) {
+					args.push(o);
+				});
+				
+				// send out
+				$("body:first").trigger("deleteRecognizedShapes",[args]);
+				AutoR.recognizedShapes=[];
+			}
+
             self._capture();
             var url = $("#hiddenCanvasSource").attr('src');
             if (self.regionList) {
@@ -2174,6 +2192,8 @@ var AR = {
                 $("#autoreclog").css("z-index", "0");
 			});
 			
+			$("body").live("deleteRecognizedShapes",{obj:self},self.deleteRSHandle);
+			
 			// Picks up shapes that were recognized in _recognize
             $("body").live("outputLines", {
                 obj: self
@@ -2274,7 +2294,6 @@ var AR = {
 	findShapesInJSON:function(json){
 		var self=this;
 		// only get JSON for this page
-		
 		var sIDs=[];
 		$.each(json.lines, function (i, line) {
 			if(line&&(line.shapes)){
@@ -2286,9 +2305,7 @@ var AR = {
 				
 			}
 		});
-		if(__v) console.log('sIDs '+sIDs);
 		// go through IDs to find shapes
-		
 		var shapes=[];
 		if(sIDs.length>0){
 			$.each(json.shapes, function (i, shape) {
@@ -2299,6 +2316,25 @@ var AR = {
 		}
 		
 		return shapes;
+	},
+	deleteRSHandle : function (e, shapes) {
+		var self = e.data.obj;
+		
+		$.each(shapes, function (i, shape) {
+			var o = shape;
+			if(!o.jsonName){
+				o = {
+					id: o.id,
+					type : 'shapes',
+					jsonName : TILE.url,
+					obj : shape
+				};
+			}
+			
+			TILE.engine.deleteObj(o);
+			
+		});
+		
 	},
     name: "AutoLineRecognizer"
 };
