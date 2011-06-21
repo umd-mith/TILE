@@ -26,6 +26,7 @@
 	AutoR.darkText = true;
 	AutoR.recognizedShapes = [];
 	AutoR.activeLineNums = [];
+	AutoR.predefinedShapes = [];
 	
     var alrcontainer = "#azcontentarea > .az.inner.autolinerecognizer";
 
@@ -94,13 +95,13 @@
 		self.logHTML='<div id="autoreclog" class="az tool autolinerecognizer"><div id="autorecarea" class="az inner autolinerecognizer">'+
 		'<div class="autorec_toolbar"><div class="toolbar">Auto Line Recognizer<div class="menuitem">' +
          '<span class="button">Cancel</span></div></div>'+
-		'<div id="content" class="az"><div class="step"><div class="instructions">Align the red box over the area of text to recognize</div></div><div class="step"><div class="instructions"><p>Does this image of text have:</p></div>'+
+		'<div id="content" class="az"><div class="step"><div class="instructions">Align the red box over the area of text to recognize</div><a id="showRegionBox" class="button">Start</a></div><div class="step"><div class="instructions"><p>Does this image of text have:</p></div>'+
 		'<div><p><input type="radio" id="darkonlight" name="threshChoice" />Dark text on a light background</p>'+
 		'<p><input type="radio" id="lightondark" name="threshChoice" />Light text on a dark(er) background.</p></div></div>'+
 		'<div class="step"><div class="instructions">'+
         '<p>Select transcript lines that you want to recognize</p>' +
         '</div><div id="transcript"></div><div id="transcript_controls">' +
-        '<a id="selectAll" class="textlink">Select All</a> | <a id="selectNone" class="textlink">Select None</a></div>'+
+        '<a id="selectAll" class="button">Select All</a> | <a id="selectNone" class="button">Select None</a></div>'+
 		'<div class="step"><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
 		'</div></div>';
 
@@ -117,6 +118,33 @@
         // self._setUp();
     };
     TileOCR.prototype = {
+		// Sets the AutoR property for predifined shapes
+		// This property is used in the initial stage of the Auto Recognition
+		// when the pre-made shapes are set 
+		// Filters out the shapes that are already in AutoR.recognizedShapes
+		setPredefinedShapes : function (shapes) {
+			var self=this;
+			AutoR.predefinedShapes = [];
+			if(AutoR.recognizedShapes.length){
+				// filter out the array
+				$.each(shapes, function (ix, shape) {
+					var id=shape.id;
+					var found=false;
+					$.each(AutoR.recognizedShapes, function (iy, line) {
+						if(id==line.id){
+							found=true;
+						}
+					});
+					
+					if(!found){
+						AutoR.predefinedShapes.push(shape);
+					}
+					
+				});
+			} else {
+				AutoR.predefinedShapes=shapes;
+			}
+		},
         // Setting up the HTML for AutoRecognizer
         // Replaces both the Transcript and ActiveBox areas to the left and
         // replaces canvas area
@@ -139,6 +167,12 @@
 			$("#lightondark").live('click',function(e){
 				
 				AutoR.darkText=false;
+			});
+			
+			// makes the RegionBox appear
+			$("#showRegionBox").click(function (e) {
+				e.preventDefault();
+				self.startAutoRecognition();
 			});
 			
             self.transcriptArea = $("#" + self.DOM.attr('id') + " > #content > .step > #transcript");
@@ -178,13 +212,32 @@
             self.swapCanvas();
             // load in the transcript
             self._loadTranscript();
-            // set up the image in the canvas
+            
+			// initially set up SVG canvas to show shapes
+			// already drawn
+			// Attaching listener for when HTML5 canvas is 
+			// finished loading and setting the correct AutoR.scale
+			// value
+			$("body").bind("HTML5CANVASDONE", function (e) {
+				$(this).unbind("HTML5CANVASDONE");
+				self.CANVAS.hide();
+				self.shapePreview.show();
+				if(__v) console.log('predefined shapes : '+JSON.stringify(AutoR.predefinedShapes));
+				self.shapePreview.loadShapes(AutoR.predefinedShapes);
+				
+			});
+			
+			// set up the image in the canvas
             self.CANVAS.setUpCanvas();
-
-
-            // show the region box automatically
-            // $("body:first").trigger("showBox");
         },
+		// Hides the Raphael Canvas area and 
+		startAutoRecognition:function (){
+			var self = this;
+			
+			self.shapePreview.hide();
+			self.CANVAS.show();
+			$("#regionBox").show();
+		},
         // Sets up CanvasArea - replaces CanvasArea from previous tool
         // and replaces with this Tools' CanvasImage
         swapCanvas: function() {
@@ -269,7 +322,7 @@
             
             //already constructed, re-attach listeners and show DOM
             var self = this;
-
+			
             if (self.CANVAS) {
                 // self.regionBox=new RegionBox({loc:"#azcontentarea"});
                 $("#regionBox").hide();
@@ -293,33 +346,16 @@
                     $(this).animate({
                         opacity: 1,
                         left: 0
-                    },
-                    10);
+                    },10);
                 });
                 // correct any window size difference
                 $("#" + self.CANVAS.uid).width($("#azcontentarea").width());
                 $("#" + self.CANVAS.uid).height($("#azcontentarea").height());
 
-                // if(self.canvasArea){
-                // 					self.canvasArea.animate({opacity:0.35},400,function(){
-                // 						self.canvasArea.hide();
-                // 						
-                // 						self.f.animate({opacity:1},200);
-                // 					});
-                // 				}
                 if (transcript) {
 
                     self.transcript = transcript;
-                    // if(!self.transcript.shapes.push){
-                    // 						var ag=[];
-                    // 						for(var x in self.transcript.shapes){
-                    // 							ag[x]=self.transcript.shapes[x];
-                    // 						}
-                    // 						self.transcript.shapes=ag;
-                    // 						
-                    // 						
-                    // 						
-                    // 					}
+                    
                     self._loadTranscript();
                 }
 
@@ -348,7 +384,7 @@
                 }
                 // default mode is that all transcript lines are selected
                 self.transcriptArea.children("div").removeClass("selected").addClass("selected");
-                $("#regionBox").show();
+                // $("#regionBox").show();
             }
 
         },
@@ -664,7 +700,7 @@
 			var self=this;
 			$("#html5area").show();
 			self.setUpCanvas();
-			$("#regionBox").show();
+			$("#regionBox").hide();
 		},
 		hide:function(){
 			var self=this;
@@ -748,8 +784,6 @@
 						oh*=0.9;
 						AutoR.scale*=0.9;
 					}
-                    // $("#canvasHTML").width(ow);
-                    //                    $("#canvasHTML").height(oh);
                 }
 
 				// set global variables
@@ -785,8 +819,9 @@
                 $("#regionBox").height((oh - 20));
 
                 // show the region box after the image has loaded
-                $("#regionBox").show();
                 removeImgScreen();
+
+				$("body:first").trigger("HTML5CANVASDONE");
             });
             var cleanURL = '';
             // test for remote image and that the url isn't already inserted with the 'PHP'
@@ -878,9 +913,6 @@ ShapePreviewCanvas.prototype = {
 		
 		self.canvas.clearShapes();
 		
-		
-		
-		
 		$("#imageRaphaelPreview").attr('src','');
 		
 		// loads the image then uses callback function
@@ -888,7 +920,6 @@ ShapePreviewCanvas.prototype = {
 		// measures to AutoR.scale and sets up images
 		var onLoadImg = function (){
 			
-			if(__v) console.log('load for '+srcImg);
 			// adjust image to scale
 			var w=srcImg.width;
 			var h=srcImg.height;
@@ -906,6 +937,16 @@ ShapePreviewCanvas.prototype = {
 			$("#raphaelarea > .vd-container > *").width(dx);
 			$("#raphaelarea > .vd-container > *").height(dy);
 			self.canvas.setScale(AutoR.scale);
+			
+			// changing the scaling for all shapes
+			$.each(shapes, function (ix, shape) {
+				$.each(shape.posInfo, function (iy, info) {
+					var dx = (info * AutoR.scale) / shape._scale;
+					shape.posInfo[iy] = dx;
+				});
+				shape._scale = AutoR.scale;
+			});
+			
 			self.canvas.importShapes(shapes);
 		};
 		
@@ -913,7 +954,6 @@ ShapePreviewCanvas.prototype = {
 		$("#imageRaphaelPreview").attr('src',TILE.url);
 		
 		var checkLoad = function(el, callback) {
-			if(__v) console.log('checkLoad '+el.width());
 			if(el.width() > 0 && el.height() > 0){
 				callback();
 			} else {
@@ -1962,13 +2002,16 @@ var AR = {
         // If AR object not yet set, create new one
         if (!self.__AR__) {
             var json = TILE.engine.getJSON(true);
-            this.__AR__ = new TileOCR({
+			var shapes = self.findShapesInJSON(json);
+            self.__AR__ = new TileOCR({
                 loc: "az_log",
                 transcript: json
             });
             // create a new mode with a callback function
             self.tileMode = mode;
-
+			
+			self.__AR__.setPredefinedShapes(shapes);
+			
             // attach html to the interface
             // sidbar - left side
             TILE.engine.insertModeHTML(this.__AR__.logHTML, 'main', self.tileMode.name);
@@ -1983,6 +2026,10 @@ var AR = {
                 if (/recognizer/i.test(name)) {
                     var json = TILE.engine.getJSON(true);
                     $("#autoreclog").css("z-index", "5");
+					var shapes=self.findShapesInJSON(json);
+					
+					self.__AR__.setPredefinedShapes(shapes);
+					
                     self.__AR__._restart(json);
                 } else {
                     $("#autoreclog").css("z-index", "0");
@@ -1990,8 +2037,10 @@ var AR = {
 
             });
             
+			
+
             // construct auto Rec
-            this.__AR__._setUp();
+            self.__AR__._setUp();
 
             // un-hide elements
             $("#az_activeBox").show();
@@ -2106,12 +2155,12 @@ var AR = {
     },
 	// locate shapes within the TILE JSON data and 
 	// load into PreviewCanvas
-	findShapesInJSON:function(){
+	findShapesInJSON:function(json){
 		var self=this;
 		// only get JSON for this page
-		var json=TILE.engine.getJSON(true);
+		
 		var sIDs=[];
-		$.each(json.lines, function (i,line) {
+		$.each(json.lines, function (i, line) {
 			if(line&&(line.shapes)){
 				$.each(line.shapes, function (ix, id) {
 					if($.inArray(sIDs, id)<0){
@@ -2121,13 +2170,13 @@ var AR = {
 				
 			}
 		});
-		
+		if(__v) console.log('sIDs '+sIDs);
 		// go through IDs to find shapes
 		
 		var shapes=[];
 		if(sIDs.length>0){
 			$.each(json.shapes, function (i, shape) {
-				if(shape&&($.inArray(sIDs, shape.id)>=0)){
+				if(shape&&($.inArray(shape.id, sIDs)>=0)){
 					shapes.push(shape);
 				}
 			});

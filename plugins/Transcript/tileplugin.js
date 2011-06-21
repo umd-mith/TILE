@@ -645,7 +645,7 @@
 					text.push(data.lines[line]);
 				}
 			}
-			$("#az_log > #az_transcript_area > #logbar_list").empty();
+			$("#az_log > div > #logbar_list").empty();
 			// insert new page into Transcript
 			self.transcript._insertLines(text);
 			self.transcript._drawText();
