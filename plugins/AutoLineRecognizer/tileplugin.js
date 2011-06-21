@@ -222,7 +222,6 @@
 				$(this).unbind("HTML5CANVASDONE");
 				self.CANVAS.hide();
 				self.shapePreview.show();
-				if(__v) console.log('predefined shapes : '+JSON.stringify(AutoR.predefinedShapes));
 				self.shapePreview.loadShapes(AutoR.predefinedShapes);
 				
 			});
@@ -339,9 +338,21 @@
                     $("#az_log > .az.inner:eq(0)").hide();
                     $("#az_log > .az.inner:eq(1)").show();
                     $(alrcontainer).show();
-                    // self.DOM.show();
-                    // self.colorFilter.DOM.show();
-                    //                     self.colorFilter._restart();
+
+					// initially set up SVG canvas to show shapes
+					// already drawn
+					// Attaching listener for when HTML5 canvas is 
+					// finished loading and setting the correct AutoR.scale
+					// value
+					$("body").bind("HTML5CANVASDONE", function (e) {
+						$(this).unbind("HTML5CANVASDONE");
+						self.CANVAS.hide();
+						self.shapePreview.show();
+						self.shapePreview.loadShapes(AutoR.predefinedShapes);
+
+					});
+					
+                    
                     self.CANVAS._restart(transcript);
                     $(this).animate({
                         opacity: 1,
@@ -357,9 +368,10 @@
                     self.transcript = transcript;
                     
                     self._loadTranscript();
+
+					
+
                 }
-
-
             }
         },
         // Loads the stored transcript array items into the transcript div
@@ -571,6 +583,7 @@
 					self.shapePreview.hide();
 					self.CANVAS.show();
 					$(this).unbind('click');
+					$("#regionBox").hide();
 					self.recognizeB.click(function(e){
 						e.preventDefault();
 						self._recognize();
@@ -925,7 +938,6 @@ ShapePreviewCanvas.prototype = {
 			var h=srcImg.height;
 			$("#raphaelarea > .vd-container").width(w);
 			$("#raphaelarea > .vd-container").height(h);
-	
 	
 			var dx=(w*AutoR.scale)/1;
 			var dy=(h*AutoR.scale)/1;
