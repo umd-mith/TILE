@@ -221,7 +221,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			
 			if(self.raphael){
 				if($.inArray(obj.id,self.raphael.shapeIds)<0){
-					var shape = self.copyShape(obj);
+					var shape = self.raphael.copyShape(obj);
 					// adjust scale
 					for(var y in shape.posInfo){
 						var dx=(shape.posInfo[y]*self._imgScale)/shape._scale;
@@ -915,9 +915,9 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			
 			// convert the scale to updated version
 			for(var prop in vd){
-				if(vd[prop]._scale == self._imgScale) continue;
+				
 				for(var item in vd[prop].posInfo){
-					var dx=(vd[prop].posInfo[item]*self._imgScale)/shape._scale;
+					var dx=(vd[prop].posInfo[item]*self._imgScale) / vd[prop]._scale;
 					vd[prop].posInfo[item]=dx;
 				}
 				vd[prop]._scale=self._imgScale;
