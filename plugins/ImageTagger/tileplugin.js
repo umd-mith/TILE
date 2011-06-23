@@ -216,17 +216,18 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			// only outputs - doesn't provide link metadata
 			return false;
 		},
-		addNewShapesToStack:function(shape){
+		addNewShapesToStack:function(obj){
 			var self=this;
 			
 			if(self.raphael){
-				if($.inArray(shape.id,self.raphael.shapeIds)<0){
+				if($.inArray(obj.id,self.raphael.shapeIds)<0){
+					var shape = self.copyShape(obj);
 					// adjust scale
 					for(var y in shape.posInfo){
 						var dx=(shape.posInfo[y]*self._imgScale)/shape._scale;
-						shape.posInfo[y]=dx;
+						shape.posInfo[y] = dx;
 					}
-					shape._scale=self._imgScale;
+					shape._scale = self._imgScale;
 					
 					self.raphael.shapeIds.push(shape.id);
 					self.raphael.manifest.push(shape);
@@ -267,7 +268,10 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			self.curURL=TILE.url;
 			
 			// send off parsed array to the drawing canvas
-			if(self.raphael) self.raphael._restart(json,self.curURL);
+			if(self.ShapeToolBar) self.ShapeToolBar.restart();
+			if(self.raphael) {
+				self.raphael._restart(json,self.curURL);
+			}
 		},
 		// called when image tagger is being hidden 
 		_closeDown:function(){
@@ -607,6 +611,17 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			if(!obj.rect.hasClass("inactive")) obj.deactivateShapeBar();
 			//tell vectordrawer to stop drawing
 			obj.DOM.trigger("stopDrawing");
+		},
+		restart:function(){
+			// set toolbar
+			$("li > #pointer").removeClass("active");
+			$("li > #rect").removeClass('active');
+			$("li > #elli").removeClass('active');
+			$("li > #poly").removeClass('active');
+			$("li > #rect").addClass('active');
+			
+			self.shapeType='r';
+			$("body").trigger("changeShapeType",['r']);
 		}
 	};
 	
@@ -797,8 +812,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				if(loadShapes) self.drawTool.importShapes(loadShapes);
 				
-				
-				
 				// if(TILE.experimental){
 					// size to fit window 
 			
@@ -834,22 +847,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 							}
 						}
 					}
-				// } else {
-				// 				// RESET
-				// 				TILE.scale=1;
-				// 				self._imgScale=1;
-				// 				// reset shapes
-				// 				for(var x=0;x<self.manifest.length;x++){
-				// 					var shape=self.manifest[x];
-				// 					if(shape._scale!=TILE.scale){
-				// 						for(var u in shape.posInfo){
-				// 							var dx=(shape.posInfo[u]*TILE.scale)/shape._scale;
-				// 							shape.posInfo[u]=dx;
-				// 						}
-				// 						shape._scale=TILE.scale;
-				// 					} 
-				// 				}
-				// 			}
 				
 				
 				self.drawTool.setScale(TILE.scale);
@@ -862,9 +859,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					}
 					$(".vd-container").css('width',ow+'px');
 					$(".vd-container").css('height',oh+'px');
-					// $(".vd-container").width(TILE.scale*parseFloat($(".vd-container").width()));
-					// $(".vd-container").height(TILE.scale*parseFloat($(".vd-container").height()));
-				
 					
 					if($(".shpButtonHolder").length){
 						// also change positon of .shpButtonHolder
@@ -873,7 +867,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					}
 				}
 				if(self.curUrl!=url) self.curUrl=url;
-				// self._loadPage.remove();
 			}).attr("src",url);	
 		},
 		// only load shapes - does not change the URL or sets up a new canvas
@@ -916,17 +909,20 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					}
 					vd.push(shape);
 				}
-				
-				
 			}
+			
+			if(__v) console.log('shapes retrieved from imagetagger manifest in loadShapes: '+JSON.stringify(vd));
+			
 			// convert the scale to updated version
 			for(var prop in vd){
+				if(vd[prop]._scale == self._imgScale) continue;
 				for(var item in vd[prop].posInfo){
 					var dx=(vd[prop].posInfo[item]*self._imgScale)/shape._scale;
 					vd[prop].posInfo[item]=dx;
 				}
 				vd[prop]._scale=self._imgScale;
 			}
+			if(__v) console.log('shapes now converted: '+JSON.stringify(vd));
 			self.drawTool.importShapes(vd);
 		},
 		updateShape:function(obj){
@@ -965,8 +961,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			self.drawTool.clearShapes();
 			
 			self.drawTool.importShapes(vd);
-			
-			
 		},
 		findShapeFromId:function(id){
 			var self=this;
@@ -1215,7 +1209,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		// Called by the receiveShapeObj event
 		// e : {Event}
 		// shpObj : {Object} - array of shape values
-		_shapeDrawnHandle:function(e,shpObj){
+		_shapeDrawnHandle:function (e, shpObj) {
 			var self=e.data.obj;
 			var url=TILE.url;
 			// if(!self.manifest[url]) self.manifest[url]={shapes:[]};
@@ -1237,10 +1231,32 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			
 			// send signal to other plugins
 			
-			$("body:first").trigger("shapeIsDrawn",[shpObj]);
+			$("body:first").trigger("shapeIsDrawn",[self.copyShape(shpObj)]);
 			// make the active shape
 			self.setActiveShape(shpObj);
 		
+		},
+		copyShape:function(obj) {
+			var self=this;
+			
+			function copyArray(args) {
+				var argscopy = [];
+				$.each(args, function(x, y) {
+					argscopy[x] = y;
+				});
+				return argscopy;
+			}
+			var copy={};
+			$.each(obj, function(i, o) {
+				if($.isArray(obj[i])){
+					copy[i] = copyArray(obj[i]);
+				} else {
+					copy[i] = o;
+				}
+			});
+			
+			return copy;
+			
 		},
 		// Called when an autoLine is approved and then
 		// changes IDs to a regular VD shape
@@ -1600,6 +1616,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			self._imgScale=1;
 			if(self.drawTool) self.drawTool.setScale(1);
 			self.setUpCanvas(url);
+			
+			
 			
 			
 			if(self.drawTool){
@@ -1996,6 +2014,16 @@ var IT={
 				// make active obj
 				TILE.engine.attachMetadataDialog(data,"#selBB");
 			});
+			
+			// set up the mode-change 
+			$("body").live('modeActive',function (e, name) {
+				if(/Image Annotation/.test(name)) {
+			
+					var shapes=self.findShapesInJSON(TILE.engine.getJSON());
+					self.itagger._restart(shapes);
+				}
+			});
+			
 			// bind ENGINE events
 			$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
 			$("body").live("newActive",{obj:self},self.newActiveHandle);
@@ -2035,8 +2063,6 @@ var IT={
 			self.itagger.setImage();
 		}
 		// check to see if any shapes added to activeItems
-		var vd=[shape];
-		var a=false;
 		self.itagger.addNewShapesToStack(shape);
 	},
 	dataLinkedHandle:function(e,args){

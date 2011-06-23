@@ -264,7 +264,7 @@
 			
 			if(!self.regionBox) self.regionBox = $("#regionBox");
 			
-			self.guessRegionBoxDims();
+			// self.guessRegionBoxDims();
 			
 		},
         // Sets up CanvasArea - replaces CanvasArea from previous tool
@@ -720,17 +720,20 @@
                         // if(!self.transcript.shapes) self.transcript.shape[];
                         //add data to the session's JSON object.
 						
+						var posInfo = {"x": (left),"y": (top),"width": (_REG.width),"height": (height)};
+						
+						$.each(posInfo, function (i, val) {
+							var dx=(val * 1)/AutoR.scale;
+							posInfo[i] = dx;
+							
+						});
+						
                         ldata.push({shape:{
                             "id": id + "_shape",
                             "type": "rect",
-                            "_scale": AutoR.scale,
+                            "_scale": 1,
                             "color": "#000000",
-                            "posInfo": {
-                                "x": (left),
-                                "y": (top),
-                                "width": (_REG.width),
-                                "height": (height)
-                            }
+                            "posInfo": posInfo
                         },
 						line:self.activeLines[linecount].line	
 						});
@@ -747,7 +750,6 @@
 				$("#transcript_controls > a").addClass('inactive');
 				$("#autorec_recognize").addClass('inactive');
 				
-				
                 // set recognized images variable and
 				// send to shapePreview
 				// AutoR.recognizedShapes=ldata;
@@ -760,27 +762,12 @@
 				
 				AutoR.autoData=ldata;
 				
-				if(__v) console.log('jaja '+JSON.stringify(AutoR.recognizedShapes));
-				
 				self.shapePreview.show();
 				self.CANVAS.hide();
-				self.shapePreview.loadShapes(AutoR.recognizedShapes);
-				
-				// self.recognizeB.unbind("click");
-				// 				self.recognizeB.click(function(e){
-				// 					e.preventDefault();
-				// 					self.shapePreview.hide();
-				// 					self.CANVAS.show();
-				// 					$(this).unbind('click');
-				// 					$("#regionBox").hide();
-				// 					self.recognizeB.click(function(e){
-				// 						e.preventDefault();
-				// 						self._recognize();
-				// 					});
-				// 				});
-				
 				//output data and close autoRecognizer
                 self._outputData();
+				
+				self.shapePreview.loadShapes(AutoR.recognizedShapes);
             }
         },
         // Takes the parsed JSON data from recognize() and
@@ -1190,20 +1177,14 @@ var ShapePreviewCanvas = function () {
 	var self=this;
 	// set up image
 	$("#imageRaphaelPreview").attr('src',TILE.url);
-	
 	// set up the raphael canvas
 	self.canvas=new VectorDrawer({"overElm":"#imageRaphaelPreview","initScale":AutoR.scale});
-	
 	// set drawMode permenantly to select
 	self.canvas._drawMode='s';
-	
 	// hide the canvas
 	$("#raphaelarea").hide();
-	
 	// global bind for when a shape is selected
 	$("body").bind("shapeActive",{obj:self},self.shapeActiveHandle);
-	
-	
 };
 ShapePreviewCanvas.prototype = {  
 	show:function(){
@@ -1253,7 +1234,7 @@ ShapePreviewCanvas.prototype = {
 					shape._scale = AutoR.scale;
 				}
 			});
-			
+			if(__v) console.log('shapes in previewCanvas : '+JSON.stringify(shapes));
 			self.canvas.importShapes(shapes);
 		};
 		
@@ -1272,41 +1253,15 @@ ShapePreviewCanvas.prototype = {
 		};
 		
 		checkLoad($("#imageRaphaelPreview"), onLoadImg);
-		
-		
-		// setTimeout(function(){
-		// 			if(__v) console.log('load for '+srcImg);
-		// 			// adjust image to scale
-		// 			var w=srcImg.width;
-		// 			var h=srcImg.height;
-		// 			$("#raphaelarea > .vd-container").width(w);
-		// 			$("#raphaelarea > .vd-container").height(h);
-		// 			
-		// 			
-		// 			var dx=(w*AutoR.scale)/1;
-		// 			var dy=(h*AutoR.scale)/1;
-		// 			
-		// 			$(this).width(dx);
-		// 			$(this).height(dy);
-		// 			// also adjust the svg canvas - vectordrawer doesn't
-		// 			// do this automatically
-		// 			$("#raphaelarea > .vd-container > *").width(dx);
-		// 			$("#raphaelarea > .vd-container > *").height(dy);
-		// 			self.canvas.setScale(AutoR.scale);
-		// 			self.canvas.importShapes(shapes);
-		// 			
-		// 		},1000);
-			
 	},
 	shapeActiveHandle:function(e,id){
 		var self=e.data.obj;
-		
+		if($("#canvasHTML:hidden").length) return;
 		if(!self.canvas) return;
 		var foundID=$(shape.node).attr('id');
-		
+
 		// select shape, which will draw selBB area
 		self.drawTool.selectShape(foundID);
-		
 	}
 };
 
@@ -2327,8 +2282,7 @@ var AR = {
             $("#az_log > .az.inner.autolinerecognizer > .toolbar").removeClass("toolbar").addClass("autorec_toolbar");
 
 
-            $("body").bind("modeActive",
-            function(e, name) {
+            $("body").bind("modeActive",function(e, name) {
                 if (/recognizer/i.test(name)) {
                     var json = TILE.engine.getJSON(true);
                     $("#autoreclog").css("z-index", "5");
@@ -2477,8 +2431,6 @@ var AR = {
 				
 			}
 		});
-		
-		
 		
 		// go through IDs to find shapes
 		var shapes=[];
