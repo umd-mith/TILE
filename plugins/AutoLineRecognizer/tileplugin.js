@@ -264,6 +264,8 @@
 			
 			if(!self.regionBox) self.regionBox = $("#regionBox");
 			
+			self.guessRegionBoxDims();
+			
 		},
         // Sets up CanvasArea - replaces CanvasArea from previous tool
         // and replaces with this Tools' CanvasImage
@@ -452,6 +454,152 @@
             self.CAR.thresholdConversion();
 
         },
+
+		/**
+		    Calculates where the text might be on the page
+		**/
+		guessRegionBoxDims: function() {
+		    var self = this;
+		
+		    var dims = self.regionBox._getDims();
+		    var context = $("#canvas")[0].getContext('2d');
+		    var rl = dims.left,
+		        rt = dims.top,
+		        rw = dims.width,
+		        rh = dims.height;
+		    var regionData = context.getImageData(rl, rt, rw, rh);
+		    //console.log(regionData);
+		    // we want to calculate a kernel over the image that will try to bring out the
+		    // areas with text -- then we'll get a bounding box over that area
+		    // we want the largest contiguous block
+		    //console.log(rl,rt,rw,rh);
+		    var pixel = function(x,y) {
+			    var idx = (x + rw*y)*4;
+			    return [ regionData.data[ idx ], regionData.data[ idx+1 ], regionData.data[ idx+2] ];
+			};
+			var set_pixel = function(x, y, i) {
+				var idx = (x + rw*y)*4;
+				regionData[idx] = i;
+				regionData[idx+1] = i;
+				regionData[idx+2] = i;
+			};
+			var I = function(x,y) {
+				var px = pixel(x,y);
+				return (30*px[0] + 59*px[1] + 11*px[2]) / 100; // Y'_601 standard for intensity
+			};
+			var cols = [], rows = [];
+			for(var y = 0; y < rh; y += 1) {
+				for(var x = 0; x < rw; x += 1) {
+					var i = I(x, y);
+					if(!cols[x]) cols[x] = 0;
+					cols[x] += i;
+					if(!rows[y]) rows[y] = 0;
+					rows[y] += i;
+				}
+			}
+			var parts = { h: [], v: []};
+			
+			var part_h = function(x) {
+				var s, e, sum;
+				if(parts.h[x]) return parts.h[x];
+			    if(x >= 64) {
+				    if(x > 127) return 0;
+				    s = parseInt(rw * (x - 64) / 64, 10);
+				    e = parseInt(rw * (x - 64+1) / 64, 10);
+				    sum = 0;
+				    for(; s < e; s += 1) {
+					    sum += cols[s];
+				    }
+				    return sum;
+			    }
+			    else {
+					parts.h[x] = part_h(x*2) + part_h(x*2+1);
+         			return parts.h[x];
+			    }
+			};
+			var part_v = function(y) {
+				var s, e, sum;
+				if(parts.v[y]) return parts.v[y];
+				if(y >= 64) {
+					if(y > 127) return 0;
+				    s = parseInt(rh * (y - 64) / 64, 10);
+				    e = parseInt(rh * (y - 64+1) / 64, 10);
+				    sum = 0;
+				    for(; s < e; s += 1) {
+					    sum += rows[s];
+				    }
+				    parts.v[y] = sum;
+				    return sum;
+			    }
+			    else {
+				    parts.v[y] = part_v(y*2) + part_v(y*2+1);
+         			return parts.v[y];
+			    }
+			};
+			
+			var search = function(x, part, sense, light) {
+				// we want to look at x and x+1 and see if we can discern where we need to look next
+				// part is part_v or part_h
+				// sense is -1 or 1 (1 is looking left, -1 for looking right)
+				// light is -1 or 1 (1 for light on dark, -1 for dark on light)
+				var diff = (part(x) - part(x+1)) * sense * light;
+				//console.log(x, diff, part(x), part(x+1));
+				if(x > 63) return x;
+				if(Math.abs(diff) > (part(x) + part(x+1))/10) {
+					if(diff > 0) {
+						//console.log("Searching left half");
+						return search(2*x, part, sense, light);
+					}
+					else {
+						//console.log("Searching right half");
+						return search(2*x+1, part, sense, light);
+					}
+				}
+				else {
+					//console.log("Ending search");
+					return x;
+					// we're close enough
+					if(sense * light == 1) {
+						return x;
+					}
+					else {
+						return x;
+					}
+				}
+			};
+			
+			//console.log(parts);
+			
+			var left = search(2, part_h, -1, 1),
+			    right= search(3, part_h, 1, 1),
+			    top  = search(2, part_v, -1, 1),
+			    bottom=search(3, part_v, 1, 1);
+			
+			//console.log(left, right, top, bottom);
+			var part2pixel = function(p, size, side) {
+			    var i = 1, t = p;
+			    while(t >= 2) {
+				    i *= 2;
+				    t /= 2;
+				//console.log(i, t);
+				}
+				p -= i;
+				return size * (p + side) / i - side;	
+			};
+			
+			var lx = part2pixel(left, rw, 0),
+			    rx = part2pixel(right, rw, 1),
+			    ty = part2pixel(top, rh, 0),
+			    by = part2pixel(bottom, rh, 1);
+			
+			//console.log(rl+lx, rt + ty, rx -lx, by-ty);
+			self.regionBox.DOM.css({
+	            "left": rl + lx,
+	            "top": rt + ty
+	        });
+			self.regionBox.DOM.width(rx - lx);
+			self.regionBox.DOM.height(by - ty);
+		},
 
 
         /**
