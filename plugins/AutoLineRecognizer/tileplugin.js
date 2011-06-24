@@ -79,7 +79,7 @@
        
 		self.logHTML='<div id="autoreclog" class="az tool autolinerecognizer"><div id="autorecarea" class="az inner autolinerecognizer">'+
 		'<div class="autorec_toolbar"><div class="toolbar">Auto Line Recognizer</div>'+
-		'<div id="content" class="az"><div class="step"><div class="instructions">Step One: Align the red box over the area of text to recognize</div><a id="showRegionBox" class="button">Start</a></div><div class="step"><div class="instructions">Step Two: Select if this image of text has:</div>'+
+		'<div id="content" class="az"><div class="step"><div class="instructions">Step One: Align the red box over the area of text to recognize</div></div><div class="step"><div class="instructions">Step Two: Select if this image of text has:</div>'+
 		'<div><p><input type="radio" id="darkonlight" name="threshChoice" disabled="disabled" />Dark text on a light background</p>'+
 		'<p><input type="radio" id="lightondark" name="threshChoice" disabled="disabled" />Light text on a dark(er) background</p></div></div>'+
 		'<div class="step"><div class="instructions">'+
@@ -87,7 +87,7 @@
         '</div><div id="transcript"></div><div id="transcript_controls">' +
         '<a id="selectAll" class="button inactive">Select All</a> | <a id="selectNone" class="button inactive">Select None</a></div>'+
 		'<div class="step"><br/><a id="autorec_recognize" class="button inactive">Perform Line Recognition</a></div>'+
-		'</div></div>';
+		'</div></div><div id="shapesLoaded" class="az"><div class="step"><div class="instructions">Erase shapes and start over</div><a id="showRegionBox" class="button">Start</a></div></div>';
 		
         //use this later to put in CanvasImage object
         self.canvasHTML = '<div id="canvasHTML" class="workspace autolinerecognizer"><div class="toolbar"></div><div id="html5area"><canvas id="canvas"/></div><div id="raphaelarea"><img id="imageRaphaelPreview" /></div><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
@@ -162,6 +162,8 @@
 				AutoR.darkText=false;
 			});
 			
+			$("#shapesLoaded").hide();
+			
 			// makes the RegionBox appear
 			$("#showRegionBox").click(function (e) {
 				e.preventDefault();
@@ -223,7 +225,9 @@
 					self.CANVAS.hide();
 					self.shapePreview.show();
 					self.shapePreview.loadShapes(AutoR.predefinedShapes);
-				
+					
+					$("#content").hide();
+					$("#shapesLoaded").show();
 				});
 			} else {
 				// Otherwise, if no shapes drawn, go straight to setting up HTML5 canvas
@@ -255,8 +259,8 @@
 				$("body:first").trigger("deleteRecognizedShapes",[args]);
 				AutoR.recognizedShapes=[];
 			}
-			
-			
+			$(".autorec_toolbar > #shapesLoaded").hide();
+			$(".autorec_toolbar > #content").show();
 			
 			$("#darkonlight").attr('disabled','');
 			$("#lightondark").attr('disabled','');
@@ -343,6 +347,9 @@
         // from AR.restart()
         // transcript {Object} - JSON data containing lines for this session
         _restart: function(transcript) {
+			$("#shapesLoaded").hide();
+			$(".autorec_toolbar > #content").show();
+		
 			AutoR.recognizedShapes = [];
             //already constructed, re-attach listeners and show DOM
             var self = this;
@@ -378,7 +385,8 @@
 							self.CANVAS.hide();
 							self.shapePreview.show();
 							self.shapePreview.loadShapes(AutoR.predefinedShapes);
-
+							$(".autorec_toolbar > #content").hide();
+							$("#shapesLoaded").show();
 						});
 					} else {
 						// Otherwise, if no shapes drawn, go straight to setting up HTML5 canvas

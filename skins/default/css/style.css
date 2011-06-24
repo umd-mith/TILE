@@ -933,6 +933,12 @@ a.btnIconLarge:hover {
 	overflow:auto;
 	margin-top:47px;
 }
+.tool .inner #shapesLoaded {
+	padding:10px;
+	overflow:auto;
+	margin-top:47px;
+}
+
 .tool .toolbar .menuitem {
 	float:right;
 	margin-right:0;
@@ -995,6 +1001,14 @@ a.btnIconLarge:hover {
 	padding:5px;
 	background:#EAEDC6;
 }
+.tool .autorec_toolbar #shapesLoaded .instructions {
+	line-height:1.2em;
+	font-size:90%;
+	margin-bottom:5px;
+	padding:5px;
+	background:#EAEDC6;
+}
+
 .tool .autorec_toolbar #content .instructions .stepnum {
 	font-style:italic;
 	font-weight:bold;
