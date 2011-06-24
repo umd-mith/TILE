@@ -77,25 +77,8 @@
         // self.loc=(args.loc)?  $("#"+args.loc):$("div.az.tool:empty");
         // self.html=args.layout.autorec;
        
-
-		// OLD LOG HTML THAT REFERS TO USING RGB VALUES TO DETERMINE LINE PLACEMENT
-		// INCLUDES SLIDERS FOR RGB VALUES
- 		// self.logHTML = "<div id=\"autoreclog\" class=\"az tool autolinerecognizer\"><div id=\"autorecarea\" class=\"az inner autolinerecognizer\"><div class=\"autorec_toolbar\"><div class=\"toolbar\">Auto Line Recognizer<div class=\"menuitem\">" +
-        //        "<span class=\"button\">Cancel</span></div></div><div id=\"content\" class=\"az\"><div id=\"sidebarHead\"><div id=\"boxSize\">" +
-        //        "</div><div id=\"boxPos\"></div></div><div class=\"step\"><div class=\"instructions\"><p><span class=\"stepnum\">Step 1: </span>Choose global color and region settings</p>" +
-        //        "</div><div id=\"colorSection\">" +
-        //        "<span id=\"colorPanel\" class=\"color\"><label>Red:</label><div id=\"red\"></div><label>Green:</label><div id=\"green\"></div><label>Blue:</label><div id=\"blue\"></div></span>" +
-        //        "<div id=\"backgroundimage\">0,0,0</div></div>" +
-        //        "<div id=\"sidebarContent\"></div></div><div class=\"step\"><div class=\"instructions\">" +
-        //        "<p><span class=\"stepnum\">Step 2: </span>Select the lines that you want to recognize</p>" +
-        //        "</div><div id=\"transcript\"></div><div id=\"transcript_controls\">" +
-        //        "<a id=\"selectAll\" class=\"textlink\">Select All</a> | <a id=\"selectNone\" class=\"textlink\">Select None</a></div><div class=\"buttondiv\">" +
-        //        "<a id=\"autorec_recognize\" class=\"button\">Perform Line Recognition</a></div></div></div>";
-        
-		// NEW LOGBAR FOR NON-RGB METHOD OF RECOGNIZING LINES
 		self.logHTML='<div id="autoreclog" class="az tool autolinerecognizer"><div id="autorecarea" class="az inner autolinerecognizer">'+
-		'<div class="autorec_toolbar"><div class="toolbar">Auto Line Recognizer<div class="menuitem">' +
-         '<span class="button">Cancel</span></div></div>'+
+		'<div class="autorec_toolbar"><div class="toolbar">Auto Line Recognizer</div>'+
 		'<div id="content" class="az"><div class="step"><div class="instructions">Step One: Align the red box over the area of text to recognize</div><a id="showRegionBox" class="button">Start</a></div><div class="step"><div class="instructions">Step Two: Select if this image of text has:</div>'+
 		'<div><p><input type="radio" id="darkonlight" name="threshChoice" disabled="disabled" />Dark text on a light background</p>'+
 		'<p><input type="radio" id="lightondark" name="threshChoice" disabled="disabled" />Light text on a dark(er) background</p></div></div>'+
@@ -105,7 +88,6 @@
         '<a id="selectAll" class="button inactive">Select All</a> | <a id="selectNone" class="button inactive">Select None</a></div>'+
 		'<div class="step"><br/><a id="autorec_recognize" class="button inactive">Perform Line Recognition</a></div>'+
 		'</div></div>';
-
 		
         //use this later to put in CanvasImage object
         self.canvasHTML = '<div id="canvasHTML" class="workspace autolinerecognizer"><div id="html5area"><canvas id="canvas"/></div><div id="raphaelarea"><img id="imageRaphaelPreview" /></div><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
