@@ -228,10 +228,10 @@
 			} else {
 				// Otherwise, if no shapes drawn, go straight to setting up HTML5 canvas
 				$("body").bind("HTML5CANVASDONE", function (e) {
-					if(__v) console.log("HTML5CANVAS DONE REACHED");
+				
 					$(this).unbind("HTML5CANVASDONE");
 					
-					$("#showRegionBox").trigger('click');
+					self.startAutoRecognition();
 				});
 			}
 			
@@ -384,9 +384,8 @@
 						// Otherwise, if no shapes drawn, go straight to setting up HTML5 canvas
 						$("body").bind("HTML5CANVASDONE", function (e) {
 							$(this).unbind("HTML5CANVASDONE");
-
-							$("#showRegionBox").trigger('click');
-							self.CANVAS.setUpCanvas();
+							self.startAutoRecognition();
+							
 						});
 					}
 					
