@@ -866,7 +866,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			};
 
 			checkLoad($("#srcImageForCanvas"), loadImg);
-			
 		},
 		// finds the real width and height of the given URL and
 		// sets the canvas area and other surrounding divs to this

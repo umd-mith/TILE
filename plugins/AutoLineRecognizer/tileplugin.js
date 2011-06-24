@@ -90,7 +90,7 @@
 		'</div></div>';
 		
         //use this later to put in CanvasImage object
-        self.canvasHTML = '<div id="canvasHTML" class="workspace autolinerecognizer"><div id="html5area"><canvas id="canvas"/></div><div id="raphaelarea"><img id="imageRaphaelPreview" /></div><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
+        self.canvasHTML = '<div id="canvasHTML" class="workspace autolinerecognizer"><div class="toolbar"></div><div id="html5area"><canvas id="canvas"/></div><div id="raphaelarea"><img id="imageRaphaelPreview" /></div><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
    
         self.transcript = (args.transcript) ? args.transcript : null;
         self.lineManifest = [];
@@ -663,7 +663,7 @@
                 // Permanent Left value for all lines
                 var left = _REG.left;
 				// Correction value for Auto Recognizer CSS vs. Image Tagger CSS
-                var tbarcorrect = ($(".az.inner.imageannotation > .toolbar").height() / 2);
+                var tbarcorrect = ($("#canvasHTML > .toolbar").innerHeight() + 5);
                 // correct the bounding box top value
                 _REG.top -= tbarcorrect;
 
@@ -935,7 +935,7 @@
 
                 var l = $("#regionBox").position().left * TILE.scale;
                 // set top value a little lower than top of .az.inner
-                var t = $(alrcontainer + " > .workspace").position().top + 5;
+                var t = 0;
                 $("#regionBox").width(w);
                 $("#regionBox").height(h);
                 $("#regionBox").css("left", l + 'px');
@@ -999,7 +999,9 @@
                     $("#regionBox").width(real_width - (real_width / 4));
                     $("#regionBox").height(real_height - (real_height / 4));
                 }
-				$("#regionBox").css({"top":"0px","left":"0px"});
+				var regionBoxTop = $("#canvasHTML > .toolbar").innerHeight();
+
+				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
 
@@ -1106,7 +1108,9 @@
                     $("#regionBox").width(real_width - (real_width / 4));
                     $("#regionBox").height(real_height - (real_height / 4));
                 }
-				$("#regionBox").css({"top":"0px","left":"0px"});
+				var regionBoxTop = $("#canvasHTML > .toolbar").innerHeight();
+
+				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
 
@@ -1229,6 +1233,11 @@ ShapePreviewCanvas.prototype = {
 			// do this automatically
 			$("#raphaelarea > .vd-container > *").width(dx);
 			$("#raphaelarea > .vd-container > *").height(dy);
+			
+			// offset the top value from toolbar
+			var toff = $("#canvasHTML > .toolbar").innerHeight();
+			$("#raphaelarea > .vd-container").css("top",toff+'px');
+			
 			self.canvas.setScale(AutoR.scale);
 			
 			// changing the scaling for all shapes
@@ -1279,20 +1288,14 @@ ShapePreviewCanvas.prototype = {
 		
 		Taking the HTML from other functions and making it into a single function
 		**/
-    var RegionBox = function(args) {
+    var RegionBox = function (args) {
         // Constructor
         if (!$(alrcontainer).length) throw "RegionBox cannot be inserted at this point";
         var self = this;
         
         self.DOM = $("<div id=\"regionBox\" class=\"boxer_plainbox\"></div>");
         self.DOM.appendTo($("#html5area"));
-        //adjust top/left
-        var p = $(alrcontainer).position();
-
-        self.DOM.css({
-            "left": 0,
-            "top": (p.top + $(alrcontainer + " > .toolbar").innerHeight())
-        });
+        
 
         //draggable and resizable
         self.DOM.draggable({
@@ -1341,45 +1344,6 @@ ShapePreviewCanvas.prototype = {
                 });
 
             });
-        },
-        // Handles the zoom trigger event
-        // e : {Event}
-        // v : {Integer} - new scale to scale box to
-        _zoomHandle: function(e, v) {
-            var self = e.data.obj;
-            //v is either gt 0 or lt 0
-
-            // if(v>0){
-            // 					//zooming in
-            // 					var d=self._getDims();
-            // 					var left=(d.left*1.25);
-            // 					if(!self.DOM.parent().position()) return;
-            // 					var top=(self.DOM.parent().position().top+$("#azcontentarea > .az.inner.autoRec > .toolbar").innerHeight());
-            // 					var nWdt=(d.width*1.25);
-            // 					var nHgt=(d.height*1.25);
-            // 					var pWdt=(self.DOM.parent().width());
-            // 					var pHgt=(self.DOM.parent().height());
-            // 					if(left<=self.DOM.parent().position().left){
-            // 						left=self.DOM.parent().position().left+5;
-            // 					}
-            // 					// if(top<=(self.DOM.parent().position().top+$("#azcontentarea > .az.inner > .toolbar").innerHeight()+10)){
-            // 					// 						top=(self.DOM.parent().position().top+$("#azcontentarea > .az.inner > .toolbar").innerHeight()+$("#azcontentarea > .az.inner > .toolbar").innerHeight());
-            // 					// 					}
-            // 					if((nWdt>pWdt)||(nHgt>pHgt)){
-            // 						nWdt=pWdt-(pWdt/4);
-            // 						nHgt=pHgt-(pHgt/4);
-            // 					}
-            // 					self.DOM.css({"left":(d.left*1.25)+'px',"top":(top*1.25)+'px',"width":(nWdt),"height":(nHgt)});
-            // 				} else if(v<0){
-            // 					var d=self._getDims();
-            // 					var top=(d.top*0.75);
-            // 					if(!self.DOM.parent().position()) return;
-            // 					if(top<=(self.DOM.parent().position().top+$("#azcontentarea > .az.inner.autoRec > .toolbar").innerHeight())){
-            // 						
-            // 						top=(self.DOM.parent().position().top+$("#azcontentarea > .az.inner.autoRec > .toolbar").innerHeight());
-            // 					}
-            // 					self.DOM.css({"left":(d.left*0.75)+'px',"top":(top*0.75)+'px',"width":(d.width*0.75),"height":(d.height*0.75)});
-            // 				}
         },
         // Toggles the container DOM either on or off
         // Called by 'showBox' event
@@ -1497,146 +1461,7 @@ ShapePreviewCanvas.prototype = {
     };
 
 
-    /*
-		 * args:
-		 * 		DOM: DOM id of container
-		 * 		red: DOM id of div for red slider
-		 * 		green: DOM id of div for greeen slider
-		 * 		blue:  DOM id of div for blue slider
-		 * 		colorBox: DOM id of div showing color 		
-		 * 		
-		 */
-    var TileColorFilter = function(args) {
-        // Constructor
-        this.DOM = $("#" + args.DOM);
-        this.red = args.red;
-        this.green = args.green;
-        this.blue = args.blue;
-        var colorBox = args.colorBox;
-        this.rgbDiv = $("#" + colorBox);
-        this.rgbValue = [127, 127, 127];
-
-        $("body").bind("slideChange", {
-            obj: this
-        },
-        this.changeColorFromSlider);
-
-        this.redSlide = $("#" + this.red).slider({
-            min: 0,
-            max: 255,
-            value: 127,
-            stop: function(e, ui) {
-                $(this).trigger("slideChange", ["red", ui.value]);
-            }
-        });
-        this.greenSlide = $("#" + this.green).slider({
-            min: 0,
-            max: 255,
-            value: 127,
-            stop: function(e, ui) {
-                $(this).trigger("slideChange", ["green", ui.value]);
-            }
-        });
-        this.blueSlide = $("#" + this.blue).slider({
-            min: 0,
-            max: 255,
-            value: 127,
-            stop: function(e, ui) {
-
-                $(this).trigger("slideChange", ["blue", ui.value]);
-            }
-        });
-
-        this.DOM.bind("slideChange", {
-            obj: this
-        },
-        this.changeColorFromSlider);
-        rgb = this.rgbValue.toString();
-        this.rgbDiv.text(rgb);
-        this.rgbDiv.css("background-color", "rgb(" + rgb + ")");
-        this.DOM.trigger("ColorChange", [rgb]);
-    };
-    TileColorFilter.prototype = {
-        // Resets all of the sliders back to default values
-        _restart: function() {
-            this.redSlide = $("#" + this.red).slider({
-                min: 0,
-                max: 255,
-                value: 127,
-                stop: function(e, ui) {
-                    $(this).trigger("slideChange", ["red", ui.value]);
-                }
-            });
-            this.greenSlide = $("#" + this.green).slider({
-                min: 0,
-                max: 255,
-                value: 127,
-                stop: function(e, ui) {
-                    $(this).trigger("slideChange", ["green", ui.value]);
-                }
-            });
-            this.blueSlide = $("#" + this.blue).slider({
-                min: 0,
-                max: 255,
-                value: 127,
-                stop: function(e, ui) {
-
-                    $(this).trigger("slideChange", ["blue", ui.value]);
-                }
-            });
-            this.DOM.bind("slideChange", {
-                obj: this
-            },
-            this.changeColorFromSlider);
-            this.DOM.trigger("ColorChange", [rgb]);
-        },
-        // Takes a given rgb value as input and sets the sliders and rgbDiv to
-        // this value
-        // rgb : {String} - string representing color values for red, green, blue
-        setValue: function(rgb) {
-            this.rgbDiv.text(rgb);
-            this.rgbDiv.css("background-color", "rgb(" + rgb + ")");
-            colors = rgb.split(",");
-
-
-            $("#" + this.red).slider("option", "value", colors[0]);
-            $("#" + this.green).slider("option", "value", colors[1]);
-            $("#" + this.blue).slider("option", "value", colors[2]);
-        },
-        // Called by slideChange event
-        // Sets the rgbValue array to the appropriate val, depending
-        // on which color value was passed
-        // e : {Event}
-        // color : {String} - (red,green,blue) - color to change
-        // val : {Integer} - new color amount for that color
-        changeColorFromSlider: function(e, color, val) {
-
-            var obj = e.data.obj;
-            //debug("color "+color);
-            switch (color) {
-            case "red":
-                obj.rgbValue[0] = parseInt(val, 10);
-                break;
-            case "green":
-                obj.rgbValue[1] = parseInt(val, 10);
-                break;
-            case "blue":
-                obj.rgbValue[2] = parseInt(val, 10);
-                break;
-            }
-            var rgb = obj.rgbValue[0] + "," + obj.rgbValue[1] + "," + obj.rgbValue[2];
-
-            obj.rgbDiv.text(rgb);
-            obj.rgbDiv.css("background-color", "rgb(" + rgb + ")");
-            $("body:first").trigger("ColorChange", [rgb]);
-
-        },
-        // Returns {String} from rgbDiv
-        _RGB: function() {
-            var self = this;
-            return self.rgbDiv.text();
-        }
-    };
+   
 
     //REGION RULE
     // Object representing an array of values
@@ -1661,96 +1486,7 @@ ShapePreviewCanvas.prototype = {
 
     };
 
-    // LineBox
-    // box that appears on the image after
-    // recognizing lines. represents a recognized line
-    // Usage: new lineBox({width:{Integer},height:{Integer},left:{Integer},top:{Integer}});
-    var lineBox = function(args) {
-        // Constructor
-        var self = this;
-        self.DOM = $("<div class=\"lineBox\"></div>").attr("id", "lineBox_" + $(".lineBox").length);
-        self.uid = self.DOM.attr('id');
-        //add Options
-        self.resizeOn = false;
-        self.dragOn = false;
-        //has settings based on SHAPE_ATTRS
-        self.DOM.width(args.width);
-        self.DOM.height(args.height);
-        self.DOM.css("left", args.left + 'px');
-        self.DOM.css("top", args.top + 'px');
-        if (SHAPE_ATTRS) self.DOM.css(SHAPE_ATTRS);
-
-        self.DOM.appendTo(args.loc);
-        self.optionsON = false;
-        $("#" + self.uid).bind("mouseover",
-        function(e) {
-            $(this).addClass("lineBoxSelect");
-        });
-        $("#" + self.uid).bind("mouseout",
-        function(e) {
-            $(this).removeClass("lineBoxSelect");
-
-        });
-        $("#" + self.uid).bind("click",
-        function(e) {
-            var id = $(this).attr("id");
-            self.select(id);
-        });
-        //	self.DOM.bind("doneEdit",{obj:self},self.unselect);
-        //global listener for zoom
-        //	$("body").bind("zoom",{obj:this},self.zoomHandle);
-    };
-    lineBox.prototype = {
-        // select this linebox - immediately becomes draggable and
-        // resizeable
-        // id : {String}
-        select: function(id) {
-            $(".lineBox").css({
-                "display": "none"
-            });
-            $("#" + id).css({
-                "display": "block"
-            });
-            $("#" + id).draggable();
-            $("#" + id).resizable();
-
-            $("#" + id).trigger("lineClicked", [id]);
-        },
-        // Handles zoom trigger
-        // e : {Event}
-        // v : {Integer} - scale to scale to
-        zoomHandle: function(e, v) {
-            var self = e.data.obj;
-            if (v < 0) {
-                //zooming out
-                var w = self.DOM.width() * 0.75;
-                var h = self.DOM.height() * 0.75;
-                var l = self.DOM.position().left * 0.75;
-                var t = self.DOM.position().top * 0.75;
-                self.DOM.css({
-                    "width": w + 'px',
-                    "height": h + 'px',
-                    "left": l + 'px',
-                    "top": t + 'px'
-                });
-
-            } else if (v > 0) {
-                //zooming in
-                var w = self.DOM.width() * 1.25;
-                var h = self.DOM.height() * 1.25;
-                var l = self.DOM.position().left * 1.25;
-                var t = self.DOM.position().top * 1.25;
-                self.DOM.css({
-                    "width": w + 'px',
-                    "height": h + 'px',
-                    "left": l + 'px',
-                    "top": t + 'px'
-                });
-
-                //self.DOM.css({"left":l+'px',"top":t+'px'});
-            }
-        }
-    };
+    
 
     // Parent Class
     // AutoRecognizer
@@ -1851,7 +1587,7 @@ ShapePreviewCanvas.prototype = {
                 threshold = (selred + selgreen + selblue) / 3;
 
                 var rl = parseInt(this.Region.position().left, 10);
-                var rt = parseInt(this.Region.position().top, 10);
+                var rt = parseInt(((this.Region.position().top) - $("#canvasHTML > .toolbar").innerHeight()), 10);
 
                 var rw = parseInt(this.Region.css('width'), 10);
                 var rh = parseInt(this.Region.css('height'), 10);
