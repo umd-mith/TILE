@@ -776,31 +776,12 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				self.DOM.css({"z-index":0});
 			});
 		},
-		// finds the real width and height of the given URL and
-		// sets the canvas area and other surrounding divs to this
-		// proportion
-		// url : {String}
-		// 
-		setUpCanvas:function(url,loadShapes){
-			var self=this;
-			// remove CSS from zoom
-			$("#srcImageForCanvas").css("width","");
-			if(!$.browser.webkit){
-				$("#srcImageForCanvas").hide();
-			}
-			// make sure to get rid of all shpButtonHolders
-			$(".shpButtonHolder").remove();
-			if(url.indexOf('http')) url=url.substring(url.indexOf('http'));
-			if(self.drawTool) self.drawTool.clearShapes();
-			if(/\.js|\.html|\.JSP|\.jsp|\.JS|\.PHP|\.php|\.HTML|\.HTM|\.htm/.test(url)) return;
-			// get image element
-			var img=$("#srcImageForCanvas")[0];
-			// attach load event
-			$(img).load(function(e){
-				
-				if(!$.browser.webkit){
-					$(img).show();
-				}
+		altSetUpCanvas:function (url) {
+			var self = this;
+			
+			var img = $("#srcImageForCanvas")[0];
+			
+			var loadImg = function () {
 				$(img).unbind("load");
 				if(!self.drawTool){
 					//set up drawing canvas
@@ -810,7 +791,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					//clear all shapes from the previous image
 					self.drawTool.clearShapes();
 				}
-				if(loadShapes) self.drawTool.importShapes(loadShapes);
 				
 				// if(TILE.experimental){
 					// size to fit window 
@@ -847,6 +827,121 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 							}
 						}
 					}
+				
+				
+				self.drawTool.setScale(TILE.scale);
+				if(self._imgScale!=1){
+					// set correct scale
+					if($.browser.webkit){
+						document.getElementById('srcImageForCanvas').width=ow;
+					} else {
+						$("#srcImageForCanvas").width(ow);
+					}
+					$(".vd-container").css('width',ow+'px');
+					$(".vd-container").css('height',oh+'px');
+					
+					if($(".shpButtonHolder").length){
+						// also change positon of .shpButtonHolder
+						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*TILE.scale)+'px');
+						$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*TILE.scale)+'px');
+					}
+				}
+				if(self.curUrl!=url) self.curUrl=url;
+				
+				
+			};
+			
+			
+			$("#srcImageForCanvas").attr('src', url);
+
+			var checkLoad = function(el, callback) {
+				if(el.width() > 0 && el.height() > 0){
+					callback();
+				} else {
+					setTimeout(function () {
+						checkLoad(el, callback);
+					},100);
+				}
+
+			};
+
+			checkLoad($("#srcImageForCanvas"), loadImg);
+			
+		},
+		// finds the real width and height of the given URL and
+		// sets the canvas area and other surrounding divs to this
+		// proportion
+		// url : {String}
+		// 
+		setUpCanvas:function(url,loadShapes){
+			var self=this;
+			// remove CSS from zoom
+			$("#srcImageForCanvas").css("width","");
+			if(!$.browser.webkit){
+				$("#srcImageForCanvas").hide();
+			} else {
+				self.altSetUpCanvas(url);
+				return;
+			}
+
+			// make sure to get rid of all shpButtonHolders
+			$(".shpButtonHolder").remove();
+			if(url.indexOf('http')) url=url.substring(url.indexOf('http'));
+			if(self.drawTool) self.drawTool.clearShapes();
+			if(/\.js|\.html|\.JSP|\.jsp|\.JS|\.PHP|\.php|\.HTML|\.HTM|\.htm/.test(url)) return;
+			// get image element
+			var img=$("#srcImageForCanvas")[0];
+			// attach load event
+			$(img).load(function(e){
+				
+				if(!$.browser.webkit){
+					$(img).show();
+				}
+				$(img).unbind("load");
+				if(!self.drawTool){
+					//set up drawing canvas
+					self.setUpDrawTool();
+					self._imgScale=self.drawTool._scale; //make sure scales are synched
+				} else {
+					//clear all shapes from the previous image
+					self.drawTool.clearShapes();
+				}
+				
+				// if(TILE.experimental){
+					// size to fit window 
+			
+				var ow=(TILE.scale!=self._imgScale)?(this.width*TILE.scale):this.width;
+				var oh=(TILE.scale!=self._imgScale)?(this.height*TILE.scale):this.height;
+	
+				var contw=0;
+				var conth=0;
+				if($.browser.webkit){
+					contw=parseInt(document.getElementById("raphworkspace_").style.width,10);
+					conth=parseInt(document.getElementById("raphworkspace_").style.height,10);
+			
+				} else {
+					contw=parseInt($("#raphworkspace_").css("width"),10);
+					conth=parseInt($("#raphworkspace_").css("height"),10);
+				
+				}
+				if((contw<ow)||(conth<oh)){
+					while((contw<ow)||(conth<oh)){
+						ow*=self.zoomDF;
+						oh*=self.zoomDF;
+						TILE.scale*=self.zoomDF;
+					}
+					self._imgScale=TILE.scale;
+					for(var x=0;x<self.manifest.length;x++){
+						var shape=self.manifest[x];
+						if(shape._scale!=TILE.scale){
+							for(var u in shape.posInfo){
+								var dx=(shape.posInfo[u]*TILE.scale)/shape._scale;
+								shape.posInfo[u]=dx;
+							}
+							shape._scale=TILE.scale;
+						}
+					}
+				}
 				
 				
 				self.drawTool.setScale(TILE.scale);
@@ -910,9 +1005,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					vd.push(shape);
 				}
 			}
-			
-			if(__v) console.log('shapes retrieved from imagetagger manifest in loadShapes: '+JSON.stringify(vd));
-			
+			if(__v) console.log("CHROM BUG "+self._imgScale);
+			if(__v) console.log("CHROME BROWSER REGISTERS DIFFERENT: "+JSON.stringify(vd));
 			// convert the scale to updated version
 			for(var prop in vd){
 				
@@ -922,7 +1016,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				vd[prop]._scale=self._imgScale;
 			}
-			if(__v) console.log('shapes now converted: '+JSON.stringify(vd));
 			self.drawTool.importShapes(vd);
 		},
 		updateShape:function(obj){
@@ -1602,9 +1695,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			var self=this;
 			$("body").unbind("zoom",self.zoomHandle);
 		},
-		// called to deactivate zoomHandle once 
-		// the user selects a different tool to use in TILE_ENGINE
-		// json : {Object} JSON data containing shapes for this URL
+		// called to reset the canvas
 		_restart:function(json,url){
 			var self=this;
 			// dump autoLines
@@ -1616,9 +1707,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			self._imgScale=1;
 			if(self.drawTool) self.drawTool.setScale(1);
 			self.setUpCanvas(url);
-			
-			
-			
 			
 			if(self.drawTool){
 				// erase current canvas
@@ -1652,9 +1740,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 						}
 					}
 				}
-				// self.drawTool.importShapes(vd);
-				
-				
 			} else {
 				self.setUpCanvas(url);
 			}
