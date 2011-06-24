@@ -216,7 +216,7 @@
             // load in the transcript
             self._loadTranscript();
             
-
+			if(__v) console.log('predef shapes length: '+AutoR.predefinedShapes.length);
 			// TWO SCENARIOS FOR USING ALR: 
 			// 1. USER HAS PRE-DRAWN SHAPES AND THE PREVIEWCANVAS SHOWS THESE
 			// 2. USER HAS NO PRE-DRAWN SHAPES
@@ -351,7 +351,7 @@
         // from AR.restart()
         // transcript {Object} - JSON data containing lines for this session
         _restart: function(transcript) {
-            
+            AutoR.recognizedShapes = [];
             //already constructed, re-attach listeners and show DOM
             var self = this;
 			
@@ -394,6 +394,7 @@
 							$(this).unbind("HTML5CANVASDONE");
 
 							$("#showRegionBox").trigger('click');
+							self.CANVAS.setUpCanvas();
 						});
 					}
 					
@@ -413,9 +414,6 @@
                     self.transcript = transcript;
                     
                     self._loadTranscript();
-
-					
-
                 }
             }
         },
@@ -776,7 +774,7 @@
 				}
 				AutoR.recognizedShapes=shapes;
 				// erase all predefined shapes
-				$("body:first").trigger("deleteRecognizedShapes",[AutoR.predefinedShapes]);
+				$("body:first").trigger("deleteRecognizedShapes",[AutoR.predefinedShapes]);	
 				
 				AutoR.autoData=ldata;
 				
@@ -2303,7 +2301,7 @@ var AR = {
                     var json = TILE.engine.getJSON(true);
                     $("#autoreclog").css("z-index", "5");
 					var shapes=self.findShapesInJSON(json);
-					
+					if(__v) console.log('found shapesInJSON: '+JSON.stringify(shapes));
 					self.__AR__.setPredefinedShapes(shapes);
 					
                     self.__AR__._restart(json);
