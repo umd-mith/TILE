@@ -208,24 +208,40 @@
 					self.activeLines[a].active=false;
 				}
             });
-
+			
+			
+			
             //swap out other canvas/image area data for CanvasImage
             self.swapCanvas();
             // load in the transcript
             self._loadTranscript();
             
-			// initially set up SVG canvas to show shapes
-			// already drawn
-			// Attaching listener for when HTML5 canvas is 
-			// finished loading and setting the correct AutoR.scale
-			// value
-			$("body").bind("HTML5CANVASDONE", function (e) {
-				$(this).unbind("HTML5CANVASDONE");
-				self.CANVAS.hide();
-				self.shapePreview.show();
-				self.shapePreview.loadShapes(AutoR.predefinedShapes);
+
+			// TWO SCENARIOS FOR USING ALR: 
+			// 1. USER HAS PRE-DRAWN SHAPES AND THE PREVIEWCANVAS SHOWS THESE
+			// 2. USER HAS NO PRE-DRAWN SHAPES
+			if(AutoR.predefinedShapes.length>0){
+				// initially set up SVG canvas to show shapes
+				// already drawn
+				// Attaching listener for when HTML5 canvas is 
+				// finished loading and setting the correct AutoR.scale
+				// value
+				$("body").bind("HTML5CANVASDONE", function (e) {
+					$(this).unbind("HTML5CANVASDONE");
+					self.CANVAS.hide();
+					self.shapePreview.show();
+					self.shapePreview.loadShapes(AutoR.predefinedShapes);
 				
-			});
+				});
+			} else {
+				// Otherwise, if no shapes drawn, go straight to setting up HTML5 canvas
+				$("body").bind("HTML5CANVASDONE", function (e) {
+					if(__v) console.log("HTML5CANVAS DONE REACHED");
+					$(this).unbind("HTML5CANVASDONE");
+					
+					$("#showRegionBox").trigger('click');
+				});
+			}
 			
 			// set up the image in the canvas
             self.CANVAS.setUpCanvas();
@@ -233,11 +249,8 @@
 		// Hides the Raphael Canvas area and 
 		startAutoRecognition:function (){
 			var self = this;
-			
 			self.shapePreview.hide();
 			self.CANVAS.show();
-			
-			
 			// if previously recognized shapes still present, delete them
 			if(AutoR.recognizedShapes.length){
 				// copy array
@@ -251,7 +264,7 @@
 				AutoR.recognizedShapes=[];
 			}
 			
-			self.CANVAS.setUpCanvas();
+			
 			
 			$("#darkonlight").attr('disabled','');
 			$("#lightondark").attr('disabled','');
@@ -264,6 +277,7 @@
 			
 			if(!self.regionBox) self.regionBox = $("#regionBox");
 			
+			self.CANVAS.setUpCanvas();
 			// self.guessRegionBoxDims();
 			
 		},
@@ -331,16 +345,6 @@
 
 		});
 
-			// if(TILE.url){
-			// 					var cursrc=TILE.url;
-			// 					if(!(cursrc in self.url)) self.url.push($("#hiddenCanvasSource").attr("src"));
-			// 					//adjust regionBox size
-			// 					var newScale=self.DOM.width()/$("#hiddenCanvasSource")[0].width;
-			// 				}
-			//change the toolbar
-			// $("#listView").parent().unbind("click");
-			$("#pgNext").unbind("click");
-			$("#pgPrev").unbind("click");
 
         },
         // Once the setUp is run, and the AR has been hidden, call this function
@@ -368,18 +372,30 @@
                     $("#az_log > .az.inner:eq(1)").show();
                     $(alrcontainer).show();
 
-					// initially set up SVG canvas to show shapes
-					// already drawn
-					// Attaching listener for when HTML5 canvas is 
-					// finished loading and setting the correct AutoR.scale
-					// value
-					$("body").bind("HTML5CANVASDONE", function (e) {
-						$(this).unbind("HTML5CANVASDONE");
-						self.CANVAS.hide();
-						self.shapePreview.show();
-						self.shapePreview.loadShapes(AutoR.predefinedShapes);
+					// TWO SCENARIOS FOR USING ALR: 
+					// 1. USER HAS PRE-DRAWN SHAPES AND THE PREVIEWCANVAS SHOWS THESE
+					// 2. USER HAS NO PRE-DRAWN SHAPES
+					if(AutoR.predefinedShapes.length>0){
+						// initially set up SVG canvas to show shapes
+						// already drawn
+						// Attaching listener for when HTML5 canvas is 
+						// finished loading and setting the correct AutoR.scale
+						// value
+						$("body").bind("HTML5CANVASDONE", function (e) {
+							$(this).unbind("HTML5CANVASDONE");
+							self.CANVAS.hide();
+							self.shapePreview.show();
+							self.shapePreview.loadShapes(AutoR.predefinedShapes);
 
-					});
+						});
+					} else {
+						// Otherwise, if no shapes drawn, go straight to setting up HTML5 canvas
+						$("body").bind("HTML5CANVASDONE", function (e) {
+							$(this).unbind("HTML5CANVASDONE");
+
+							$("#showRegionBox").trigger('click');
+						});
+					}
 					
                     
                     self.CANVAS._restart(transcript);
@@ -759,6 +775,8 @@
 					shapes.push(ldata[x].shape);
 				}
 				AutoR.recognizedShapes=shapes;
+				// erase all predefined shapes
+				$("body:first").trigger("deleteRecognizedShapes",[AutoR.predefinedShapes]);
 				
 				AutoR.autoData=ldata;
 				
@@ -888,8 +906,8 @@
 		show:function(){
 			var self=this;
 			$("#html5area").show();
-			self.setUpCanvas();
-			$("#regionBox").hide();
+			// self.setUpCanvas();
+			$("#regionBox").show();
 		},
 		hide:function(){
 			var self=this;
@@ -1113,7 +1131,6 @@
 
                 // show the region box after the image has loaded
                 removeImgScreen();
-
 				$("body:first").trigger("HTML5CANVASDONE");
             });
             var cleanURL = '';
@@ -1234,7 +1251,6 @@ ShapePreviewCanvas.prototype = {
 					shape._scale = AutoR.scale;
 				}
 			});
-			if(__v) console.log('shapes in previewCanvas : '+JSON.stringify(shapes));
 			self.canvas.importShapes(shapes);
 		};
 		
@@ -2303,12 +2319,12 @@ var AR = {
             self.__AR__._setUp();
 
             // un-hide elements
-            $("#az_activeBox").show();
-            $(".az.main.twocol").show();
-            $("#azcontentarea > .az.inner").hide();
-            $("#azcontentarea > .az.inner:eq(0)").show();
-            $("#az_log").removeClass('tool').addClass('log');
-            $("#az_log > #az_transcript_area").show();
+            // $("#az_activeBox").show();
+            //             $(".az.main.twocol").show();
+            //             $("#azcontentarea > .az.inner").hide();
+            //             $("#azcontentarea > .az.inner:eq(0)").show();
+            //             $("#az_log").removeClass('tool').addClass('log');
+            //             $("#az_log > #az_transcript_area").show();
 			
 			$("body").live("closeALR",function(e){
 				 // HIDE AR ELEMENTS IN DOM
