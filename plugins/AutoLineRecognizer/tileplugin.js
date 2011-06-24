@@ -115,6 +115,7 @@
         self.activeLines = [];
         self.curRegion = 0;
         self.url = [];
+		self.predefCount = 0;
         // set up html
         // self._setUp();
     };
@@ -125,26 +126,35 @@
 		// Filters out the shapes that are already in AutoR.recognizedShapes
 		setPredefinedShapes : function (shapes) {
 			var self=this;
+			
 			AutoR.predefinedShapes = [];
-			if(AutoR.recognizedShapes.length){
-				// filter out the array
-				$.each(shapes, function (ix, shape) {
-					var id=shape.id;
-					var found=false;
-					$.each(AutoR.recognizedShapes, function (iy, line) {
-						if(id==line.id){
-							found=true;
-						}
-					});
-					
-					if(!found){
-						AutoR.predefinedShapes.push(shape);
-					}
-					
+			self.predefCount = 0;
+			// if(AutoR.recognizedShapes.length){
+			// 			// filter out the array
+			// 			$.each(shapes, function (ix, shape) {
+			// 				var id=shape.id;
+			// 				var found=false;
+			// 				$.each(AutoR.recognizedShapes, function (iy, line) {
+			// 					if(id==line.id){
+			// 						found=true;
+			// 					}
+			// 				});
+			// 				
+			// 				if(!found){
+			// 					self.predefCount++;
+			// 					AutoR.predefinedShapes.push(shape);
+			// 				}
+			// 				
+			// 			});
+			// 		} else {
+				AutoR.predefinedShapes = [];
+				self.predefCount = 0;
+				$.each(shapes, function (i, o) {
+					AutoR.predefinedShapes.push(o);
+					self.predefCount++;
 				});
-			} else {
-				AutoR.predefinedShapes=shapes;
-			}
+				
+			// }
 		},
         // Setting up the HTML for AutoRecognizer
         // Replaces both the Transcript and ActiveBox areas to the left and
@@ -220,7 +230,7 @@
 			// TWO SCENARIOS FOR USING ALR: 
 			// 1. USER HAS PRE-DRAWN SHAPES AND THE PREVIEWCANVAS SHOWS THESE
 			// 2. USER HAS NO PRE-DRAWN SHAPES
-			if(AutoR.predefinedShapes.length>0){
+			if(self.predefCount>0){
 				// initially set up SVG canvas to show shapes
 				// already drawn
 				// Attaching listener for when HTML5 canvas is 
@@ -351,7 +361,7 @@
         // from AR.restart()
         // transcript {Object} - JSON data containing lines for this session
         _restart: function(transcript) {
-            AutoR.recognizedShapes = [];
+			AutoR.recognizedShapes = [];
             //already constructed, re-attach listeners and show DOM
             var self = this;
 			
@@ -371,11 +381,11 @@
                     $("#az_log > .az.inner:eq(0)").hide();
                     $("#az_log > .az.inner:eq(1)").show();
                     $(alrcontainer).show();
-
+					
 					// TWO SCENARIOS FOR USING ALR: 
 					// 1. USER HAS PRE-DRAWN SHAPES AND THE PREVIEWCANVAS SHOWS THESE
 					// 2. USER HAS NO PRE-DRAWN SHAPES
-					if(AutoR.predefinedShapes.length>0){
+					if(self.predefCount>0){
 						// initially set up SVG canvas to show shapes
 						// already drawn
 						// Attaching listener for when HTML5 canvas is 
@@ -773,6 +783,7 @@
 					shapes.push(ldata[x].shape);
 				}
 				AutoR.recognizedShapes=shapes;
+				self.predefCount = 0;
 				// erase all predefined shapes
 				$("body:first").trigger("deleteRecognizedShapes",[AutoR.predefinedShapes]);	
 				
