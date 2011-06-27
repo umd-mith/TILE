@@ -760,11 +760,7 @@
                 self.regionBox.DOM.hide();
                 //hide regionBox
 				
-				// turn off toolbar
-				$("#darkonlight").attr('disabled','disabled');
-				$("#lightondark").attr('disabled','disabled');
-				$("#transcript_controls > a").addClass('inactive');
-				$("#autorec_recognize").addClass('inactive');
+				
 				
                 // set recognized images variable and
 				// send to shapePreview
@@ -787,6 +783,11 @@
                 self._outputData();
 				
 				self.shapePreview.loadShapes(AutoR.recognizedShapes);
+				
+				// switch over toolbar
+				$(".autorec_toolbar > #content").hide();
+				$(".autorec_toolbar > #shapesLoaded").show();
+				
             }
         },
         // Takes the parsed JSON data from recognize() and
@@ -1118,7 +1119,7 @@
                 }
 				var regionBoxTop = $("#canvasHTML > .toolbar").innerHeight();
 
-				// $("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
+				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
 			
