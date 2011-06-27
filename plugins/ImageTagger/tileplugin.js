@@ -792,7 +792,9 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					//clear all shapes from the previous image
 					self.drawTool.clearShapes();
 				}
-				
+				// reset scale back to 1
+				TILE.scale = 1;
+				self._imgScale = 1;
 				
 				// if(TILE.experimental){
 					// size to fit window 
@@ -803,35 +805,30 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					$(".vd-container").width(1000);
 					$(".vd-container").height(1000);
 					
-					var contw=0;
-					var conth=0;
-					if($.browser.webkit){
-						contw=parseInt(document.getElementById("raphworkspace_").style.width,10);
-						conth=parseInt(document.getElementById("raphworkspace_").style.height,10);
-				
-					} else {
-						contw=parseInt($("#raphworkspace_").css("width"),10);
-						conth=parseInt($("#raphworkspace_").css("height"),10);
-					}
-					if((contw<ow)||(conth<oh)){
-						while((contw<ow)||(conth<oh)){
-							ow*=self.zoomDF;
-							oh*=self.zoomDF;
-							TILE.scale*=self.zoomDF;
-						}
-						self._imgScale=TILE.scale;
-						for(var x=0;x<self.manifest.length;x++){
-							var shape=self.manifest[x];
-							if(shape._scale!=TILE.scale){
-								for(var u in shape.posInfo){
-									var dx=(shape.posInfo[u]*TILE.scale)/shape._scale;
-									shape.posInfo[u]=dx;
-								}
-								shape._scale=TILE.scale;
-							}
-						}
-					}
+					var contw, conth;
 					
+					// contw=parseInt($("#raphworkspace_").css("width"),10);
+					// 				conth=parseInt($("#raphworkspace_").css("height"),10);
+					// 			
+					// 				if((contw<ow)||(conth<oh)){
+					// 					while((contw<ow)||(conth<oh)){
+					// 						ow*=self.zoomDF;
+					// 						oh*=self.zoomDF;
+					// 						TILE.scale*=self.zoomDF;
+					// 					}
+					// 					self._imgScale=TILE.scale;
+					// 					for(var x=0;x<self.manifest.length;x++){
+					// 						var shape=self.manifest[x];
+					// 						if(shape._scale!=TILE.scale){
+					// 							for(var u in shape.posInfo){
+					// 								var dx=(shape.posInfo[u]*TILE.scale)/shape._scale;
+					// 								shape.posInfo[u]=dx;
+					// 							}
+					// 							shape._scale=TILE.scale;
+					// 						}
+					// 					}
+					// 				}
+					// 				
 					
 					
 					self.drawTool.setScale(TILE.scale);

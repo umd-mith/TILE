@@ -275,7 +275,7 @@
 			self.CANVAS._resetCanvasImage();
 			
 			// self.CANVAS.setUpCanvas();
-			// self.guessRegionBoxDims();
+			self.guessRegionBoxDims();
 			
 		},
         // Sets up CanvasArea - replaces CanvasArea from previous tool
@@ -476,7 +476,7 @@
 		**/
 		guessRegionBoxDims: function() {
 		    var self = this;
-		
+			
 		    var dims = self.regionBox._getDims();
 		    var context = $("#canvas")[0].getContext('2d');
 		    var rl = dims.left,
@@ -957,9 +957,6 @@
             var nh = $("#hiddenCanvasSource")[0].height * self._scale;
             $("#hiddenCanvasSource").width(nw);
             self.context.drawImage(self.imageEl, 0, 0, ($("#hiddenCanvasSource")[0].width * self._scale), ($("#hiddenCanvasSource")[0].height * self._scale));
-
-
-
         },
 		// Used for HTML Webkit browsers
 		// Similar to setUpCanvas
@@ -1121,7 +1118,7 @@
                 }
 				var regionBoxTop = $("#canvasHTML > .toolbar").innerHeight();
 
-				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
+				// $("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
 			
