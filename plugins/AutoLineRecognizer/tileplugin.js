@@ -272,6 +272,8 @@
 			
 			if(!self.regionBox) self.regionBox = $("#regionBox");
 			
+			self.CANVAS._resetCanvasImage();
+			
 			// self.CANVAS.setUpCanvas();
 			// self.guessRegionBoxDims();
 			
@@ -1013,20 +1015,23 @@
 				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
-					if(__v) console.log('setUpCanvas vardump ow: '+ow+' oh: '+oh+' canvas.width '+self.canvas[0].width);
 				
-                self.context = self.canvasEl.getContext('2d');
-                self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
-                $("#" + self.uid).width($("#azcontentarea").width());
-                $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
+				
+				setTimeout(function () {
+					self.context = self.canvasEl.getContext('2d');
+	                self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
+	                $("#" + self.uid).width($("#azcontentarea").width());
+	                $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
+
+	                $("#regionBox").width((ow - 20));
+	                $("#regionBox").height((oh - 20));
+
+	                // show the region box after the image has loaded
+	                removeImgScreen();
+
+					$("body:first").trigger("HTML5CANVASDONE");
+				},10);
                 
-                $("#regionBox").width((ow - 20));
-                $("#regionBox").height((oh - 20));
-
-                // show the region box after the image has loaded
-                removeImgScreen();
-
-				$("body:first").trigger("HTML5CANVASDONE");
 			};
 			
 			var cleanURL = '';
