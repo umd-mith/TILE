@@ -781,6 +781,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			
 			var img = $("#srcImageForCanvas")[0];
 			
+			
 			var loadImg = function () {
 				$(img).unbind("load");
 				if(!self.drawTool){
@@ -792,12 +793,16 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					self.drawTool.clearShapes();
 				}
 				
+				
 				// if(TILE.experimental){
 					// size to fit window 
-			
-					var ow=(TILE.scale!=self._imgScale)?(this.width*TILE.scale):this.width;
-					var oh=(TILE.scale!=self._imgScale)?(this.height*TILE.scale):this.height;
-		
+				setTimeout(function () {
+					var ow=(TILE.scale!=self._imgScale)?($("#srcImageForCanvas")[0].width*TILE.scale):$("#srcImageForCanvas")[0].width;
+					var oh=(TILE.scale!=self._imgScale)?($(img)[0].height*TILE.scale):$(img)[0].height;
+					
+					$(".vd-container").width(1000);
+					$(".vd-container").height(1000);
+					
 					var contw=0;
 					var conth=0;
 					if($.browser.webkit){
@@ -807,7 +812,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					} else {
 						contw=parseInt($("#raphworkspace_").css("width"),10);
 						conth=parseInt($("#raphworkspace_").css("height"),10);
-					
 					}
 					if((contw<ow)||(conth<oh)){
 						while((contw<ow)||(conth<oh)){
@@ -827,38 +831,44 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 							}
 						}
 					}
-				
-				
-				self.drawTool.setScale(TILE.scale);
-				if(self._imgScale!=1){
-					// set correct scale
-					if($.browser.webkit){
-						document.getElementById('srcImageForCanvas').width=ow;
-					} else {
-						$("#srcImageForCanvas").width(ow);
-					}
-					$(".vd-container").css('width',ow+'px');
-					$(".vd-container").css('height',oh+'px');
 					
-					if($(".shpButtonHolder").length){
-						// also change positon of .shpButtonHolder
-						$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*TILE.scale)+'px');
-						$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*TILE.scale)+'px');
-					}
-				}
-				if(self.curUrl!=url) self.curUrl=url;
-				
-				
+					
+					
+					self.drawTool.setScale(TILE.scale);
+					$(".vd-container > *").width(document.width);
+					$(".vd-container > *").height(document.height);
+					
+					
+					// if(self._imgScale!=1){
+					// 						// set correct scale
+					// 						if($.browser.webkit){
+					// 							document.getElementById('srcImageForCanvas').width=ow;
+					// 						} else {
+					// 							$("#srcImageForCanvas").width(ow);
+					// 						}
+					// 						$(".vd-container").css('width',ow+'px');
+					// 						$(".vd-container").css('height',oh+'px');
+					// 
+					// 						if($(".shpButtonHolder").length){
+					// 							// also change positon of .shpButtonHolder
+					// 							$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*TILE.scale)+'px');
+					// 							$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*TILE.scale)+'px');
+					// 						}
+					// 					}
+					if(self.curUrl!=url) self.curUrl=url;
+				},10);
 			};
 			
 			
 			$("#srcImageForCanvas").attr('src', url);
-
+			
 			var checkLoad = function(el, callback) {
-				if(el.width() > 0 && el.height() > 0){
+				
+				if(el[0].width > 0 && el[0].height > 0){
 					callback();
 				} else {
 					setTimeout(function () {
+						
 						checkLoad(el, callback);
 					},100);
 				}
@@ -900,7 +910,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				if(!self.drawTool){
 					//set up drawing canvas
 					self.setUpDrawTool();
-					self._imgScale=self.drawTool._scale; //make sure scales are synched
+					self._imgScale = self.drawTool._scale; //make sure scales are synched
 				} else {
 					//clear all shapes from the previous image
 					self.drawTool.clearShapes();
@@ -1004,8 +1014,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					vd.push(shape);
 				}
 			}
-			if(__v) console.log("CHROM BUG "+self._imgScale);
-			if(__v) console.log("CHROME BROWSER REGISTERS DIFFERENT: "+JSON.stringify(vd));
 			// convert the scale to updated version
 			for(var prop in vd){
 				

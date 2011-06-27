@@ -1022,13 +1022,13 @@
 	                self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
 	                $("#" + self.uid).width($("#azcontentarea").width());
 	                $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
-
+					
 	                $("#regionBox").width((ow - 20));
 	                $("#regionBox").height((oh - 20));
-
+					
 	                // show the region box after the image has loaded
 	                removeImgScreen();
-
+					
 					$("body:first").trigger("HTML5CANVASDONE");
 				},10);
                 
@@ -1043,9 +1043,9 @@
             } else {
                 cleanURL = TILE.url;
             }
-
+			
 			$("#hiddenCanvasSource").attr('src',cleanURL);
-
+			
 			var checkLoad = function(el, callback) {
 				if(el.width() > 0 && el.height() > 0){
 					callback();
@@ -1056,7 +1056,7 @@
 				}
 
 			};
-
+			
 			checkLoad($("#hiddenCanvasSource"), loadHTML5);
 			
 			
@@ -1072,13 +1072,9 @@
         setUpCanvas: function(url) {
             var self = this;
 			
-
-            // $("#hiddenCanvasSource").hide();
             self.canvas[0].width = 0;
-            // self._loadPage.appendTo(self.DOM);
             if (TILE.url == '') return;
             
-			
 			// use alternate function for webkit browsers
 			if($.browser.webkit){
 				self.altSetUpCanvas();
