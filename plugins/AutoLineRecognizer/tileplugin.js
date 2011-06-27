@@ -210,7 +210,6 @@
             // load in the transcript
             self._loadTranscript();
             
-			if(__v) console.log('predef shapes length: '+AutoR.predefinedShapes.length);
 			// TWO SCENARIOS FOR USING ALR: 
 			// 1. USER HAS PRE-DRAWN SHAPES AND THE PREVIEWCANVAS SHOWS THESE
 			// 2. USER HAS NO PRE-DRAWN SHAPES
@@ -392,6 +391,7 @@
 						// Otherwise, if no shapes drawn, go straight to setting up HTML5 canvas
 						$("body").bind("HTML5CANVASDONE", function (e) {
 							$(this).unbind("HTML5CANVASDONE");
+							self.CANVAS._resetCanvasImage();
 							self.startAutoRecognition();
 							
 						});
@@ -1013,7 +1013,8 @@
 				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
-
+					if(__v) console.log('setUpCanvas vardump ow: '+ow+' oh: '+oh+' canvas.width '+self.canvas[0].width);
+				
                 self.context = self.canvasEl.getContext('2d');
                 self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
                 $("#" + self.uid).width($("#azcontentarea").width());
@@ -1122,7 +1123,7 @@
 				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
-
+			
                 self.context = self.canvasEl.getContext('2d');
                 self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
                 $("#" + self.uid).width($("#azcontentarea").width());
@@ -1163,6 +1164,7 @@
                 obj: self
             },
             self.zoomHandle);
+			self._resetCanvasImage();
             self.setUpCanvas(TILE.url);
 
         },
