@@ -273,7 +273,7 @@
 			
 			if(!self.regionBox) self.regionBox = $("#regionBox");
 			
-			self.CANVAS.setUpCanvas();
+			// self.CANVAS.setUpCanvas();
 			// self.guessRegionBoxDims();
 			
 		},
@@ -399,6 +399,7 @@
 					
                     
                     self.CANVAS._restart(transcript);
+
                     $(this).animate({
                         opacity: 1,
                         left: 0

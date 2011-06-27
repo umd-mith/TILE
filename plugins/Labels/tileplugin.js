@@ -324,14 +324,7 @@ var LB={
 			TILE.engine.setActiveObj(lbl);
 		});
 		
-		// data being sent to the pluginController must include
-		// the ID for this tool
-		// These are items that will be eventually loaded into the 
-		// FloatingDiv
-		// for(var x in json.labels){
-		// 			var lbl={id:json.labels[x].id,type:'labels',jsonName:'labels',obj:json.labels[x]};
-		// 			self.lbls[lbl.id]=lbl;
-		// 		}
+		
 		if(self.lbls.length) {
 			TILE.engine.insertTags(self.lbls);
 			self.LBL.loadLabels(self.lbls);
