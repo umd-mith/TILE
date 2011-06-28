@@ -495,19 +495,28 @@
 		    Calculates where the text might be on the page
 		**/
 		guessRegionBoxDims: function() {
-		    var self = this;
-		    var dims = self.regionBox._getDims();
+			var self = this;
+			var dims;
+			if(window.guessRegionBoxDimsCalled) { 
+				dims = window.guessRegionBoxDimsCalled;
+			}
+			else {
+				dims = self.regionBox._getDims();
+				window.guessRegionBoxDimsCalled = dims;
+			}
+			//window.guessRegionBoxDimsCalled = true;
+		
+		    //var dims = self.regionBox._getDims();
 		    var context = $("#canvas")[0].getContext('2d');
 		    var rl = dims.left,
 		        rt = dims.top,
 		        rw = dims.width,
 		        rh = dims.height;
 		    var regionData = context.getImageData(rl, rt, rw, rh);
-		    //console.log(regionData);
 		    // we want to calculate a kernel over the image that will try to bring out the
 		    // areas with text -- then we'll get a bounding box over that area
 		    // we want the largest contiguous block
-		    //console.log(rl,rt,rw,rh);
+		    console.log(rl,rt,rw,rh);
 		    var pixel = function(x,y) {
 			    var idx = (x + rw*y)*4;
 			    return [ regionData.data[ idx ], regionData.data[ idx+1 ], regionData.data[ idx+2] ];
@@ -572,13 +581,19 @@
 			    }
 			};
 			
+			if(part_v(1) == 0 || part_h(1) == 0) {
+				if(__v) console.log("No image data!");
+				return;
+			}
+			
 			var search = function(x, part, sense, light) {
 				// we want to look at x and x+1 and see if we can discern where we need to look next
 				// part is part_v or part_h
 				// sense is -1 or 1 (1 is looking left, -1 for looking right)
 				// light is -1 or 1 (1 for light on dark, -1 for dark on light)
 				var diff = (part(x) - part(x+1)) * sense * light;
-				//console.log(x, diff, part(x), part(x+1));
+				//console.log(x, sense, light, diff);
+				if(__v) console.log(x, diff, part(x), part(x+1));
 				if(x > 63) return x;
 				if(Math.abs(diff) > (part(x) + part(x+1))/10) {
 					if(diff > 0) {
@@ -605,13 +620,14 @@
 			
 			//console.log(parts);
 			
-			var left = search(2, part_h, -1, 1),
+			var left = search(2, part_h, 1, 1),
 			    right= search(3, part_h, 1, 1),
-			    top  = search(2, part_v, -1, 1),
+			    top  = search(2, part_v, 1, 1),
 			    bottom=search(3, part_v, 1, 1);
 			
-			//console.log(left, right, top, bottom);
+			console.log(left, right, top, bottom);
 			var part2pixel = function(p, size, side) {
+				//console.log("part2pixel(" + p + "," + size + "," + side + ")");
 			    var i = 1, t = p;
 			    while(t >= 2) {
 				    i *= 2;
@@ -627,7 +643,7 @@
 			    ty = part2pixel(top, rh, 0),
 			    by = part2pixel(bottom, rh, 1);
 			
-			//console.log(rl+lx, rt + ty, rx -lx, by-ty);
+			console.log(rl+lx, rt + ty, rx -lx, by-ty);
 			self.regionBox.DOM.css({
 	            "left": rl + lx,
 	            "top": rt + ty
