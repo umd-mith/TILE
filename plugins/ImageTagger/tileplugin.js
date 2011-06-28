@@ -807,51 +807,10 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					
 					var contw, conth;
 					
-					// contw=parseInt($("#raphworkspace_").css("width"),10);
-					// 				conth=parseInt($("#raphworkspace_").css("height"),10);
-					// 			
-					// 				if((contw<ow)||(conth<oh)){
-					// 					while((contw<ow)||(conth<oh)){
-					// 						ow*=self.zoomDF;
-					// 						oh*=self.zoomDF;
-					// 						TILE.scale*=self.zoomDF;
-					// 					}
-					// 					self._imgScale=TILE.scale;
-					// 					for(var x=0;x<self.manifest.length;x++){
-					// 						var shape=self.manifest[x];
-					// 						if(shape._scale!=TILE.scale){
-					// 							for(var u in shape.posInfo){
-					// 								var dx=(shape.posInfo[u]*TILE.scale)/shape._scale;
-					// 								shape.posInfo[u]=dx;
-					// 							}
-					// 							shape._scale=TILE.scale;
-					// 						}
-					// 					}
-					// 				}
-					// 				
-					
-					
 					self.drawTool.setScale(TILE.scale);
 					$(".vd-container > *").width(document.width);
 					$(".vd-container > *").height(document.height);
 					
-					
-					// if(self._imgScale!=1){
-					// 						// set correct scale
-					// 						if($.browser.webkit){
-					// 							document.getElementById('srcImageForCanvas').width=ow;
-					// 						} else {
-					// 							$("#srcImageForCanvas").width(ow);
-					// 						}
-					// 						$(".vd-container").css('width',ow+'px');
-					// 						$(".vd-container").css('height',oh+'px');
-					// 
-					// 						if($(".shpButtonHolder").length){
-					// 							// also change positon of .shpButtonHolder
-					// 							$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*TILE.scale)+'px');
-					// 							$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*TILE.scale)+'px');
-					// 						}
-					// 					}
 					if(self.curUrl!=url) self.curUrl=url;
 				},10);
 			};
