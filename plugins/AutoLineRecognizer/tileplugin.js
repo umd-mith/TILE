@@ -211,7 +211,7 @@
             self.swapCanvas();
             // load in the transcript
             self._loadTranscript();
-            if(__v) console.log('predef count : '+self.predefCount);
+
 			// TWO SCENARIOS FOR USING ALR: 
 			// 1. USER HAS PRE-DRAWN SHAPES AND THE PREVIEWCANVAS SHOWS THESE
 			// 2. USER HAS NO PRE-DRAWN SHAPES
@@ -295,16 +295,13 @@
             var self = this;
            
 			//make canvas
-			self.CANVAS = new CanvasImage({
-
-			});
+			self.CANVAS = new CanvasImage({});
 
 			self.shapePreview=new ShapePreviewCanvas();
 
 			//create region box and put over newly created canvas
-			self.regionBox = new RegionBox({
-
-			});
+			self.regionBox = new RegionBox({});
+			
 			//create canvas auto recognizer to use regionBox above and
 			//handle all color conversion/analysis
 			self.CAR = new CanvasAutoRecognizer({
@@ -346,7 +343,6 @@
 				var t=parseInt($(this).attr('id'),10);
 				if ($(this).hasClass("selected")) {
 					$(this).removeClass("selected");
-
 					self.deselectActiveLine(t);
 				} else {
 					$(this).addClass("selected");
@@ -370,11 +366,11 @@
         _restart: function(transcript) {
 			$("#shapesLoaded").hide();
 			$(".autorec_toolbar > #content").show();
-			  if(__v) console.log('predef count : '+self.predefCount);
+			 
 			AutoR.recognizedShapes = [];
             //already constructed, re-attach listeners and show DOM
             var self = this;
-			
+			 if(__v) console.log('predef count : '+self.predefCount);
             if (self.CANVAS) {
                 // self.regionBox=new RegionBox({loc:"#azcontentarea"});
                 $("#regionBox").hide();
@@ -717,8 +713,7 @@
                 var alphaTop = _REG.top;
 
                 $(".selLine").removeClass("selLine").addClass("recLine");
-                //find proportion of canvas image
-                var imgdims = self.CANVAS._getPerc();
+                
                 var ldata = [];
                 //for sending to the logbar
                 var sids = [];
@@ -795,14 +790,11 @@
                 self.regionBox.DOM.hide();
                 //hide regionBox
 				
-				
-				
                 // set recognized images variable and
 				// send to shapePreview
 				// AutoR.recognizedShapes=ldata;
 				var shapes=[];
 				for(var x in ldata){
-					
 					shapes.push(ldata[x].shape);
 				}
 				AutoR.recognizedShapes=shapes;
@@ -1049,18 +1041,16 @@
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
 				
+				self.context = self.canvasEl.getContext('2d');
+                self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
+                $("#" + self.uid).width($("#azcontentarea").width());
+                $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
 				
-				// setTimeout(function () {
-					self.context = self.canvasEl.getContext('2d');
-	                self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
-	                $("#" + self.uid).width($("#azcontentarea").width());
-	                $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
-					
-	                // show the region box after the image has loaded
-	                removeImgScreen();
-					
-					$("body:first").trigger("HTML5CANVASDONE");
-				// },10);
+                // show the region box after the image has loaded
+                removeImgScreen();
+				
+				$("body:first").trigger("HTML5CANVASDONE");
+
                 
 			};
 			
@@ -1153,8 +1143,9 @@
                 // 				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
-			
-                self.context = $("#html5area > canvas")[0].getContext('2d');
+				if(!self.context){
+	 				self.context = $("#html5area > canvas")[0].getContext('2d');
+				}
                 self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
                 $("#" + self.uid).width($("#azcontentarea").width());
                 $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
