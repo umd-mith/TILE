@@ -2044,6 +2044,9 @@ var AR = {
         if (!self.__AR__) {
             var json = TILE.engine.getJSON(true);
 			var shapes = self.findShapesInJSON(json);
+			
+			self.AR_ON = true;
+			
             self.__AR__ = new TileOCR({
                 loc: "az_log",
                 transcript: json
@@ -2162,9 +2165,6 @@ var AR = {
 					removeScreen();
 					
                 }
-
-				 
-				
             });
 			
 			$("body").live("deleteALRLines",function(e,shapes){
@@ -2176,8 +2176,9 @@ var AR = {
 			});
 			
 			 $("body").bind("modeActive",function(e, name) {
-				if($("#autoreclog").css("z-index") == "5") return;
+			
                 if (/recognizer/i.test(name)) {
+					if($("#autoreclog").css("z-index") == "5") return;
                     var json = TILE.engine.getJSON(true);
                     $("#autoreclog").css("z-index", "5");
 					var shapes=self.findShapesInJSON(json);
