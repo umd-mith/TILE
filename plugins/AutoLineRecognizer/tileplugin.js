@@ -109,8 +109,6 @@
 		setPredefinedShapes : function (shapes) {
 			var self=this;
 			
-			AutoR.predefinedShapes = [];
-			self.predefCount = 0;
 			// if(AutoR.recognizedShapes.length){
 			// 			// filter out the array
 			// 			$.each(shapes, function (ix, shape) {
@@ -129,12 +127,14 @@
 			// 				
 			// 			});
 			// 		} else {
-				AutoR.predefinedShapes = [];
-				self.predefCount = 0;
-				$.each(shapes, function (i, o) {
-					AutoR.predefinedShapes.push(o);
-					self.predefCount++;
-				});
+			
+			if(__v) console.log('shapes in setpredef: '+JSON.stringify(shapes));
+			AutoR.predefinedShapes = [];
+			self.predefCount = 0;
+			$.each(shapes, function (i, o) {
+				AutoR.predefinedShapes.push(o);
+				self.predefCount++;
+			});
 				
 			// }
 		},
@@ -211,7 +211,7 @@
             self.swapCanvas();
             // load in the transcript
             self._loadTranscript();
-            
+            if(__v) console.log('predef count : '+self.predefCount);
 			// TWO SCENARIOS FOR USING ALR: 
 			// 1. USER HAS PRE-DRAWN SHAPES AND THE PREVIEWCANVAS SHOWS THESE
 			// 2. USER HAS NO PRE-DRAWN SHAPES
@@ -370,7 +370,7 @@
         _restart: function(transcript) {
 			$("#shapesLoaded").hide();
 			$(".autorec_toolbar > #content").show();
-		
+			  if(__v) console.log('predef count : '+self.predefCount);
 			AutoR.recognizedShapes = [];
             //already constructed, re-attach listeners and show DOM
             var self = this;
@@ -413,7 +413,7 @@
 						// Otherwise, if no shapes drawn, go straight to setting up HTML5 canvas
 						$("body").bind("HTML5CANVASDONE", function (e) {
 							$(this).unbind("HTML5CANVASDONE");
-							self.CANVAS._resetCanvasImage();
+							// self.CANVAS._resetCanvasImage();
 							self.startAutoRecognition();
 							
 						});
@@ -1110,7 +1110,6 @@
 				self.altSetUpCanvas();
 				return;
 			}
-			if(__v) console.log('start load');
 			loadImgScreen();
             $("#hiddenCanvasSource").load(function(e) {
 				AutoR.scale=1;
@@ -1261,9 +1260,8 @@ ShapePreviewCanvas.prototype = {
 			var h=srcImg.height;
 			$("#raphaelarea > .vd-container").width(w);
 			$("#raphaelarea > .vd-container").height(h);
-	
-			var dx=(w*AutoR.scale)/1;
-			var dy=(h*AutoR.scale)/1;
+			var dx=(w*AutoR.scale);
+			var dy=(h*AutoR.scale);
 	
 			$("#imageRaphaelPreview").width(dx);
 			$("#imageRaphaelPreview").height(dy);
@@ -1277,21 +1275,18 @@ ShapePreviewCanvas.prototype = {
 			$("#raphaelarea > .vd-container").css("top",toff+'px');
 			
 			self.canvas.setScale(AutoR.scale);
-			
 			// changing the scaling for all shapes
 			$.each(shapes, function (ix, shape) {
 				if(shape){
 					$.each(shape.posInfo, function (iy, info) {
-						var dx = (info * AutoR.scale) / shape._scale;
-						shape.posInfo[iy] = dx;
+						var change = (shape.posInfo[iy] * AutoR.scale) / shape._scale;
+						shape.posInfo[iy] = change;
 					});
 					shape._scale = AutoR.scale;
 				}
 			});
 			self.canvas.importShapes(shapes);
 		};
-		
-		
 		$("#imageRaphaelPreview").attr('src',TILE.url);
 		
 		var checkLoad = function(el, callback) {
@@ -1661,7 +1656,8 @@ ShapePreviewCanvas.prototype = {
                         // in black and white, but the user can still click 'Go' and get data
                         this.regionData = null;
                         this.context.drawImage(this.imageEl[0], 0, 0, AutoR.imgw, AutoR.imgh);
-                        return;
+                        
+						return;
                         // this.thresholdConversion(threshold);
                         // $("body:first").trigger("SecurityError1000");
                         // return;

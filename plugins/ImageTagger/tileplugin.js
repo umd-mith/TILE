@@ -811,7 +811,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				
 				
 				if(self.curUrl!=url) self.curUrl=url;
-				
+				$("body:first").trigger('imageTaggerCanvasDone');
 				
 			};
 			
@@ -1300,8 +1300,9 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			var self=this;
 			
 			function copyArray(args) {
-				var argscopy = [];
+				var argscopy = {};
 				$.each(args, function(x, y) {
+					
 					argscopy[x] = y;
 				});
 				return argscopy;
@@ -1315,7 +1316,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					copy[i] = o;
 				}
 			});
-			
 			return copy;
 			
 		},
