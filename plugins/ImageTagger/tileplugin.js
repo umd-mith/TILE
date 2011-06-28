@@ -2075,6 +2075,7 @@ var IT={
 				if(/Image Annotation/.test(name)) {
 					// set up listener for when canvas is done
 					$("body").bind('imageTaggerCanvasDone', function (e) {
+						$(this).unbind('imageTaggerCanvasDone');
 						$("#logbar_list > .line:first").trigger('click');
 					});
 					
