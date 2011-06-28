@@ -923,6 +923,9 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*TILE.scale)+'px');
 				}
 				if(self.curUrl!=url) self.curUrl=url;
+				
+				$("body").trigger('imageTaggerCanvasDone');
+				
 			}).attr("src",url);	
 		},
 		// only load shapes - does not change the URL or sets up a new canvas
@@ -935,6 +938,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			
 			// clear buttons
 			$(".shpButtonHolder").remove();
+			if(__v) console.log(shapes.length +'  shapes '+JSON.stringify(shapes));
 			
 			if(!shapes.length) return;
 			var vd=[];
@@ -946,7 +950,9 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				
 				var shape=shapes[prop];
-				if(!shape.posInfo){
+				if(shape.obj) {
+					shape = shape.obj;
+				} else if(!shape.posInfo){
 					// just an id, need to find object
 					shape=self.findShapeFromId(shape);
 					if(!shape) return;
@@ -966,6 +972,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					vd.push(shape);
 				}
 			}
+			
 			// convert the scale to updated version
 			for(var prop in vd){
 				
@@ -975,7 +982,9 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				vd[prop]._scale=self._imgScale;
 			}
+			if(__v) console.log('vd '+JSON.stringify(vd));
 			self.drawTool.importShapes(vd);
+		
 		},
 		updateShape:function(obj){
 			var self=this;
@@ -2064,9 +2073,15 @@ var IT={
 			// set up the mode-change 
 			$("body").live('modeActive',function (e, name) {
 				if(/Image Annotation/.test(name)) {
-			
+					// set up listener for when canvas is done
+					$("body").bind('imageTaggerCanvasDone', function (e) {
+						$("#logbar_list > .line:first").trigger('click');
+					});
+					
+					
 					var shapes=self.findShapesInJSON(TILE.engine.getJSON());
 					self.itagger._restart(shapes);
+					
 				}
 			});
 			
@@ -2131,6 +2146,7 @@ var IT={
 			self.itagger.raphael.setActiveShape(obj.obj);
 		} else {
 			var item=obj.obj;
+			if(__v) console.log('IT newACtive reached '+JSON.stringify(item));
 			var vd=[];
 			for(var prop in item){
 				if(prop.toLowerCase()=='shapes'){

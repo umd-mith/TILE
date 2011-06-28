@@ -587,18 +587,18 @@
 				// if correct mode, then continue
 				if(name.toLowerCase() == mode.name.toLowerCase() ) {
 					// activate first transcript line
-					var id = $("#logbar_list > .line:first").attr('id');
-					var text = $("#logbar_list > .line:first").text();
-					
-					var o = {
-						id:id,
-						type:'lines',
-						jsonName:TILE.url,
-						obj:{'id':id,'text':text}
-					};
-					
-					
-					TILE.engine.setActiveObj(o);
+					// var id = $("#logbar_list > .line:first").attr('id');
+					// 					var text = $("#logbar_list > .line:first").text();
+					// 					
+					// 					var o = {
+					// 						id:id,
+					// 						type:'lines',
+					// 						jsonName:TILE.url,
+					// 						obj:{'id':id,'text':text}
+					// 					};
+					// 					
+					// 					
+					// 					TILE.engine.setActiveObj(o);
 				}
 				
 			});
@@ -629,30 +629,32 @@
 		},
 		newActiveHandle:function(e,o){
 			var self=e.data.obj;
-			
-			// all lines deactivated
-			$(".line_selected").removeClass("line_selected");
-			
-			if(o.type=='none'){
-				return;
+			if(o.type != 'lines'){
+				// all lines deactivated
+				$(".line_selected").removeClass("line_selected");
 			}
-			
-			// check to see if activeItems contain ID for 
-			// lines
-			for(var prop in TILE.activeItems){
-				
-				if((!TILE.activeItems[prop])||(TILE.activeItems[prop]=='undefined')||(!TILE.activeItems[prop].id)) continue;
-				var uid=TILE.activeItems[prop].id;
-				if(typeof uid=='string'){
-					uid=TILE.activeItems[prop].id.replace(/\.\:/,'');
-				}
-				if($("#logbar_list > #"+uid+".line").length){
-					// line in DOM;
-					// set line as active 
-					$("#logbar_list > #"+uid+".line").addClass('line_selected');
-				}
-			}
-			
+		
+			// 		
+			// 		if(o.type=='none'){
+			// 			return;
+			// 		}
+			// 		
+			// 		// check to see if activeItems contain ID for 
+			// 		// lines
+			// 		for(var prop in TILE.activeItems){
+			// 			
+			// 			if((!TILE.activeItems[prop])||(TILE.activeItems[prop]=='undefined')||(!TILE.activeItems[prop].id)) continue;
+			// 			var uid=TILE.activeItems[prop].id;
+			// 			if(typeof uid=='string'){
+			// 				uid=TILE.activeItems[prop].id.replace(/\.\:/,'');
+			// 			}
+			// 			if($("#logbar_list > #"+uid+".line").length){
+			// 				// line in DOM;
+			// 				// set line as active 
+			// 				$("#logbar_list > #"+uid+".line").addClass('line_selected');
+			// 			}
+			// 		}
+			// 		
 			
 		},
 		newJSONHandle:function(e){

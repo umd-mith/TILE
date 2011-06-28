@@ -1497,6 +1497,7 @@ TILE.scale=1;
 		});
 		self.button.elem.live('click',function(e){
 			e.preventDefault();
+			
 			self.setActive();
 			$("body:first").trigger("modeActive",[self.name]);
 		});
