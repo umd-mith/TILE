@@ -495,7 +495,6 @@
 		        rw = dims.width,
 		        rh = dims.height;
 		    var regionData = context.getImageData(rl, rt, rw, rh);
-		    //console.log(regionData);
 		    // we want to calculate a kernel over the image that will try to bring out the
 		    // areas with text -- then we'll get a bounding box over that area
 		    // we want the largest contiguous block
@@ -564,6 +563,11 @@
 			    }
 			};
 			
+			if(part_v(1) == 0 || part_h(1) == 0) {
+				if(__v) console.log("No image data!");
+				return;
+			}
+			
 			var search = function(x, part, sense, light) {
 				// we want to look at x and x+1 and see if we can discern where we need to look next
 				// part is part_v or part_h
@@ -571,7 +575,7 @@
 				// light is -1 or 1 (1 for light on dark, -1 for dark on light)
 				var diff = (part(x) - part(x+1)) * sense * light;
 				//console.log(x, sense, light, diff);
-				//console.log(x, diff, part(x), part(x+1));
+				if(__v) console.log(x, diff, part(x), part(x+1));
 				if(x > 63) return x;
 				if(Math.abs(diff) > (part(x) + part(x+1))/10) {
 					if(diff > 0) {
@@ -603,7 +607,7 @@
 			    top  = search(2, part_v, 1, 1),
 			    bottom=search(3, part_v, 1, 1);
 			
-			//console.log(left, right, top, bottom);
+			console.log(left, right, top, bottom);
 			var part2pixel = function(p, size, side) {
 				//console.log("part2pixel(" + p + "," + size + "," + side + ")");
 			    var i = 1, t = p;
@@ -621,7 +625,7 @@
 			    ty = part2pixel(top, rh, 0),
 			    by = part2pixel(bottom, rh, 1);
 			
-			//console.log(rl+lx, rt + ty, rx -lx, by-ty);
+			console.log(rl+lx, rt + ty, rx -lx, by-ty);
 			self.regionBox.DOM.css({
 	            "left": rl + lx,
 	            "top": rt + ty
