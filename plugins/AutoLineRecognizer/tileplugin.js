@@ -363,16 +363,16 @@
                 self.CAR.Region = $("#regionBox");
 
                 // $(".az.main > .az.log").removeClass("log").addClass("tool");
-                var n = '-=' + $(".az.main > .az.tool").width();
-                $(".az.main > .az.tool").animate({
-                    opacity: 0.25,
-                    left: n
-                },
-                10,
-                function(e) {
-                    $("#az_log > .az.inner:eq(0)").hide();
-                    $("#az_log > .az.inner:eq(1)").show();
-                    $(alrcontainer).show();
+                // var n = '-=' + $(".az.main > .az.tool").width();
+                //                 $(".az.main > .az.tool").animate({
+                //                     opacity: 0.25,
+                //                     left: n
+                //                 },
+                //                 10);
+                //                 function(e) {
+                //                     $("#az_log > .az.inner:eq(0)").hide();
+                //                     $("#az_log > .az.inner:eq(1)").show();
+                //                     $(alrcontainer).show();
 					
 					// TWO SCENARIOS FOR USING ALR: 
 					// 1. USER HAS PRE-DRAWN SHAPES AND THE PREVIEWCANVAS SHOWS THESE
@@ -408,7 +408,7 @@
                         opacity: 1,
                         left: 0
                     },10);
-                });
+                // });
                 // correct any window size difference
                 $("#" + self.CANVAS.uid).width($("#azcontentarea").width());
                 $("#" + self.CANVAS.uid).height($("#azcontentarea").height());
@@ -478,7 +478,7 @@
 		**/
 		guessRegionBoxDims: function() {
 		    var self = this;
-			
+			if(__v) console.log('GRBD called');
 		    var dims = self.regionBox._getDims();
 		    var context = $("#canvas")[0].getContext('2d');
 		    var rl = dims.left,
@@ -1006,31 +1006,28 @@
                 self.canvas[0].height = real_height;
 
 
-                // if (($("#regionBox").width() > real_width) || ($("#regionBox").height() > real_height)) {
-                //                    $("#regionBox").width(real_width - (real_width / 4));
-                //                    $("#regionBox").height(real_height - (real_height / 4));
-                //                }
-                // 				var regionBoxTop = $("#canvasHTML > .toolbar").innerHeight();
-                // 
-                // 				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
+                if (($("#regionBox").width() > real_width) || ($("#regionBox").height() > real_height)) {
+                                                   $("#regionBox").width(real_width - (real_width / 4));
+                                                   $("#regionBox").height(real_height - (real_height / 4));
+                                               }
+                                				var regionBoxTop = $("#canvasHTML > .toolbar").innerHeight();
+                                
+                                				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
 				
 				
-				setTimeout(function () {
+				// setTimeout(function () {
 					self.context = self.canvasEl.getContext('2d');
 	                self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
 	                $("#" + self.uid).width($("#azcontentarea").width());
 	                $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
 					
-	                // $("#regionBox").width((ow - 20));
-	                // 	                $("#regionBox").height((oh - 20));
-					
 	                // show the region box after the image has loaded
 	                removeImgScreen();
 					
 					$("body:first").trigger("HTML5CANVASDONE");
-				},10);
+				// },10);
                 
 			};
 			
