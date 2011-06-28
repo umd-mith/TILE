@@ -477,9 +477,18 @@
 		    Calculates where the text might be on the page
 		**/
 		guessRegionBoxDims: function() {
-		    var self = this;
+			var self = this;
+			var dims;
+			if(window.guessRegionBoxDimsCalled) { 
+				dims = window.guessRegionBoxDimsCalled;
+			}
+			else {
+				dims = self.regionBox._getDims();
+				window.guessRegionBoxDimsCalled = dims;
+			}
+			//window.guessRegionBoxDimsCalled = true;
 			if(__v) console.log('GRBD called');
-		    var dims = self.regionBox._getDims();
+		    //var dims = self.regionBox._getDims();
 		    var context = $("#canvas")[0].getContext('2d');
 		    var rl = dims.left,
 		        rt = dims.top,
@@ -490,7 +499,7 @@
 		    // we want to calculate a kernel over the image that will try to bring out the
 		    // areas with text -- then we'll get a bounding box over that area
 		    // we want the largest contiguous block
-		    //console.log(rl,rt,rw,rh);
+		    console.log(rl,rt,rw,rh);
 		    var pixel = function(x,y) {
 			    var idx = (x + rw*y)*4;
 			    return [ regionData.data[ idx ], regionData.data[ idx+1 ], regionData.data[ idx+2] ];
@@ -561,6 +570,7 @@
 				// sense is -1 or 1 (1 is looking left, -1 for looking right)
 				// light is -1 or 1 (1 for light on dark, -1 for dark on light)
 				var diff = (part(x) - part(x+1)) * sense * light;
+				//console.log(x, sense, light, diff);
 				//console.log(x, diff, part(x), part(x+1));
 				if(x > 63) return x;
 				if(Math.abs(diff) > (part(x) + part(x+1))/10) {
@@ -588,13 +598,14 @@
 			
 			//console.log(parts);
 			
-			var left = search(2, part_h, -1, 1),
+			var left = search(2, part_h, 1, 1),
 			    right= search(3, part_h, 1, 1),
-			    top  = search(2, part_v, -1, 1),
+			    top  = search(2, part_v, 1, 1),
 			    bottom=search(3, part_v, 1, 1);
 			
 			//console.log(left, right, top, bottom);
 			var part2pixel = function(p, size, side) {
+				//console.log("part2pixel(" + p + "," + size + "," + side + ")");
 			    var i = 1, t = p;
 			    while(t >= 2) {
 				    i *= 2;
