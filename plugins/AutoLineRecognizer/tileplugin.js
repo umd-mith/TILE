@@ -80,13 +80,13 @@
 		self.logHTML='<div id="autoreclog" class="az tool autolinerecognizer"><div id="autorecarea" class="az inner autolinerecognizer">'+
 		'<div class="autorec_toolbar"><div class="toolbar">Auto Line Recognizer</div>'+
 		'<div id="content" class="az"><div class="step"><div class="instructions">Step One: Align the red box over the area of text to recognize</div></div><div class="step"><div class="instructions">Step Two: Select if this image of text has:</div>'+
-		'<div><p><input type="radio" id="darkonlight" name="threshChoice" disabled="disabled" />Dark text on a light background</p>'+
-		'<p><input type="radio" id="lightondark" name="threshChoice" disabled="disabled" />Light text on a dark(er) background</p></div></div>'+
+		'<div><p><input type="radio" id="darkonlight" name="threshChoice" />Dark text on a light background</p>'+
+		'<p><input type="radio" id="lightondark" name="threshChoice" />Light text on a dark(er) background</p></div></div>'+
 		'<div class="step"><div class="instructions">'+
         '<p>Step Three: Select transcript lines that you want to recognize</p>' +
         '</div><div id="transcript"></div><div id="transcript_controls">' +
-        '<a id="selectAll" class="button inactive">Select All</a> | <a id="selectNone" class="button inactive">Select None</a></div>'+
-		'<div class="step"><br/><a id="autorec_recognize" class="button inactive">Perform Line Recognition</a></div>'+
+        '<a id="selectAll" class="button">Select All</a> | <a id="selectNone" class="button">Select None</a></div>'+
+		'<div class="step"><br/><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
 		'</div></div><div id="shapesLoaded" class="az"><div class="step"><div class="instructions">Erase shapes and start over</div><a id="showRegionBox" class="button">Start</a></div></div>';
 		
         //use this later to put in CanvasImage object
@@ -240,6 +240,9 @@
 				});
 			}
 			
+			self.CANVAS.show();
+			self.shapePreview.hide();
+			
 			// set up the image in the canvas
             self.CANVAS.setUpCanvas();
         },
@@ -262,19 +265,25 @@
 			}
 			$(".autorec_toolbar > #shapesLoaded").hide();
 			$(".autorec_toolbar > #content").show();
+		
 			
-			$("#darkonlight").attr('disabled','');
-			$("#lightondark").attr('disabled','');
-			
-			$("#transcript_controls > a").removeClass("inactive");
-			
-			$("#autorec_recognize").removeClass("inactive");
+			// adjust region box
 			
 			$("#regionBox").show();
 			
+			var ow = $("#hiddenCanvasSource")[0].width * AutoR.scale;
+			var oh = $("#hiddenCanvasSource")[0].height * AutoR.scale;
+			
+			$("#regionBox").width(ow);
+			$("#regionBox").height(oh);
+			
+			var top = $("#canvasHTML > .toolbar").innerHeight();
+			
+			$("#regionBox").css({'left':'0px', 'top':top+'px'});
+			
 			if(!self.regionBox) self.regionBox = $("#regionBox");
 			
-			self.CANVAS._resetCanvasImage();
+			// self.CANVAS._resetCanvasImage();
 			
 			// self.CANVAS.setUpCanvas();
 			self.guessRegionBoxDims();
@@ -304,7 +313,9 @@
 				imageEl: "hiddenCanvasSource",
 				regionID: "regionBox"
 			});
-
+			
+			self.CAR.Region = $("#regionBox");
+			
 			self.recognizeB.click(function(e) {
 				e.preventDefault();
 				self._recognize();
@@ -332,19 +343,26 @@
 			});
 
 			$("#transcript > .trLine").live('click',function(e){
-			var t=parseInt($(this).attr('id'),10);
-			if ($(this).hasClass("selected")) {
-				$(this).removeClass("selected");
+				var t=parseInt($(this).attr('id'),10);
+				if ($(this).hasClass("selected")) {
+					$(this).removeClass("selected");
 
-				self.deselectActiveLine(t);
-			} else {
-				$(this).addClass("selected");
-				self.setActiveLine(t);
+					self.deselectActiveLine(t);
+				} else {
+					$(this).addClass("selected");
+					self.setActiveLine(t);
+				}
+
+			});
+			
+			if(self.CANVAS){
+				$("#canvasHTML").show();
+				
+				
+				// correct any window size difference
+	            $("#" + self.CANVAS.uid).width($("#azcontentarea").width());
+	            $("#" + self.CANVAS.uid).height($("#azcontentarea").height());
 			}
-
-		});
-
-
         },
         // Once the setUp is run, and the AR has been hidden, call this function
         // from AR.restart()
@@ -478,7 +496,6 @@
 		**/
 		guessRegionBoxDims: function() {
 		    var self = this;
-			if(__v) console.log('GRBD called');
 		    var dims = self.regionBox._getDims();
 		    var context = $("#canvas")[0].getContext('2d');
 		    var rl = dims.left,
@@ -1077,7 +1094,7 @@
 				self.altSetUpCanvas();
 				return;
 			}
-			
+			if(__v) console.log('start load');
 			loadImgScreen();
             $("#hiddenCanvasSource").load(function(e) {
 				AutoR.scale=1;
@@ -1098,8 +1115,8 @@
                 }
 
 				// set global variables
-				AutoR.imgw=ow;
-				AutoR.imgh=oh;
+				AutoR.imgw = ow;
+				AutoR.imgh = oh;
 			
 
                 var real_width = $("#hiddenCanvasSource")[0].width;
@@ -1122,7 +1139,7 @@
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
 			
-                self.context = self.canvasEl.getContext('2d');
+                self.context = $("#html5area > canvas")[0].getContext('2d');
                 self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
                 $("#" + self.uid).width($("#azcontentarea").width());
                 $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
@@ -1165,7 +1182,7 @@
         // Re-draws the canvas
         _resetCanvasImage: function() {
             var self = this;
-			
+			if(!self.context) return;
             self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, AutoR.imgw, AutoR.imgh);
         },
         //get percentage/proportional value of canvas container to canvas
@@ -2017,7 +2034,7 @@ var AR = {
             });
             // create a new mode with a callback function
             self.tileMode = mode;
-			
+
 			self.__AR__.setPredefinedShapes(shapes);
 			
             // attach html to the interface
@@ -2028,23 +2045,6 @@ var AR = {
             // alter some classnames
             $("#az_log > .az.inner.autolinerecognizer > .toolbar").removeClass("toolbar").addClass("autorec_toolbar");
 
-
-            $("body").bind("modeActive",function(e, name) {
-                if (/recognizer/i.test(name)) {
-                    var json = TILE.engine.getJSON(true);
-                    $("#autoreclog").css("z-index", "5");
-					var shapes=self.findShapesInJSON(json);
-					if(__v) console.log('found shapesInJSON: '+JSON.stringify(shapes));
-					self.__AR__.setPredefinedShapes(shapes);
-					
-                    self.__AR__._restart(json);
-                } else {
-                    $("#autoreclog").css("z-index", "0");
-                }
-
-            });
-            
-			
 
             // construct auto Rec
             self.__AR__._setUp();
@@ -2159,7 +2159,21 @@ var AR = {
 			
 			});
 			
+			 $("body").bind("modeActive",function(e, name) {
+				if($("#autoreclog").css("z-index") == "5") return;
+                if (/recognizer/i.test(name)) {
+                    var json = TILE.engine.getJSON(true);
+                    $("#autoreclog").css("z-index", "5");
+					var shapes=self.findShapesInJSON(json);
 
+					self.__AR__.setPredefinedShapes(shapes);
+
+                    self.__AR__._restart(json);
+                } else {
+                    $("#autoreclog").css("z-index", "0");
+                }
+
+           });
         }
     },
 	// locate shapes within the TILE JSON data and 

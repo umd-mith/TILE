@@ -581,6 +581,29 @@
 			$("body").live("newJSON newPage",{obj:self},self.newJSONHandle);
 			// $("body").live("newPage",{obj:self},self.newJSONHandle);
 			
+			// triggered when the mode this plugin is attached to is 
+			// activated
+			$("body").live("modeActive",function (e, name) {
+				// if correct mode, then continue
+				if(name.toLowerCase() == mode.name.toLowerCase() ) {
+					// activate first transcript line
+					var id = $("#logbar_list > .line:first").attr('id');
+					var text = $("#logbar_list > .line:first").text();
+					
+					var o = {
+						id:id,
+						type:'lines',
+						jsonName:TILE.url,
+						obj:{'id':id,'text':text}
+					};
+					
+					
+					TILE.engine.setActiveObj(o);
+				}
+				
+			});
+			
+			
 			// check to see if data already loaded
 			var data=TILE.engine.getJSON(true);
 			if(data){

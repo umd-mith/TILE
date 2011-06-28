@@ -922,9 +922,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*TILE.scale)+'px');
 					$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*TILE.scale)+'px');
 				}
-				
-				if(__v) console.log('scales: '+TILE.scale+'  '+self._imgScale);
-				
 				if(self.curUrl!=url) self.curUrl=url;
 			}).attr("src",url);	
 		},
@@ -1285,9 +1282,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			self.shapeIds.push(shpObj.id);
 			
 			// send signal to other plugins
-			if(__v) console.log('shape drawn  '+JSON.stringify(shpObj));
 			$("body:first").trigger("shapeIsDrawn",[self.copyShape(shpObj)]);
-			if(__v) console.log('after shape connected '+JSON.stringify(shpObj));
 			// make the active shape
 			self.setActiveShape(shpObj);
 		
