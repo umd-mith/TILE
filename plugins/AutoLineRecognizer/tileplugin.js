@@ -591,11 +591,11 @@
 				// part is part_v or part_h
 				// sense is -1 or 1 (1 is looking left, -1 for looking right)
 				// light is -1 or 1 (1 for light on dark, -1 for dark on light)
-				var diff = (part(x) - part(x+1)) * sense * light;
+				var diff = (part(2*x) - part(2*x+1)) * sense * light;
 				//console.log(x, sense, light, diff);
-				if(__v) console.log(x, diff, part(x), part(x+1));
+				if(__v) console.log(x, diff, part(2*x), part(2*x+1));
 				if(x > 63) return x;
-				if(Math.abs(diff) > (part(x) + part(x+1))/10) {
+				if(Math.abs(diff) > (part(2*x) + part(2*x+1))/20) {
 					if(diff > 0) {
 						//console.log("Searching left half");
 						return search(2*x, part, sense, light);
