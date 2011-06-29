@@ -222,7 +222,7 @@
 				// finished loading and setting the correct AutoR.scale
 				// value
 				$("body").bind("HTML5CANVASDONE", function (e) {
-					$(this).unbind("HTML5CANVASDONE");
+					$("body").unbind("HTML5CANVASDONE");
 					self.CANVAS.hide();
 					self.shapePreview.show();
 					self.shapePreview.loadShapes(AutoR.predefinedShapes);
@@ -234,7 +234,7 @@
 				// Otherwise, if no shapes drawn, go straight to setting up HTML5 canvas
 				$("body").bind("HTML5CANVASDONE", function (e) {
 				
-					$(this).unbind("HTML5CANVASDONE");
+					$("body").unbind("HTML5CANVASDONE");
 					
 					self.startAutoRecognition();
 				});
@@ -418,10 +418,6 @@
                     
                     self.CANVAS._restart(transcript);
 
-                    $(this).animate({
-                        opacity: 1,
-                        left: 0
-                    },10);
                 // });
                 // correct any window size difference
                 $("#" + self.CANVAS.uid).width($("#azcontentarea").width());
@@ -752,7 +748,7 @@
                     sids.push(id);
                     //change the uid of the lineBox that goes with this
                     // $("#lineBox_" + i).attr('id', "lineBox_" + id + "_shape");
-
+					if(!self.activeLines[linecount]) break;
                     //update assoc. transcript tag
 					if(!self.activeLines[linecount].active){
 						while(self.activeLines[linecount]&&(self.activeLines[linecount].active == false)){
@@ -1101,7 +1097,10 @@
 				return;
 			}
 			loadImgScreen();
+			
+			
             $("#hiddenCanvasSource").load(function(e) {
+				$("#hiddenCanvasSource").unbind();
 				AutoR.scale=1;
 				var ow = $("#hiddenCanvasSource")[0].width;
                 var oh = $("#hiddenCanvasSource")[0].height;
@@ -1149,7 +1148,7 @@
                 self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
                 $("#" + self.uid).width($("#azcontentarea").width());
                 $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
-                $(this).unbind("load");
+                
                 // show the region box after the image has loaded
                 removeImgScreen();
 				$("body:first").trigger("HTML5CANVASDONE");
@@ -1181,7 +1180,7 @@
                 obj: self
             },
             self.zoomHandle);
-			self._resetCanvasImage();
+			
             self.setUpCanvas(TILE.url);
 
         },
@@ -1640,18 +1639,16 @@ ShapePreviewCanvas.prototype = {
                     try {
                         this.regionData = this.context.getImageData(rl, rt, rw, rh);
                     } catch(e) {
+	
                         // problem with getting data - handle by upgrading our security clearance
                         // netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
                         // this.regionData=this.context.getImageData(rl, rt, rw, rh);
                         // New Solution: re-draw the canvas and return function - makes the area not appear
                         // in black and white, but the user can still click 'Go' and get data
                         this.regionData = null;
-                        this.context.drawImage(this.imageEl[0], 0, 0, AutoR.imgw, AutoR.imgh);
+                        this.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, AutoR.imgw, AutoR.imgh);
                         
 						return;
-                        // this.thresholdConversion(threshold);
-                        // $("body:first").trigger("SecurityError1000");
-                        // return;
                     }
                 }
 
@@ -2168,10 +2165,11 @@ var AR = {
 					if($("#autoreclog").css("z-index") == "5") return;
                     var json = TILE.engine.getJSON(true);
                     $("#autoreclog").css("z-index", "5");
+					$("#hiddenCanvasSource").attr('src','');
 					var shapes=self.findShapesInJSON(json);
-
+					
 					self.__AR__.setPredefinedShapes(shapes);
-
+					
                     self.__AR__._restart(json);
                 } else {
                     $("#autoreclog").css("z-index", "0");
