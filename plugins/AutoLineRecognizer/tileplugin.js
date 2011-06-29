@@ -763,7 +763,7 @@
 						var posInfo = {"x": (left),"y": (top),"width": (_REG.width),"height": (height)};
 						
 						$.each(posInfo, function (i, val) {
-							var dx = val/AutoR.scale;
+							var dx = val / AutoR.scale;
 							posInfo[i] = dx;
 							
 						});
@@ -1230,9 +1230,42 @@ ShapePreviewCanvas.prototype = {
 	hide:function(){
 		$("#raphaelarea").hide();
 	},
+	copyShape:function(obj) {
+		var self=this;
+		
+		function copyArray(args) {
+			var argscopy = {};
+			$.each(args, function(x, y) {
+				
+				argscopy[x] = y;
+			});
+			return argscopy;
+		}
+		var copy={};
+		$.each(obj, function(i, o) {
+			if(obj[i] && ($.isArray(obj[i]) || (typeof obj[i] == 'object'))){
+				
+				copy[i] = copyArray(obj[i]);
+			} else {
+				copy[i] = o;
+			}
+		});
+		return copy;
+		
+	},
 	loadShapes:function(shapes){
 		var self=this;
 		if(!self.canvas) return;
+		
+		var vd = [];
+		
+		$.each(shapes, function (i, s) {
+			var cp = self.copyShape(s);
+			vd.push(cp);
+		});
+		
+		
+		
 		var srcImg=$("#hiddenCanvasSource")[0];
 		
 		self.canvas.clearShapes();
@@ -1265,7 +1298,7 @@ ShapePreviewCanvas.prototype = {
 			
 			self.canvas.setScale(AutoR.scale);
 			// changing the scaling for all shapes
-			$.each(shapes, function (ix, shape) {
+			$.each(vd, function (ix, shape) {
 				if(shape){
 					$.each(shape.posInfo, function (iy, info) {
 						var change = (shape.posInfo[iy] * AutoR.scale) / shape._scale;
@@ -1274,7 +1307,7 @@ ShapePreviewCanvas.prototype = {
 					shape._scale = AutoR.scale;
 				}
 			});
-			self.canvas.importShapes(shapes);
+			self.canvas.importShapes(vd);
 		};
 		$("#imageRaphaelPreview").attr('src',TILE.url);
 		

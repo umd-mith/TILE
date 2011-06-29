@@ -237,10 +237,20 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		loadNewShapes:function(shapes){
 			var self=this;
 			if(self.ShapeToolBar){
-				if((shapes.length==0)){
+				// copy all shapes
+				var vd = [];
+				
+				$.each(shapes, function (index, shape) {
+					var cp = self.raphael.copyShape(shape);
+					vd.push(cp);
+					
+				});
+				
+				
+				if((vd.length==0)){
 					// activate rectangle
 					$("ul > li > #rect").click();
-				} else if(shapes.length>0) {
+				} else if(vd.length>0) {
 					$("ul > li > #pointer").click();
 				}
 			}
@@ -844,12 +854,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		setUpCanvas:function(){
 			
 			var self=this;
-			if(TILE.url == $("#srcImageForCanvas").attr('src')){
-				// webkit browsers return errors when repeating 
-				// image onload
-				return;
-			}
-			if(__v) console.log('setUpCanvas');
+			
 			
 			// remove CSS from zoom
 			$("#srcImageForCanvas").css("width","");
@@ -920,6 +925,8 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				if(self.curUrl!=TILE.url) self.curUrl=TILE.url;
 				
+				if(__v) console.log('done loading tile scale '+TILE.scale+'  '+self._imgScale);
+				
 				$("body").trigger('imageTaggerCanvasDone');
 			}).attr("src",TILE.url);	
 		},
@@ -933,7 +940,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			
 			// clear buttons
 			$(".shpButtonHolder").remove();
-			if(__v) console.log(shapes.length +'  shapes '+JSON.stringify(shapes));
 			
 			if(!shapes.length) return;
 			var vd=[];
@@ -977,7 +983,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				vd[prop]._scale=self._imgScale;
 			}
-			if(__v) console.log('vd '+JSON.stringify(vd));
+			if(__v) console.log('vd '+JSON.stringify(vd)+'  '+self._imgScale);
 			self.drawTool.importShapes(vd);
 		
 		},
@@ -1661,7 +1667,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			$("body").unbind("zoom",self.zoomHandle);
 		},
 		// called to reset the canvas
-		_restart:function(json,url){if(__v) console.log('restart imagetagger');
+		_restart:function(json,url){
 			var self=this;
 			// dump autoLines
 			self.autoLines=[];
@@ -1671,43 +1677,51 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			TILE.scale=1;
 			self._imgScale=1;
 			if(self.drawTool) self.drawTool.setScale(1);
-			self.setUpCanvas();
 			
-			if(self.drawTool){
-				// erase current canvas
-				self.drawTool.clearShapes();
-			
-				var vd=[];
-				// check to see if shapes in passed data array
-				// match up with any in the manifest
-				for(var j in json){
-					if($.inArray(json[j].id,self.shapeIds)<0){
-						var shape=json[j];
-						// adjust scale
-						for(var el in shape.posInfo){
-							var dx=(self._imgScale*shape.posInfo[el])/shape._scale;
-							shape.posInfo[el]=dx;
-						}
-						shape._scale=self._imgScale;
-						// add to manifest and array of ids
-						self.shapeIds.push(shape.id);
-						self.manifest.push(shape);
-						vd.push(json[j]);
-					} else {
+			$("body").bind('imageTaggerCanvasDone', function (e) {
+				$("body").unbind("imageTaggerCanvasDone");
+				if(self.drawTool){
+					// erase current canvas
+					self.drawTool.clearShapes();
 					
-						for(var p in self.manifest){
-							if(!json[j]) continue;
-							if(json[j].id==self.manifest[p].id){
-								// update item
-								self.manifest[p]=json[j];
-								vd.push(self.manifest[p]);
+					if(__v) console.log('imagetagger done '+TILE.scale+'  '+self._imgScale);
+					
+					var vd=[];
+					// check to see if shapes in passed data array
+					// match up with any in the manifest
+					for(var j in json){
+						if($.inArray(json[j].id,self.shapeIds)<0){
+							var shape=json[j];
+							// adjust scale
+							for(var el in shape.posInfo){
+								var dx=(self._imgScale*shape.posInfo[el])/shape._scale;
+								shape.posInfo[el]=dx;
+							}
+							shape._scale=self._imgScale;
+							// add to manifest and array of ids
+							self.shapeIds.push(shape.id);
+							self.manifest.push(shape);
+							vd.push(json[j]);
+						} else {
+
+							for(var p in self.manifest){
+								if(!json[j]) continue;
+								if(json[j].id==self.manifest[p].id){
+									// update item
+									self.manifest[p]=json[j];
+									vd.push(self.manifest[p]);
+								}
 							}
 						}
 					}
+				} else {
+					self.setUpCanvas(url);
 				}
-			} else {
-				self.setUpCanvas(url);
-			}
+			});
+			
+			self.setUpCanvas();
+			
+			
 		},
 		//changes the pages - called by turnPage Custom Event
 		//page order wraps around when reaching end/beginning
@@ -2073,7 +2087,12 @@ var IT={
 					// set up listener for when canvas is done
 					$("body").bind('imageTaggerCanvasDone', function (e) {
 						$(this).unbind('imageTaggerCanvasDone');
-						$("#logbar_list > .line:first").trigger('click');
+						var el = $("#logbar_list > .line:first");
+						if(el.hasClass('line_selected')){
+							$("#logbar_list > .line:first").trigger('click').trigger('click');
+						} else {
+							$("#logbar_list > .line:first").trigger('click');
+						}
 					});
 					
 					
