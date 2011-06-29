@@ -783,7 +783,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			
 			
 			var loadImg = function () {
-				$(img).unbind("load");
+				
 				if(!self.drawTool){
 					//set up drawing canvas
 					self.setUpDrawTool();
@@ -2073,6 +2073,8 @@ var IT={
 			// set up the mode-change 
 			$("body").live('modeActive',function (e, name) {
 				if(/Image Annotation/.test(name)) {
+					$("#srcImageForCanvas").attr('src','');
+					
 					// set up listener for when canvas is done
 					$("body").bind('imageTaggerCanvasDone', function (e) {
 						$(this).unbind('imageTaggerCanvasDone');
@@ -2226,7 +2228,7 @@ var IT={
 	newPageHandle:function(e){
 		var self=e.data.obj;
 		self.itagger.curUrl=TILE.url;
-		self.itagger._restart(TILE.activeItems);
+		self.itagger._restart();
 		
 	},
 	// updates the shape when it's moved
