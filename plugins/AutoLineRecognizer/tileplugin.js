@@ -746,9 +746,9 @@
                     sids.push(id);
                     //change the uid of the lineBox that goes with this
                     // $("#lineBox_" + i).attr('id', "lineBox_" + id + "_shape");
-					if(!self.activeLines[linecount]) break;
+					
                     //update assoc. transcript tag
-					if(!self.activeLines[linecount].active){
+					if((!self.activeLines[linecount]) && (!self.activeLines[linecount].active)){
 						while(self.activeLines[linecount]&&(self.activeLines[linecount].active == false)){
 							linecount++;
 						}
@@ -763,7 +763,7 @@
 						var posInfo = {"x": (left),"y": (top),"width": (_REG.width),"height": (height)};
 						
 						$.each(posInfo, function (i, val) {
-							var dx=(val * 1)/AutoR.scale;
+							var dx = val/AutoR.scale;
 							posInfo[i] = dx;
 							
 						});
@@ -993,6 +993,7 @@
             loadImgScreen();
 
 			var loadHTML5 = function () {
+				if(__v) console.log('loadHTML5');
 				AutoR.scale=1;
 				var ow = $("#hiddenCanvasSource")[0].width;
                 var oh = $("#hiddenCanvasSource")[0].height;
@@ -1063,6 +1064,7 @@
 			$("#hiddenCanvasSource").attr('src',cleanURL);
 			
 			var checkLoad = function(el, callback) {
+				
 				if(el.width() > 0 && el.height() > 0){
 					callback();
 				} else {
@@ -1087,7 +1089,7 @@
         // ------------------------------------------------------
         setUpCanvas: function(url) {
             var self = this;
-			
+			if(__v) console.log('setUpcanvas AutoR');
             self.canvas[0].width = 0;
             if (TILE.url == '') return;
             

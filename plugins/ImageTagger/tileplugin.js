@@ -776,7 +776,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				self.DOM.css({"z-index":0});
 			});
 		},
-		altSetUpCanvas:function (url) {
+		altSetUpCanvas:function () {
 			var self = this;
 			
 			var img = $("#srcImageForCanvas")[0];
@@ -806,25 +806,28 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				$(".vd-container > *").width(document.width);
 				$(".vd-container > *").height(document.height);
 				
-				$("#srcImageForCanvas").width(ow);
-				$("#srcImageForCanvas").height(oh);
+				$("#srcImageForCanvas").width(800);
+				$("#srcImageForCanvas").height(600);
 				
 				
-				if(self.curUrl!=url) self.curUrl=url;
+				if(self.curUrl!=TILE.url) self.curUrl=TILE.url;
 				$("body:first").trigger('imageTaggerCanvasDone');
 				
 			};
 			
 			
-			$("#srcImageForCanvas").attr('src', url);
+			$("#srcImageForCanvas").attr('src', TILE.url);
 			
 			var checkLoad = function(el, callback) {
 				
 				if(el[0].width > 0 && el[0].height > 0){
-					callback();
+					
+					setTimeout(function () {
+						callback();
+					}, 100);
+					
 				} else {
 					setTimeout(function () {
-						
 						checkLoad(el, callback);
 					},100);
 				}
@@ -838,31 +841,31 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		// proportion
 		// url : {String}
 		// 
-		setUpCanvas:function(url,loadShapes){
+		setUpCanvas:function(){
+			
 			var self=this;
+			if(TILE.url == $("#srcImageForCanvas").attr('src')){
+				// webkit browsers return errors when repeating 
+				// image onload
+				return;
+			}
+			if(__v) console.log('setUpCanvas');
+			
 			// remove CSS from zoom
 			$("#srcImageForCanvas").css("width","");
-			if(!$.browser.webkit){
-				$("#srcImageForCanvas").hide();
-			} // else {
-			// 				self.altSetUpCanvas(url);
-			// 				return;
-			// 			}
-
+			
 			// make sure to get rid of all shpButtonHolders
 			$(".shpButtonHolder").remove();
-			if(url.indexOf('http')) url=url.substring(url.indexOf('http'));
+			
 			if(self.drawTool) self.drawTool.clearShapes();
-			if(/\.js|\.html|\.JSP|\.jsp|\.JS|\.PHP|\.php|\.HTML|\.HTM|\.htm/.test(url)) return;
+			if(/\.js|\.html|\.JSP|\.jsp|\.JS|\.PHP|\.php|\.HTML|\.HTM|\.htm/.test(TILE.url)) return;
 			// get image element
 			var img=$("#srcImageForCanvas")[0];
 			// attach load event
 			$(img).load(function(e){
+				if(__v) console.log('loadimg');
 				
-				if(!$.browser.webkit){
-					$(img).show();
-				}
-				$(img).unbind("load");
+				$(img).unbind();
 				if(!self.drawTool){
 					//set up drawing canvas
 					self.setUpDrawTool();
@@ -871,24 +874,17 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					//clear all shapes from the previous image
 					self.drawTool.clearShapes();
 				}
-				
-				// if(TILE.experimental){
-					// size to fit window 
-			
+				// determine scale
 				var ow=(TILE.scale!=self._imgScale)?(this.width*TILE.scale):this.width;
 				var oh=(TILE.scale!=self._imgScale)?(this.height*TILE.scale):this.height;
 	
 				var contw=0;
 				var conth=0;
-				if($.browser.webkit){
-					contw=parseInt(document.getElementById("raphworkspace_").style.width,10);
-					conth=parseInt(document.getElementById("raphworkspace_").style.height,10);
-			
-				} else {
-					contw=parseInt($("#raphworkspace_").css("width"),10);
-					conth=parseInt($("#raphworkspace_").css("height"),10);
 				
-				}
+				contw=parseInt($("#raphworkspace_").css("width"),10);
+				conth=parseInt($("#raphworkspace_").css("height"),10);
+			
+				
 				if((contw<ow)||(conth<oh)){
 					while((contw<ow)||(conth<oh)){
 						ow*=self.zoomDF;
@@ -922,11 +918,10 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					$(".shpButtonHolder").css('left',($(".shpButtonHolder").position().left*TILE.scale)+'px');
 					$(".shpButtonHolder").css('top',($(".shpButtonHolder").position().top*TILE.scale)+'px');
 				}
-				if(self.curUrl!=url) self.curUrl=url;
+				if(self.curUrl!=TILE.url) self.curUrl=TILE.url;
 				
 				$("body").trigger('imageTaggerCanvasDone');
-				
-			}).attr("src",url);	
+			}).attr("src",TILE.url);	
 		},
 		// only load shapes - does not change the URL or sets up a new canvas
 		loadShapes:function(shapes){
@@ -1666,7 +1661,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			$("body").unbind("zoom",self.zoomHandle);
 		},
 		// called to reset the canvas
-		_restart:function(json,url){
+		_restart:function(json,url){if(__v) console.log('restart imagetagger');
 			var self=this;
 			// dump autoLines
 			self.autoLines=[];
@@ -1676,7 +1671,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			TILE.scale=1;
 			self._imgScale=1;
 			if(self.drawTool) self.drawTool.setScale(1);
-			self.setUpCanvas(url);
+			self.setUpCanvas();
 			
 			if(self.drawTool){
 				// erase current canvas
@@ -2149,7 +2144,6 @@ var IT={
 			self.itagger.raphael.setActiveShape(obj.obj);
 		} else {
 			var item=obj.obj;
-			if(__v) console.log('IT newACtive reached '+JSON.stringify(item));
 			var vd=[];
 			for(var prop in item){
 				if(prop.toLowerCase()=='shapes'){
@@ -2227,6 +2221,7 @@ var IT={
 	},
 	newPageHandle:function(e){
 		var self=e.data.obj;
+		$("#srcImageForCanvas").attr('src','');
 		self.itagger.curUrl=TILE.url;
 		self.itagger._restart();
 		
@@ -2238,6 +2233,23 @@ var IT={
 		if(obj.type=='shapes'){
 			self.itagger.updateData(obj);
 			
+		} else {
+			var item=(obj.obj)?obj.obj:obj;
+			var vd=[];
+			for(var prop in item){
+				if(prop.toLowerCase()=='shapes'){
+					// add to vd
+					for(var shape in item[prop]){
+						var sh=self.findShapeInJSON(item[prop][shape]);
+						if(sh){
+							vd.push(sh);
+						}
+					}
+				}
+			}	
+
+			// add new shapes
+			self.itagger.loadNewShapes(vd);
 		}
 	},
 	// Listens for the ObjectChange event call

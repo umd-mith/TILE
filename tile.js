@@ -575,7 +575,7 @@ TILE.scale=1;
 						var key=refs[r].id;
 						// didn't find it in labels - need to add new (invisible label)
 					
-						self._labels[key]=refs[r].obj;
+						self._labels[key]=refs[r];
 						
 						lbls.push(self._labels[key]);
 					}
@@ -597,6 +597,7 @@ TILE.scale=1;
 				html+="<div id=\""+lbls[prop].id+"\" class=\"labelItem\">"+name+"<span id=\"del_"+lbls[prop].id+"\" class=\"button shape delete formLink\">Delete</span></div>";
 				
 			}
+			
 			// attach to the float div list
 			$("#labelListFloat").append(html);
 		
@@ -698,10 +699,12 @@ TILE.scale=1;
 			var lb=null;
 			for(var i in self._labels){
 				if(self._labels[i].id==id){
-					lb=self._labels[i];
+					lb = self._labels[i];
 					break;
 				}
 			}
+			if(__v) console.log('lb in deleteLinkHandle: '+JSON.stringify(lb));
+			
 			if(lb===null) return;
 			$("#labelListFloat > #"+lb.id).remove();
 			// var n=$.inArray(self._curLink.id,lb.refs);
@@ -718,7 +721,6 @@ TILE.scale=1;
 			// 				lb.refs=ac;
 			// 			}
 			// 			$.extend(lb,{parentTool:self._curLink.tool,parentObj:self._curLink.id,parentType:self._curLink.type});
-			if(__v) console.log('deleting '+JSON.stringify(lb)+'  from  '+JSON.stringify(self._curLink));
 			TILE.engine.deleteObj(self._curLink,lb);
 			// also need to do reverse in order for link to be severed
 			TILE.engine.deleteObj(lb,self._curLink);
@@ -2729,7 +2731,7 @@ TILE.scale=1;
 				}
 			}
 			obj=self.findTileObj(obj.id,obj.type);
-		$("body:first").trigger('dataUpdated',[obj]);
+			$("body:first").trigger('dataUpdated',[obj]);
 		}
 	};
 	
