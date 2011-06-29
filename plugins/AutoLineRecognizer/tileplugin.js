@@ -701,7 +701,7 @@
                 // Permanent Left value for all lines
                 var left = _REG.left;
 				// Correction value for Auto Recognizer CSS vs. Image Tagger CSS
-                var tbarcorrect = ($("#canvasHTML > .toolbar").innerHeight() + 5);
+                var tbarcorrect = ($.browser.webkit)?($("#canvasHTML > .toolbar").innerHeight() + 15):($("#canvasHTML > .toolbar").innerHeight() + 5);
                 // correct the bounding box top value
                 _REG.top -= tbarcorrect;
 
@@ -725,7 +725,7 @@
 				
                     // add the value of the line to the
                     var top = alphaTop + bucket[i-1];
-					var bottom=alphaTop + bucket[i];
+					var bottom = alphaTop + bucket[i];
 				
                     // Calculate for average height of line
                     var height = bottom-top;
@@ -1028,16 +1028,18 @@
 
 
                 if (($("#regionBox").width() > real_width) || ($("#regionBox").height() > real_height)) {
-                                                   $("#regionBox").width(real_width - (real_width / 4));
-                                                   $("#regionBox").height(real_height - (real_height / 4));
-                                               }
-                                				var regionBoxTop = $("#canvasHTML > .toolbar").innerHeight();
-                                
-                                				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
+                      $("#regionBox").width(real_width - (real_width / 4));
+                      $("#regionBox").height(real_height - (real_height / 4));
+                  }
+   				var regionBoxTop = $("#canvasHTML > .toolbar").innerHeight();
+   
+   				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
+
 				
 				self.context = self.canvasEl.getContext('2d');
+				
                 self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
                 $("#" + self.uid).width($("#azcontentarea").width());
                 $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
@@ -1128,7 +1130,6 @@
 
                 self.curUrl = $("#hiddenCanvasSource").attr("src");
 
-
                 self.canvas[0].width = real_width;
                 self.canvas[0].height = real_height;
 
@@ -1178,11 +1179,9 @@
             self.DOM.show();
             $("body").bind("zoomAR", {
                 obj: self
-            },
-            self.zoomHandle);
+            }, self.zoomHandle);
 			
             self.setUpCanvas(TILE.url);
-
         },
         // Re-draws the canvas
         _resetCanvasImage: function() {
