@@ -508,7 +508,6 @@
 		    // we want to calculate a kernel over the image that will try to bring out the
 		    // areas with text -- then we'll get a bounding box over that area
 		    // we want the largest contiguous block
-		    console.log(rl,rt,rw,rh);
 		    var pixel = function(x,y) {
 			    var idx = (x + rw*y)*4;
 			    return [ regionData.data[ idx ], regionData.data[ idx+1 ], regionData.data[ idx+2] ];
@@ -617,7 +616,6 @@
 			    top  = search(2, part_v, 1, 1),
 			    bottom=search(3, part_v, 1, 1);
 			
-			console.log(left, right, top, bottom);
 			var part2pixel = function(p, size, side) {
 				//console.log("part2pixel(" + p + "," + size + "," + side + ")");
 			    var i = 1, t = p;
@@ -635,7 +633,7 @@
 			    ty = part2pixel(top, rh, 0),
 			    by = part2pixel(bottom, rh, 1);
 			
-			console.log(rl+lx, rt + ty, rx -lx, by-ty);
+			if(__v) console.log(rl+lx, rt + ty, rx -lx, by-ty);
 			self.regionBox.DOM.css({
 	            "left": rl + lx,
 	            "top": rt + ty
