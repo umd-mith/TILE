@@ -888,7 +888,6 @@ TILE.scale=1;
 			
 			// go through plugins array and attach the 
 			// src elements
-			
 			setTimeout(function(self){
 				var count=0;
 			 	var recLoad=function(){

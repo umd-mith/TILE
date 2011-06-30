@@ -128,7 +128,6 @@
 			// 			});
 			// 		} else {
 			
-			if(__v) console.log('shapes in setpredef: '+JSON.stringify(shapes));
 			AutoR.predefinedShapes = [];
 			self.predefCount = 0;
 			$.each(shapes, function (i, o) {
@@ -370,7 +369,6 @@
 			AutoR.recognizedShapes = [];
             //already constructed, re-attach listeners and show DOM
             var self = this;
-			 if(__v) console.log('predef count : '+self.predefCount);
             if (self.CANVAS) {
                 // self.regionBox=new RegionBox({loc:"#azcontentarea"});
                 $("#regionBox").hide();
@@ -573,7 +571,6 @@
 			};
 			
 			if(part_v(1) == 0 || part_h(1) == 0) {
-				if(__v) console.log("No image data!");
 				return;
 			}
 			
@@ -584,7 +581,7 @@
 				// light is -1 or 1 (1 for light on dark, -1 for dark on light)
 				var diff = (part(2*x) - part(2*x+1)) * sense * light;
 				//console.log(x, sense, light, diff);
-				if(__v) console.log(x, diff, part(2*x), part(2*x+1));
+				// if(__v) console.log(x, diff, part(2*x), part(2*x+1));
 				if(x > 63) return x;
 				if(Math.abs(diff) > (part(2*x) + part(2*x+1))/20) {
 					if(diff > 0) {
@@ -633,7 +630,7 @@
 			    ty = part2pixel(top, rh, 0),
 			    by = part2pixel(bottom, rh, 1);
 			
-			if(__v) console.log(rl+lx, rt + ty, rx -lx, by-ty);
+			// if(__v) console.log(rl+lx, rt + ty, rx -lx, by-ty);
 			self.regionBox.DOM.css({
 	            "left": rl + lx,
 	            "top": rt + ty
@@ -748,8 +745,8 @@
                     // $("#lineBox_" + i).attr('id', "lineBox_" + id + "_shape");
 					
                     //update assoc. transcript tag
-					if((!self.activeLines[linecount]) && (!self.activeLines[linecount].active)){
-						while(self.activeLines[linecount]&&(self.activeLines[linecount].active == false)){
+					if((self.activeLines[linecount] == null) || (!self.activeLines[linecount].active)){
+						while((self.activeLines[linecount] != null)&&(self.activeLines[linecount].active == false)){
 							linecount++;
 						}
 						if(!(self.activeLines[linecount])||(self.activeLines[linecount].active == false)) break;
@@ -993,7 +990,7 @@
             loadImgScreen();
 
 			var loadHTML5 = function () {
-				if(__v) console.log('loadHTML5');
+				// if(__v) console.log('loadHTML5');
 				AutoR.scale=1;
 				var ow = $("#hiddenCanvasSource")[0].width;
                 var oh = $("#hiddenCanvasSource")[0].height;
@@ -1089,7 +1086,7 @@
         // ------------------------------------------------------
         setUpCanvas: function(url) {
             var self = this;
-			if(__v) console.log('setUpcanvas AutoR');
+			// if(__v) console.log('setUpcanvas AutoR');
             self.canvas[0].width = 0;
             if (TILE.url == '') return;
             
@@ -1789,7 +1786,6 @@ ShapePreviewCanvas.prototype = {
 			if(!self.line_pairs||(self.line_pairs.length==0)){
 				
 				self.thresholdConversion();
-				if(__v) console.log('line_pairs  '+self.line_pairs);
 				return self.line_pairs;
 			} else {
 				return self.line_pairs;
