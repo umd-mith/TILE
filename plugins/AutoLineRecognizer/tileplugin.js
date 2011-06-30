@@ -746,7 +746,7 @@
 					
                     //update associated transcript tag
 					if((self.activeLines[linecount] == null) || (!self.activeLines[linecount].active)){
-						while((self.activeLines[linecount] == null)||(self.activeLines[linecount].active == false)){
+						while((self.activeLines[linecount] != null)||(self.activeLines[linecount].active == false)){
 							linecount++;
 						}
 						if(!(self.activeLines[linecount])||(self.activeLines[linecount].active == false)) break;
