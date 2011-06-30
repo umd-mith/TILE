@@ -924,7 +924,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				if(self.curUrl!=TILE.url) self.curUrl=TILE.url;
 				
-				if(__v) console.log('done loading tile scale '+TILE.scale+'  '+self._imgScale);
 				
 				$("body").trigger('imageTaggerCanvasDone');
 			}).attr("src",TILE.url);	
@@ -982,7 +981,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				vd[prop]._scale=self._imgScale;
 			}
-			if(__v) console.log('vd '+JSON.stringify(vd)+'  '+self._imgScale);
 			self.drawTool.importShapes(vd);
 		
 		},
@@ -1602,12 +1600,10 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					for(var x=0;x<self.manifest.length;x++){
 						var shape=self.manifest[x];
 						if(shape._scale!=self._imgScale){
-							if(__v) console.log('shape normal '+JSON.stringify(shape));
 							for(var u in shape.posInfo){
 								var dx=(shape.posInfo[u]*self._imgScale)/shape._scale;
 								shape.posInfo[u]=dx;
 							}
-							if(__v) console.log('shape zoomed in '+JSON.stringify(shape));
 							shape._scale = self._imgScale;
 							// $("body:first").trigger('imageShapeUpdate',[shape]);
 						}
@@ -1683,7 +1679,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 					// erase current canvas
 					self.drawTool.clearShapes();
 					
-					if(__v) console.log('imagetagger done '+TILE.scale+'  '+self._imgScale);
 					
 					var vd=[];
 					// check to see if shapes in passed data array

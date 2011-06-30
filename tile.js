@@ -703,7 +703,6 @@ TILE.scale=1;
 					break;
 				}
 			}
-			if(__v) console.log('lb in deleteLinkHandle: '+JSON.stringify(lb));
 			
 			if(lb===null) return;
 			$("#labelListFloat > #"+lb.id).remove();

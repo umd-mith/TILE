@@ -809,7 +809,6 @@ var TS={
 		for(var i in self.manifest){
 			if(self.manifest[i].id==id){
 				h=(self.manifest[i].obj)?self.manifest[i].obj:self.manifest[i];
-				if(__v) console.log('manifest: '+JSON.stringify(h));
 				break;
 			}
 		}
@@ -825,13 +824,11 @@ var TS={
 		
 		if(!(obj)||(obj.type!='selections')) return;
 		var self=e.data.obj;
-		if(__v) console.log('obj change '+JSON.stringify(obj));
 		// change passed reference's color
 		
 		for(var sel in self.manifest){
 			if(self.manifest[sel].id==obj.id){
 				self.manifest[sel]=obj.obj;
-				if(__v) console.log('manifest '+JSON.stringify(self.manifest[sel]));
 				// change if on display
 				$("span[class^='anno']").each(function(i,o){
 					
