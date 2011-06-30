@@ -234,7 +234,7 @@
 				$("body").bind("HTML5CANVASDONE", function (e) {
 				
 					$("body").unbind("HTML5CANVASDONE");
-					
+					self.CANVAS._resetCanvasImage();
 					self.startAutoRecognition();
 				});
 			}
@@ -993,7 +993,7 @@
 				AutoR.scale=1;
 				var ow = $("#hiddenCanvasSource")[0].width;
                 var oh = $("#hiddenCanvasSource")[0].height;
-			
+				
 				// set height and width of canvas area to parent div
 				$("#canvasHTML").width($(".az.inner.autolinerecognizer").width());
 				$("#canvasHTML").height($(".az.inner.autolinerecognizer").height());
@@ -1033,9 +1033,10 @@
                 self.canvas.attr("height", self.canvas[0].height);
 
 				
-				self.context = self.canvasEl.getContext('2d');
+				self.context = $("#canvas")[0].getContext('2d');
 				
                 self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
+
                 $("#" + self.uid).width($("#azcontentarea").width());
                 $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
 				
