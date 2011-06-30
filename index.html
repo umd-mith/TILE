@@ -51,7 +51,7 @@
 			</div>
 			<div class="misc">
 				<div class="menuitem"><a id="tilehelp" title="Go to the TILE documentation page" href="http://mith.umd.edu/tile/documentation">Documentation</a></div>
-				<div class="menuitem"><span class="version">version 1.0 (Release Candidate 2)</span></div></div>
+				<div class="menuitem"><span class="version">version 1.0 (Release Candidate 3)</span></div></div>
 			</div>
 		</div>
 	</div>
@@ -120,6 +120,9 @@
 			engine.insertPlugin('CoreData');
 			// autoload
 			engine.insertPlugin('AutoLoad');
+			
+			// welcome dialog
+			engine.insertPlugin('WelcomeDialog');
 			
 			// To enable the Welcome Dialog, uncomment the following
 			// IF statement
