@@ -435,6 +435,7 @@
             var out = "";
             // reset line manifest
             self.lineManifest = [];
+			self.activeLines = [];
             if (self.transcript) {
                 self.transcriptArea.empty();
                 for (var t in self.transcript.lines) {
@@ -745,6 +746,10 @@
                     // $("#lineBox_" + i).attr('id', "lineBox_" + id + "_shape");
 					
                     //update associated transcript tag
+					if(!self.activeLines[linecount]) {
+						linecount++;
+						continue;
+					}
 					if((self.activeLines[linecount] == null) || (!self.activeLines[linecount].active)){
 						while((self.activeLines[linecount] != null)||(self.activeLines[linecount].active == false)){
 							linecount++;
