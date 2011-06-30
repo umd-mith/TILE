@@ -868,7 +868,6 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			var img=$("#srcImageForCanvas")[0];
 			// attach load event
 			$(img).load(function(e){
-				if(__v) console.log('loadimg');
 				
 				$(img).unbind();
 				if(!self.drawTool){

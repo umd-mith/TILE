@@ -744,9 +744,9 @@
                     //change the uid of the lineBox that goes with this
                     // $("#lineBox_" + i).attr('id', "lineBox_" + id + "_shape");
 					
-                    //update assoc. transcript tag
+                    //update associated transcript tag
 					if((self.activeLines[linecount] == null) || (!self.activeLines[linecount].active)){
-						while((self.activeLines[linecount] != null)&&(self.activeLines[linecount].active == false)){
+						while((self.activeLines[linecount] == null)||(self.activeLines[linecount].active == false)){
 							linecount++;
 						}
 						if(!(self.activeLines[linecount])||(self.activeLines[linecount].active == false)) break;
@@ -783,7 +783,6 @@
 				
                 // set recognized images variable and
 				// send to shapePreview
-				// AutoR.recognizedShapes=ldata;
 				var shapes=[];
 				for(var x in ldata){
 					shapes.push(ldata[x].shape);
@@ -2074,19 +2073,12 @@ var AR = {
             // canvas area - right side
             TILE.engine.insertModeHTML(this.__AR__.canvasHTML, 'rightarea', self.tileMode.name);
             // alter some classnames
-            $("#az_log > .az.inner.autolinerecognizer > .toolbar").removeClass("toolbar").addClass("autorec_toolbar");
+            // $("#az_log > .az.inner.autolinerecognizer > .toolbar").removeClass("toolbar").addClass("autorec_toolbar");
 
 
             // construct auto Rec
             self.__AR__._setUp();
 
-            // un-hide elements
-            // $("#az_activeBox").show();
-            //             $(".az.main.twocol").show();
-            //             $("#azcontentarea > .az.inner").hide();
-            //             $("#azcontentarea > .az.inner:eq(0)").show();
-            //             $("#az_log").removeClass('tool').addClass('log');
-            //             $("#az_log > #az_transcript_area").show();
 			
 			$("body").live("closeALR",function(e){
 				 // HIDE AR ELEMENTS IN DOM
