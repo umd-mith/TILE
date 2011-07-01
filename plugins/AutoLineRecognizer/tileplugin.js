@@ -370,53 +370,39 @@
             //already constructed, re-attach listeners and show DOM
             var self = this;
             if (self.CANVAS) {
-                // self.regionBox=new RegionBox({loc:"#azcontentarea"});
                 $("#regionBox").hide();
                 self.CAR.Region = $("#regionBox");
 
-                // $(".az.main > .az.log").removeClass("log").addClass("tool");
-                // var n = '-=' + $(".az.main > .az.tool").width();
-                //                 $(".az.main > .az.tool").animate({
-                //                     opacity: 0.25,
-                //                     left: n
-                //                 },
-                //                 10);
-                //                 function(e) {
-                //                     $("#az_log > .az.inner:eq(0)").hide();
-                //                     $("#az_log > .az.inner:eq(1)").show();
-                //                     $(alrcontainer).show();
-					
-					// TWO SCENARIOS FOR USING ALR: 
-					// 1. USER HAS PRE-DRAWN SHAPES AND THE PREVIEWCANVAS SHOWS THESE
-					// 2. USER HAS NO PRE-DRAWN SHAPES
-					if(self.predefCount>0){
-						// initially set up SVG canvas to show shapes
-						// already drawn
-						// Attaching listener for when HTML5 canvas is 
-						// finished loading and setting the correct AutoR.scale
-						// value
-						$("body").bind("HTML5CANVASDONE", function (e) {
-							$(this).unbind("HTML5CANVASDONE");
-							self.CANVAS.hide();
-							self.shapePreview.show();
-							self.shapePreview.loadShapes(AutoR.predefinedShapes);
-							$(".autorec_toolbar > #content").hide();
-							$("#shapesLoaded").show();
-						});
-					} else {
-						// Otherwise, if no shapes drawn, go straight to setting up HTML5 canvas
-						$("body").bind("HTML5CANVASDONE", function (e) {
-							$(this).unbind("HTML5CANVASDONE");
-							// self.CANVAS._resetCanvasImage();
-							self.startAutoRecognition();
-							
-						});
-					}
-					
-                    
-                    self.CANVAS._restart(transcript);
+				// TWO SCENARIOS FOR USING ALR: 
+				// 1. USER HAS PRE-DRAWN SHAPES AND THE PREVIEWCANVAS SHOWS THESE
+				// 2. USER HAS NO PRE-DRAWN SHAPES
+				if(self.predefCount>0){
+					// initially set up SVG canvas to show shapes
+					// already drawn
+					// Attaching listener for when HTML5 canvas is 
+					// finished loading and setting the correct AutoR.scale
+					// value
+					$("body").bind("HTML5CANVASDONE", function (e) {
+						$(this).unbind("HTML5CANVASDONE");
+						self.CANVAS.hide();
+						self.shapePreview.show();
+						self.shapePreview.loadShapes(AutoR.predefinedShapes);
+						$(".autorec_toolbar > #content").hide();
+						$("#shapesLoaded").show();
+					});
+				} else {
+					// Otherwise, if no shapes drawn, go straight to setting up HTML5 canvas
+					$("body").bind("HTML5CANVASDONE", function (e) {
+						$(this).unbind("HTML5CANVASDONE");
+						// self.CANVAS._resetCanvasImage();
+						self.startAutoRecognition();
+						
+					});
+				}
+				
+                   
+                   self.CANVAS._restart(transcript);
 
-                // });
                 // correct any window size difference
                 $("#" + self.CANVAS.uid).width($("#azcontentarea").width());
                 $("#" + self.CANVAS.uid).height($("#azcontentarea").height());
@@ -710,7 +696,7 @@
                 //for sending to the logbar
                 var sids = [];
 				
-				var linecount=0;
+				var linecount = 0;
 				
 				
 				// Goes through each value of the bucket and 
@@ -742,9 +728,7 @@
                         id = Math.floor(Math.random() * 365);
                     }
                     sids.push(id);
-                    //change the uid of the lineBox that goes with this
-                    // $("#lineBox_" + i).attr('id', "lineBox_" + id + "_shape");
-					
+                   
                     //update associated transcript tag
 					if(!self.activeLines[linecount]) {
 						linecount++;
@@ -901,7 +885,7 @@
         this.nh = 0;
         this.nw = 0;
         this._scale = 1;
-
+		this.webkitLoad = false;
         this._loadPage = $("<div class=\"loadPage\" style=\"width:100%;height:100%;\"><img src=\"skins/columns/images/tileload.gif\" /></div>");
 
         //whatever is currently in srcImage, load that
@@ -1039,17 +1023,23 @@
 
 				
 				self.context = $("#canvas")[0].getContext('2d');
+				if(!self.webkitLoad){
+					self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
+					setTimeout(function () {
+						self.altSetUpCanvas();
+						
+					}, 100);
+					self.webkitLoad = true;
+				} else {
+                
+ 	               $("#" + self.uid).width($("#azcontentarea").width());
+	                $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
 				
-                self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
-
-                $("#" + self.uid).width($("#azcontentarea").width());
-                $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
+	                // show the region box after the image has loaded
+	                removeImgScreen();
 				
-                // show the region box after the image has loaded
-                removeImgScreen();
-				
-				$("body:first").trigger("HTML5CANVASDONE");
-
+					$("body:first").trigger("HTML5CANVASDONE");
+				}
                 
 			};
 			
