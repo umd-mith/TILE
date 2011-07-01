@@ -704,7 +704,6 @@
 				// shape object that is fed back into TILE.
 				// Uses same left and width attribute for all lines.
                 for (var i = 1; i <= bucket.length; i+=2) {
-				
                     // add the value of the line to the
                     var top = alphaTop + bucket[i-1];
 					var bottom = alphaTop + bucket[i];
@@ -730,21 +729,21 @@
                     sids.push(id);
                    
                     //update associated transcript tag
-					if(!self.activeLines[linecount]) {
-						linecount++;
-						continue;
-					}
-					if((self.activeLines[linecount] == null) || (!self.activeLines[linecount].active)){
-						while((self.activeLines[linecount] != null)||(self.activeLines[linecount].active == false)){
-							linecount++;
-						}
-						if(!(self.activeLines[linecount])||(self.activeLines[linecount].active == false)) break;
-					}
+				
+				
+					// 
 					
                     if (self.activeLines[linecount]) {
                         // if(!self.transcript.lines[i].shapes) self.transcript.lines[i].shapes=[];
                         // if(!self.transcript.shapes) self.transcript.shape[];
                         //add data to the session's JSON object.
+						if((!self.activeLines[linecount]) || (!self.activeLines[linecount].active)){
+							while((!self.activeLines[linecount])||(self.activeLines[linecount].active == false)){
+								linecount++;
+							}
+							if(!(self.activeLines[linecount])||(self.activeLines[linecount].active == false)) break;
+						}
+
 						
 						var posInfo = {"x": (left),"y": (top),"width": (_REG.width),"height": (height)};
 						
