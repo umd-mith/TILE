@@ -513,56 +513,81 @@
 				var px = pixel(x,y);
 				return (30*px[0] + 59*px[1] + 11*px[2]) / 100; // Y'_601 standard for intensity
 			};
-			var cols = [], rows = [];
+			var cols = [], rows = [], colm = [], rowm = [];
 			for(var y = 0; y < rh; y += 1) {
 				for(var x = 0; x < rw; x += 1) {
 					var i = I(x, y);
-					if(!cols[x]) cols[x] = 0;
-					cols[x] += i;
-					if(!rows[y]) rows[y] = 0;
-					rows[y] += i;
+					if(!cols[x]) cols[x] = 224;
+					if(!colm[x]) colm[x] = 32;
+					if(i > 31 && cols[x] > i) {
+						cols[x] = i;
+					}
+					if(i < 225 && colm[x] < i) {
+						colm[x] = i;
+					}
+					if(!rows[y]) rows[y] = 224;
+					if(!rowm[y]) rowm[y] = 32;
+					if(i > 31 && rows[y] > i) {
+						rows[y] = i;
+					}
+					if(i < 225 && rowm[y] < i) {
+						rowm[y] = i;
+					}
 				}
 			}
 			var parts = { h: [], v: []};
 			
 			var part_h = function(x) {
-				var s, e, sum;
+				var s, e, sum, n;
 				if(parts.h[x]) return parts.h[x];
 			    if(x >= 64) {
 				    if(x > 127) return 0;
 				    s = parseInt(rw * (x - 64) / 64, 10);
 				    e = parseInt(rw * (x - 64+1) / 64, 10);
+					n = e - s;
+					if(n < 1) {
+						n = 1;
+					}
 				    sum = 0;
 				    for(; s < e; s += 1) {
-					    sum += cols[s];
+					    sum += colm[s] - cols[s];
 				    }
-				    return sum;
+					parts.h[x] = sum / n;
+				    return parts.h[x];
 			    }
 			    else {
-					parts.h[x] = part_h(x*2) + part_h(x*2+1);
+				//	s = part_h(x*2); e = part_h(x*2+1);
+				//	if(s > e && e > 1) {
+				//		s = e;
+				//	}
+					parts.h[x] = (part_h(x*2) + part_h(x*2+1))/2;
          			return parts.h[x];
 			    }
 			};
 			var part_v = function(y) {
-				var s, e, sum;
+				var s, e, sum, n;
 				if(parts.v[y]) return parts.v[y];
 				if(y >= 64) {
 					if(y > 127) return 0;
 				    s = parseInt(rh * (y - 64) / 64, 10);
 				    e = parseInt(rh * (y - 64+1) / 64, 10);
+					n = e - s;
+					if(n < 1) {
+						n = 1;
+					}
 				    sum = 0;
 				    for(; s < e; s += 1) {
-					    sum += rows[s];
+					    sum += rowm[s] - rows[s];
 				    }
-				    parts.v[y] = sum;
-				    return sum;
+				    parts.v[y] = sum / n;
+				    return parts.v[y];
 			    }
 			    else {
-				    parts.v[y] = part_v(y*2) + part_v(y*2+1);
+				    parts.v[y] = (part_v(y*2) + part_v(y*2+1))/2;
          			return parts.v[y];
 			    }
 			};
-			
+						
 			if(part_v(1) == 0 || part_h(1) == 0) {
 				return;
 			}
@@ -599,13 +624,12 @@
 				}
 			};
 			
-			//console.log(parts);
 			
 			var left = search(2, part_h, 1, 1),
 			    right= search(3, part_h, 1, 1),
 			    top  = search(2, part_v, 1, 1),
 			    bottom=search(3, part_v, 1, 1);
-			
+						
 			var part2pixel = function(p, size, side) {
 				//console.log("part2pixel(" + p + "," + size + "," + side + ")");
 			    var i = 1, t = p;
