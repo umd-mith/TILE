@@ -684,8 +684,6 @@ TILE.scale=1;
 			$("input.tagComplete").autocomplete({
 				source:self.labelNames
 			});
-			// $("body:first").trigger("floatDivOutput",[{link:self._curLink,refs:refs}]);
-			
 		},
 		// Take passed id, find the data it references,
 		// then delete from current linked object
@@ -706,26 +704,10 @@ TILE.scale=1;
 			
 			if(lb===null) return;
 			$("#labelListFloat > #"+lb.id).remove();
-			// var n=$.inArray(self._curLink.id,lb.refs);
-			// 			if(n===0){
-			// 				lb.refs=[];
-			// 			} else if(n>0){
-			// 				var ac=[];
-			// 				$.each(lb.refs,function(i,o){
-			// 					if(self._curLink.id!=o){
-			// 						ac.push(o);
-			// 					}
-			// 				});
-			// 			
-			// 				lb.refs=ac;
-			// 			}
-			// 			$.extend(lb,{parentTool:self._curLink.tool,parentObj:self._curLink.id,parentType:self._curLink.type});
+		
 			TILE.engine.deleteObj(self._curLink,lb);
 			// also need to do reverse in order for link to be severed
 			TILE.engine.deleteObj(lb,self._curLink);
-			
-			
-			// $("body:first").trigger("deleteMetaLink",[lb]);
 		}
 		
 	});

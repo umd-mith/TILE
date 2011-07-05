@@ -74,10 +74,8 @@
         var d = new Date();
         self.uid = d.getTime("milliseconds") + "_ar";
 
-        // self.loc=(args.loc)?  $("#"+args.loc):$("div.az.tool:empty");
-        // self.html=args.layout.autorec;
        
-		self.logHTML='<div id="autoreclog" class="az tool autolinerecognizer"><div id="autorecarea" class="az inner autolinerecognizer">'+
+		self.logHTML = '<div id="autoreclog" class="az tool autolinerecognizer"><div id="autorecarea" class="az inner autolinerecognizer">'+
 		'<div class="autorec_toolbar"><div class="toolbar">Auto Line Recognizer</div>'+
 		'<div id="content" class="az"><div class="step"><div class="instructions">Step One: Align the red box over the area of text to recognize</div></div><div class="step"><div class="instructions">Step Two: Select if this image of text has:</div>'+
 		'<div><p><input type="radio" id="darkonlight" name="threshChoice" />Dark text on a light background</p>'+
@@ -142,7 +140,7 @@
         // replaces canvas area
         // jsonhtml : {Object} JSON object containing strings for autorecognizer HTML
         // 						elements
-        _setUp: function() {
+        setUp: function() {
             //set up rest of autorecognizer
             var self = this;
             // self.html=jsonhtml.autorec;
@@ -152,13 +150,17 @@
 			$("#darkonlight").live('click',function(e){
 				
 				AutoR.darkText=true;
+				self.CANVAS._resetCanvasImage();
+				self.CAR.thresholdConversion();
 			});
 			
 			$("#darkonlight").attr('checked','checked');
 			
 			$("#lightondark").live('click',function(e){
-				
+					
 				AutoR.darkText=false;
+				self.CANVAS._resetCanvasImage();
+				self.CAR.thresholdConversion();
 			});
 			
 			$("#shapesLoaded").hide();
@@ -367,8 +369,12 @@
 			$(".autorec_toolbar > #content").show();
 			 
 			AutoR.recognizedShapes = [];
-            //already constructed, re-attach listeners and show DOM
+           
+			//already constructed, re-attach listeners and show DOM
             var self = this;
+
+			self.activeLines = [];
+
             if (self.CANVAS) {
                 $("#regionBox").hide();
                 self.CAR.Region = $("#regionBox");
@@ -617,7 +623,6 @@
 			    ty = part2pixel(top, rh, 0),
 			    by = part2pixel(bottom, rh, 1);
 			
-			// if(__v) console.log(rl+lx, rt + ty, rx -lx, by-ty);
 			self.regionBox.DOM.css({
 	            "left": rl + lx,
 	            "top": rt + ty
@@ -717,7 +722,6 @@
 						bottom += 2;
 						height += 2;
 					}
-				
                     
                     //creating a similar JSON structure to that of the
                     //VectorDrawer structure for loading in shapes
@@ -753,15 +757,25 @@
 							
 						});
 						
-                        ldata.push({shape:{
+						var shpObj = {
                             "id": id + "_shape",
                             "type": "rect",
                             "_scale": 1,
                             "color": "#000000",
                             "posInfo": posInfo
-                        },
-						line:self.activeLines[linecount].line	
-						});
+                        };
+
+						self.activeLines[linecount].shape = shpObj;
+						
+                        // ldata.push({shape:{
+                        //                             "id": id + "_shape",
+                        //                             "type": "rect",
+                        //                             "_scale": 1,
+                        //                             "color": "#000000",
+                        //                             "posInfo": posInfo
+                        //                         },
+                        // 						line:self.activeLines[linecount].line	
+                        // 						});
 						linecount++;
                     }
 				
@@ -772,15 +786,15 @@
                 // set recognized images variable and
 				// send to shapePreview
 				var shapes=[];
-				for(var x in ldata){
-					shapes.push(ldata[x].shape);
+				for(var x in self.activeLines){
+					shapes.push(self.activeLines[x].shape);
 				}
 				AutoR.recognizedShapes=shapes;
 				self.predefCount = 0;
 				// erase all predefined shapes
 				$("body:first").trigger("deleteRecognizedShapes",[AutoR.predefinedShapes]);	
 				
-				AutoR.autoData=ldata;
+				// AutoR.autoData=self.activeLines;
 				
 				self.shapePreview.show();
 				self.CANVAS.hide();
@@ -805,8 +819,8 @@
                 $("#hiddenCanvasSource").attr("src", url.substring((url.indexOf('=') + 1)));
             }
             // output all data found
-            if (AutoR.autoData) {
-                $("body:first").trigger("outputLines", [AutoR.autoData]);
+            if (self.activeLines.length) {
+                $("body:first").trigger("outputLines", [self.activeLines]);
             } else {
                 $("body:first").trigger("closeALR");
             }
@@ -2067,14 +2081,10 @@ var AR = {
             TILE.engine.insertModeHTML(this.__AR__.logHTML, 'main', self.tileMode.name);
             // canvas area - right side
             TILE.engine.insertModeHTML(this.__AR__.canvasHTML, 'rightarea', self.tileMode.name);
-            // alter some classnames
-            // $("#az_log > .az.inner.autolinerecognizer > .toolbar").removeClass("toolbar").addClass("autorec_toolbar");
-
 
             // construct auto Rec
-            self.__AR__._setUp();
+            self.__AR__.setUp();
 
-			
 			$("body").live("closeALR",function(e){
 				 // HIDE AR ELEMENTS IN DOM
 	               // close down any other az_log areas

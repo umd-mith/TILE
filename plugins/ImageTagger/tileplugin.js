@@ -16,24 +16,24 @@
 
 
 //Shape Constants
-var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
+var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 
-(function($){
+(function ($) {
 	
-	var ITag=this;
+	var ITag = this;
 	// constructor for ITag - loads all elements for ImageTagger
-	var _Itag=function(args){
+	var _Itag = function (args) { 
 		this.loc=args.loc;
 		// this._base=args.base;
-		this.schemaFile=null;
-		var self=this;
-		this.JSONlist=(args.json||null);
-		self.curURL=null;
+		this.schemaFile = null;
+		var self = this;
+		
+		self.curURL = null;
 		//pre-load the initial html content into loc area - needs .az.inner
 		//to be visible
-		self.htmlContent="<div id=\"raphworkspace_\" class=\"workspace\"></div>";
-		if(TILE.experimental){
-			self.htmlToolbar="<ul class=\"menuitem pluginTitle\">Image Tagger</ul><ul class=\"menuitem\">"+
+		self.htmlContent = "<div id=\"raphworkspace_\" class=\"workspace\"></div>";
+		if(TILE.experimental) {
+			self.htmlToolbar = "<ul class=\"menuitem pluginTitle\">Image Tagger</ul><ul class=\"menuitem\">"+
 			"<li><a href=\"#\" id=\"pointer\" class=\"btnIconLarge inactive\" title=\"Select\"></a></li></ul><ul class=\"menuitem\">"+
 			"<li><a href=\"#\" id=\"rect\" class=\"btnIconLarge inactive\" title=\"Rectangle\"></a></li>"+
 			"<li><a href=\"#\" id=\"poly\" class=\"btnIconLarge inactive\" title=\"Polygon\"></a></li>"+
@@ -43,7 +43,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			"<li><a href=\"#\" id=\"pgPrev\" class=\"button\" title=\"Go One Image Back\">Prev</a></li><li><a href=\"#\" id=\"pgNext\" class=\"button\" title=\"Go One Image Forward\">Next</a></li>"+
 			"<li><a class=\"button\" title=\"See a List of All Images\"><span id=\"listView\" class=\"listView\">List view</span></a></li></ul>";
 		} else {
-			self.htmlToolbar="<ul class=\"menuitem pluginTitle\">Image Tagger</ul><ul class=\"menuitem\">"+
+			self.htmlToolbar = "<ul class=\"menuitem pluginTitle\">Image Tagger</ul><ul class=\"menuitem\">"+
 				"<li><a href=\"#\" id=\"pointer\" class=\"btnIconLarge inactive\" title=\"Select\"></a></li></ul><ul class=\"menuitem\">"+
 				"<li><a href=\"#\" id=\"rect\" class=\"btnIconLarge inactive\" title=\"Rectangle\"></a></li>"+
 				"<li><a href=\"#\" id=\"elli\" class=\"btnIconLarge inactive\"  title=\"Ellipse\"></a></li>"+
@@ -60,20 +60,20 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 		$("body").bind("newImageAdded",{obj:this},this.addNewImage);
 	
 	};
-	_Itag.prototype={
+	_Itag.prototype = {
 		//receives a JSON string that will be used 
 		//as a map of images and other data
 		// e : {Event}
 		// manifest : {Object} - JSON object that has all of the images in this session
-		ingestImages:function(e,manifest){
-			var obj=e.data.obj;
+		ingestImages:function (e,manifest) {
+			var obj = e.data.obj;
 			//send image file data to canvas
 			obj.raphael.setNewManifest(manifest);
 			$("body:first").trigger("imageAdded");
 		},
 		// Sets up the HTML for this object. Creates RaphaelImage
 		// html : {Object} - JSON object derived from imagetagger.json
-		setHTML:function(){
+		setHTML:function () {
 			//html is JSON data
 			var self=this;
 			
@@ -81,7 +81,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			
 			//create raphael - Raphael Canvas that is used for drawing
 			//this object initiates VectorDrawer
-			self.raphael=new RaphaelImage({
+			self.raphael = new RaphaelImage({
 				loc:"raphworkspace_",
 				maxZoom:5,
 				minZoom:1,
@@ -90,35 +90,27 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 			});
 			
 			//VDCanvasDONE called - initiates createShapeToolBar() 
-			self.imageLoaded=true;
-			self.imagesON=true;
+			self.imageLoaded = true;
+			self.imagesON = true;
 			//create IMageList to display all given images in this set
 			//activated by ShapeToolBar's showImgList event call
-			self.imageList=new ImageList({
+			self.imageList = new ImageList({
 				
 				loc:self.loc
 			});
 			
 		},
 		// takes passed variable and passes to raphael canvas
-		updateData:function(obj){
-			var self=this;
+		updateData:function (obj) {
+			var self = this;
 			self.raphael.updateShape(obj.obj);
 		},
-		// sets the JSONlist to data
-		addImages:function(data){
-			var self=this;
-			
-			self.JSONlist=data;
-			self.raphael.setNewManifest(self.JSONlist);
-			$("body").trigger("imageAdded");
-			
-		},
+	
 		//called once the VectorDrawer makes its first build
 		//activated by VDCanvasDONE event call
 		// e : {Event}
 		createShapeToolBar:function(e){
-			var obj=e.data.obj; //@this
+			var obj = e.data.obj; //@this
 			$("body").unbind("VDCanvasDONE",obj.createShapeToolBar); //remove the bind - done only once
 
 			//prepare the toolbar area
@@ -1901,7 +1893,7 @@ var SHAPE_ATTRS={"stroke-width": "1px", "stroke": "#a12fae"};
 // Functions follow a standard protocol that should be followed
 // so that any particular plugin can work with the TILE interface
 //
-var IT={
+var IT = {
 	id:"IT1000",
 	// name: {string} used as an array key for the TILE toolSet array
 	name:'ImageTagger',
