@@ -106,34 +106,12 @@
 		// Filters out the shapes that are already in AutoR.recognizedShapes
 		setPredefinedShapes : function (shapes) {
 			var self=this;
-			
-			// if(AutoR.recognizedShapes.length){
-			// 			// filter out the array
-			// 			$.each(shapes, function (ix, shape) {
-			// 				var id=shape.id;
-			// 				var found=false;
-			// 				$.each(AutoR.recognizedShapes, function (iy, line) {
-			// 					if(id==line.id){
-			// 						found=true;
-			// 					}
-			// 				});
-			// 				
-			// 				if(!found){
-			// 					self.predefCount++;
-			// 					AutoR.predefinedShapes.push(shape);
-			// 				}
-			// 				
-			// 			});
-			// 		} else {
-			
 			AutoR.predefinedShapes = [];
 			self.predefCount = 0;
 			$.each(shapes, function (i, o) {
 				AutoR.predefinedShapes.push(o);
 				self.predefCount++;
 			});
-				
-			// }
 		},
         // Setting up the HTML for AutoRecognizer
         // Replaces both the Transcript and ActiveBox areas to the left and
@@ -148,7 +126,6 @@
             self.DOM = $("div.autorec_toolbar").attr('id', self.uid + "_main");
             
 			$("#darkonlight").live('click',function(e){
-				
 				AutoR.darkText=true;
 				self.CANVAS._resetCanvasImage();
 				self.CAR.thresholdConversion();
@@ -157,7 +134,6 @@
 			$("#darkonlight").attr('checked','checked');
 			
 			$("#lightondark").live('click',function(e){
-					
 				AutoR.darkText=false;
 				self.CANVAS._resetCanvasImage();
 				self.CAR.thresholdConversion();
@@ -284,9 +260,6 @@
 			
 			if(!self.regionBox) self.regionBox = $("#regionBox");
 			
-			// self.CANVAS._resetCanvasImage();
-			
-			// self.CANVAS.setUpCanvas();
 			self.guessRegionBoxDims();
 			
 		},
@@ -349,13 +322,10 @@
 					$(this).addClass("selected");
 					self.setActiveLine(t);
 				}
-
 			});
 			
 			if(self.CANVAS){
 				$("#canvasHTML").show();
-				
-				
 				// correct any window size difference
 	            $("#" + self.CANVAS.uid).width($("#azcontentarea").width());
 	            $("#" + self.CANVAS.uid).height($("#azcontentarea").height());
@@ -757,10 +727,6 @@
                     sids.push(id);
                    
                     //update associated transcript tag
-				
-				
-					// 
-					
                     if (self.activeLines[linecount]) {
                         // if(!self.transcript.lines[i].shapes) self.transcript.lines[i].shapes=[];
                         // if(!self.transcript.shapes) self.transcript.shape[];
@@ -811,13 +777,16 @@
 				// send to shapePreview
 				var shapes=[];
 				for(var x in self.activeLines){
-					shapes.push(self.activeLines[x].shape);
+					if(self.activeLines[x] && self.activeLines[x].active && self.activeLines[x].shape){
+						shapes.push(self.activeLines[x].shape);
+						}
 				}
-				AutoR.recognizedShapes=shapes;
+				AutoR.recognizedShapes = shapes;
 				self.predefCount = 0;
 				// erase all predefined shapes
-				$("body:first").trigger("deleteRecognizedShapes",[AutoR.predefinedShapes]);	
-				
+				if(AutoR.predefinedShapes.length){
+					$("body:first").trigger("deleteRecognizedShapes",[AutoR.predefinedShapes]);	
+				}
 				// AutoR.autoData=self.activeLines;
 				
 				self.shapePreview.show();
@@ -1341,6 +1310,7 @@ ShapePreviewCanvas.prototype = {
 		$("#imageRaphaelPreview").attr('src',TILE.url);
 		
 		var checkLoad = function(el, callback) {
+			if(__v) console.log("el "+el.width());
 			if(el.width() > 0 && el.height() > 0){
 				callback();
 			} else {
@@ -2138,7 +2108,7 @@ var AR = {
                     $("#ALR_LOAD").remove();
                     $("#ALRBACK").remove();
 
-                    $("body").unbind("closeALRLoad", removeScreen);
+                    // $("body").unbind("closeALRLoad", removeScreen);
                 };
 
                 // create load screen to block users clicking on
@@ -2151,7 +2121,7 @@ var AR = {
                     $("#ALRBACK").show();
                     $("#ALRLOADDIALOG").show();
                     // setup listener for removing from DOM
-                    $("body").bind("closeALRLoad", removeScreen);
+                    // $("body").bind("closeALRLoad", removeScreen);
                 };
 
                 // CAUSES MASSIVE LAG TIME IN MOST BROWSERS
@@ -2171,37 +2141,37 @@ var AR = {
                 // go through array, make each related line
                 // active, then attach shape
                 for (var prop in data) {
+					if(data[prop].shape && data[prop].line && data[prop].active){
+						if(__v) console.log(JSON.stringify(data[prop]));
+                    	// set up line var
+	                    var lineObj = {
+	                        id: data[prop].line.id,
+	                        type: 'lines',
+	                        jsonName: TILE.url,
+	                        obj: data[prop].line
+	                    };
+						if(!data[prop].shape.posInfo.x || !data[prop].shape	.posInfo.y) continue;
+						// set up shape
+						var shapeObj={
+							id:data[prop].shape.id,
+							type:'shapes',
+							jsonName:TILE.url,
+							obj:data[prop].shape
+						};
 					
-                    // set up line var
-                    var lineObj = {
-                        id: data[prop].line.id,
-                        type: 'lines',
-                        jsonName: TILE.url,
-                        obj: data[prop].line
-                    };
+						linecount++;
 					
-					// set up shape
-					var shapeObj={
-						id:data[prop].shape.id,
-						type:'shapes',
-						jsonName:TILE.url,
-						obj:data[prop].shape
-					};
-					
-					linecount++;
-					
-                    setTimeout(function(line, shape) {
-                        addLine(line, shape);
-                        // if done, then trigger the load screen to be removed
+	                    setTimeout(function(line, shape) {
+	                        addLine(line, shape);
+	                        // if done, then trigger the load screen to be removed
                         
-                    },15, lineObj, shapeObj);
-					removeScreen();
-					
+	                    },15, lineObj, shapeObj);
+						removeScreen();
+					}
                 }
             });
 			
 			$("body").live("deleteALRLines",function(e,shapes){
-				
 				for(var prop in shapes){
 					TILE.engine.deleteObj(shapes[prop]);
 				}

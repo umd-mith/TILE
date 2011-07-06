@@ -10,7 +10,4 @@ $prefix=preg_replace('/plugins\/AutoLoad\/autoLoadConfig\.php/','',$host);
 $DEFAULT_SCRIPT=$prefix."/plugins/CoreData/importDataScript.php?file=http://mith.umd.edu/tile/sampledata/swinburne.xml";
 
 echo $DEFAULT_SCRIPT;
-
-
-
 ?>
