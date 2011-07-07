@@ -170,7 +170,7 @@
                 e.preventDefault();
                 self.transcriptArea.children("div").removeClass("selected").addClass("selected");
 				for(var a in self.activeLines){
-					self.activeLines[a].active=true;
+					self.activeLines[a].active = true;
 				}
 
             });
@@ -178,7 +178,7 @@
                 e.preventDefault();
                 self.transcriptArea.children("div").removeClass("selected");
 				for(var a in self.activeLines){
-					self.activeLines[a].active=false;
+					self.activeLines[a].active = false;
 				}
             });
 			
@@ -734,8 +734,11 @@
 						if((!self.activeLines[linecount]) || (!self.activeLines[linecount].active)){
 							while((!self.activeLines[linecount])||(self.activeLines[linecount].active == false)){
 								linecount++;
+								if(linecount>self.activeLines.length) {
+									break;
+								}
 							}
-							if(!(self.activeLines[linecount])||(self.activeLines[linecount].active == false)) break;
+							if((!self.activeLines[linecount])||(self.activeLines[linecount].active == false)) break;
 						}
 
 						
