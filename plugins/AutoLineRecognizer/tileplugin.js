@@ -307,6 +307,11 @@
 			
 			self.recognizeB.click(function(e) {
 				e.preventDefault();
+				if(!self.CAR.line_pairs || self.CAR.line_pairs.length == 0){
+					self.CANVAS._resetCanvasImage();
+					self.CAR.thresholdConversion();
+				}
+				
 				self._recognize();
 			});
 			//set global listeners
@@ -1339,7 +1344,7 @@ ShapePreviewCanvas.prototype = {
 		$("#imageRaphaelPreview").attr('src',TILE.url);
 		
 		var checkLoad = function(el, callback) {
-			if(__v) console.log("el "+el.width());
+			
 			if(el.width() > 0 && el.height() > 0){
 				callback();
 			} else {
@@ -2171,7 +2176,6 @@ var AR = {
                 // active, then attach shape
                 for (var prop in data) {
 					if(data[prop].shape && data[prop].line && data[prop].active){
-						if(__v) console.log(JSON.stringify(data[prop]));
                     	// set up line var
 	                    var lineObj = {
 	                        id: data[prop].line.id,
@@ -2195,9 +2199,10 @@ var AR = {
 	                        // if done, then trigger the load screen to be removed
                         
 	                    },15, lineObj, shapeObj);
-						removeScreen();
+						
 					}
                 }
+				removeScreen();
             });
 			
 			$("body").live("deleteALRLines",function(e,shapes){
