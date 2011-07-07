@@ -77,7 +77,8 @@
        
 		self.logHTML = '<div id="autoreclog" class="az tool autolinerecognizer"><div id="autorecarea" class="az inner autolinerecognizer">'+
 		'<div class="autorec_toolbar"><div class="toolbar">Auto Line Recognizer</div>'+
-		'<div id="content" class="az"><div class="step"><div class="instructions">Step One: Align the red box over the area of text to recognize</div></div><div class="step"><div class="instructions">Step Two: Select if this image of text has:</div>'+
+		'<div id="content" class="az"><div class="step"><div class="instructions">Step One: Align the red box over the area of text to recognize</div>'+
+		'</div><div class="step"><div class="instructions">Step Two: Select if this image of text has:</div>'+
 		'<div><p><input type="radio" id="darkonlight" name="threshChoice" />Dark text on a light background</p>'+
 		'<p><input type="radio" id="lightondark" name="threshChoice" />Light text on a dark(er) background</p></div></div>'+
 		'<div class="step"><div class="instructions">'+
@@ -85,7 +86,12 @@
         '</div><div id="transcript"></div><div id="transcript_controls">' +
         '<a id="selectAll" class="button">Select All</a> | <a id="selectNone" class="button">Select None</a></div>'+
 		'<div class="step"><br/><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
-		'</div></div><div id="shapesLoaded" class="az"><div class="step"><div class="instructions">Erase shapes and start over</div><a id="showRegionBox" class="button">Start</a></div></div>';
+		'</div></div><div id="shapesLoaded" class="az"><div class="step"><div class="instructions">The area you specified has been processed'+
+		' and the resulting shapes can be viewed on the canvas on the right side of the screen. Accept will take you back to Image Annotation Mode to edit the shape position, size, and metadata.'+
+		' Start Over will erase the shapes and begin the Auto Line Recognizer workflow from the beginning.</div></div>'+
+		'<div class="step"><div class="instructions">Erase shapes and start over</div>'+
+		'<a id="showRegionBox" class="button">Start Over</a></div><br/><div class="step"><div class="instructions">Accept and go to Image Annotation Mode</div>'+
+		'<a id="acceptAndLeave" class="button">Accept</a></div></div>';
 		
         //use this later to put in CanvasImage object
         self.canvasHTML = '<div id="canvasHTML" class="workspace autolinerecognizer"><div class="toolbar"></div><div id="html5area"><canvas id="canvas"/></div><div id="raphaelarea"><img id="imageRaphaelPreview" /></div><img id="hiddenCanvasSource" src="" style="visibility:hidden;"/></div>';
@@ -147,7 +153,18 @@
 				
 				self.CANVAS.setUpCanvas();
 				self.startAutoRecognition();
+				
 			});
+			
+			// sends user back to IMage annotation mode
+			$("#acceptAndLeave").click(function (e) {
+				e.preventDefault();
+				$("#acceptAndLeave").parent().hide();
+				$(".menuitem > a:contains('Image Annotation')").click();
+				
+			});
+			
+			$("#acceptAndLeave").parent().hide();
 			
             self.transcriptArea = $("#" + self.DOM.attr('id') + " > #content > .step > #transcript");
 
@@ -202,6 +219,7 @@
 					$("body").unbind("HTML5CANVASDONE");
 					self.CANVAS.hide();
 					self.shapePreview.show();
+					$("#acceptAndLeave").parent().show();
 					self.shapePreview.loadShapes(AutoR.predefinedShapes);
 					
 					$("#content").hide();
@@ -361,10 +379,15 @@
 					$("body").bind("HTML5CANVASDONE", function (e) {
 						$(this).unbind("HTML5CANVASDONE");
 						self.CANVAS.hide();
+						
 						self.shapePreview.show();
 						self.shapePreview.loadShapes(AutoR.predefinedShapes);
 						$(".autorec_toolbar > #content").hide();
 						$("#shapesLoaded").show();
+					
+						$("#acceptAndLeave").parent().hide();
+						
+						
 					});
 				} else {
 					// Otherwise, if no shapes drawn, go straight to setting up HTML5 canvas
@@ -793,6 +816,7 @@
 				// AutoR.autoData=self.activeLines;
 				
 				self.shapePreview.show();
+				$("#acceptAndLeave").parent().show();
 				self.CANVAS.hide();
 				//output data and close autoRecognizer
                 self._outputData();
@@ -985,7 +1009,7 @@
             if (TILE.url == '') return;
 
             loadImgScreen();
-
+			
 			var loadHTML5 = function () {
 				// if(__v) console.log('loadHTML5');
 				AutoR.scale=1;
@@ -1035,10 +1059,11 @@
 				if(!self.webkitLoad){
 					self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
 					setTimeout(function () {
+						self.webkitLoad = true;
 						self.altSetUpCanvas();
-						
+						self.webkitLoad = false;
 					}, 100);
-					self.webkitLoad = true;
+					
 				} else {
                 
  	               $("#" + self.uid).width($("#azcontentarea").width());
@@ -1308,6 +1333,7 @@ ShapePreviewCanvas.prototype = {
 					shape._scale = AutoR.scale;
 				}
 			});
+			
 			self.canvas.importShapes(vd);
 		};
 		$("#imageRaphaelPreview").attr('src',TILE.url);

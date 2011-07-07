@@ -1049,9 +1049,13 @@ a.btnIconLarge:hover {
 
 /* Positioning (2, 3, 4 columns) ------------------- */
 /* 2 columns */
-.twocol .log, .twocol .tool {
+.twocol .log{
 	left:0;
 	width:40%;
+}
+.twocol .tool {
+	left:0;
+	width:39%;
 }
 .twocol .content {
 	left:40%;
