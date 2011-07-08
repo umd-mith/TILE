@@ -2091,6 +2091,9 @@ var IT = {
 					var shapes=self.findShapesInJSON(TILE.engine.getJSON());
 					self.itagger._restart(shapes);
 					
+				} else {
+					$(".shpButtonHolder").remove();
+					$("#selBB").remove();
 				}
 			});
 			

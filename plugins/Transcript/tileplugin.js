@@ -579,30 +579,12 @@
 			$("body").live("dataAdded",{obj:self},self.dataAddedHandle);
 			$("body").live("newActive",{obj:self},self.newActiveHandle);
 			$("body").live("newJSON newPage",{obj:self},self.newJSONHandle);
+			$("body").live("dataUpdated", {obj:self}, self.dataUpdatedHandle);
+			$("body").live("dataDeleted", {obj:self}, self.dataDeletedHandle);
+			$("body").live("dataLinked", {obj:self}, self.dataLinkedHandle);
 			// $("body").live("newPage",{obj:self},self.newJSONHandle);
 			
-			// triggered when the mode this plugin is attached to is 
-			// activated
-			$("body").live("modeActive",function (e, name) {
-				// if correct mode, then continue
-				if(name.toLowerCase() == mode.name.toLowerCase() ) {
-					// activate first transcript line
-					// var id = $("#logbar_list > .line:first").attr('id');
-					// 					var text = $("#logbar_list > .line:first").text();
-					// 					
-					// 					var o = {
-					// 						id:id,
-					// 						type:'lines',
-					// 						jsonName:TILE.url,
-					// 						obj:{'id':id,'text':text}
-					// 					};
-					// 					
-					// 					
-					// 					TILE.engine.setActiveObj(o);
-				}
-				
-			});
-			
+
 			
 			// check to see if data already loaded
 			var data=TILE.engine.getJSON(true);
@@ -622,9 +604,42 @@
 				self.transcript._drawText();
 			}
 		},
-		dataAddedHandle:function(e,o){
+		dataAddedHandle:function(e, obj){
 			var self=e.data.obj;
-			
+			if(__v) console.log('data added handle: '+obj);
+			if(obj.type == 'lines') {
+				// check for attached data
+				var refs = false;
+				
+				$.each(obj, function (i, o) {
+					if($.isArray(o)) {
+						refs = true;
+					}
+				});
+				
+				if(refs) {
+					// attach style to line
+					$("#logbar_list > #"+obj.id).addClass('data_attached');
+				}
+			} else {
+				// verify attached data 
+				//  and add attached data class to line
+				// element
+				var refs = [];
+				$.each(obj, function (i, o) {
+					if(i == 'lines') {
+						$.each(o[i], function (n, id) {
+							refs.push(id);
+						});
+					}
+				});
+				
+				$.each(refs, function (x, y) {
+					// attach style to line
+					$("#logbar_list > #"+y).addClass('data_attached');
+				});
+				
+			}
 			
 		},
 		newActiveHandle:function(e,o){
@@ -681,6 +696,92 @@
 			// 					$("#"+id+".line").addClass('line_selected');
 			// 				}
 			// 			}
+		},
+		dataLinkedHandle: function (e, args) {
+			var self = e.data.obj;
+			if(__v) console.log('dataLinked reached '+args	);
+			if(!args) return;
+			if(args[0].type != "lines" && args[1].type != "lines") {
+				return;
+			}
+			
+			var line = (args[0].type == 'lines') ? args[0] : args[1];
+			
+			$("#logbar_list > #"+line.id).addClass("data_attached");
+			
+			
+		},
+		dataUpdatedHandle:function (e, obj) {
+			var self = e.data.obj;
+			
+			if(obj.type == 'lines') {
+				// check for attached data
+				var refs = false;
+				
+				$.each(obj, function (i, o) {
+					if($.isArray(o)) {
+						refs = true;
+					}
+				});
+				
+				if(refs) {
+					// attach style to line
+					$("#logbar_list > #"+obj.id).addClass('data_attached');
+				}
+			} else {
+				// verify attached data 
+				//  and add attached data class to line
+				// element
+				var refs = [];
+				$.each(obj, function (i, o) {
+					if(i == 'lines') {
+						$.each(o[i], function (n, id) {
+							refs.push(id);
+						});
+					}
+				});
+				
+				$.each(refs, function (x, y) {
+					// attach style to line
+					$("#logbar_list > #"+y).addClass('data_attached');
+				});
+				
+			}
+		},
+		dataDeletedHandle: function (e, obj) {
+			var self = e.data.obj;
+			if(__v) console.log('deleteitem reached '+JSON.stringify(obj));
+			if(obj.type == 'lines') return; // shouldn't happen
+			var refs = [];
+			// find line references
+			$.each(obj.obj, function (i, o) {
+				if(i == 'lines'){
+					$.each(o, function (n, id) {
+						refs.push(id);
+					});
+				}
+			});
+			
+			// verify that the lines on the page 
+			// have connected data
+			var json = TILE.engine.getJSON(true);
+			
+			$.each(json['lines'], function(i, line) {
+				if($.inArray(line.id, refs)>=0) {
+					var f = false;
+					if(__v) console.log('checking line: '+line.id);
+					$.each(line, function(n, prop) {
+						if($.isArray(prop[n])){
+							f = true;
+						}
+					});
+					if(f == false) {
+						$("#logbar_list > #"+line.id).removeClass("data_attached");
+					}
+				}
+			});
+			
+			
 		},
 		// being passed a copy of the engine
 		loadJSON:function(engine,activeItems){

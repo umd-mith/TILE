@@ -684,7 +684,9 @@ a.btnIconLarge:hover {
 .log #logbar_list .line_selected{
 	background-color: #baca42;
 }
-
+.log #logbar_list .line.data_attached {
+	font-weight:bolder;
+}
 /**added by Grant Dickie **/
 .log #logbar_list .tag:hover {
 	border:3px solid #afbf37;
@@ -1144,7 +1146,9 @@ a.btnIconLarge:hover {
 #az_log #az_transcript_area.az.inner #logbar_list .line span.selected {
 	border: 0.5px dashed #afbf37;
 } 
-
+#az_log #az_transcript_area.az.inner #logbar_list .line span.selected {
+	border: 0.5px dashed #afbf37;
+}
 /*** Dashboard styles ***/
 .az.inner.dashboard{
 	margin:3px 3px 5px 3px;
