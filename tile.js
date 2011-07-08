@@ -2591,9 +2591,12 @@ TILE.scale=1;
 		deleteFromJSON:function(obj){
 			var self=this;
 			if((!obj)||(!obj.type)||(!obj.id)) return obj;
-			if((!obj.jsonName)||(!obj.obj)){
-				obj=self.findTileObj(obj.id,obj.type);
-			}
+			
+			obj=self.findTileObj(obj.id,obj.type);
+			
+			
+			// Notify delete
+			$("body:first").trigger("dataDeleted",[obj]);
 			
 			// delete all references
 			for(var item in obj.obj){
@@ -2642,8 +2645,7 @@ TILE.scale=1;
 			
 			
 			
-			// Notify delete
-			$("body:first").trigger("dataDeleted",[obj]);
+			
 			// delete from activeItems
 			// var ag=[];
 			// 		for(var prop in TILE.activeItems){

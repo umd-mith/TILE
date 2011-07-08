@@ -750,7 +750,7 @@
 		},
 		dataDeletedHandle: function (e, obj) {
 			var self = e.data.obj;
-			if(__v) console.log('deleteitem reached '+JSON.stringify(obj));
+			if(__v) console.log('data deleted '+JSON.stringify(obj));
 			if(obj.type == 'lines') return; // shouldn't happen
 			var refs = [];
 			// find line references
@@ -769,7 +769,7 @@
 			$.each(json['lines'], function(i, line) {
 				if($.inArray(line.id, refs)>=0) {
 					var f = false;
-					if(__v) console.log('checking line: '+line.id);
+					
 					$.each(line, function(n, prop) {
 						if($.isArray(prop[n])){
 							f = true;
