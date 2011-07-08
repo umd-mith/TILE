@@ -152,6 +152,7 @@
 				e.preventDefault();
 				
 				self.CANVAS.setUpCanvas();
+				self.CANVAS._resetCanvasImage();
 				self.startAutoRecognition();
 				
 			});
@@ -870,21 +871,21 @@
         var self = this;
         //create UID
         var d = new Date();
-        this.uid = "image_" + d.getTime("hours");
+        self.uid = "image_" + d.getTime("hours");
 
         //url is actually an array of image values
-        this.url = (typeof args.url == "object") ? args.url: [args.url];
+        self.url = (typeof args.url == "object") ? args.url: [args.url];
 
-        // this.loc = $("#azcontentarea");
-        //        if (this.loc) {
+        // self.loc = $("#azcontentarea");
+        //        if (self.loc) {
         //            //set to specified width and height
-        //            if (args.width) this.DOM.width(args.width);
-        //            if (args.height) this.DOM.height(args.height);
+        //            if (args.width) self.DOM.width(args.width);
+        //            if (args.height) self.DOM.height(args.height);
         //        }
         //grab source image
-        this.srcImage = $("#hiddenCanvasSource");
+        self.srcImage = $("#hiddenCanvasSource");
         // attach html
-        // this.loc.append($());
+        // self.loc.append($());
         // global bind to window to make sure that canvas area is correctly synched w/
         // window size
         $(window).resize(function(e) {
@@ -895,10 +896,10 @@
             }
         });
 
-        this.DOM = $("#canvasHTML");
+        self.DOM = $("#canvasHTML");
 
-        this.DOM.width($("#azcontentarea").width());
-        this.DOM.height(this.DOM.closest(".az.content").height() - this.DOM.closest(".toolbar").height());
+        self.DOM.width($("#azcontentarea").width());
+        self.DOM.height(self.DOM.closest(".az.content").height() - self.DOM.closest(".toolbar").height());
 
         // set up listeners for zoom buttons
         // $(alrcontainer + " > .toolbar > ul > li > a#zoomIn").live('click',
@@ -914,39 +915,27 @@
         //             $("body:first").trigger("zoomAR", [ - 1]);
         //         });
         
-        this.canvas = $("#" + this.DOM.attr('id') + " > #html5area > #canvas");
+        self.canvas = $("#" + self.DOM.attr('id') + " > #html5area > #canvas");
         //need real DOM element, not jQuery object
-        this.canvasEl = this.canvas[0];
-        this.imageEl = this.srcImage[0];
-        this.pageNum = 0;
-        this.url = [];
-        this.nh = 0;
-        this.nw = 0;
-        this._scale = 1;
-		this.webkitLoad = false;
-        this._loadPage = $("<div class=\"loadPage\" style=\"width:100%;height:100%;\"><img src=\"skins/columns/images/tileload.gif\" /></div>");
+        self.canvasEl = self.canvas[0];
+        self.imageEl = self.srcImage[0];
+        self.pageNum = 0;
+        self.url = [];
+        self.nh = 0;
+        self.nw = 0;
+        self._scale = 1;
+		self.webkitLoad = false;
+        self._loadPage = $("<div class=\"loadPage\" style=\"width:100%;height:100%;\"><img src=\"skins/columns/images/tileload.gif\" /></div>");
 
         //whatever is currently in srcImage, load that
-        //this.setUpCanvas(this.srcImage.attr("src"));
+        //self.setUpCanvas(self.srcImage.attr("src"));
         $("body").bind("zoomAR", {
-            obj: this
+            obj: self
         },
-        this.zoomHandle);
+        self.zoomHandle);
         //$("body").bind("closeOutAutoRec",{obj:this},this._closeOut);
 
-        //stop listening to events after user loads lines
-        $("body").bind("linesAdded_", {
-            obj: this
-        },
-        function(e) {
-            var self = e.data.obj;
-            self.canvas.css("pointer-events", "none");
-        });
-        // $("body").bind("SecurityError1000",function(e){
-        // 				e.stopPropagation();
-        // 				self.setUpCanvas($("#hiddenCanvasSource").attr('src'));
-        // 				return;
-        // 			});
+       
     };
     CanvasImage.prototype = {
 		show:function(){
@@ -1009,14 +998,19 @@
 			var self = this;
 			
 			 // $("#hiddenCanvasSource").hide();
-	         self.canvas[0].width = 0;
-            // self._loadPage.appendTo(self.DOM);
+	         // self.canvas[0].width = 0;
+            
+			// create local variable for canvas DOM element
+			// Otherwise, context loading may not work
+			var canvasEl = $("#html5area > #canvas")[0];
+			
+			
+			// self._loadPage.appendTo(self.DOM);
             if (TILE.url == '') return;
 
             loadImgScreen();
 			
 			var loadHTML5 = function () {
-				// if(__v) console.log('loadHTML5');
 				AutoR.scale=1;
 				var ow = $("#hiddenCanvasSource")[0].width;
                 var oh = $("#hiddenCanvasSource")[0].height;
@@ -1037,46 +1031,45 @@
 				// set global variables
 				AutoR.imgw=ow;
 				AutoR.imgh=oh;
-			
-
+				
                 var real_width = $("#hiddenCanvasSource")[0].width;
                 var real_height = $("#hiddenCanvasSource")[0].height;
 
                 self.curUrl = $("#hiddenCanvasSource").attr("src");
 
-
-                self.canvas[0].width = real_width;
-                self.canvas[0].height = real_height;
-
-
                 if (($("#regionBox").width() > real_width) || ($("#regionBox").height() > real_height)) {
-                      $("#regionBox").width(real_width - (real_width / 4));
-                      $("#regionBox").height(real_height - (real_height / 4));
-                  }
+					$("#regionBox").width(real_width - (real_width / 4));
+					$("#regionBox").height(real_height - (real_height / 4));
+                }
    				var regionBoxTop = $("#canvasHTML > .toolbar").innerHeight();
    
    				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
-                self.canvas.attr("width", self.canvas[0].width);
-                self.canvas.attr("height", self.canvas[0].height);
+                $("#canvas").attr("width", canvasEl.width);
+                $("#canvas").attr("height", canvasEl.height);
 
 				
-				self.context = $("#canvas")[0].getContext('2d');
-				if(!self.webkitLoad){
-					self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
+				// var context = canvasEl.getContext('2d');
+				if(self.webkitLoad == false){
+					canvasEl.getContext('2d').drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
+					canvasEl.width = real_width;
+	                canvasEl.height = real_height;
 					setTimeout(function () {
 						self.webkitLoad = true;
 						self.altSetUpCanvas();
+						// $("#canvas").getContext('2d').drawImage($("#hiddenCanvasSource")[0], 0, 0, AutoR.imgw, AutoR.imgh);
 						self.webkitLoad = false;
 					}, 100);
 					
 				} else {
-                
- 	               $("#" + self.uid).width($("#azcontentarea").width());
-	                $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
-				
+					if(__v) console.log('webkit true, drawing canvas '+self.webkitLoad);
+					// drawing canvas 
+                	$("#canvas")[0].getContext('2d').drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
+ 	               // $("#" + self.uid).width($("#azcontentarea").width());
+ 	               // 	                $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
+ 	               // 				
 	                // show the region box after the image has loaded
 	                removeImgScreen();
-				
+					
 					$("body:first").trigger("HTML5CANVASDONE");
 				}
                 
@@ -1092,10 +1085,13 @@
                 cleanURL = TILE.url;
             }
 			
+			// point image to void location
+			$("#hiddenCanvasSource").attr('src','');
+			
 			$("#hiddenCanvasSource").attr('src',cleanURL);
 			
 			var checkLoad = function(el, callback) {
-				
+				if(__v) console.log('checkLoad running');
 				if(el.width() > 0 && el.height() > 0){
 					callback();
 				} else {
@@ -1107,9 +1103,6 @@
 			};
 			
 			checkLoad($("#hiddenCanvasSource"), loadHTML5);
-			
-			
-			
 		},
         // Takes a url and sets up the  HTML5 Canvas to this
         // url
@@ -1121,7 +1114,7 @@
         setUpCanvas: function(url) {
             var self = this;
 			// if(__v) console.log('setUpcanvas AutoR');
-            self.canvas[0].width = 0;
+            
             if (TILE.url == '') return;
             
 			// use alternate function for webkit browsers
@@ -1130,7 +1123,7 @@
 				return;
 			}
 			loadImgScreen();
-			
+			self.canvas[0].width = 0;
 			
             $("#hiddenCanvasSource").load(function(e) {
 				$("#hiddenCanvasSource").unbind();
@@ -1217,8 +1210,8 @@
         // Re-draws the canvas
         _resetCanvasImage: function() {
             var self = this;
-			if(!self.context) return;
-            self.context.drawImage($("#hiddenCanvasSource")[0], 0, 0, AutoR.imgw, AutoR.imgh);
+			if($("#canvas").length == 0) return;
+            $("#canvas")[0].getContext('2d').drawImage($("#hiddenCanvasSource")[0], 0, 0, AutoR.imgw, AutoR.imgh);
         },
         //get percentage/proportional value of canvas container to canvas
         _getPerc: function() {

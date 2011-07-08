@@ -962,11 +962,17 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 					}
 					vd.push(shape);
 				}
-			}
+				
 			
+				
+			}
+			var activeShape = null;
 			// convert the scale to updated version
 			for(var prop in vd){
-				
+				if(!activeShape){
+					// make this the active shape
+					activeShape = vd[prop]; 
+				}
 				for(var item in vd[prop].posInfo){
 					var dx=(vd[prop].posInfo[item]*self._imgScale) / vd[prop]._scale;
 					vd[prop].posInfo[item]=dx;
@@ -974,7 +980,7 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 				vd[prop]._scale=self._imgScale;
 			}
 			self.drawTool.importShapes(vd);
-		
+			self.setActiveShape(activeShape);
 		},
 		updateShape:function(obj){
 			var self=this;
