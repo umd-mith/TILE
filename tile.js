@@ -1,27 +1,24 @@
-///TILE 1.0
-// Authors: Doug Reside (dreside), 
-// Grant Dickie (grantd), 
-// Tim Bowman,
-// Jim Smith
-
-// Copyright 2009-2011 MITH
+/*
+ * TILE 1.0
+ * 
+ * Copyright 2009-2011 MITH (http://mith.umd.edu) and authors:
+ * dougreside, jdickie, tdbowman, jgsmith, davelester
+ * Licensed under the ____FILL IN BEFORE RELEASE__ license
+ * 
+ * http://mith.umd.edu/tile/
+ */
 
 /*
- For more information or to inquire about the TILE interface and what it can do
- for your project, see http://mith.umd.edu/tile or visit the forums at 
- http://mith.umd.edu/tile/forums
-*/
-
-
-// Base Code for all of the main TILE interface objects
-// Objects:
-// Floating Div
-// Dialog
-// ImportDialog
-// ExportDialog
-// TILE_ENGINE
-// PluginController
-
+ * tile.js is the base code for all of the main TILE interface objects
+ * 
+ * Objects:
+ * 	Floating Div
+ *  Dialog
+ *  Import Dialog
+ *  Export Dialog
+ *  TILE_ENGINE
+ *  Plugin Controller
+ */
 
 
 // GLOBAL VARIABLES
@@ -50,7 +47,6 @@ TILE.scale=1;
 	var _tileBar=null;
 	// Error box
 	var errorbox=null;
-	
 	
 	// used to import data into TILE
 	var importDialog=null;
@@ -124,7 +120,6 @@ TILE.scale=1;
 			}
 		}
         return tempClone;
-
 	};
 	
 	// Called to see if there is a JSON object stored in the PHP session() 
@@ -158,9 +153,7 @@ TILE.scale=1;
 					success:function(result){
 						json=result;
 						setUp();
-						
 					}
-					
 				});
 				return;
 			}
@@ -216,8 +209,7 @@ TILE.scale=1;
 							$("#dark").remove();
 						}
 					}
-				});
-				
+				});	
 			} 
 		
 	};
@@ -233,28 +225,26 @@ TILE.scale=1;
 		
 		if(json){	
 			TILE.engine.parseJSON(json);
-		
 		}
-		
 	};
 	
-	/*
-		Error Dialog Box
-		Displays errors about experimental features. Experimental features and this dialog
-		are unlocked by setting TILE.experimental to true
-	
-	*/
+	/* 
+	 * Error Dialog Box
+	 * 
+	 * Displays errors about experimental features. Experimental features and this dialog
+	 * are unlocked by setting TILE.experimental to true 
+	 */
 	var ErrorBox = function(){
 		var self=this;
 		
-		var html='<div id="errorlightbox" class="white_content">'+
-			'<div id="errormessagebox" class="dialog">'+
-			'	<div class="header"><h2 class="">Error Report</h2><h2><a id="errorReportClose" class="btnIconLarge close" href="#"></a></h2></div>'+		
-			'	<div class="body"><div class="option"><h3>To report this error, copy and paste the text in the red box and send it to jdickie@mail.umd.edu</h3>'+
-			'<div id="error_message" class="rederrorbox"><p></p></div>'+
-			'</div></div>'+
-			'</div></div>'+
-		'<div id="errorfadebox" class="black_overlay"></div>';
+		var html=	'<div id="errorlightbox" class="white_content">'+
+					'<div id="errormessagebox" class="dialog">'+
+					'<div class="header"><h2 class="">Error Report</h2><h2><a id="errorReportClose" class="btnIconLarge close" href="#"></a></h2></div>'+		
+					'<div class="body"><div class="option"><h3>To report this error, copy and paste the text in the red box and send it to jdickie@mail.umd.edu</h3>'+
+					'<div id="error_message" class="rederrorbox"><p></p></div>'+
+					'</div></div>'+
+					'</div></div>'+
+					'<div id="errorfadebox" class="black_overlay"></div>';
 		
 		$("body").append(html);
 		
@@ -274,14 +264,12 @@ TILE.scale=1;
 		}
 	};
 	
-	
-	/**
-	Floating Dialog Box
-	author: Tim Bowman
-	
-	Usage: 
-	new FloatingDiv();
-	**/
+	/* 
+	 * Floating Dialog Box
+	 * 
+	 * Usage: 
+	 *  new FloatingDiv();
+	 */
 	var FloatingDiv = function(){
 		var self = this;
 		this._color = "#FDFF00";
@@ -317,25 +305,25 @@ TILE.scale=1;
 			var htmlString;
 			
 			htmlString = '<fieldset class="label_formFieldSet">' +
-			'<ol class="label_formOL">' +
-			'<li class="label_formLI cloneMe" id="formField1">' +
-				'<span class="label_formLabel">Label:</span>' +
-				'<input id="formLabel1" name="Label1" type="text" class="tagComplete" />' +
-				' &nbsp; <img src="skins/default/floatingDivIcons/add.png" title="Add up to 5 Labels" name="Add up to 5 Labels" id="btnAddLabel">' +
-				'<img style="margin-left: 1px; visibility: hidden;" src="skins/default/floatingDivIcons/delete.png" title="Delete last label" name="Delete last label" id="btnDeleteLabel">' +
-				'&nbsp; <span style="" class="addRemove">(Add/Remove Label Fields)</span><br />' +
-			'</li>' +
-			'</ol>' +
-			'<input type="submit" class="submit" value="Apply" id="submitFloatingDiv">' +
-			'<input name="hlID" type="hidden" id="TILEid" value="" />'+		
-			'<input name="hlHEX" type="hidden" id="TILEcolor" value="" />' +			
-			'</fieldset>' +
-			'<br />'+
-			'<fieldset><ol class="label_formOL">'+
-			'<li class="label_formLI">'+
-			'<span class="label_formLabel">Data already attached: </span><br/><div id="labelListFloat" class="az"></div>'+
-			'</ol></fieldset>';
-				
+						'<ol class="label_formOL">' +
+						'<li class="label_formLI cloneMe" id="formField1">' +
+						'<span class="label_formLabel">Label:</span>' +
+						'<input id="formLabel1" name="Label1" type="text" class="tagComplete" />' +
+						' &nbsp; <img src="skins/default/floatingDivIcons/add.png" title="Add up to 5 Labels" name="Add up to 5 Labels" id="btnAddLabel">' +
+						'<img style="margin-left: 1px; visibility: hidden;" src="skins/default/floatingDivIcons/delete.png" title="Delete last label" name="Delete last label" id="btnDeleteLabel">' +
+						'&nbsp; <span style="" class="addRemove">(Add/Remove Label Fields)</span><br />' +
+						'</li>' +
+						'</ol>' +
+						'<input type="submit" class="submit" value="Apply" id="submitFloatingDiv">' +
+						'<input name="hlID" type="hidden" id="TILEid" value="" />'+		
+						'<input name="hlHEX" type="hidden" id="TILEcolor" value="" />' +			
+						'</fieldset>' +
+						'<br />'+
+						'<fieldset><ol class="label_formOL">'+
+						'<li class="label_formLI">'+
+						'<span class="label_formLabel">Data already attached: </span><br/><div id="labelListFloat" class="az"></div>'+
+						'</ol></fieldset>';
+
 			$('<form></form>')
 				.attr({ 
 					'id':myID+'_floatingDiv', 
@@ -475,8 +463,6 @@ TILE.scale=1;
 				// Insert complete TILE object (id, type, jsonName, obj, and now name) into
 				// the stack
 				self._labels[lbls[x].id]=lbls[x];
-				
-				
 			}
 			// get rid of existing autocompletes
 			
@@ -712,7 +698,6 @@ TILE.scale=1;
 		
 	});
 	
-
 	// NOTE: not using Monomyth
 	var HelpBox=function(args){
 		var self=this;
@@ -764,59 +749,51 @@ TILE.scale=1;
 	
 	tile.HelpBox=HelpBox;
 
-	/**Main Engine **/
-	// Author: Grant Dickie
-	
-	// Sets up the TILE toolbar (upper left-hand corner) with the 
-	// tool selection drop-down, buttons for saving and exporting 
-	// data
-	// 
-	// Objects: 
-	// PluginController
-	
 	/*
-	Basic Usage
-
-	*/
-	// TILE_ENGINE: {Object} main engine for running the LogBar and Layout of TILE interface
-	// Returns: TILE_ENGINE instance {Object}
-	// This instance has access to all of the TILE API functions, properties, and events
-	
-	// **NOTE: currently TILE_ENGINE does not read anything from the Object that is fed as a parameter. This 
-	// may be changed in future versions of TILE to change the style, placement, or behavior of the Engine.
-	//
-	// Use it in your HTML:
-	// 
-	// <script type="text/javascript">
-	// 		var tile=new TILE_ENGINE({});
-	// 		
-			// Using the insertMode method to 
-			// add a interface mode
-	// 		tile.insertMode('Mode1');
-	
-			// attach a plugin to Mode1
-	// 		tile.insertModePlugin('Mode1','Image Tagger');
-	// 		
-			// start up TILE
-	// 		tile.activate();
-	// 		
-	// </script>
-	// OR put the code in a .js file and add to the header
-	
-	// ///////
-	// Events
-	// ////////
-	// 
-	// newJSON
-	// newPage
-	// 	newActive - passes TILE object 
-	// 	dataAdded - passes TILE object
-	// 	dataUpdated - passes TILE object
-	// 	dataLinked - passes array of TILE objects
-	// 	dataDeleted - passes TILE object 
-	// 	
-	
-	
+	 * TILE Engine
+	 * 
+	 * Author: Grant Dickie
+	 *
+	 * Sets up the TILE toolbar (upper left-hand corner) with the 
+	 * tool selection drop-down, buttons for saving and exporting 
+	 * data
+	 *
+	 * Objects: 
+	 *  PluginController
+	 *
+	 * Usage:
+	 *  TILE_ENGINE: {Object} main engine for running the LogBar and Layout of TILE interface
+	 *  Returns: TILE_ENGINE instance {Object}
+	 *  This instance has access to all of the TILE API functions, properties, and events
+	 *
+	 * Note: currently TILE_ENGINE does not read anything from the Object that is fed as a parameter. This 
+	 * may be changed in future versions of TILE to change the style, placement, or behavior of the Engine.
+	 *
+	 * Example:
+	 * <script type="text/javascript">
+	 *		var tile=new TILE_ENGINE({});
+	 *
+	 * 		Using the insertMode method to add a interface mode
+	 *		tile.insertMode('Mode1');
+	 *
+	 *		Attach a plugin to Mode1
+	 *		tile.insertModePlugin('Mode1','Image Tagger');
+	 *
+	 * 		Start TILE
+	 * 		tile.activate();
+	 * </script>
+	 * 
+	 * OR put the code in a .js file and add to the header
+	 *
+	 * Events:
+	 *  newJSON
+	 *  newPage
+	 *  newActive - passes TILE object 
+	 *  dataAdded - passes TILE object 
+	 * 	dataUploaded - passes TILE object 
+	 * 	dataLinked - passes array of TILE objects
+	 *  dataDeleted - passes TILE object 
+	 */	
 	var TILE_ENGINE=function(args){
 		// set local ENGINE variable so that PluginController + other local
 		// methods can access this
@@ -1447,12 +1424,13 @@ TILE.scale=1;
 	// BE ACCESSED OUTSIDE OF LOCAL SCOPE
 	tile.TILE_ENGINE=TILE_ENGINE;
 
-	// ----------------- //
-	// Mode //
-	// ----------------- //
-	// A set of plugin content items that are turned on/off at the same time
-	// and has a mode button to represent that feature
-	// Names can NOT have URIs or periods
+	/*
+	 * Mode
+	 *
+	 * A set of plugin content items that are turned on/off at the same time
+	 * and has a mode button to represent that feature
+	 * Names can NOT have URIs or periods
+	 */
 	var Mode=function(name,active,unactive){
 		var self=this;
 		if(/http\:\/\/|\./.test(name)){
@@ -1581,7 +1559,6 @@ TILE.scale=1;
  							} else {
 								var toolWrapper='<div class="toolbar">'+html+'</div>';
 								$("#az_activeBox > .az.inner."+styleName).prepend(toolWrapper);
-								
 							}
 						}
 						if($("#az_activeBox > .az.inner."+styleName+" > .toolbar > .menuitem.pluginTitle").length==0){
@@ -1627,9 +1604,7 @@ TILE.scale=1;
 		// returns the button 
 		appendButtonHTML:function(html,section){
 			var self=this;
-			self.appendHTML(html,section,'toolbar');
-		
-			
+			self.appendHTML(html,section,'toolbar');	
 		},
 		appendPlugin:function(plugin){
 			var self=this;
@@ -1699,11 +1674,11 @@ TILE.scale=1;
 		}
 	};
 	
-	
-	// ----------------- //
-	//  PluginController //
-	// ----------------- //
-	// Internal Object that controls plugins
+	/*
+	 * Plugin Controller
+	 * 
+	 * Internal Object that controls plugins
+	 */
 	
 	var PluginController=function(args){
 		var self=this;
@@ -1795,7 +1770,6 @@ TILE.scale=1;
 					i++;
 					recLoad(i);
 				}
-				
 			}
 			
 			recLoad(0);
@@ -2539,7 +2513,6 @@ TILE.scale=1;
 							break;
 						}
 					}
-					
 								
 					// storing as an object first, then storing the link
 					if(found<0){
@@ -2584,7 +2557,6 @@ TILE.scale=1;
 			} else {
 				return null;
 			}
-			
 			
 		},	
 		// Completely erase obj from the TILE json
@@ -2641,21 +2613,7 @@ TILE.scale=1;
 				}
 				json[obj.type]=ag;
 			}
-			
-			
-			
-			
-			
-			// delete from activeItems
-			// var ag=[];
-			// 		for(var prop in TILE.activeItems){
-			// 			if(TILE.activeItems[prop].id!=obj.id){
-			// 				ag.push(TILE.activeItems[prop]);
-			// 			}
-			// 		}
-			// 		TILE.activeItems=ag;
-			// 		
-			// 		
+
 		},
 		deleteRefFromObj:function(obj,ref){
 			var self=this;
@@ -2716,20 +2674,19 @@ TILE.scale=1;
 			$("body:first").trigger('dataUpdated',[obj]);
 		}
 	};
-	
-	
+
 	var SaveDialog=function(){
 		var self=this;
-		self.html='<div id="savedialogwhitespace" class="white_content"><div id="savedialog" class="dialog"><div class="header">'+
-		'<h2>Save Data <a href="#" id="savedialogclose" class="btnIconLarge close"></a></div><div class="body"><div class="option">'+
-		'<label>Save File As:</label>'+
-		'<br/><input id="save_filename" name="uploadFileName" type="text" placeholder="myfile.format" style="width:90%" />'+
-		'<label>Pick a format by selecting one of the options below: </label><br/>'+
-		'<input id="save_session_json" value="Save As JSON" type="button" class="button" />'+
-		'<input id="save_session_format" value="Save As Original Format" type="button" class="button"/>'+
-		'<input id="cancelSaveDialog" type="button" class="button" value="Cancel"/></div>'+
-		'</div></div></div>'+
-		'<div id="darkForSaveDialog" class="black_overlay"></div>';
+		self.html=	'<div id="savedialogwhitespace" class="white_content"><div id="savedialog" class="dialog"><div class="header">'+
+					'<h2>Save Data <a href="#" id="savedialogclose" class="btnIconLarge close"></a></div><div class="body"><div class="option">'+
+					'<label>Save File As:</label>'+
+					'<br/><input id="save_filename" name="uploadFileName" type="text" placeholder="myfile.format" style="width:90%" />'+
+					'<label>Pick a format by selecting one of the options below: </label><br/>'+
+					'<input id="save_session_json" value="Save As JSON" type="button" class="button" />'+
+					'<input id="save_session_format" value="Save As Original Format" type="button" class="button"/>'+
+					'<input id="cancelSaveDialog" type="button" class="button" value="Cancel"/></div>'+
+					'</div></div></div>'+
+					'<div id="darkForSaveDialog" class="black_overlay"></div>';
 		// attach
 		$("body").append(self.html);
 		// make invisible
@@ -2826,9 +2783,11 @@ TILE.scale=1;
 		}
 	};
 	
-	// Load  Dialog
-	// For loading JSON session data back into the TILE interface
-
+	/*
+	 * Load  Dialog
+	 *
+	 * For loading JSON session data back into the TILE interface
+	 */
 	var LoadDialog=function(args){
 		// Constructor: (Same as Dialog)  {loc: {String} id for where to put DOM, html: {String} JSON string representing html for this Dialog}
 		var self=this;
@@ -2841,21 +2800,21 @@ TILE.scale=1;
 		self.loc=args.loc;
 		self.importScript="plugins/CoreData/importDataScript.php";
 		//set up JSON html
-		var html='<div id="LTlight" class="white_content"><div id="loadTagsDialog" class="dialog">'+
-		'<div class="header"><h2 class="title">Load Data</h2><h2>'+
-		'<a href="#" id="loadTagsClose" class="btnIconLarge close">Close</a></h2><div class="clear">'+
-		'</div></div><div class="body"><div class="option"><h3>Load from a file on your local machine:/URL<br/>(See dropdown for supported Filetypes - .json supported by default)</h3>'+
-		'<div id="warningmessage" class="serverstatus">There was an error processing your data. Please check that you have a supported filetype and that your settings are correct.<br/><a href="http://bit.ly/lgWPBD">--> Help <--</a></div>'+
-		'<input id="selectFileUpload" type="radio" value="file" name="uploadChoice" /><span>Upload from your computer</span>'+
-		'<form id="loadFromFile" action="'+self.importScript+'" method="post" enctype="multipart/form-data">'+
-		'<label for="file">Filename:</label><br/><input id="localFileUpload" type="file" placeholder="Use the browse button to enter a file from your computer ->" name="fileUploadName" size="70" value="" />'+
-		'<br/><select id="fileFormatFileLocal" name="importformat"></select>'+
-		'<br/><input id="loadFile" value="Submit" type="submit" class="button" /></form><div id="hiddenFormField" style="visibility:hidden"></div><br/>'+
-		'<input id="selectURLUpload" type="radio" name="uploadChoice" value="Upload a file from a URL" /><span>Upload from a URL</span><form id="uploadURL" action="">'+
-		'<br/><label>Enter URL Here: </label><input id="filepathDisplay" type="text" class="long" value="" placeholder="Such as: http://www.example.com/path/to/my/data.xml" />'+
-		'<br /><select id="fileFormatFileURL" name="fileformat"></select>'+
-		'<br/><input id="loadURL" type="submit" class="button" name="submitTags" value="Submit" /></form>'+
-		'</div><div class="clear"></div></div></div></div><div id="LTfade" class="black_overlay"></div>';
+		var html=	'<div id="LTlight" class="white_content"><div id="loadTagsDialog" class="dialog">'+
+					'<div class="header"><h2 class="title">Load Data</h2><h2>'+
+					'<a href="#" id="loadTagsClose" class="btnIconLarge close">Close</a></h2><div class="clear">'+
+					'</div></div><div class="body"><div class="option"><h3>Load from a file on your local machine:/URL<br/>(See dropdown for supported Filetypes - .json supported by default)</h3>'+
+					'<div id="warningmessage" class="serverstatus">There was an error processing your data. Please check that you have a supported filetype and that your settings are correct.<br/><a href="http://bit.ly/lgWPBD">--> Help <--</a></div>'+
+					'<input id="selectFileUpload" type="radio" value="file" name="uploadChoice" /><span>Upload from your computer</span>'+
+					'<form id="loadFromFile" action="'+self.importScript+'" method="post" enctype="multipart/form-data">'+
+					'<label for="file">Filename:</label><br/><input id="localFileUpload" type="file" placeholder="Use the browse button to enter a file from your computer ->" name="fileUploadName" size="70" value="" />'+
+					'<br/><select id="fileFormatFileLocal" name="importformat"></select>'+
+					'<br/><input id="loadFile" value="Submit" type="submit" class="button" /></form><div id="hiddenFormField" style="visibility:hidden"></div><br/>'+
+					'<input id="selectURLUpload" type="radio" name="uploadChoice" value="Upload a file from a URL" /><span>Upload from a URL</span><form id="uploadURL" action="">'+
+					'<br/><label>Enter URL Here: </label><input id="filepathDisplay" type="text" class="long" value="" placeholder="Such as: http://www.example.com/path/to/my/data.xml" />'+
+					'<br /><select id="fileFormatFileURL" name="fileformat"></select>'+
+					'<br/><input id="loadURL" type="submit" class="button" name="submitTags" value="Submit" /></form>'+
+					'</div><div class="clear"></div></div></div></div><div id="LTfade" class="black_overlay"></div>';
 		$(html).appendTo(self.loc);
 		self.index=($("#dialog").length+self.loc.width());
 	
@@ -2885,33 +2844,7 @@ TILE.scale=1;
 			$("#uploadURL > input").attr('disabled','');
 		});
 		
-		// change the file upload submit method from default
-		// $("#loadTagsDialog > .body > .option > #loadFromFile").submit(function(e){
-		// 		
-		// 		$(this)[0].target='import_iframe';
-		// 		
-		// 	});
-		// 	
-		// 	// attach onload function to the iframe
-		// 	$("#import_iframe").load(function(e){
-		// 		// get JSON text
-		// 		var str=frames['import_iframe'].document.getElementsByTagName("body")[0].getElementsByTagName("pre")[0].innerHTML;
-		// 		if(__v) console.log('str loaded into import iframe: '+str);
-		// 		TILE.engine.parseJSON(JSON.parse(str));
-		// 		$("#LTlight").hide();
-		// 		$("#LTfade").hide();
-		// 		
-		// 	});
-		
-		$("#loadTagsDialog > .body > .option > #selectFileUpload").trigger('click');
-		
-		// $("#loadTagsDialog > .body > .option > .chooseFile").live('click',function(e){
-		// 			// set the URL value to exporting in simple model form
-		// 			$("#importURL").val($(this).val());
-		// 		});
-		// 		
-		// 		// convert form into the fileUpload jQuery plugin
-		// 		  
+		$("#loadTagsDialog > .body > .option > #selectFileUpload").trigger('click'); 
 		
 		$("#loadFromFile").ajaxForm(function(data,stats){
 			// check to make sure data is accurate
@@ -2937,66 +2870,6 @@ TILE.scale=1;
 				$("#LTfade").hide();
 			}
 		});
-		
-		
-		// $("#loadFromFile").ajaxForm({
-		// 			dataType:'json',
-		// 			target:"#warningmessage",
-		// 			replaceTarget:false,
-		// 			success:function(data,stats){
-		// 				// take the returned JSON and load it into TILE
-		// 				TILE.engine.parseJSON(data);
-		// 				// hide dialog
-		// 				$("#LTlight").hide();
-		// 				$("#LTfade").hide();
-		// 			}
-		// 		});
-		// $("#loadFromFile").submit(function(e){
-		// 			e.preventDefault();
-		// 			
-		// 			$(this).ajaxSubmit({
-		// 				dataType:'json',
-		// 				target:".warningmessage",
-		// 				success:function(data){
-		// 					
-		// 					if(data=="ERROR") alert('error');
-		// 					// take the returned JSON and load it into TILE
-		// 					TILE.engine.parseJSON(data);
-		// 					// hide dialog
-		// 					$("#LTlight").hide();
-		// 					$("#LTfade").hide();
-		// 				},
-		// 				statusCode:{
-		// 					500:function(){
-		// 						// attach warning message to the warning area of the dialog
-		// 						$(".body > .option > .warningmessage").empty().append("Error with loading document. Check to make sure you have the correct path/filetype.");
-		// 					}
-		// 				}
-		// 			});
-		// 			return false;
-		// 		});
-		
-		
-		// $("#loadFromFile").fileUploadUI({
-		// 			url:self.importScript,
-		// 			requestHeaders:[{name:'Accept',value:'application/json,text/javascript'}],
-		// 			onLoad:function(e,file,ind,xhr,handler){
-		// 				// onload function for when upload is finished
-		// 				var str=xhr.responseText;
-		// 				if(__v) console.log('str loaded into import iframe: '+str);
-		// 				TILE.engine.parseJSON(JSON.parse(xhr.responseText));
-		// 				$("#LTlight").hide();
-		// 				$("#LTfade").hide();
-		// 			},
-		// 			beforeSend:function(e,file,ind,xhr,handler,callback){
-		// 				
-		// 				// going to stop program from automatically submitting on zone drop
-		// 				$("#loadFile").click(function(e){
-		// 					callback();
-		// 					return false;
-		// 				});
-		// 			}
-		// 		});
 		
 		$("body").bind("openNewImage",{obj:this},this.close);
 		$("body").bind("openImport",{obj:this},this.close);
@@ -3063,9 +2936,11 @@ TILE.scale=1;
 		}
 	};
 	
-	
-	//TileToolBar
-	// Used to handle Tool selection menu, Loading JSON session data, Saving JSON session Data
+	/*
+	 * TILE Toolbar
+	 *
+	 * Used to handle Tool selection menu, Loading JSON session data, Saving JSON session Data
+	 */
 	TileToolBar=function(args){
 		// Constructor
 		// Use: {
@@ -3144,9 +3019,6 @@ TILE.scale=1;
 			
 			// add to the file formats select element
 			self.formatstr='<option id="json" value="json">JSON</option>';
-			
-			
-			
 		};
 		
 	TileToolBar.prototype={
@@ -3308,7 +3180,6 @@ TILE.scale=1;
 			}
 			
 			return jObj;
-			
 		}
 	};
 })(jQuery);
