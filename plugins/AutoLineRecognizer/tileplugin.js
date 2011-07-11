@@ -86,7 +86,7 @@
         '</div><div id="transcript"></div><div id="transcript_controls">' +
         '<a id="selectAll" class="button">Select All</a> | <a id="selectNone" class="button">Select None</a></div>'+
 		'<div class="step"><br/><a id="autorec_recognize" class="button">Perform Line Recognition</a></div>'+
-		'</div></div><div id="shapesLoaded" class="az"><div class="step"><div class="instructions">The area you specified has been processed'+
+		'</div></div><div id="shapesLoaded" class="az"><div class="step"><div class="description">The area you specified has been processed'+
 		' and the resulting shapes can be viewed on the canvas on the right side of the screen. Accept will take you back to Image Annotation Mode to edit the shape position, size, and metadata.'+
 		' Start Over will erase the shapes and begin the Auto Line Recognizer workflow from the beginning.</div></div>'+
 		'<div class="step"><div class="instructions">Erase shapes and start over</div>'+

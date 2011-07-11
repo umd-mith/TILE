@@ -534,11 +534,7 @@
 			
 			$("#L579").live('click',clickTrans);
 			
-			// self.linkManifest=[];
-			// 		// set up linkManifest
-			// 		for(var url in data){
-			// 			self.linkManifest[url]=[];
-			// 		}
+		
 			
 			// trnsClick handler
 			var _trnsClickHandle=function(e,id){

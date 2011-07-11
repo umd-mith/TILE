@@ -1010,6 +1010,13 @@ a.btnIconLarge:hover {
 	padding:5px;
 	background:#EAEDC6;
 }
+.tool .autorec_toolbar #shapesLoaded .description {
+	line-height:1.2em;
+	font-size:90%;
+	margin-bottom:5px;
+	padding:5px;
+	background:#FFF;
+}
 
 .tool .autorec_toolbar #content .instructions .stepnum {
 	font-style:italic;
