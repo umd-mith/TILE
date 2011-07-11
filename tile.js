@@ -864,6 +864,8 @@ TILE.scale=1;
 								}
 							}
 							removeLoad();
+						} else {
+							pluginModes[0].setActive();
 						}
 					} else {
 						$.getScript(self.plugins[count],recLoad);
@@ -927,7 +929,6 @@ TILE.scale=1;
 			   
 			// find mode in current modes
 			for(var prop in pluginModes){
-				if(__v) console.log('name of mode: '+pluginModes[prop].name);
 				if(pluginModes[prop].name == mode){
 					obj = pluginModes[prop];
 					break;
@@ -937,7 +938,6 @@ TILE.scale=1;
 				// create and insert into array
 				obj= new Mode(mode);
 				pluginModes.push(obj);
-				if(__v) console.log('new plugin created: '+JSON.stringify(mode));
 			} 
 			
 			// figure out src path

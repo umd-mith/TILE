@@ -2236,7 +2236,8 @@ var IT = {
 	newPageHandle:function(e){
 		var self=e.data.obj;
 		$("#srcImageForCanvas").attr('src','');
-		self.itagger.curUrl=TILE.url;
+		if(__v) console.log('newpage handle reached');
+		self.itagger.curUrl = TILE.url;
 		self.itagger._restart();
 		
 	},

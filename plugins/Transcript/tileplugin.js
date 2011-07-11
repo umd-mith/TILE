@@ -598,7 +598,6 @@
 		},
 		dataAddedHandle:function(e, obj){
 			var self=e.data.obj;
-			if(__v) console.log('data added handle: '+obj);
 			if(obj.type == 'lines') {
 				// check for attached data
 				var refs = false;
@@ -691,7 +690,6 @@
 		},
 		dataLinkedHandle: function (e, args) {
 			var self = e.data.obj;
-			if(__v) console.log('dataLinked reached '+args	);
 			if(!args) return;
 			if(args[0].type != "lines" && args[1].type != "lines") {
 				return;
@@ -742,7 +740,6 @@
 		},
 		dataDeletedHandle: function (e, obj) {
 			var self = e.data.obj;
-			if(__v) console.log('data deleted '+JSON.stringify(obj));
 			if(obj.type == 'lines') return; // shouldn't happen
 			var refs = [];
 			// find line references
