@@ -306,6 +306,7 @@ var LB={
 	// Initialize the Label Box (Lower-left) and 
 	// prepare data to sent to PluginController
 	start:function(mode){
+		
 		var self=this;
 		self.lbls=[];
 		// manipulate DOM space

@@ -843,7 +843,6 @@ TILE.scale=1;
 			
 			// start up load screen again
 			showLoad();
-			if(__v) console.log('activate called '+mode+'  '+pluginModes);
 			// go through plugins array and attach the 
 			// src elements
 			setTimeout(function(self){
@@ -925,10 +924,11 @@ TILE.scale=1;
 		insertModePlugin:function(mode,plugin){
 			var self=this;
 			var obj=null;
-			if(__v) console.log('pluginModes from insertModePlugin: '+JSON.stringify(pluginModes));
+			   
 			// find mode in current modes
 			for(var prop in pluginModes){
-				if(pluginModes[prop].name==mode){
+				if(__v) console.log('name of mode: '+pluginModes[prop].name);
+				if(pluginModes[prop].name == mode){
 					obj = pluginModes[prop];
 					break;
 				}
@@ -937,7 +937,8 @@ TILE.scale=1;
 				// create and insert into array
 				obj= new Mode(mode);
 				pluginModes.push(obj);
-			}
+				if(__v) console.log('new plugin created: '+JSON.stringify(mode));
+			} 
 			
 			// figure out src path
 			var src='plugins/'+plugin+'/tileplugin.js';
@@ -996,7 +997,6 @@ TILE.scale=1;
 		// internal array 
 		registerPlugin:function(pw){
 			var self=this;
-			if(__v) console.log('register '+JSON.stringify(pluginModes));
 			// if part of a mode, add to 
 			// that mode 
 			// If not, activate the plugin immediately
@@ -1622,7 +1622,8 @@ TILE.scale=1;
 			if(!self.setUp){
 				// set up the plugins in array
 				$.each(self.parr, function (i, o) {
-					self.parr[i].start(this);
+					
+					self.parr[i].start(self);
 				});
 			}
 			// hide dialog(s)
