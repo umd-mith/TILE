@@ -128,7 +128,6 @@
             //set up rest of autorecognizer
             var self = this;
             // self.html=jsonhtml.autorec;
-
             self.DOM = $("div.autorec_toolbar").attr('id', self.uid + "_main");
             
 			$("#darkonlight").live('click',function(e){
@@ -2079,7 +2078,7 @@ var AR = {
     // id {String} - ID for parent DOM
     // data {Object} - JSON data with transcript lines
     // layout {String} : HTML layout in string format
-    start: function(mode) {
+    start: function (mode) {
         var self = this;
         // If AR object not yet set, create new one
         if (!self.__AR__) {
@@ -2094,7 +2093,7 @@ var AR = {
             });
             // create a new mode with a callback function
             self.tileMode = mode;
-
+			
 			self.__AR__.setPredefinedShapes(shapes);
 			
             // attach html to the interface
@@ -2128,7 +2127,6 @@ var AR = {
                 // first go through and parse each data element
                 var vd = [];
                 
-
                 // LOAD SCREEN
                 // take away the load screen
                 function removeScreen() {

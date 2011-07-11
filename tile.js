@@ -935,12 +935,12 @@ TILE.scale=1;
 			
 			// search for name in array of modes
 			for(var prop in pluginModes){
-				if(pluginModes[prop].name==name){
+				if(pluginModes[prop].name == name){
 					return;
 				}
 			}
 			// no plugin mode already set - create new
-			var mode=new Mode(name,active,unactive);
+			var mode=new Mode(name);
 			pluginModes.push(mode);
 			return mode;
 		},
@@ -953,13 +953,13 @@ TILE.scale=1;
 			// find mode in current modes
 			for(var prop in pluginModes){
 				if(pluginModes[prop].name==mode){
-					obj=pluginModes[prop];
+					obj = pluginModes[prop];
 					break;
 				}
 			}
 			if(!obj){
 				// create and insert into array
-				obj=new Mode(mode);
+				obj= new Mode(mode);
 				pluginModes.push(obj);
 			}
 			
@@ -982,14 +982,14 @@ TILE.scale=1;
 			var mode=null;
 			// search for name in array of modes
 			for(var prop in pluginModes){
-				if(pluginModes[prop].name==name){
-					mode=pluginModes[prop];
+				if(pluginModes[prop].name == name){
+					mode = pluginModes[prop];
 					break;
 				}
 			}
 			// if no mode found, create new
 			if(!mode){ 
-				mode=new Mode(name);
+				mode = new Mode(name);
 				pluginModes.push(mode);
 			}
 			
@@ -1453,7 +1453,7 @@ TILE.scale=1;
 	// A set of plugin content items that are turned on/off at the same time
 	// and has a mode button to represent that feature
 	// Names can NOT have URIs or periods
-	var Mode=function(name,active,unactive){
+	var Mode = function (name,active,unactive){
 		var self=this;
 		if(/http\:\/\/|\./.test(name)){
 			return;
@@ -1633,7 +1633,6 @@ TILE.scale=1;
 		},
 		appendPlugin:function(plugin){
 			var self=this;
-			
 			self.parr.push(plugin);
 		},
 		appendPluginHTML:function(html,section){
@@ -1646,12 +1645,12 @@ TILE.scale=1;
 		setActive:function(){
 			var self=this;
 			var styleName=self.name.toLowerCase().replace(/ /g,'');
+			
 			if(!self.setUp){
 				// set up the plugins in array
-				for(var x in self.parr){
-					self.parr[x].start(this);
-				}
-				
+				$.each(self.parr, function (i, o) {
+					o.start(this);
+				});
 			}
 			// hide dialog(s)
 			$(".ui-dialog").hide();
@@ -1666,13 +1665,13 @@ TILE.scale=1;
 			$(".az.globalmenu > .globalbuttons > .modeitems > div a").removeClass('active');
 			// show button as active
 			$(".az.globalmenu > .globalbuttons > .modeitems > div > a:contains("+self.name+")").addClass("active");
-		
+			
 			// alert attached plugins 
 			if(!self.setUp){
 				self.setUp=true;
 			} else {
 				// restart all listening elements
-				$("body > div").trigger(self.activeCall);
+				// $("body > div").trigger(self.activeCall);
 			}
 		},
 		// special function 
@@ -2600,7 +2599,7 @@ TILE.scale=1;
 			
 			// delete all references
 			for(var item in obj.obj){
-				if($.isArray(obj.obj[item])){
+				if($.isArray(obj.obj[item])) {
 					for(var prop in obj.obj[item]){
 						
 						var o={id:obj.obj[item][prop],type:item};
@@ -2896,7 +2895,7 @@ TILE.scale=1;
 		// 	$("#import_iframe").load(function(e){
 		// 		// get JSON text
 		// 		var str=frames['import_iframe'].document.getElementsByTagName("body")[0].getElementsByTagName("pre")[0].innerHTML;
-		// 		if(__v) console.log('str loaded into import iframe: '+str);
+		// 		if(__v) console.log(styleName+' is loading'); console.log('str loaded into import iframe: '+str);
 		// 		TILE.engine.parseJSON(JSON.parse(str));
 		// 		$("#LTlight").hide();
 		// 		$("#LTfade").hide();

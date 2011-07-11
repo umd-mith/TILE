@@ -568,10 +568,6 @@
 				$("body:first").trigger(self.deleteCall,[data]);
 			});
 			
-			
-			
-			
-			
 			// insert title into plugin area
 			$("#tile_toolbar > .pluginTitle").text("Transcript Lines");
 			
