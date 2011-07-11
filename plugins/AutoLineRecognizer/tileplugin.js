@@ -168,11 +168,7 @@
 			
             self.transcriptArea = $("#" + self.DOM.attr('id') + " > #content > .step > #transcript");
 
-            //get buttons
-            self.closeB = $("#" + self.DOM.attr("id") + " > .toolbar > div.menuitem > span").click(function(e) {
-                e.preventDefault();
-                self._outputData();
-            });
+         
            
             self.recognizeB = $("#autorec_recognize");
             self.doneB = $("#" + self.DOM.attr('id') + " > #content > div > #done").click(function(e) {
@@ -788,15 +784,6 @@
 
 						self.activeLines[linecount].shape = shpObj;
 						
-                        // ldata.push({shape:{
-                        //                             "id": id + "_shape",
-                        //                             "type": "rect",
-                        //                             "_scale": 1,
-                        //                             "color": "#000000",
-                        //                             "posInfo": posInfo
-                        //                         },
-                        // 						line:self.activeLines[linecount].line	
-                        // 						});
 						linecount++;
                     }
 				
@@ -2132,8 +2119,6 @@ var AR = {
                 function removeScreen() {
                     $("#ALR_LOAD").remove();
                     $("#ALRBACK").remove();
-
-                    // $("body").unbind("closeALRLoad", removeScreen);
                 };
 
                 // create load screen to block users clicking on
@@ -2145,8 +2130,6 @@ var AR = {
                     $("#ALR_LOAD").show();
                     $("#ALRBACK").show();
                     $("#ALRLOADDIALOG").show();
-                    // setup listener for removing from DOM
-                    // $("body").bind("closeALRLoad", removeScreen);
                 };
 
                 // CAUSES MASSIVE LAG TIME IN MOST BROWSERS

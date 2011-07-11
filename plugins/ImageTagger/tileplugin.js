@@ -21,6 +21,8 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 (function ($) {
 	
 	var ITag = this;
+	ITag.done = false;
+	
 	// constructor for ITag - loads all elements for ImageTagger
 	var _Itag = function (args) { 
 		this.loc=args.loc;
@@ -55,7 +57,7 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 		}	
 		
 		//global bind for when the VectorDrawer in raphaelImage is completed
-		$("body").live("VDCanvasDONE",{obj:this},this.createShapeToolBar);
+		$("body").bind("imageTaggerCanvasDone",{obj:this},this.createShapeToolBar);
 		//global bind for when user adds a new image through NewImageDialog
 		$("body").bind("newImageAdded",{obj:this},this.addNewImage);
 	
@@ -76,7 +78,6 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 		setHTML:function () {
 			//html is JSON data
 			var self=this;
-			
 			//setup the raphael div - give it a unique ID so that RaphaelImage can find it using Jquery
 			
 			//create raphael - Raphael Canvas that is used for drawing
@@ -110,9 +111,10 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 		//activated by VDCanvasDONE event call
 		// e : {Event}
 		createShapeToolBar:function(e){
+			
 			var obj = e.data.obj; //@this
-			$("body").unbind("VDCanvasDONE",obj.createShapeToolBar); //remove the bind - done only once
-
+			$("body").unbind("imageTaggerCanvasDone",obj.createShapeToolBar); //remove the bind - done only once
+			
 			//prepare the toolbar area
 			$("#azcontentarea > .az.inner.imageannotation > .toolbar").attr("id","raphshapebar_");
 			
@@ -123,9 +125,6 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 			});
 			// now that shapetoolbar is created, we can:
 			//figure out the image dimensions for canvas area
-			var w=$("#"+obj.loc).width();
-			var h=$("#"+obj.loc).height()-obj.ShapeToolBar.DOM.height();
-			$("#"+obj.loc+" > .az.inner > .workspace").width(w).height(h);
 			
 			// attach id to .az.inner of toolbar
 			$("#az_log > .az.inner:eq(0)").attr("id","az_transcript_area");
@@ -270,7 +269,7 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 			self.curURL=TILE.url;
 			
 			// send off parsed array to the drawing canvas
-			if(self.ShapeToolBar) self.ShapeToolBar.restart();
+			// if(self.ShapeToolBar) self.ShapeToolBar.restart();
 			if(self.raphael) {
 				self.raphael._restart(json,self.curURL);
 			}
@@ -387,8 +386,8 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 	var TILEShapeToolBar=function(args){
 		// Constructor
 			// this.$super(args);
-			this.DOM=$("#"+args.loc);
 			var self=this;
+			
 			//Define Area elements
 			//Rectangle
 			this.rect=$("#rect");
@@ -457,7 +456,7 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 			this.zoomOut.click(function(e){
 				$("body:first").trigger("zoom",[-1]);
 			});
-			
+		
 			//Page changers
 			this.pageNext=$("#pgNext");
 			this.pageNext.live('click',function(e){
@@ -2074,10 +2073,12 @@ var IT = {
 			// set up the mode-change 
 			$("body").live('modeActive',function (e, name) {
 				if(/Image Annotation/.test(name)) {
+					
 					$("#srcImageForCanvas").attr('src','');
 					
 					// set up listener for when canvas is done
 					$("body").bind('imageTaggerCanvasDone', function (e) {
+						$(".shpButtonHolder").remove();
 						$(this).unbind('imageTaggerCanvasDone');
 						var el = $("#logbar_list > .line:first");
 						if(el.hasClass('line_selected')){
@@ -2236,7 +2237,6 @@ var IT = {
 	newPageHandle:function(e){
 		var self=e.data.obj;
 		$("#srcImageForCanvas").attr('src','');
-		if(__v) console.log('newpage handle reached');
 		self.itagger.curUrl = TILE.url;
 		self.itagger._restart();
 		
