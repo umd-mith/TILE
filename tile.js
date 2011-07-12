@@ -11,21 +11,35 @@
 /*
  * tile.js is the base code for all of the main TILE interface objects
  * 
- * Objects:
+ * Objects (In order of where they are in file):
+ * 	ErrorBox 
+ *		- Simple object for displaying errors (For debug mode only)
  * 	Floating Div
- *  Dialog
- *  Import Dialog
- *  Export Dialog
+ *		- Object for saving and managing metadata (Labels, transcript lines) attached to 
+ *		highlights and shapes	
  *  TILE_ENGINE
+ *		- Main API for TILE 
  *  Plugin Controller
+ * 		- Handles core JSON data. Linking, deleting, adding data goes through 
+ *		plugin controller
+ *	Mode 
+ * 		- Object for creating collections of plugins that fit under one 
+ *		category. Activates all plugins in collection that the same time.
+ *  Save Dialog
+ * 		- Object for saving JSON or XML data back to the user's hard drive
+ *  Load Dialog
+ *		- Object for loading in JSON/XML data - uses CoreData plugin
+ * TileToolBar 
+ *		- Object for adding buttons to the top global button area
  */
 
 
-// GLOBAL VARIABLES
-// Keep track of Image scale
-
-// Large, global variable that 
-// stores data for other plugins 
+/**
+* GLOBAL VARIABLES
+* Keep track of Image scale
+* Large, global variable that 
+* stores data for other plugins 
+*/
 var TILE=[];
 TILE.experimental=false;
 TILE.activeItems=[];
@@ -698,57 +712,6 @@ TILE.scale=1;
 		
 	});
 	
-	// NOTE: not using Monomyth
-	var HelpBox=function(args){
-		var self=this;
-		var id=Math.floor(Math.random()*255);
-		while($("#helpbox_"+id).length){
-			id=Math.floor(Math.random()*255);
-		}
-		
-		$("<div id=\"helpbox_"+id+"\" class=\"helpbox\"><span class=\"helpbox header\">Help</ul></span><span id=\"helptext_"+id+"\" class=\"helpbox text\"></span></div>").appendTo("body");
-		self.DOM=$("#helpbox_"+id);
-		self.DOM.hide();
-		self.txtArea=$("#helptext_"+id);
-		// insert user text
-		self.txtArea.text(args.text);
-		self.helpIcon=$("#"+args.iconId);
-		// set up listeners for the helpIcon
-		self.helpIcon.live('mouseover',function(e){
-			setTimeout(function(self){
-				// show the dialog
-				var x=e.pageX;
-				var y=e.pageY;
-
-				self.DOM.css({"left":x+'px',"top":y+'px'});
-				self.DOM.show();
-				setTimeout(function(self){
-					self.DOM.hide();
-				},10000,self);
-			},10,self);
-		
-		});
-		self.helpIcon.live('mouseout',function(e){
-			// hide the dialog
-			self.DOM.hide();
-		});
-	};
-	HelpBox.prototype={
-		appear:function(e){
-			var self=this;
-			var x=e.pageX;
-			var y=e.pageY;
-		
-			self.DOM.css({"left":x+'px',"top":y+'px'});
-			self.DOM.show();
-		},
-		hide:function(e){
-			self.DOM.hide();
-		}
-	};
-	
-	tile.HelpBox=HelpBox;
-
 	/*
 	 * TILE Engine
 	 * 
@@ -1685,6 +1648,8 @@ TILE.scale=1;
 	 * @constructor
 	 *
 	 * Internal Object that controls plugins
+	 *
+	 * @params args {Object}
 	 */
 	
 	var PluginController=function(args){
@@ -1787,7 +1752,9 @@ TILE.scale=1;
 		},
 		// Takes the plugin wrapper obj and 
 		// sets its start() method
-		initTool:function(obj){
+		// Deprecated Methods - Plugin wrappers and Mode objects handle
+		// activating plugin
+		/* initTool:function(obj){
 			var self=this;
 			// make sure the wrapper is standard
 			if(!obj.start){
@@ -1856,7 +1823,7 @@ TILE.scale=1;
 			recTool(0);
 			
 			// set up listener for loadItems
-		},
+		}, */
 		createNewLayout:function(design){
 			var self=this;
 			
@@ -2918,19 +2885,19 @@ TILE.scale=1;
 	 * Used to handle Tool selection menu, Loading JSON session data, Saving JSON session Data
 	 */
 	TileToolBar=function(args){
-		// Constructor
-		// Use: {
-		// 	loc: {String} id for parent DOM
-		// }
+		/**
+		* @constructor
+		* Use: {
+		* 	loc: {String} id for parent DOM
+		* }
+		*/
 			//getting HTML that is already loaded - no need to attach anything
 			var self=this;
 			self.loc=args.loc;
 			// HTML that's inserted into ID location
 			var html='<div class="menuitem"><a id="save_data" href="" class="button" title="Save the current session">Save</a></div>'+
 			'<div class="menuitem"><a id="load_data" href="" class="button" title="Load from a File or URL">Load</a></div>';
-			// +'<div id="ddown"><div class="menuitem ddown"><p>Tools:</p><select class="menu_body"></select></div>';
-			// $("#"+self.loc).append(html);
-			
+		
 			self.modeList=[];
 			
 			// attach save button to azglobalmenu
@@ -2950,18 +2917,7 @@ TILE.scale=1;
 				}
 				$("#savedialogwhitespace").show();
 				$("#darkForSaveDialog").show();
-				
-				// $(".ui-dialog").hide();
-				// 				if(!TILE.engine) return;
-				// 				// get JSON data
-				// 				var json=TILE.engine.getJSON();
-				// 				// insert text version of data into 
-				// 				// upload form text box
-				// 				$("#uploadData").val(JSON.stringify(json));
-				// 				// fire upload form
-				// 				$("#inv_SaveProgress_Form")[0].submit();
-				// 				// erase data
-				// 				$("#uploadData").val('');
+			
 			});
 			
 			// load dialog

@@ -87,21 +87,14 @@
 				// activate the ALR
 				$("#azglobalmenu > .globalbuttons > .modeitems > .menuitem > a:contains('Auto Line Recognizer')").trigger('click');
 			});
-			// $("#ALRHover").live('mouseout',function(e){
-			// 			$("#ALRShot").hide();
-			// 		});
+			
 			//lightbox content
 			self.light=$("#light");
 			self.fade=$("#fade");
 			self.DOM=$("#welcomeDialog");
 		
 	};
-	WelcomeDialog.prototype={
-		showAndHide:function(elem){
-			var self=this;
-		
-		}
-	};
+	
 	
 	WD.dialogOfWelcome=WelcomeDialog;
 })();
