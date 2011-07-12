@@ -1,18 +1,21 @@
-// Welcome Dialog
-// by Grant Dickie
-// MITH 2011
+/**
+* WelcomeDialog
+* @author Grant Dickie
+* @copyright MITH 2011
+*/
 
 (function(){
 	var WD=this;
+	/**
+	* WelcomeDialog 
+	* @constructor
+	* @params: 
+	* Obj: variables:
+	* 	loc: {String} DOM object to be attached to
+	*/
 	var WelcomeDialog=function(args){
-		// Constructor
-		// args same as Dialog()
+		
 			var self=this;
-			// Constructor:
-			// 
-			// @param: 
-			// Obj: variables:
-			// 	loc: {String} DOM object to be attached to
 			if((!args.loc)) throw "Not enough arguments passed to Dialog";
 			self.loc=args.loc;
 			//set up JSON html
@@ -42,11 +45,6 @@
 					});
 				});
 			});
-		
-		
-			// $('<div id="ALRShot" class="dialog screenshot"><div class="body"><img width="150px" height="150px" src="http://mith.umd.edu/tile/wp-content/uploads/2011/02/feature-linerecognition.jpg"/></div></div>').appendTo($("body"));
-			// 	$('<div id="imageShot" class="dialog screenshot"><div class="body"><img width="150px" height="150px" src="http://mith.umd.edu/tile/wp-content/uploads/2011/02/feature-imagemarkup.jpg"/></div></div>').appendTo($("body"));
-			// 	$('<div id="importShot" class="dialog screenshot"><div class="body"><img width="150px" height="150px" src="http://mith.umd.edu/tile/wp-content/uploads/2011/02/feature-importexport.jpg"/></div></div>').appendTo($("body"));
 		
 			$("#continueButton").live('click',function(e){
 				e.preventDefault();
@@ -107,10 +105,21 @@
 	
 	WD.dialogOfWelcome=WelcomeDialog;
 })();
+
+/**
+* WelcomeDialog 
+* Wrapper for the TILE.engine object to load in plugin
+* 
+* start() method is the constructor
+*/
 var WelcomeDialog={
 	id:"WD1090910",
 	name:'WelcomeDialog',
-	// wrapper for TILE
+	/**
+	* start()
+	* @constructor
+	* @params mode {Object} - Mode object passed when TILE.engine calls start()
+	*/
 	start:function(mode){
 		var self=this;
 		self.dialog=new dialogOfWelcome({loc:$("body")});

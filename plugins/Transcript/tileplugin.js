@@ -1,22 +1,25 @@
-// Transcript.js
-// 
-// copyright MITH by dreside and gdickie
-// 
-// Displays transcript lines that are decoded from JSON data
-// Functions:
-// 
-// _drawText : displays the text that is contained in the lineArray variable
-// _addLines(data,{optional} url) : takes a JSON-based array (data) and optional parameter url (if this data belongs
-// 	to a new image) and changes the text display
-// _shapeDrawnHandle : handler for the VectorDrawer shapeDrawn event. adds the drawn shape to the currently selected line
-// _deleteItemHandle : handler for the deleteItem event from ActiveBox
-// _updateItemHandle : handler for the shapeChanged event from VectorDrawer
-// _lineSelected(index) : takes the argument index and sets the current line to the lineArray index matching index
-// _lineDeSelected(index) : the opposite of _lineSelected
-// exportLines : returns the lineArray
-// bundleData(manifest) : takes argument manifest, which is the manifest for TILE_ENGINE, modifies/updates the TILE_ENGINE
-// 							manifest data, then sends modified manifest back. 
-	
+/**
+* Transcript.js
+* 
+* @copyright MITH 
+* @author Grant Dickie
+* @author Doug Reside
+* 
+* Displays transcript lines that are decoded from JSON data
+* Functions:
+* 
+* _drawText : displays the text that is contained in the lineArray variable
+* _addLines(data,{optional} url) : takes a JSON-based array (data) and optional parameter url (if this data belongs
+* 	to a new image) and changes the text display
+* _shapeDrawnHandle : handler for the VectorDrawer shapeDrawn event. adds the drawn shape to the currently selected line
+* _deleteItemHandle : handler for the deleteItem event from ActiveBox
+* _updateItemHandle : handler for the shapeChanged event from VectorDrawer
+* _lineSelected(index) : takes the argument index and sets the current line to the lineArray index matching index
+* _lineDeSelected(index) : the opposite of _lineSelected
+* exportLines : returns the lineArray
+* bundleData(manifest) : takes argument manifest, which is the manifest for TILE_ENGINE, modifies/updates the TILE_ENGINE
+* 							manifest data, then sends modified manifest back. 
+*/	
 (function ($, R, _) {
 	var rootNS = this;
 	
@@ -31,16 +34,13 @@
 	function Transcript(args){
 	
 		var self = this;
-		
-		this.lineArray = args.text;//{"text":(args.text||[]),"info":[],"shapes":[]};
+		// format for array item: {"text":(args.text||[]),"info":[],"shapes":[]};
+		this.lineArray = args.text;
 		
 		this.loc = $("#"+args.loc);
 		this.infoBox = $("#"+args.infoBox);
 		this.manifest=[];
-		// if(this.lineArray) {
-		// 			this._drawText();
-		// 			
-		// 		}
+	
 		this.knownIds=[];
 		// parse together all JSON data for the entire session
 		// here
@@ -67,19 +67,6 @@
 		}
 		this.curLine=0;
 		this.curUrl=null;
-		
-		
-		
-		//global bind for when a shape is changed in VectorDrawer (dragged/resized)
-		// $("body").bind("shapesUpdate",{obj:this},this._updateItemHandle);
-		// global bind for when all lines need to be updated
-		// $("body").bind("updateAllShapes",{obj:this},this._updateAllItemsHandle);
-		// global bind when items are loaded 
-		// $("body").bind("addLink",{obj:this},this._addLinkHandle);
-		// global bind when items are deleted
-		// $("body").bind("deleteLink",{obj:this},this._deleteLinkHandle);
-		// global bind for newPageLoaded
-		// $("body").bind("newPageLoaded",{obj:this},this._newPageLoadedHandle);
 	}
 	Transcript.prototype={};
 	$.extend(Transcript.prototype, {
@@ -126,27 +113,6 @@
 				self.manifest[self.curUrl]=self.lineArray;
 				self.curUrl=url;
 				
-				// if(self.curUrl) self.manifest[self.curUrl]=self.lineArray;
-				// 					//new manifest area being created
-				// 					if(!self.manifest[url]) {
-				// 						self.manifest[url]={
-				// 							"lines":[],
-				// 							"url":url
-				// 						};
-				// 						// check to make sure that new data have ids
-				// 						for(d in data){
-				// 							if(!data[d].id){
-				// 								var id="";
-				// 								id="line_"+Math.floor(Math.random()*560);
-				// 								while($.inArray(id,self.knownIds)>=0){
-				// 									id="line_"+Math.floor(Math.random()*560);
-				// 								}
-				// 								self.knownIds.push(id);
-				// 								data[d].id=id;
-				// 							}
-				// 						}
-				// 						
-				// 					}
 			}
 			
 			if((!(data))||(!($.isArray(data)))) return;
@@ -169,9 +135,7 @@
 			
 			// reset curLine
 			self.curLine=0;
-			// check for auto-recognized lines
-			// self._setAutoLines();
-			// self.manifest[self.curUrl]=self.lineArray;
+			
 			self.loc.empty();
 			self._drawText();			
 		},
@@ -498,11 +462,20 @@
 	
 	);})(jQuery, Raphael, _);
 
-	// Plugin Wrapper
-	
+	/**
+	* Plugin Wrapper for the TILE.engine object to activate
+	* the plugin
+	*
+	* start() method is the constructor
+	*/ 
 	var Trans={
 		id:"Transcript1000",
 		name:'Transcript',
+		/**
+		* start()
+		* @constructor
+		* @params mode {Object} - Mode object passed when TILE.engine calls start()
+		*/
 		start:function(mode){
 			var self=this;
 			
@@ -639,29 +612,6 @@
 				// all lines deactivated
 				$(".line_selected").removeClass("line_selected");
 			}
-		
-			// 		
-			// 		if(o.type=='none'){
-			// 			return;
-			// 		}
-			// 		
-			// 		// check to see if activeItems contain ID for 
-			// 		// lines
-			// 		for(var prop in TILE.activeItems){
-			// 			
-			// 			if((!TILE.activeItems[prop])||(TILE.activeItems[prop]=='undefined')||(!TILE.activeItems[prop].id)) continue;
-			// 			var uid=TILE.activeItems[prop].id;
-			// 			if(typeof uid=='string'){
-			// 				uid=TILE.activeItems[prop].id.replace(/\.\:/,'');
-			// 			}
-			// 			if($("#logbar_list > #"+uid+".line").length){
-			// 				// line in DOM;
-			// 				// set line as active 
-			// 				$("#logbar_list > #"+uid+".line").addClass('line_selected');
-			// 			}
-			// 		}
-			// 		
-			
 		},
 		newJSONHandle:function(e){
 			var self=e.data.obj;
@@ -874,8 +824,6 @@
 			self.transcript._drawText();
 			
 			if(!$("#getTrans").hasClass('active')) $("#getTrans").addClass('active');
-			
-			// $("body:first").trigger(self.activeCall,[self.id]);
 		},
 		close:function(){
 			var self=this;

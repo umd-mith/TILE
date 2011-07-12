@@ -1,12 +1,19 @@
-// Creates a link between Coredata.php and fellow libraries for importing and exporting into TILE
-
+/**
+* CoreData Plugin
+* Creates a link between Coredata.php and fellow libraries for importing and exporting into TILE
+*
+* @author Grant Dickie
+*/
 (function(){
 	var root=this;
-	
-	// COREDATA
-	// Base class that has methods
-	// for creating and editing base 
-	// containers of data
+	/**
+	* COREDATA
+	* Base class that has methods
+	* for creating and editing base 
+	* containers of data
+	*
+	* @constructor
+	*/
 	var CoreData=function(args){
 		if(!args.content) return;
 		
@@ -105,9 +112,19 @@
 	
 })();
 
-
+/**
+*
+* CoreData Wrapper
+*
+* Loads CoreData into the TILE interface
+*/
 var CoreData={
 	name:"CoreData",
+	/* 
+	* start()
+	* @constructor
+	* @params mode {Object} - Mode object passed to method
+	*/
 	start:function(mode){
 		var self=this;
 		

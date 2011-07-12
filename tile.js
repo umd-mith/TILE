@@ -760,7 +760,11 @@ TILE.scale=1;
 	 *
 	 * Objects: 
 	 *  PluginController
+	 *  TILE_ENGINE ()
+	 * Creates an instance of TILE_ENGINE
 	 *
+	 * @constructor
+	 * 
 	 * Usage:
 	 *  TILE_ENGINE: {Object} main engine for running the LogBar and Layout of TILE interface
 	 *  Returns: TILE_ENGINE instance {Object}
@@ -1423,12 +1427,15 @@ TILE.scale=1;
 	// BE ACCESSED OUTSIDE OF LOCAL SCOPE
 	tile.TILE_ENGINE=TILE_ENGINE;
 
-	// ----------------- //
-	// Mode //
-	// ----------------- //
-	// A set of plugin content items that are turned on/off at the same time
-	// and has a mode button to represent that feature
-	// Names can NOT have URIs or periods
+	/**
+	* Mode
+	*
+	* @constructor
+	*
+	* A set of plugin content items that are turned on/off at the same time
+	* and has a mode button to represent that feature
+	* Names can NOT have URIs or periods
+	*/
 	var Mode=function(name,active,unactive){
 		var self=this;
 		if(/http\:\/\/|\./.test(name)){
@@ -1675,6 +1682,8 @@ TILE.scale=1;
 	/*
 	 * Plugin Controller
 	 * 
+	 * @constructor
+	 *
 	 * Internal Object that controls plugins
 	 */
 	
@@ -2216,30 +2225,13 @@ TILE.scale=1;
 				}
 				// create link
 				var newo=self.parseLink(o1,o2);
-				// if(!newo){
-				// 					TILE.engine.displayError('Problem occured: Line 2249 :: '+JSON.stringify(o1));
-				// 				}
+				
 				o1=newo[0];
 				o2=newo[1];
-				// o1=self.findObj(o1.id,o1.type);
-				// o2=self.findObj(o2.id,o2.type);
-
+			
 				// update activeItems and notify data change
 				self.updateActiveItems(newo);
-				// var found=null;
-				// 				for(var v in TILE.activeItems){
-				// 					if(TILE.activeItems[v].id==o2.id){
-				// 						found=true;
-				// 					}
-				// 				}
-				// 				if(!found) TILE.activeItems.push(o2);
-				// 				found=null;
-				// 				for(var v in TILE.activeItems){
-				// 					if(TILE.activeItems[v].id==o1.id){
-				// 						found=true;
-				// 					}
-				// 				}
-				// 				if(!found) TILE.activeItems.push(o1);
+				
 				
 				// notify plugins of change
 				$("body:first").trigger("dataLinked",[newo]);
@@ -2338,13 +2330,7 @@ TILE.scale=1;
 				
 			}
 			
-			// tileObj=deepcopy()
-			// 			for(var x in tileObj){
-			// 				if((obj[x])&&($.isArray(tileObj[x]))){
-			// 					// change the array data
-			// 					tileObj[x]=obj[x];
-			// 				}
-			// 			}
+		
 			// done updating real object, get TILE copy
 			var copy=self.findTileObj(obj.id,obj.type);
 			$("body:first").trigger("dataUpdated",[copy]);
@@ -2425,11 +2411,6 @@ TILE.scale=1;
 						json.pages[page][obj1.type][found][obj2.type]=[];
 					}
 					
-					// if(!(self.linkArray[url][obj1.type][found][obj2.type])){
-					// 						
-					// 						self.linkArray[url][obj1.type][found][obj2.type]=[];
-					// 					}
-					
 					// creating the link between obj1 as object and obj2 as ID reference -
 					// not copying entire obj2 into ob2 array in obj1 stack
 					if($.inArray(obj2.id,json.pages[page][obj1.type][found][obj2.type])){
@@ -2454,15 +2435,6 @@ TILE.scale=1;
 						}
 					}
 					
-					// for(var p in self.linkArray[obj1.type]){
-					// 					if(self.linkArray[obj1.type][p].id==obj1.id){
-					// 						
-					// 						self.linkArray[obj1.type][p][obj1.type].push(obj2.id);
-					// 						
-					// 						found=p;
-					// 						break;
-					// 					}
-					// 				}
 					if(found<0){
 						json[obj1.type].push(deepcopy(obj1.obj));
 						found=json[obj1.type].length-1;
@@ -2483,9 +2455,6 @@ TILE.scale=1;
 				
 				if(/http\:|\.[jgpt]*/i.test(obj2.jsonName)){
 					var url=obj2.jsonName;
-					// create new arrays if not already instantiated
-					// > if(!(self.linkArray[url])) self.linkArray[url]=[];
-					// > 					if(!(self.linkArray[url][obj2.type])) self.linkArray[url][obj2.type]=[];
 					
 					
 					var found=-1;
@@ -2673,6 +2642,15 @@ TILE.scale=1;
 		}
 	};
 
+
+	/**
+	* SaveDialog
+	* 
+	* @constructor
+	*
+	* Creates Save Dialog for saving JSON session data either in JSON 
+	* or XML formats. Sets up HTML 
+	*/
 	var SaveDialog=function(){
 		var self=this;
 		self.html=	'<div id="savedialogwhitespace" class="white_content"><div id="savedialog" class="dialog"><div class="header">'+
@@ -2784,9 +2762,10 @@ TILE.scale=1;
 	/*
 	 * Load  Dialog
 	 *
+	 *
 	 * For loading JSON session data back into the TILE interface
 	 */
-	var LoadDialog=function(args){
+	var LoadDialog=function(){
 		// Constructor: (Same as Dialog)  {loc: {String} id for where to put DOM, html: {String} JSON string representing html for this Dialog}
 		var self=this;
 		// Constructor:
@@ -2794,8 +2773,7 @@ TILE.scale=1;
 		// @param: 
 		// Obj: variables:
 		// 	loc: {String} DOM object to be attached to
-		if((!args.loc)) {throw "Not enough arguments passed to Dialog";}
-		self.loc=args.loc;
+		
 		self.importScript="plugins/CoreData/importDataScript.php";
 		//set up JSON html
 		var html=	'<div id="LTlight" class="white_content"><div id="loadTagsDialog" class="dialog">'+
@@ -2813,7 +2791,7 @@ TILE.scale=1;
 					'<br /><select id="fileFormatFileURL" name="fileformat"></select>'+
 					'<br/><input id="loadURL" type="submit" class="button" name="submitTags" value="Submit" /></form>'+
 					'</div><div class="clear"></div></div></div></div><div id="LTfade" class="black_overlay"></div>';
-		$(html).appendTo(self.loc);
+		$(html).appendTo($("body"));
 		self.index=($("#dialog").length+self.loc.width());
 	
 		this.DOM=$("#loadTagsDialog");
@@ -2842,24 +2820,6 @@ TILE.scale=1;
 			$("#uploadURL > input").attr('disabled','');
 		});
 		
-		// change the file upload submit method from default
-		// $("#loadTagsDialog > .body > .option > #loadFromFile").submit(function(e){
-		// 		
-		// 		$(this)[0].target='import_iframe';
-		// 		
-		// 	});
-		// 	
-		// 	// attach onload function to the iframe
-		// 	$("#import_iframe").load(function(e){
-		// 		// get JSON text
-		// 		var str=frames['import_iframe'].document.getElementsByTagName("body")[0].getElementsByTagName("pre")[0].innerHTML;
-		// 		if(__v) console.log(styleName+' is loading'); console.log('str loaded into import iframe: '+str);
-		// 		TILE.engine.parseJSON(JSON.parse(str));
-		// 		$("#LTlight").hide();
-		// 		$("#LTfade").hide();
-		// 		
-		// 	});
-
 		$("#loadTagsDialog > .body > .option > #selectFileUpload").trigger('click'); 
 		
 		$("#loadFromFile").ajaxForm(function(data,stats){

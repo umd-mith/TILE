@@ -1,5 +1,19 @@
+/**
+* TextSelection 
+* @author Grant Dickie
+* 
+*  Provides functionality to highlight areas of text
+* in the Transcript window
+*/
+
 (function($,rangy){
 	rootNS = this;
+	/**
+	* TextSelector Object
+	* Main object that handles selection objects
+	*
+	* @constructor
+	*/
 	TextSelector = function(){
 		var self = this;
 		this._color = "#FDFF00";
@@ -433,19 +447,20 @@
 	rootNS.TextSelector = TextSelector;
 })(jQuery,rangy);
 
-// Text Selection Plugin Code
-// Functions:
-// start()
-// restart()
-// bundleData()
-// close()
-// Variables:
-// _close
-// json
 
+/**
+* Wrapper for the TILE.engine to load in plugin
+*
+* start() is the constructor
+*/
 var TS={
 	id:"TS1000",
 	name:'TextSelection',
+	/**
+	* start()
+	* @constructor
+	* @params mode {Object} - Mode object passed when TILE.engine calls start()
+	*/
 	start:function(mode){
 		var self=this;
 		self.textsel=new TextSelector();

@@ -1,19 +1,20 @@
-// Image Tagger : A plugin tool for TILE
-// developed by grantd 
-// Takes a JSON object representing the pages in a particular session, puts each
-// url in a SVG Canvas and applies the VectorDrawer program to that image
+/**
+*  Image Tagger : A plugin tool for TILE
+*  @author Grant Dickie
+*  Takes a JSON object representing the pages in a particular session, puts each
+*  url in a SVG Canvas and applies the VectorDrawer program to that image
 
-// Objects:
-// ITag (Main engine)
-// ImageList
-// TILEShapeToolBar
-// RaphaelImage
-// Shape
-// AutoRecLine
+*  Objects:
+*  ITag (Main engine)
+*  ImageList
+*  TILEShapeToolBar
+*  RaphaelImage
+*  Shape
+*  AutoRecLine
 
-// NOTE: Shapes are loaded into RaphaelCanvas by use of the loadItems Custom Event
-// Example: $("body:first").trigger("loadItems",[{Object} arrayOfShapesOrItems]);
-
+*  NOTE: Shapes are loaded into RaphaelCanvas by use of the loadItems Custom Event
+*  Example: $("body:first").trigger("loadItems",[{Object} arrayOfShapesOrItems]);
+*/
 
 //Shape Constants
 var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
@@ -23,7 +24,11 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 	var ITag = this;
 	ITag.done = false;
 	
-	// constructor for ITag - loads all elements for ImageTagger
+	/**
+	* _Itag 
+	* 
+	* @constructor 
+	*/
 	var _Itag = function (args) { 
 		this.loc=args.loc;
 		// this._base=args.base;
@@ -292,17 +297,14 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 	ITag._Itag=_Itag;
 
 	/**
-	ImageList
-	**/
-	// Displays images in a given session
-	// 
-	// Has its own JSON data that includes HTML 
-	// mirrors HTML of ImageTagger toolbar and canvas container 
-	
-	/*
-	Usage: 
-	new ImageList({loc:{String},html:{String from JSON data}});
-	
+	* ImageList
+	* @constructor
+	* Displays images in a given session
+	*
+	* Has its own JSON data that includes HTML 
+	* mirrors HTML of ImageTagger toolbar and canvas container 
+	* Usage: 
+	* new ImageList({loc:{String},html:{String from JSON data}});
 	*/
 	var ImageList=function(args){
 		//constructor
@@ -370,18 +372,21 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 		}
 	};
 	
-	//ShapeToolBar
-	/**Secondary toolbar for the TILE interface - 
-	holds buttons for shape commands (rect, elli, poly, select)
-	All,Current,None view settings
-	Zoom Controls
-	Next/Prev Page  
-	
-	Usage: 
-	new TILEShapeToolBar({loc:{String}})
-	
-	Contains own JSON section in imagetagger.json
-	
+	/**
+	* ShapeToolBar
+	* @constructor
+	* 
+	* Secondary toolbar for the TILE interface - 
+	* holds buttons for shape commands (rect, elli, poly, select)
+	* All,Current,None view settings
+	* Zoom Controls
+	* Next/Prev Page  
+	* 
+	* Usage: 
+	* new TILEShapeToolBar({loc:{String}})
+	* 
+	* Contains own JSON section in imagetagger.json
+	*
 	**/
 	var TILEShapeToolBar=function(args){
 		// Constructor
@@ -627,16 +632,16 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 	};
 	
 	/**
-	RaphaelImage
-
-	Using the same features as CanvasImage 
-	Using RaphaelJS library for creating a Raphael canvas 
-
-	**USES SVG
-	
-	new RaphaelImage({loc:{String}})
-	
-	loc: {String} - Id for parent DOM
+	* RaphaelImage
+	* @constructor 
+	*
+	* Creates canvas for drawing shapes.
+	* Using RaphaelJS library for creating a Raphael canvas 
+	* 
+	* Usage:
+	* new RaphaelImage({loc:{String}})
+	* 
+	* @params loc: {String} - Id for parent DOM
 	**/
 
 	var RaphaelImage=function(args){
@@ -1118,16 +1123,6 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 				// Delete the shape completely and all references to the  shape
 				
 				var foundID=$(this).attr('id');
-				// if(/^D\_/.test(foundID)){
-				// 					// Auto Line - only need to shift lines
-				// 					self._shiftAutoLines(foundID);
-				// 					$(".shpButtonHolder > #approveAllButton").remove();
-				// 					$("div[id^='approve_']").remove();
-				// 					return;
-				// 				}
-				
-				
-				// self.drawTool.deleteShape(foundID);
 				
 				self.deleteShape(foundID);
 			});
@@ -1828,83 +1823,24 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 	ITag.RaphaelImage=RaphaelImage;
 
 	ITag.TILEShapeToolBar=TILEShapeToolBar;
-	//ITag.TileAnimatedScroller=TileAnimatedScroller;
-	//SHAPE
-	/**
-	Shape 
 
-	Created by: dreside
-
-	Object that houses a collection of dot coordinates taken from an HTML canvas
-	element.
-	Stores x,y coordinates and organizes dots from their left-right, bottom-top positions
-
-
-	**/
-	var Shape = function(args){
-		// Constructor
-			this.coords=[];
-			this.index=args.index;
-			this.Top=args.initialTop;
-			this.Right=0;
-			this.Left=args.initialLeft;
-			this.Bottom=0;
-			this.hMid = 0; // horizontal midpoint
-			this.vMid = 0; // vertical midpoint
-			this.foundOnRow = (typeof args.foundOnRow=="string")?parseInt(args.foundOnRow.substring(1),10):args.foundOnRow;
-
-	};
-	Shape.prototype={
-		// Add an xy value, which is processed into the Shape object's 
-		// coords array
-		// xy : {Object} - array of x and y pair
-		add: function(xy){
-			//add new xy value to coords array
-			this.coords.push(xy);
-			var x =parseInt(xy.x.substring(1),10); 
-			var y =parseInt(xy.y.substring(1),10); 
-			//check to make sure greatest left,top,right,bottom points
-			//are updated
-			if (x < this.Left) {
-				this.Left = x;
-			}
-			if (x > this.Right) {
-				this.Right = x;
-			}
-			if (y > this.Bottom) {
-				this.Bottom = y;
-			}
-			if (y < this.Top) {
-				this.Top = y;
-			}
-
-
-		},
-
-		// @param
-		// 	shape: Another Shape object to compare this one to
-		// returns true of false
-		compare:function(shape,criteria){
-			return (this[criteria]<shape[criteria]);
-		}
-	};
-	
-	
 })(jQuery);
 
-
-// Object to be passed to the TILE interface to be 
-// added as a plugin
-// Functions follow a standard protocol that should be followed
-// so that any particular plugin can work with the TILE interface
-//
+/**
+* Wrapper for the TILE.engine object to load the plugin
+* start() method is constructor
+*
+* 
+*/
 var IT = {
 	id:"IT1000",
-	// name: {string} used as an array key for the TILE toolSet array
+	// name: {string} used as unique identifier
 	name:'ImageTagger',
-	// start(id,base,json): creates the imagetagger. Takes id (string representing
-	// DOM location of tagger), base (string representing location of images - provided by TILE), and json
-	//  (either null or JSON object representing TILE JSON data)
+	/* 
+	* start()
+	* @constructor
+	* @params mode {Object} - Mode object passed to method
+	*/
 	start:function(mode){
 		var self=this;
 		self.activeShape=null;

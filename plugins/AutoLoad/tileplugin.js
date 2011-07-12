@@ -1,11 +1,20 @@
-// AutoLoad
-
-// by Grant Dickie
-// MITH 2011
-
+/*
+* AutoLoad
+*
+* @author Grant Dickie
+* 
+* Wrapper for TILE engine to automatically load
+* in JSON data in case there is not already data
+* loaded
+*/
 var AutoLoad={
 	id:"Auto1000101",
 	name:'AutoLoad',
+	/* 
+	* start()
+	* @constructor
+	* @params mode {Object} - Mode object passed to method
+	*/
 	start:function(mode){
 		var self=this;
 		// get data from config file
@@ -24,5 +33,6 @@ var AutoLoad={
 	
 	
 };
+
 // register the plugin with TILE
 TILE.engine.registerPlugin(AutoLoad);

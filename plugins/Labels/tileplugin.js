@@ -1,22 +1,22 @@
-// Labels
-// Provides a taxonomy for all TILE transcript lines and shape areas
-// 
-// 
-// NOTES:
-// * Uses 'addLink' Custom Event to send out data to other objects
+/**
+* Labels
+* Manages metadata in Label window - hides and shows
+* Labels that are present on the page
+* 
+* 
+*/
 
-
+/**
+* @constructor
+* @params args {Object}
+*/
 var Label=function(args){
 	var self=this;
-	// attach DOM to the ActiveBox area
-	// $("#az_LabelBox").append("<div id=\"labelList\" class=\"az\"></div></div>");
-	// attach toolbar items
-	// $("#addLabelToolbar").append("");
+	
 	self.DOM=$("#az_LabelBox");
 	self.clearTextArea=$("#clearTextArea");
 	self.addLabelText=$("#filterLabelText");
 	self.labelList=$("#az_activeBox > div > div#labelList");
-	// self.helpIcon=new HelpBox({"iconId":"addLblHelp","text":"Displays all labels. Typing in the box to the left will narrow down the labels shown. Clicking Clear will reset the filtering."});
 	self.manifest=[];
 	self.checkIds=[];
 	self.clearTextArea.click(function(e){
@@ -300,11 +300,18 @@ Label.prototype={
 	
 };
 
-// Plugin object that is fed into TILE_ENGINE 1.0
+/**
+* Plugin Wrapper that TILE.engine uses to load in plugin
+* start() method is constructor
+*
+*/
 var LB={
 	name:"Labels",
-	// Initialize the Label Box (Lower-left) and 
-	// prepare data to sent to PluginController
+	/**
+	* start()
+	* @constructor
+	* @params mode {Object} - Mode object passed when TILE.engine calls start()
+	*/
 	start:function(mode){
 		
 		var self=this;

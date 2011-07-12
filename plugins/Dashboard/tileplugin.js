@@ -1,11 +1,19 @@
-// Dashboard Plugin
-// author: Grant Dickie
-
-// Makes use of Googles OpenSocial scheme for adding widgets
-// Displays global information about the user's current TILE session
-
+/** 
+* Dashboard Plugin
+* @author Grant Dickie
+* Makes use of Googles OpenSocial scheme for adding widgets
+* Displays global information about the user's current TILE session
+*
+* Dashboard is wrapper for the TILE.engine object - start is used
+* as the constructor
+*/
 var Dashboard={
 	name:'Dashboard',
+	/**
+	* start()
+	* @constructor
+	* @params mode {Object} - Mode object passed when TILE.engine calls start()
+	*/
 	start:function(mode){
 		var self=this;
 		
@@ -356,18 +364,7 @@ var Dashboard={
 					columns[p].push(self.data.pages[p][prop].length);
 				}
 			}
-			// columns.push(nrow);
-			// var nrow='<tr id="'+p+'"><td class="page"><a id="'+p+'">'+self.data.pages[p].url+'</a></td></tr>';
-			// 		// append
-			// 		$("table.pagelist").append(nrow);
-			// 		// html+='<div id="'+p+'" class="page"><p>'+self.data.pages[p].url+'</p><div class="pagedetail">URL: '+self.data.pages[p].url+'</div>';
-			// 		// count items and make new headers if arrays found
-			// 		for(var prop in self.data.pages[p]){
-			// 			if(($.isArray(self.data.pages[p][prop]))&&(!(/info/i.test(prop)))){
-			// 				html+='<div class="pagedetail">'+prop+': ('+self.data.pages[p][prop].length+')</div>';
-			// 			}
-			// 		}
-			// 		html+='</div>';
+			
 		}
 		
 		// parse the columns so that they are all even
@@ -387,25 +384,7 @@ var Dashboard={
 		}
 		html+='</tr></thead><tbody></tbody></table>';
 		$(".dashboard_main").append(html);
-		// fill in columns
-		// use setimeout to prevent crashing
-		// setTimeout(function(columns){
-		// 			for(var row in columns){
-		// 				// create new row
-		// 				// wrapper for rowhtml
-		// 
-		// 				$(".dashboard_main > #pagedata > tbody").append('<tr id="page'+row+'">'+rowhtml+'</tr>');
-		// 				for(var prop in columns[row]){
-		// 					// attach cell data
-		// 					if(prop=='pages'){
-		// 						$('.pagelist > tbody > #page'+row+' > td > #'+prop).append('<a id="'+row+'">'+columns[row][prop]+'</a>');
-		// 					} else {
-		// 						$('.pagelist > tbody > #page'+row+' > td > #'+prop).append('<p>'+columns[row][prop]+'</p>');
-		// 					}
-		// 				}
-		// 			}
-		// 			
-		// 		},11,columns);
+	
 		// create into a datatable
 		$("#pagedata").dataTable({
 			'aaData':columns,
@@ -499,20 +478,7 @@ var Dashboard={
 		}
 		html+='</tr></thead><tbody></tbody></table>';
 		$(".dashboard_main").append(html);
-		// attach row parts - 
-		// settimeout to prevent crashing
-		// setTimeout(function(columns){
-		// 		for(row in columns){
-		// 			// create new row
-		// 			var nrow='<tr id="line'+row+'">'+rowhtml+'</tr>';
-		// 			// attach
-		// 			$(".dashboard_main > #linedata > tbody").append(nrow);
-		// 			for(var prop in columns[row]){
-		// 				var h='<div class="'+prop+'"><a id="'+columns[row][prop]+'">'+columns[row][prop]+'</a></div>';
-		// 				$("#linedata > tbody > #line"+row+' > #'+prop).append(h);
-		// 			}
-		// 		}
-		// 	},11,columns);
+		
 		$("#linedata").dataTable({
 			'aaData':columns
 			

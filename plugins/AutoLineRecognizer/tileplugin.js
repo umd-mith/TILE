@@ -56,10 +56,10 @@
 		TileOCR - creates the setup and tools 
 		to use the autoRecognizer
 		
-		Author: Grant Dickie
+		@author Grant Dickie
 		MITH 2010
 		
-		//relies on CanvasAutoRecognizer toolset
+		relies on CanvasAutoRecognizer toolset
 		var v = new TileOCR({loc:{String}})
 		
 		
@@ -68,8 +68,8 @@
 		
 	**/
     var TileOCR = function(args) {
-        // Constructor
-        //finds it's own location if not given one
+        // @constructor
+        // finds it's own location if not given one
         var self = this;
         var d = new Date();
         self.uid = d.getTime("milliseconds") + "_ar";
@@ -846,6 +846,8 @@
 	 * Image object that creates a canvas
 	 * and loads URL of image inside it
 	 * 
+	 * @constructor
+	 *
 	 * Possible functionality:
 	 * Can load a series of urls (array-based series) 
 	
@@ -887,20 +889,6 @@
         self.DOM.width($("#azcontentarea").width());
         self.DOM.height(self.DOM.closest(".az.content").height() - self.DOM.closest(".toolbar").height());
 
-        // set up listeners for zoom buttons
-        // $(alrcontainer + " > .toolbar > ul > li > a#zoomIn").live('click',
-        //         function(e) {
-        //             e.preventDefault();
-        //             // fire zoom trigger for AR
-        //             $("body:first").trigger("zoomAR", [1]);
-        //         });
-        //         $(alrcontainer + " > .toolbar > ul > li > a#zoomOut").live('click',
-        //         function(e) {
-        //             e.preventDefault();
-        //             // fire zoom trigger for AR
-        //             $("body:first").trigger("zoomAR", [ - 1]);
-        //         });
-        
         self.canvas = $("#" + self.DOM.attr('id') + " > #html5area > #canvas");
         //need real DOM element, not jQuery object
         self.canvasEl = self.canvas[0];
@@ -919,9 +907,6 @@
             obj: self
         },
         self.zoomHandle);
-        //$("body").bind("closeOutAutoRec",{obj:this},this._closeOut);
-
-       
     };
     CanvasImage.prototype = {
 		show:function(){
@@ -983,9 +968,6 @@
 		altSetUpCanvas: function () {
 			var self = this;
 			
-			 // $("#hiddenCanvasSource").hide();
-	         // self.canvas[0].width = 0;
-            
 			// create local variable for canvas DOM element
 			// Otherwise, context loading may not work
 			var canvasEl = $("#html5area > #canvas")[0];
@@ -1050,9 +1032,7 @@
 					if(__v) console.log('webkit true, drawing canvas '+self.webkitLoad);
 					// drawing canvas 
                 	$("#canvas")[0].getContext('2d').drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
- 	               // $("#" + self.uid).width($("#azcontentarea").width());
- 	               // 	                $("#" + self.uid).height($("#azcontentarea").height() - $("#azcontentarea > .az.inner > .toolbar").innerHeight());
- 	               // 				
+ 	               
 	                // show the region box after the image has loaded
 	                removeImgScreen();
 					
@@ -1143,14 +1123,6 @@
                 self.canvas[0].width = real_width;
                 self.canvas[0].height = real_height;
 
-
-                // if (($("#regionBox").width() > real_width) || ($("#regionBox").height() > real_height)) {
-                //                    $("#regionBox").width(real_width - (real_width / 4));
-                //                    $("#regionBox").height(real_height - (real_height / 4));
-                //                }
-                // 				var regionBoxTop = $("#canvasHTML > .toolbar").innerHeight();
-                // 
-                // 				$("#regionBox").css({"top":regionBoxTop+'px',"left":"0px"});
                 self.canvas.attr("width", self.canvas[0].width);
                 self.canvas.attr("height", self.canvas[0].height);
 				if(!self.context){
@@ -1220,6 +1192,13 @@
     };
 
 
+/**
+* ShapePreviewCanvas
+* 
+* @constructor
+* Creates an instance of the RaphaelJS canvas to load
+* shapes to preview what has been recognized
+*/
 var ShapePreviewCanvas = function () {
 	var self=this;
 	// set up image
@@ -1351,7 +1330,7 @@ ShapePreviewCanvas.prototype = {
     /**
 		RegionBox
 		
-		Author: Grant D.
+		@constructor
 		
 		Taking the HTML from other functions and making it into a single function
 		**/
@@ -1464,135 +1443,19 @@ ShapePreviewCanvas.prototype = {
         }
     };
 
-
-    //SHAPE
-    /**
-		Shape 
-
-		Created by: dreside
-
-		Object that houses a collection of dot coordinates taken from an HTML canvas
-		element.
-		Stores x,y coordinates and organizes dots from their left-right, bottom-top positions
-
-
-		**/
-    var Shape = function(args) {
-        // Constructor
-        this.coords = [];
-        this.index = args.index;
-        this.Top = args.initialTop;
-        this.Right = 0;
-        this.Left = args.initialLeft;
-        this.Bottom = 0;
-        this.hMid = 0;
-        // horizontal midpoint
-        this.vMid = 0;
-        // vertical midpoint
-        this.foundOnRow = parseInt(args.foundOnRow.substring(1), 10);
-
-    };
-    Shape.prototype = {
-        // Add an xy value, which is processed into the Shape object's
-        // coords array
-        // xy : {Object} - array of x and y pair
-        add: function(xy) {
-            //add new xy value to coords array
-            this.coords.push(xy);
-            var x = parseInt(xy.x.substring(1), 10);
-            var y = parseInt(xy.y.substring(1), 10);
-            //check to make sure greatest left,top,right,bottom points
-            //are updated
-            if (x < this.Left) {
-                this.Left = x;
-            }
-            if (x > this.Right) {
-                this.Right = x;
-            }
-            if (y > this.Bottom) {
-                this.Bottom = y;
-            }
-            if (y < this.Top) {
-                this.Top = y;
-            }
-
-
-        },
-
-        // @param
-        // 	shape: Another Shape object to compare this one to
-        // returns true of false
-        compare: function(shape, criteria) {
-            return (this[criteria] < shape[criteria]);
-        }
-    };
-
-
-   
-
-    //REGION RULE
-    // Object representing an array of values
-    // related to a region of an image to recognize
-    var RegionRule = function(args) {
-        // Constructor
-        /*
-				 * args:
-				 * 		move: Enum type [stay|next|prev] which directs whether to change the page
-				 * 		top: % from top of image
-				 * 		left: %
-				 * 		height: %
-				 * 		width: %
-				 * 		
-				 */
-        this.move = args.move;
-        this.top = args.top;
-        this.left = args.left;
-        this.height = args.height;
-        this.width = args.width;
-
-
-    };
-
     
-
-    // Parent Class
-    // AutoRecognizer
-    //
-    // All AutoRecognizer Objects contain data and shape arrays
-    var AutoRecognizer = function(args) {
-        // Constructor
-        this.data = [];
-        this.shapes = [];
-
-        // Sub-Classes extend functionality
-    };
-
-    /**
-			CanvasAutoRecognizer
-
-			Functions:
-			init (constructor)
-			getRegion - receives values from Image object
-			thresholdConversion
-			filterDots
-			createLineBreaks
-			convertShapesToLines
-			cleanLineBreaks
-			colorLineBreaks
-
-			listens for:
-			RegionSet
-			
-			Usage: 
-			new CanvasAutoRecognizer({regionID:{String},dotMin:{Integer},dotMax:{Integer}});
-			
-			regionID {String} - ID for RegionBox
-			dotMin {Integer} - minimum dots per line
-			dotMax {Integer} - maximum dots per line
-	**/
-
+	/*
+	* CanvasAutoRecognizer
+	* 
+	* Creates object that handles thresholdConversion and recognizing
+	* where lines are
+	*
+	* 
+	*/
     var CanvasAutoRecognizer = function(args) {
-        // Constructor
+        /** @constructor
+		* @params args {Object}
+		*/
         this.data = [];
         this.shapes = [];
         // args:
@@ -2053,18 +1916,18 @@ ShapePreviewCanvas.prototype = {
 
 })(jQuery);
 
-
-// Plugin for TILE_ENGINE
-// AutoRecognizer - AR plugin
-// Contains properties and functions that follow the TILE interface plugin protocol
-//
+/**
+* Plugin for TILE_ENGINE
+* AutoRecognizer - AR plugin
+* Contains properties and functions that follow the TILE interface plugin protocol
+*/
 var AR = {
     id: "AR1000",
-    // Calls constructor for AutoRecognizer and passes
-    // variables
-    // id {String} - ID for parent DOM
-    // data {Object} - JSON data with transcript lines
-    // layout {String} : HTML layout in string format
+    /* 
+	* start()
+	* @constructor
+	* @params mode {Object} - Mode object passed to method
+	*/
     start: function (mode) {
 	
         var self = this;
