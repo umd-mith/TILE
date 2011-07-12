@@ -1589,7 +1589,7 @@ ShapePreviewCanvas.prototype = {
 			regionID {String} - ID for RegionBox
 			dotMin {Integer} - minimum dots per line
 			dotMax {Integer} - maximum dots per line
-			**/
+	**/
 
     var CanvasAutoRecognizer = function(args) {
         // Constructor
@@ -2066,17 +2066,17 @@ var AR = {
     // data {Object} - JSON data with transcript lines
     // layout {String} : HTML layout in string format
     start: function (mode) {
+	
         var self = this;
         // If AR object not yet set, create new one
         if (!self.__AR__) {
             var json = TILE.engine.getJSON(true);
-			var shapes = self.findShapesInJSON(json);
 			
+			var shapes = (json)?self.findShapesInJSON(json):[];
 			self.AR_ON = true;
-			
             self.__AR__ = new TileOCR({
                 loc: "az_log",
-                transcript: json
+                transcript: (json)?json:[]
             });
             // create a new mode with a callback function
             self.tileMode = mode;
@@ -2101,6 +2101,8 @@ var AR = {
 			});
 			
 			$("body").live("deleteRecognizedShapes",{obj:self},self.deleteRSHandle);
+			
+			$("body").live("newJSON",{obj:self},self.newJSONHandle);
 			
 			// Picks up shapes that were recognized in _recognize
             $("body").live("outputLines", {
@@ -2205,6 +2207,22 @@ var AR = {
            });
         }
     },
+	// called when parseJSON in TILE.engine is finished
+	// loading JSON data
+	newJSONHandle: function (e) {
+		if($("#autoreclog").css("z-index") == "0") return;
+		
+		var self = e.data.obj;
+		var json = TILE.engine.getJSON(true);
+        $("#autoreclog").css("z-index", "5");
+		$("#hiddenCanvasSource").attr('src','');
+		var shapes=self.findShapesInJSON(json);
+		
+		self.__AR__.setPredefinedShapes(shapes);
+		
+        self.__AR__._restart(json);
+		
+	},
 	// locate shapes within the TILE JSON data and 
 	// load into PreviewCanvas
 	findShapesInJSON:function(json){
@@ -2212,6 +2230,7 @@ var AR = {
 		// only get JSON for this page
 		var sIDs=[];
 		$.each(json.lines, function (i, line) {
+			
 			if(line&&(line.shapes)){
 				$.each(line.shapes, function (ix, id) {
 					if($.inArray(sIDs, id)<0){
