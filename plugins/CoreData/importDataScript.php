@@ -121,6 +121,15 @@ if(isset($_POST['format'])&&isset($_POST['filepath'])){
 	header('Content-type: text/javascript');
 	echo $data;	
 	
+} else if(isset($_GET['directory'])) { 
+	// directory: use the image_dir_import class
+	include_once('coredata.php');
+	include_once('import_dir_import.php');
+	
+	$parser = new import_dir_import($_GET['directory']);
+	$data = $parse -> to_json();
+	echo $data;
+	
 } else if(isset($_GET['file'])){
 	$name=$_GET['file'];
 	if(preg_match('/<|>/',$name)){

@@ -53,9 +53,10 @@ TILE.scale=1;
 (function($){
 	var tile=this;
 
-	// Private variables used within TILE_ENGINE
-	// that can be accessed only in the TILE() 
-	// local level
+	/** Private variables used within TILE_ENGINE
+	* that can be accessed only in the TILE() 
+	* local level
+	*/
 	var pluginControl=null; // instance of plugincontroller
 	var json=null; // Global JSON session
 	var _tileBar=null;
@@ -135,14 +136,20 @@ TILE.scale=1;
 		}
         return tempClone;
 	};
-	
-	// Called to see if there is a JSON object stored in the PHP session() 
-	// OR: in a GET request 
+	/**
+	* Called to see if there is a JSON object stored in the PHP session() 
+	* OR: in a GET request 
+	*/
 	var	checkJSON=function(){
-		// set up load screen html, which 
-		// will show up to protect more events
-		// from firing when data is loading
-		$('<div id="loadlight" class="white_content"><div id="loadDialogSplash" class="dialog"><div class="body"></div></div></div><div id="loadblack" class="black_overlay"></div>').appendTo($("body"));
+		/**
+		* set up load screen html, which 
+		* will show up to protect more events
+		* from firing when data is loading
+		*/
+		var html = '<div id="loadlight" class="white_content"><div id="loadDialogSplash" class="dialog">'+
+					'<div class="body"></div></div></div><div id="loadblack" class="black_overlay"></div>';
+		
+		$(html).appendTo($("body"));
 		// have black overlay eat all mouse events
 		$("#loadDark").live('mousedown click mouseup mouseout',function(e){
 			e.stopPropagation();
@@ -189,9 +196,11 @@ TILE.scale=1;
 			return;
 			// TILE.engine.parseJSON(file);
 		} else if((window.location.href.search(/\?json\=/i))>=0){
-				// grab the GET parameter only - 
-				// user defines this by putting ?json= followed
-				// by the URI of their JSON/XML/TXT file
+				/**
+				* grab the GET parameter only - 
+				* user defines this by putting ?json= followed
+				* by the URI of their JSON/XML/TXT file
+				*/
 				var n=window.location.href.search(/\?json\=/i);
 				
 				var str=window.location.href.slice((n+6));
@@ -227,9 +236,11 @@ TILE.scale=1;
 			} 
 		
 	};
-	//called after getBase(); creating main TILE interface objects and
-	//setting up the HTML
-	// d : {Object} - contains columns.json data
+	/**
+	* called after getBase(); creating main TILE interface objects and
+	* setting up the HTML
+	* d : {Object} - contains columns.json data
+	*/
 	var setUp=function(){
 		var self=this;
 		// set initial formats
@@ -308,10 +319,13 @@ TILE.scale=1;
 				}
 			return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 		},
-		// stores local variables and initializes HTML
-		// Does not attach HTML
-		// myID : {String}
-		// labels : {Object} - array of label data to store in FloatingDiv
+		/**
+		* stores local variables and initializes HTML
+		* Does not attach HTML
+		* @params
+		* myID : {String}
+		* labels : {Object} - array of label data to store in FloatingDiv
+		*/
 		init: function(myID, labels) {
 			// remove any dups
 			$('#'+myID).empty().remove();		
@@ -414,7 +428,7 @@ TILE.scale=1;
 			});
 		},
 		// Attaches HTML to DOM
-		// myID : {String}
+		// @params myID : {String}
 		createDialog:function(myID) {
 			var self=this;
 			// get id from object
@@ -445,9 +459,11 @@ TILE.scale=1;
 			$("#labelListFloat").css({"position":"relative","height":"100px"});
 			self.addColorSelector(myID,self.defaultColor);
 		},	
-		// insert new labels/tags and restart 
-		// the metadata list and autocomplete
-		// lbls : {Object array}
+		/**
+		* insert new labels/tags and restart 
+		* the metadata list and autocomplete
+		* @params lbls : {Object array}
+		*/
 		insertNewLabels:function(lbls){
 			var self=this;
 			
@@ -487,10 +503,13 @@ TILE.scale=1;
 			});
 			
 		},
-		// Creates jQuery autoComplete object and attaches it 
-		// to passed element
-		// elem : {Object} - passed jQuery element 
-		// labels : {Object} - array of data that represents automplete data - needs to be parsed
+		/**
+		* Creates jQuery autoComplete object and attaches it 
+		* to passed element
+		* @params
+		* elem : {Object} - passed jQuery element 
+		* labels : {Object} - array of data that represents automplete data - needs to be parsed
+		*/
 		addAutoComplete: function() {
 			var self=this;
 			// go through passed data and extract names
@@ -504,9 +523,12 @@ TILE.scale=1;
 						
 			return false;	
 		},
-		// Creates colorpicker object and attaches to FloatingDiv 
-		// myID : {String}
-		// o : {String} - hexidecimal value (without the #)
+		/**
+		* Creates colorpicker object and attaches to FloatingDiv 
+		* @params
+		* myID : {String}
+		* o : {String} - hexidecimal value (without the #)
+		*/
 		addColorSelector: function(myID, o) {
 			var self = this;
 			var htmlString;
@@ -608,10 +630,11 @@ TILE.scale=1;
 			if(!self._curLink.obj.color) return;
 			$('#floatingPenColor > div').css('backgroundColor',self._curLink.obj.color);
 		},
-		// Finds all labels that the user references. 
-		// Puts parsed data into array and passes it out using
-		// event call floatDivOutput
-		// 
+		/**
+		* Finds all labels that the user references. 
+		* Puts parsed data into array and passes it out using
+		* event call floatDivOutput
+		*/
 		sendLabels:function(){
 			var self=this;
 			if(!self._curLink) return;
@@ -685,10 +708,12 @@ TILE.scale=1;
 				source:self.labelNames
 			});
 		},
-		// Take passed id, find the data it references,
-		// then delete from current linked object
-		// id : {String},
-		
+		/**
+		* Take passed id, find the data it references,
+		* then delete from current linked object
+		* @params
+		* id : {String},
+		*/
 		deleteLinkHandle:function(id){
 			var self=this;
 			// remove the matched metadata item from
@@ -738,7 +763,7 @@ TILE.scale=1;
 	 *
 	 * Example:
 	 * <script type="text/javascript">
-	 *		var tile=new TILE_ENGINE({});
+	 // 		 var tile=new TILE_ENGINE({});
 	 *
 	 * 		Using the insertMode method to add a interface mode
 	 *		tile.insertMode('Mode1');
@@ -799,9 +824,11 @@ TILE.scale=1;
 		errorbox=new ErrorBox();
 	};
 	TILE_ENGINE.prototype={
-		// activates the engine - called after loading all 
-		// plugins into the array through insertPlugin
-		// or insertModePlugin
+		/**
+		* activates the engine - called after loading all 
+		* plugins into the array through insertPlugin
+		* or insertModePlugin
+		*/
 		activate:function(mode){
 			var self=this;
 			// optional: pass mode to determine
@@ -846,23 +873,34 @@ TILE.scale=1;
 		showErrorReport:function(text){
 			errorbox.displayError(text);
 		},
-		// adds a string of HTML to the drop-downs in 
-		// save and load dialogs
+		/**
+		* adds a string of HTML to the drop-downs in 
+		* save and load dialogs
+		* @params
+		* str {String}
+		*/
 		addImportExportFormats:function(str){
 			var self=this;
 			
 			_tileBar.addFormats(str);
 			
 		},
-		// Called to see if there is a JSON object stored in the PHP session() 
-		// adds a toolbar button to TileToolBar
+		/**
+		* Called to see if there is a JSON object stored in the PHP session() 
+		* adds a toolbar button to TileToolBar
+		* @params
+		* button {Object}
+		*/
 		addDialogButton:function(button){
 			// send to _tileBar
 			var jobj=_tileBar.addButton(button);
 			return jobj;
 		},
-		// adds a plugin to the main set 
-		// of plugins in TILE
+		/**
+		* adds a plugin to the main set 
+		* of plugins in TILE
+		* @params name {String}
+		*/
 		insertPlugin:function(name){
 			var self=this;
 			// obj is plugin wrapper
@@ -871,9 +909,12 @@ TILE.scale=1;
 			var src='plugins/'+name+'/tileplugin.js';
 			self.plugins.push(src);
 		},
-		// takes a description for a mode
-		// and creates a new mode object
-		insertMode:function(name,active,unactive){
+		/**
+		* takes a description for a mode
+		* and creates a new mode object
+		* @params name {String}
+		*/ 
+		insertMode:function(name){
 			var self=this;
 			
 			// search for name in array of modes
@@ -887,9 +928,13 @@ TILE.scale=1;
 			pluginModes.push(mode);
 			return mode;
 		},
-		// add a plugin to a specific mode - 
-		// waits until the mode is called to run
-		// start() on plugin
+		/**
+		* add a plugin to a specific mode - 
+		* waits until the mode is called to run
+		* start() on plugin
+		* @params
+		* mode {String}, plugin {String}
+		*/
 		insertModePlugin:function(mode,plugin){
 			var self=this;
 			var obj=null;
@@ -919,8 +964,12 @@ TILE.scale=1;
 			self.modeplugins[plugin]=obj.name;
 			
 		},
-		// either appends html to Mode object of name or 
-		// creates a new mode and inserts html in that mode
+		/**
+		* either appends html to Mode object of name or 
+		* creates a new mode and inserts html in that mode
+		* @params 
+		* html {String}, section {String}, name {String}
+		*/
 		insertModeHTML:function(html,section,name){
 			var self=this;
 			var mode=null;
@@ -940,8 +989,12 @@ TILE.scale=1;
 			mode.appendPluginHTML(html,section);
 			
 		},
-		// insert toolbar buttons to a specific 
-		// plugin in a specific mode
+		/**
+		* insert toolbar buttons to a specific 
+		* plugin in a specific mode
+		* @params 
+		* html {String}, section {String}, name {String}
+		*/
 		insertModeButtons:function(html,section,name){
 			var self=this;
 			var mode=null;
@@ -960,8 +1013,12 @@ TILE.scale=1;
 			
 			
 		},
-		// adds the plugin wrapper to the 
-		// internal array 
+		/**
+		* adds the plugin wrapper to the 
+		* internal array 
+		* @params
+		* pw {Object} 
+		*/
 		registerPlugin:function(pw){
 			var self=this;
 			// if part of a mode, add to 
@@ -983,12 +1040,13 @@ TILE.scale=1;
 				pw.start();
 			}
 		},
-		/**Get Schema**/
-		//taken from setMultiFileImport Custom Event call from ImportDialog
-		// users supply a filename in ImportDialog that is then used here 
-		// If file is given, then TILE makes an AJAX call to that file. Otherwise,
-		// it parses the current json
-		// file : {String}
+		/**Get Schema
+		* taken from setMultiFileImport Custom Event call from ImportDialog
+		* users supply a filename in ImportDialog that is then used here 
+		* If file is given, then TILE makes an AJAX call to that file. Otherwise,
+		* it parses the current json
+		* @params file : {String}
+		**/
 		parseJSON:function(file){
 			var self=this;
 			
@@ -1072,9 +1130,12 @@ TILE.scale=1;
 				pluginControl.addDataToJSON(data);
 			}
 		},
-		// Take the passed obj Object with minimal variables
-		// id and type, and update what is currently in the JSON
-		// coredata
+		/**
+		* Take the passed obj Object with minimal variables
+		* id and type, and update what is currently in the JSON
+		* coredata
+		* @params obj {Object}
+		*/
 		updateData:function(obj){
 			if(obj.id&&obj.type){
 				var self=this;
@@ -1083,30 +1144,47 @@ TILE.scale=1;
 				
 			}
 		},
-		// Take passed Object reference obj1 and link it
-		// with the current activeObj
+		/**
+		* Take passed Object reference obj1 and link it
+		* with the current activeObj
+		* @params obj1 {Object}
+		*/
 		linkWithActiveObj:function(obj1){
 			var self=this;
 			return pluginControl.linkWithActiveObj(obj1);
 			
 		},
-		// Specifically link two particular objects together
+		/**
+		* Specifically link two particular objects together
+		* @params obj1 {Object}, obj2 {Object}
+		*/
 		linkObjects:function(obj1,obj2){
 			var self=this;
 			pluginControl.linkObjects(obj1,obj2);
 		},
-		// sets a particular object as an active object.
-		// All future data sent to insertData gets inserted
-		// in this object's jsonName array
+		/**
+		* sets a particular object as an active object.
+		* All future data sent to insertData gets inserted
+		* in this object's jsonName array
+		* @params obj {Object}
+		*/
 		setActiveObj:function(obj){
 			
 			pluginControl._setActiveObj(obj);
 		},
+		/**
+		* attaches the FloatingDiv object to the area
+		* around element handle 
+		* @params obj {Object}, handle {String - jQuery selector}
+		*/
 		attachMetadataDialog:function(obj,handle){
 			var self=this;
 			pluginControl._attachFloatDiv(obj,handle);
 		},
-		// deletes an item or reference from the JSON session
+		/**
+		* deletes an item or reference from the JSON session
+		* @params obj1 {Object}, obj2 {Object}
+		*/
 		deleteObj:function(obj1,obj2){
 			var self=this;
 			
@@ -1117,6 +1195,9 @@ TILE.scale=1;
 				pluginControl.deleteRefFromObj(obj1,obj2);
 			}
 		},
+		/**
+		* Advances to next page
+		*/
 		nextPage:function(){
 			var self=this;
 			// show load dialog
@@ -1153,6 +1234,9 @@ TILE.scale=1;
 			},10);
 			
 		},
+		/**
+		* Sets page counter to one page element previous
+		*/
 		prevPage:function(){
 			var self=this;
 			// back
@@ -1190,7 +1274,10 @@ TILE.scale=1;
 				mouseNormal();
 			},10);
 		},
-		// change to the position val in the page Array 
+		/**
+		* change to the position val in the page Array 
+		* @params val {Integer}
+		*/
 		changePage:function(val){
 			var self=this;
 			// show load dialog
@@ -1233,15 +1320,19 @@ TILE.scale=1;
 				mouseNormal();
 			},10);
 		},
-		// Method that supports adding tags to the 
-		//  Metadata tags div (FloatingDiv)
-		// arr : {Object Array}
+		/**
+		* Method that supports adding tags to the 
+		*  Metadata tags div (FloatingDiv)
+		* @params arr : {Object Array}
+		*/
 		insertTags:function(arr){
 			var self=this;
 			pluginControl.setTags(arr);
 		},
-		// Called after saveAllSettings Custom Event is fired
-		// e : {Event}
+		/**
+		* Called after saveAllSettings Custom Event is fired
+		* @params e : {Event}
+		*/
 		_saveSettingsHandle:function(e){
 			var self=e.data.obj;
 				
@@ -1249,15 +1340,8 @@ TILE.scale=1;
 			// for that tool - returns modified manifest each time
 			
 			if(!self.manifest) return;
-			// if(__v) console.log("SAVE SETTINGS CLICKED, PASSING MANIFEST: "+JSON.stringify(self.manifest));
 			self.manifest=pluginControl.getPluginData(self.manifest);
-			// for(t in self.toolSet){
-			// 				self.manifest=self.toolSet[t].bundleData(self.manifest);
-			// 			}
-			// self.manifest[self.curUrl].lines=self._log.exportLines();
-			// self.manifest=self.curTool.bundleData(self.manifest);
-			
-			// if(!self.save) self.save=new Save({loc:"azglobalmenu"});
+		
 			var exfest=[];
 			var curl=null;
     
@@ -1290,50 +1374,9 @@ TILE.scale=1;
 			}
 			self.savePrompt(json);
 		},
-		// Handles the exportDataToXML Event call
-		// e : {Event}
-		_exportToXMLHandle:function(e){
-			var self=e.data.obj;
-			// hide the metadata box
-			$(".ui-dialog").hide();
-			// get all relevant session data 
-			// and output to exportDialog
-			// for(t in self.toolSet){
-			// 			self.manifest=self.toolSet[t].bundleData(self.manifest);
-			// 		}
-			// self.manifest[self.curUrl].lines=self._log.exportLines();
-			
-			self.manifest=pluginControl.getPluginData(self.manifest);
-			var exfest=[];
-			var curl=null;
-			
-			//merge manifest data with json data
-			for(var m in self.manifest){
-				// initialize all variables that don't exist in the json
-				
-				if(/^http|\/|\./.test(m)){
-					
-					for(var p in json['pages']){
-						// page p
-						if(json['pages'][p].url==m){
-							var temp=$.extend(true,{},self.manifest[m]);
-							// if(!self.json[m][p]) self.json[m][p]=[];
-							json['pages'][p]=temp;
-							break;
-						}
-					}
-				} else if((!(/^http|\/|\./.test(m)))&&(!(/pages/.test(m)))){
-					if(!json[m]) json[m]=[];
-					
-					for(var o in self.manifest[m]){
-						json[m].push(self.manifest[m][o]);
-					}
-					
-				}
-			}
-			// send the JSON object to exportDialog
-			$("body:first").trigger("openExport",json);
-		},
+		/**
+		*
+		*/
 		savePrompt:function(json){
 			$("#uploadData").val(JSON.stringify(json));
 			//submit POST data
@@ -1341,7 +1384,11 @@ TILE.scale=1;
 			// clear form
 			$("#uploadData").val('');
 		},
-		// public function that handles output of JSON
+		/**
+		* public function that handles output of JSON
+		* @params opt {Boolean}
+		*
+		*/
 		getJSON:function(opt){
 			// generate a copy of the JSON variable and output it
 			var self=this;
@@ -1361,8 +1408,10 @@ TILE.scale=1;
 			}
 			return jsoncopy;
 		},
-		// Outputs the JSON data in XML format
-		// Opt : {Boolean}
+		/**
+		* Outputs the JSON data in XML format
+		* @params opt : {Boolean}
+		*/
 		getXML:function(opt){
 			var self=this;
 			if(!json) return false;
@@ -1435,7 +1484,12 @@ TILE.scale=1;
 		
 	};
 	Mode.prototype={
-		// appends all types of HTML to the main interface
+		/**
+		* appends all types of HTML to the main interface
+		* @params
+		* html {String}, section {String} - 'righarea', 'topleft', 'bottomleft',
+		* area {String} - 'toolbar', ''
+		*/
 		appendHTML:function(html,section,area){
 			var self=this;
 			// change name to fit style
@@ -1568,23 +1622,38 @@ TILE.scale=1;
 			}
 			
 		},
-		// append a button HTML
-		// returns the button 
+		/**
+		* append a button HTML
+		* returns the button 
+		* @params
+		* html {String},
+		* section {String} - 
+		*/
 		appendButtonHTML:function(html,section){
 			var self=this;
 			self.appendHTML(html,section,'toolbar');	
 		},
+		/**
+		* Attach a plugin wrapper to this Mode
+		* @params plugin {Object}
+		*/
 		appendPlugin:function(plugin){
 			var self=this;
 			self.parr.push(plugin);
 		},
+		/**
+		* Attach html to section of screen
+		* @params html {String}, section {String}
+		*/
 		appendPluginHTML:function(html,section){
 			var self=this;
 			if(!html) return;
 			self.appendHTML(html,section,'body');
 		},
-		// shows html for all 
-		// plugins in set
+		/**
+		* shows html for all 
+		* plugins in set
+		*/
 		setActive:function(){
 			var self=this;
 			var styleName=self.name.toLowerCase().replace(/ /g,'');
@@ -1618,7 +1687,9 @@ TILE.scale=1;
 				$("body > div").trigger(self.activeCall);
 			}
 		},
-		// special function 
+		/**
+		* hide html area 
+		*/
 		setUnActive:function(){
 			var self=this;
 			var styleName=self.name.toLowerCase().replace(/ /g,'');
@@ -1630,7 +1701,10 @@ TILE.scale=1;
 			
 			$("body:first").trigger(self.unActiveCall);
 		},
-		// reset values/HTML if there is a new page
+		/**
+		* reset values/HTML if there is a new page
+		* 
+		*/
 		newPageHandle:function(e){
 			var self=e.data.obj;
 			// check to see if active
@@ -1696,6 +1770,11 @@ TILE.scale=1;
 		});
 	}; 
 	PluginController.prototype={
+		/**
+		* Adds source code and files 
+		* for plugins 
+		*
+		*/
 		setUpToolData:function(){
 			var self=this;
 			var toolIds=[];
@@ -1746,6 +1825,9 @@ TILE.scale=1;
 			
 			recLoad(0);
 		},
+		/**
+		* Sets the activeobj value back to null
+		*/
 		_reset:function(){
 			var self=this;
 			self.activeObj=null;
@@ -1824,18 +1906,20 @@ TILE.scale=1;
 			
 			// set up listener for loadItems
 		}, */
-		createNewLayout:function(design){
-			var self=this;
-			
-			// create new layout
-		},
-		// inserts new tags into FloatingDiv
+		/**
+		* Called by insertTags
+ 		* inserts new tags into FloatingDiv
+		* @params arr {Object} 
+		*/
 		setTags:function(arr){
 			var self=this;
 			self.floatDiv.insertNewLabels(arr);
 		},
-		// resets the activeItems global variable and activeObj local variable 
-		// and hides dialogs each time a new page is loaded into TILE
+		/**
+		* resets the activeItems global variable and activeObj local variable 
+		* and hides dialogs each time a new page is loaded into TILE
+		*
+		*/
 		newPage:function(){
 			var self=this;
 			TILE.activeItems=[];
@@ -1843,6 +1927,10 @@ TILE.scale=1;
 			// make  sure metadata dialog is hidden
 			$(".ui-dialog").hide();
 		},
+		/**
+		* Sets the active object
+		* @params _newActiveObj {Object} TILE Object
+		*/
 		_setActiveObj:function(_newActiveObj){
 			var self=this;
 			$(".ui-dialog").hide();
@@ -1939,7 +2027,10 @@ TILE.scale=1;
 			// notify plugins of new active object
 			$("body:first").trigger("newActive",[self.findTileObj(self.activeObj.id,self.activeObj.type)]);
 		},
-		// insert data into the JSON without making it activeObj
+		/**
+		* insert data into the JSON without making it activeObj
+		* @params data {Object} - converted to TILE object
+		*/
 		putData:function(data){
 			var self=this;
 			if(!data) return;
@@ -1970,9 +2061,12 @@ TILE.scale=1;
 			
 			
 		},
-		// similar to putData, but in this case
-		// takes an existing object in JSON and 
-		// updates/replaces it's ID
+		/**
+		* similar to putData, but in this case
+		* takes an existing object in JSON and 
+		* updates/replaces it's ID
+		* @params data {Object} - item to replace
+		*/
 		replaceData:function(data){
 			var self=this;
 			if(!data) return;
@@ -2007,7 +2101,11 @@ TILE.scale=1;
 			}
 			
 		},
-		// returns actual instance, not a deepcopy
+		/**
+		* returns actual instance, not a deepcopy
+		* @params 
+		* id {String}, type {String}
+		*/
 		findRealObj:function(id,type){
 			var self=this;
 			var obj=null;
@@ -2039,7 +2137,11 @@ TILE.scale=1;
 			}
 			return obj;
 		},
-		// searches json for matching id
+		/**
+		* searches json for matching id
+		* @params
+		* id {String}, type {String}, jsonName {String}
+		*/
 		findObj:function(id,type,jsonName){
 			var self=this;
 			var obj=null;
@@ -2071,7 +2173,11 @@ TILE.scale=1;
 			}
 			return obj;
 		},
-		// returns object in TILE format
+		/**
+		* returns object in TILE format
+		* @params 
+		* id {String}, type {String}
+		*/
 		findTileObj:function(id,type){
 			var self=this;
 			var obj=null;
@@ -2106,7 +2212,11 @@ TILE.scale=1;
 			}
 			return obj;
 		},
-		// Attaches the FloatingDiv object to given #id
+		/**
+		* Attaches the FloatingDiv object to given #id
+		* @params 
+		* data {Object}, handle {String}
+		*/
 		_attachFloatDiv:function(data,handle){
 			var self=this;
 			// find the data reference
@@ -2159,8 +2269,11 @@ TILE.scale=1;
 			self.floatDiv.setInputObject(data,refs);
 			$(".ui-dialog").show();
 		},
-		// Takes output from FloatingDiv and parses it out.
-		// Attaches refs to appropriate tool
+		/**
+		* Takes output from FloatingDiv and parses it out.
+		* Attaches refs to appropriate tool
+		* @params o {Object}
+		*/
 		_floatDivOutputHandle:function(e,o){
 			var self=e.data.obj;
 			if(!o) return;
@@ -2171,8 +2284,12 @@ TILE.scale=1;
 				if(newo) $("body:first").trigger("dataLinked",[newo]);
 			}
 		},
-		// link two objects together without
-		// changing the activeObj
+		/**
+		* link two objects together without
+		* changing the activeObj
+		* @params
+		* obj1 {Object}, obj2 {Object}
+		*/
 		linkObjects:function(obj1,obj2){
 			if((!obj1)||(!obj2)) return;
 			mouseWait();
@@ -2206,6 +2323,10 @@ TILE.scale=1;
 				
 			},10);
 		},
+		/**
+		* Links with the set Active Object
+		* @params obj1 {Object}
+		*/
 		linkWithActiveObj:function(obj1){
 			var self=this;
 			
@@ -2228,7 +2349,10 @@ TILE.scale=1;
 			$("body:first").trigger("dataLinked",[newo]);
 			return true;
 		},
-		// simplified version of toolOutput and floatDivOutput
+		/**
+		* simplified version of toolOutput and floatDivOutput
+		* @params data {Object}
+		*/
 		addDataToJSON:function(data){
 			if((!data)||(data=='')) return;
 			var self=this;
@@ -2263,8 +2387,11 @@ TILE.scale=1;
 			
 			
 		},
-		// Take passed object reference, find it in JSON
-		// If found, update found record
+		/**
+		* Take passed object reference, find it in JSON
+		* If found, update found record
+		* @params obj {Object}
+		*/
 		updateDataInJSON:function(obj){
 			var self=this;
 			// tileObj=self.findRealObj(obj.id,obj.type);
@@ -2303,8 +2430,11 @@ TILE.scale=1;
 			$("body:first").trigger("dataUpdated",[copy]);
 			
 		},
-		// takes into account new items that are 
-		// active or added to data
+		/**
+		* takes into account new items that are 
+		* active or added to data
+		* @params args {Object}
+		*/
 		updateActiveItems:function(args){
 			var self=this;
 			
@@ -2326,9 +2456,13 @@ TILE.scale=1;
 			}
 			
 		},
-		// takes data obj1 and obj2 and generates link
-		// and stores the objects into the manifest array 
-		// if they haven't already been stored there
+		/**
+		* takes data obj1 and obj2 and generates link
+		* and stores the objects into the manifest array 
+		* if they haven't already been stored there
+		* @params
+		* obj1 {Object}, obj2 {Object}
+		*/
 		parseLink:function(obj1,obj2){
 			var self=this;
 			if((obj1!=null)&&(obj2!=null)){
@@ -2492,8 +2626,12 @@ TILE.scale=1;
 				return null;
 			}
 			
-		},	
-		// Completely erase obj from the TILE json
+		},
+		/**	
+		* Completely erase obj from the TILE json
+		* @params
+		* obj {Object}
+		*/
 		deleteFromJSON:function(obj){
 			var self=this;
 			if((!obj)||(!obj.type)||(!obj.id)) return obj;
@@ -2549,6 +2687,13 @@ TILE.scale=1;
 			}
 
 		},
+		/**
+		* deletes the passed ref ID from Object obj.
+		* If object referenced by ref has no other 
+		* attached data, erases ref object from JSON 
+		* @params
+		* obj {Object}, ref {Object}
+		*/
 		deleteRefFromObj:function(obj,ref){
 			var self=this;
 			if((!obj)||(!obj.type)||(!obj.id)||(!ref)||(!ref.type)||(!ref.id)) return;
@@ -2710,10 +2855,17 @@ TILE.scale=1;
 		
 	};
 	SaveDialog.prototype={
+		/**
+		* @params str {String}
+		*/
 		addFormats:function(str){
 			var self=this;
 			$("#save_format").append(str);
 		},
+		/**
+		* @params
+		* format {String}, src {String}
+		*/
 		appendFeature:function(format,src){
 			var self=this;
 			format=format.toLowerCase();
@@ -2733,14 +2885,14 @@ TILE.scale=1;
 	 * For loading JSON session data back into the TILE interface
 	 */
 	var LoadDialog=function(){
-		// Constructor: (Same as Dialog)  {loc: {String} id for where to put DOM, html: {String} JSON string representing html for this Dialog}
 		var self=this;
-		// Constructor:
-		// 
-		// @param: 
-		// Obj: variables:
-		// 	loc: {String} DOM object to be attached to
-		
+		/**
+		* Constructor:
+		* 
+		* @param: 
+		* Obj: variables:
+		* 	loc: {String} DOM object to be attached to
+		*/
 		self.importScript="plugins/CoreData/importDataScript.php";
 		//set up JSON html
 		var html=	'<div id="LTlight" class="white_content"><div id="loadTagsDialog" class="dialog">'+
@@ -2750,7 +2902,8 @@ TILE.scale=1;
 					'<div id="warningmessage" class="serverstatus">There was an error processing your data. Please check that you have a supported filetype and that your settings are correct.<br/><a href="http://bit.ly/lgWPBD">--> Help <--</a></div>'+
 					'<input id="selectFileUpload" type="radio" value="file" name="uploadChoice" /><span>Upload from your computer</span>'+
 					'<form id="loadFromFile" action="'+self.importScript+'" method="post" enctype="multipart/form-data">'+
-					'<label for="file">Filename:</label><br/><input id="localFileUpload" type="file" placeholder="Use the browse button to enter a file from your computer ->" name="fileUploadName" size="70" value="" />'+
+					'<label for="file">Filename:</label><br/><input id="localFileUpload" type="file" placeholder="Use the browse button to enter a file from your computer ->"'+
+					' disabled="disabled" name="fileUploadName" size="70" value="" />'+
 					'<br/><select id="fileFormatFileLocal" name="importformat"></select>'+
 					'<br/><input id="loadFile" value="Submit" type="submit" class="button" /></form><div id="hiddenFormField" style="visibility:hidden"></div><br/>'+
 					'<input id="selectURLUpload" type="radio" name="uploadChoice" value="Upload a file from a URL" /><span>Upload from a URL</span><form id="uploadURL" action="">'+
@@ -2759,7 +2912,7 @@ TILE.scale=1;
 					'<br/><input id="loadURL" type="submit" class="button" name="submitTags" value="Submit" /></form>'+
 					'</div><div class="clear"></div></div></div></div><div id="LTfade" class="black_overlay"></div>';
 		$(html).appendTo($("body"));
-		self.index=($("#dialog").length+self.loc.width());
+		self.index=($("#dialog").length);
 	
 		this.DOM=$("#loadTagsDialog");
 		this.closeB=$("#loadTagsClose");
@@ -2775,16 +2928,18 @@ TILE.scale=1;
 		$("#loadTagsDialog > .body > .option > #selectFileUpload").live('click',function(e){
 			$("#uploadURL").addClass("fade");
 			$("#loadFromFile").removeClass("fade");
-			$("#loadFromFile > input").attr('disabled','');
-			$("#uploadURL > input").attr('disabled','true');
+			
+			$("#localFileUpload").removeAttr("disabled");
+			
+			$("#uploadURL > input").attr('disabled',true);
 		
 		});
 		
 		$("#loadTagsDialog > .body > .option > #selectURLUpload").live('click',function(e){
 			$("#uploadURL").removeClass("fade");
 			$("#loadFromFile").addClass("fade");
-			$("#loadFromFile > input").attr('disabled','true');
-			$("#uploadURL > input").attr('disabled','');
+			$("#loadFromFile > input").attr('disabled',true);
+			$("#uploadURL > input").removeAttr('disabled');
 		});
 		
 		$("#loadTagsDialog > .body > .option > #selectFileUpload").trigger('click'); 
@@ -2821,37 +2976,67 @@ TILE.scale=1;
 		$("body").bind("closeLoadTags",{obj:this},this.close);
 	};
 	LoadDialog.prototype={
-		// takes and html string and appends to 
-		// the select element
+		/**
+		* takes and html string and appends to 
+		* the select element
+		* @params
+		* str {String}
+		*/
 		addFormats:function(str){
 			var self=this;
 		
 			$("#fileFormatFileURL").append(str);
 			$("#fileFormatFileLocal").append(str);
 		},
-		// display the load tags dialog - called by openLoadTags trigger
-		// e : {Event}
+		/**
+		* display the load tags dialog - called by openLoadTags trigger
+		* e : {Event}
+		*/
 		display:function(e){
 			var obj=e.data.obj;
 			obj.light.show();
 			obj.DOM.show();
 			obj.fade.show();
 		},
-		// hide dialog box - called by closeLoadTags, openImport, openNewImage, openExport
-		// e : {Event}
+		/**
+		* hide dialog box - called by closeLoadTags, openImport, openNewImage, openExport
+		* e : {Event}
+		*/
 		close:function(e){
 			var obj=e.data.obj;
 			obj.light.hide();
 			obj.DOM.hide();
 			obj.fade.hide();
 		},
-		// takes a string representing a file format and converts it 
-		// into the conventional PHP script name
-		convertFormatToFilename:function(str,file){
+		/**
+		* Submit a String representing a directory
+		* to importData
+		* @params dir {String}
+		*/
+		submitDirectoryHandle: function (dir) {
+			var self = e.data.obj;
 			
-			return str;
-			
+			// handle the submit call to PHP
+			$.ajax({
+				// TODO: CHANGE THIS TO DYNAMIC SETTINGS
+				url:'plugins/CoreData/importDataScript.php',
+				cache:false,
+				data:({directory:dir}),
+				type:'POST',
+				dataType:'json',
+				success:function(data){			
+					// take results and feed into engine
+					TILE.engine.parseJSON(data);
+					self.light.hide();
+					self.DOM.hide();
+					self.fade.hide();
+				}
+			});
 		},
+		/**
+		* Uses a url to submit a file to be loaded
+		*
+		*/
 		submitFileHandle:function(e){
 			e.preventDefault();
 			var self=e.data.obj;
@@ -2954,8 +3139,12 @@ TILE.scale=1;
 		};
 		
 	TileToolBar.prototype={
-		// Add file formats to the Load and Save
-		// drop-downs
+		/**
+		* Add file formats to the Load and Save
+		* drop-downs
+		* @params
+		* str {String}
+		*/
 		addFormats:function(str){
 			var self=this;
 			
@@ -2965,8 +3154,12 @@ TILE.scale=1;
 			if(self.saveDialog) self.saveDialog.addFormats(str);
 			
 		},
-		// Load in ToolSelect menu
-		// data : JSON object of tools and their objects
+		/**
+		* Load in ToolSelect menu
+		* data : JSON object of tools and their objects
+		* @params
+		* data {Object}
+		*/
 		setChoices:function(data){
 			var self=this;
 			self.ToolSelect.children("option").remove();
@@ -2977,9 +3170,11 @@ TILE.scale=1;
 				}
 			}
 		},
-		// When a tool is selected, call this function to make sure
-		// that the toolname is actually selected in the <select> element
-		// name : {String} toolname
+		/**
+		* When a tool is selected, call this function to make sure
+		* that the toolname is actually selected in the <select> element
+		* @params name : {String} toolname
+		*/
 		setChoice:function(e,name){
 			var self=e.data.obj;
 			self.ToolSelect.children("option").each(function(i,o){
@@ -2990,9 +3185,10 @@ TILE.scale=1;
 				}
 			});
 		},
-		// passed object with elements for button
-		// button: {Object}
-		// 
+		/**
+		* passed object with elements for button
+		* @params button: {Object}
+		*/
 		addButton:function(button){
 			var self=this;
 			if(!button) return null;

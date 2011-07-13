@@ -110,8 +110,6 @@ class XMLStreamImport extends CoreData
 		
 	}
 	
-	
-	
 	// Converts the non-attribute portion of an XPath into a regular expression that
 	// matches against the path that represents the element stack.
 	// For example:

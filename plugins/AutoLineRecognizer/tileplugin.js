@@ -972,8 +972,6 @@
 			// Otherwise, context loading may not work
 			var canvasEl = $("#html5area > #canvas")[0];
 			
-			
-			// self._loadPage.appendTo(self.DOM);
             if (TILE.url == '') return;
 
             loadImgScreen();
@@ -982,7 +980,6 @@
 				AutoR.scale=1;
 				var ow = $("#hiddenCanvasSource")[0].width;
                 var oh = $("#hiddenCanvasSource")[0].height;
-				
 				// set height and width of canvas area to parent div
 				$("#canvasHTML").width($(".az.inner.autolinerecognizer").width());
 				$("#canvasHTML").height($(".az.inner.autolinerecognizer").height());
@@ -1023,13 +1020,14 @@
 	                canvasEl.height = real_height;
 					setTimeout(function () {
 						self.webkitLoad = true;
-						self.altSetUpCanvas();
+						// $("#hiddenCanvasSource").attr('src','');
+						// self.altSetUpCanvas();
+						loadHTML5();
 						// $("#canvas").getContext('2d').drawImage($("#hiddenCanvasSource")[0], 0, 0, AutoR.imgw, AutoR.imgh);
 						self.webkitLoad = false;
 					}, 100);
 					
 				} else {
-					if(__v) console.log('webkit true, drawing canvas '+self.webkitLoad);
 					// drawing canvas 
                 	$("#canvas")[0].getContext('2d').drawImage($("#hiddenCanvasSource")[0], 0, 0, ow, oh);
  	               

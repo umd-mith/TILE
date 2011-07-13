@@ -48,7 +48,7 @@
 		</div>
 	</div>
 	
-	<!-- Submit Form for save progress-->
+	<!-- Submit Form for saving progress-->
 	<form id="inv_SaveProgress_Form" class="submitFormHidden" method="POST" action="">
 		<input id="uploadData" name="uploadData" class="submitFormHidden" type="text"/>
 		<input id="uploadData2" name="extraData" class="submitFormHidden" type="text"/>
@@ -63,16 +63,10 @@
 		<div id="az_activeBox" class="az activeBox"></div>
 		<div id="azcontentarea" class="az content"></div>
 	<script type="text/javascript">
-		// TODO: generate global instance of TILE_ENGINE - needs to be the same name so plugins can inherit the variable
 		var engine=null;
-		//adding AR from autorecognizer_plugin.js
+		
 		// set verbose mode either true (on) or false (off)
 		__v=true;
-		// array of tools to use in engine
-		var tools=[];
-
-		// Security Test
-		var reg=/.js|javascript:|.php|.JS|.PHP/;
 		
 		$(function(){
 			// Initialize Core Functions and Objects:
