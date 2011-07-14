@@ -2032,7 +2032,7 @@ var IT = {
 					});
 					
 					
-					var shapes=self.findShapesInJSON(TILE.engine.getJSON());
+					var shapes=self.findShapesInJSON();
 					self.itagger._restart(shapes);
 					
 				} else {
@@ -2059,7 +2059,8 @@ var IT = {
 			if(j){
 				// data loaded - start up image tagger
 				self.itagger.curUrl=TILE.url;
-				self.itagger._restart();
+				var shapes = self.findShapesInJSON();
+				self.itagger._restart(shapes);
 			}
 			
 			// Add title to the azcontenarea
@@ -2144,9 +2145,10 @@ var IT = {
 		}
 		
 	},
-	findShapesInJSON:function(json){
+	findShapesInJSON:function(){
 		var self=this;
 		
+		var json = TILE.engine.getJSON();
 		if(!json.pages) return null;
 		
 		var arr=[];

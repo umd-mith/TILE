@@ -795,7 +795,6 @@ TILE.scale=1;
 		this.loc=(args.attach)?args.attach:$("body");
 		var self=this;
 
-		// toolSet=(args.toolSet)?args.toolSet:[];
 		// Options that can be fed into the constructor to switch off PHP 
 		// and use only Javascript
 		urls = (args.urls ? args.urls : {});
@@ -828,6 +827,7 @@ TILE.scale=1;
 		* activates the engine - called after loading all 
 		* plugins into the array through insertPlugin
 		* or insertModePlugin
+		* @params mode {Object}
 		*/
 		activate:function(mode){
 			var self=this;
