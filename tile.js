@@ -2984,7 +2984,6 @@ TILE.scale=1;
 		*/
 		addFormats:function(str){
 			var self=this;
-		
 			$("#fileFormatFileURL").append(str);
 			$("#fileFormatFileLocal").append(str);
 		},
