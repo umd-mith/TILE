@@ -3,7 +3,7 @@
  * 
  * Copyright 2009-2011 MITH (http://mith.umd.edu) and authors:
  * dougreside, jdickie, tdbowman, jgsmith, davelester
- * Licensed under the ____FILL IN BEFORE RELEASE__ license
+ * Licensed under the MIT license
  * 
  * http://mith.umd.edu/tile/
  */
