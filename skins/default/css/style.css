@@ -146,8 +146,9 @@ a:hover {
 	text-align:right;
 }
 .version {
-	font-style:italic;
-	font-size:85%;
+	color: #777777;
+	font-size: 85%;
+   	font-style: italic;
 }
 .header .globalmenu .globalbuttons{
 	
@@ -169,9 +170,13 @@ a:hover {
 	
 }
 .header .globalmenu .globalbuttons .misc{
-	
+	clear: both;
+    float: left;
+    margin: 0 0 0 18px;
 }
-.header .globalmenu .globalbuttons .modeitems .menuitem {}
+.header .globalmenu .globalbuttons .modeitems .menuitem {
+	margin-top: 5px;
+}
 .header .globalmenu .globalbuttons .dataitems .menuitem {}
 .header .globalmenu .globalbuttons .misc .menuitem {
 	float: right;
@@ -179,14 +184,14 @@ a:hover {
 }
 .header .globalmenu .globalbuttons div {}
 #tilehelp{
-	border-bottom: 1px dashed #14253D;
+	margin-right: 10px; 
 }
 /* Main area styles ------------------- */
 .main {
-	top:75px;
-	height:auto;
-	opacity:1;
-	z-index:1;
+	height: auto;
+	opacity: 1;
+ 	top: 87px;
+ 	z-index: 1;
 }
 .log {
 	right:auto;
