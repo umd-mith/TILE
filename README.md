@@ -150,6 +150,65 @@ Fired when data is changed or replaced within the TILE core JSON. Passes the TIL
 **dataDeleted**
 Fired when data is removed from the TILE core JSON. Passes the TILE Object that has been removed.
 
+Release Notes for Version 1.0
+=====
+
+General 
+----
+* Interface added for tagging and annotating manuscript images (Image Annotation)
+* Interface added for automatically tagging lines using basic image analysis tools (Auto Line Recognizer)
+* Dialog tools for loading and saving data 
+* Support for TEI P5 formatted XML data
+* Improved visuals for attaching metadata to transcript lines
+* Fixed label attachment bugs 
+* Improvements to the Auto Line Recognizer (ALR)
+* Improved workflow and accuracy using gray-image detection for ALR
+* New documentation for the [TILE User Guide](http://mith.umd.edu/tile/documentation/user)
+
+Library Updates
+----
+* jQuery 1.6.2 update
+
+UI
+----
+* ALR instructions made to be clearer
+* Changed version message area
+
+For Developers
+----
+* New comments - following JSDoc standards
+* activate works without passing *Mode* {String} variable
+* Changed workflow for adding and developing plugins. More online: [Plugin Tutorial](http://mith.umd.edu/tile/documentation/plugin)
+* Added following to API since 0.10:
+	* [insertPlugin](http://mith.umd.edu/tile/documentation/tile-api/insertpluginplugin-string)
+	* [insertMode](http://mith.umd.edu/tile/documentation/tile-api/insertmodename-string)
+	* [insertModePlugin](http://mith.umd.edu/tile/documentation/tile-api/insertmodehtmlhtml-string-section-string-name-string)
+	* [registerPlugin](http://mith.umd.edu/tile/documentation/tile-api/registerpluginpw-object)
+	* [activate](http://mith.umd.edu/tile/documentation/tile-api/1202-2)
+	* [addToolBarButton](http://mith.umd.edu/tile/documentation/tile-api/addtoolbarbuttonbutton-object)
+	* [insertTags](http://mith.umd.edu/tile/documentation/tile-api/inserttagstags-array)
+	* [insertModeHTML](http://mith.umd.edu/tile/documentation/tile-api/insertmodebuttonshtml-string-section-string-name-string)
+	* [parseJSON](http://mith.umd.edu/tile/documentation/tile-api/parsejsonfile-string-or-file-object)
+	* [insertData](http://mith.umd.edu/tile/documentation/tile-api/insertdatadata-object)
+	* [updateData](http://mith.umd.edu/tile/documentation/tile-api/updatedataobj-object)
+	* [getJSON](http://mith.umd.edu/tile/documentation/tile-api/getjsonpage-boolean)
+	* [getXML](http://mith.umd.edu/tile/documentation/tile-api/getxmlopt-boolean)
+	* [linkWithActiveObj](http://mith.umd.edu/tile/documentation/tile-api/linkwithactiveobjobj1-object)
+	* [linkObjects](http://mith.umd.edu/tile/documentation/tile-api/linkobjectsobj1-object-obj2-object)
+	* [setActiveObj](http://mith.umd.edu/tile/documentation/tile-api/setactiveobjobj-object)
+	* [attachMetadataDialog](http://mith.umd.edu/tile/documentation/tile-api/setactiveobjobj-object)
+	* [deleteObj](http://mith.umd.edu/tile/documentation/tile-api/deleteobjobj-object)
+	* [nextPage](http://mith.umd.edu/tile/documentation/tile-api/nextpage)
+	* [prevPage](http://mith.umd.edu/tile/documentation/tile-api/prevpage)
+	* [changePage](http://mith.umd.edu/tile/documentation/tile-api/changepageval-integer)
+* Added events for data editing that happens in the core JSON:
+	* newActive *(Sends TILE Object obj)*
+	* newJSON
+	* dataAdded *(Sends TILE Object obj)*
+	* dataLinked *(Sends array of two TILE Objects obj1, obj2)*
+	* dataUpdated *(Sends TILE Object obj)*
+	* dataDeleted *(Sends TILE Object obj)*
+
 Credits
 ----
 TILE is a collaboration between the [Maryland Institute for Technology in the Humanities](http://mith.umd.edu/) and Indiana University, and has been supported by an NEH Preservation and Access grant. The TILE team includes Tim Bowman, Grant Dickie, Dave Lester, Dot Porter, Doug Reside, Jim Smith, and John Walsh.
