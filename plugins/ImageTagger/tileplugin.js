@@ -920,7 +920,6 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				if(self.curUrl!=TILE.url) self.curUrl=TILE.url;
 				
-				if(__v) console.log('reached end of setup');
 				$("body").trigger('imageTaggerCanvasDone');
 			}).attr("src",TILE.url);	
 		},
@@ -928,7 +927,6 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 		loadShapes:function(shapes){
 			var self=this;
 			if(!self.drawTool) return;
-			if(__v) console.log('loading shapes '+JSON.stringify(shapes));
 			// clear canvas
 			self.drawTool.clearShapes();
 			
@@ -950,7 +948,6 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 				} else if(!shape.posInfo){
 					// just an id, need to find object
 					shape=self.findShapeFromId(shape);
-					if(__v) console.log('couldnt find shape');
 					if(!shape) return;
 				}
 				
@@ -984,7 +981,6 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 				}
 				vd[prop]._scale=self._imgScale;
 			}
-			if(__v) console.log('vd '+JSON.stringify(vd));
 			self.drawTool.importShapes(vd);
 			self.setActiveShape(activeShape);
 		},
@@ -1220,7 +1216,6 @@ var SHAPE_ATTRS = {"stroke-width": "1px", "stroke": "#a12fae"};
 			var self=this;
 			// remove current selection area
 			$(".shpButtonHolder").remove();
-			if(__v) console.log('setting active shape '+JSON.stringify(shpObj));
 			// select shape, which will draw selBB area
 			self.drawTool.selectShape(shpObj.id);
 			// change the draw toolbar options
