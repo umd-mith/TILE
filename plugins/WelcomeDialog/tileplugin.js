@@ -19,10 +19,14 @@
 			if((!args.loc)) throw "Not enough arguments passed to Dialog";
 			self.loc=args.loc;
 			//set up JSON html
-			var html='<div id="light" class="white_content"><div id="welcomeDialog" class="dialog"><div class="header"><h2 class="title">Welcome to the TILE Sandbox</h2><div class="clear"></div>'+
+			var html='<div id="light" class="white_content"><div id="welcomeDialog" class="dialog"><div class="header">'+
+			'<h2 class="title">Welcome to the TILE Sandbox</h2><div class="clear"></div>'+
 			'</div><div class="body"><div class="description">'+
-			'<p>The <a href="http://mith.umd.edu/tile">Text-Image Linking Environment (TILE)</a> is a tool for creating and editing image-based electronic editions and digital archives of humanities texts. The TILE sandbox is a MITH-hosted version of TILE allowing users to try the tool before installing their own copy. Preloaded in TILE is an edition of Algernon Swinburne\'s poetry. We encourage you to try our image markup tool, test a semi-automated line recognizer that tags regions of text within an image, and begin to explore how TILE works.</p>'+
-			'<p>This 1.0 (Release Candidate) release of TILE features:'+ 
+			'<p>The <a href="http://mith.umd.edu/tile">Text-Image Linking Environment (TILE)</a> is a tool for creating and editing image-based '+
+			'electronic editions and digital archives of humanities texts. The TILE sandbox is a MITH-hosted version of TILE allowing users to try'+
+			' the tool before installing their own copy. Preloaded in TILE is an edition of Algernon Swinburne\'s poetry. We encourage you to try'+
+			' our image markup tool, test a semi-automated line recognizer that tags regions of text within an image, and begin to explore how TILE works.</p>'+
+			'<p>This 1.0 release of TILE features:'+ 
 			'<p><a class="point" id="importHover">* importing and exporting transcript lines and images of text</a><br/>'+ 
 			'<a class="point" id="imageHover">* an image markup tool</a><br/>'+ 
 			'<a class="point" id="ALRHover">* a semi-automated line recognizer</a><br/>'+ 
