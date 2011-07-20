@@ -159,6 +159,7 @@ General
 * Interface added for automatically tagging lines using basic image analysis tools (Auto Line Recognizer)
 * Dialog tools for loading and saving data 
 * Support for TEI P5 formatted XML data
+* Support for Alto metadata scheme
 * Improved visuals for attaching metadata to transcript lines
 * Fixed label attachment bugs 
 * Improvements to the Auto Line Recognizer (ALR)
